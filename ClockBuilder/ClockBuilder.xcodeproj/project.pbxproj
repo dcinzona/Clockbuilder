@@ -4192,7 +4192,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "10393B12-C204-46C9-A22A-19C8EA1FA3DB";
 				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/ClockBuilder\" \"$(SRCROOT)/Submodules/GMGridView/GMGridView/build/Debug-iphoneos\" \"$(SRCROOT)/Submodules/GMGridView/GMGridView/build/Debug-iphonesimulator\" \"$(SRCROOT)/Submodules/GMGridView/GMGridView/build/GMGridView.build/Debug-iphoneos/GMGridView.build/Objects-normal/armv6\" \"$(SRCROOT)/Submodules/GMGridView/GMGridView/build/GMGridView.build/Debug-iphoneos/GMGridView.build/Objects-normal/armv7\" \"$(SRCROOT)/Submodules/SDWebImage/build/Debug-iphonesimulator\"";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/ClockBuilder\"";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
