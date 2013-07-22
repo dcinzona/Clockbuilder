@@ -553,7 +553,7 @@
         
     }
     [NSThread detachNewThreadSelector:@selector(setText:) toTarget:self.textLabel withObject:[self transformGivenText:string]];
-    //if(isClimacon)
+    if(self && self.textLabel && self.indexInList)
         [self setFontSizeForPiece:[self.indexInList integerValue] fontSize:self.textLabel.font.pointSize];
 }
 

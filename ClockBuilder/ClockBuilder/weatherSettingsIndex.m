@@ -564,13 +564,13 @@ monitorInBG;
                 }
                 else
                 {
-                    //dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                    dispatch_sync(dispatch_get_main_queue(), ^(void) {
                         
                         [self.loadingIndicator stopAnimating];
                         if(_valid){
                             [[GMTHelper sharedInstance] alertWithString:@"No internet connection detected. Unable to get location."];
                         }
-                    //});
+                    });
                 }
             }
         //});

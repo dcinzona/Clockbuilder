@@ -384,12 +384,6 @@
     cssToWrite = [cssToWrite stringByReplacingOccurrencesOfString:@"320px" withString:[self widthForCSSWithPX]];
     cssToWrite = [cssToWrite stringByReplacingOccurrencesOfString:@"480px" withString:[self heightForCSSWithPX]];
     
-    if(kIsIpad){
-        cssToWrite = [cssToWrite stringByReplacingOccurrencesOfString:@"translateZ(5px)" withString:@"translateZ(2px)"];
-    }
-    else{
-        cssToWrite = [cssToWrite stringByReplacingOccurrencesOfString:@"translateZ(5px)" withString:@"translateZ(3px)"];
-    }
     
     //build.js
     NSString *buildJS = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"build" ofType:@"js"] encoding:NSUTF8StringEncoding error:nil] ;
@@ -399,10 +393,20 @@
         buildJS = [buildJS stringByReplacingOccurrencesOfString:@"var militaryTime = false;" withString:@"var militaryTime = true;"];
     if([[GMTHelper sharedInstance] parallaxEnabled]){
         buildJS = [buildJS stringByReplacingOccurrencesOfString:@"var parallaxEnabled = false;" withString:@"var parallaxEnabled = true;"];
+        
+        if(kIsIpad){
+            cssToWrite = [cssToWrite stringByReplacingOccurrencesOfString:@"translateZ(5px)" withString:@"translateZ(2px)"];
+        }
+        else{
+            cssToWrite = [cssToWrite stringByReplacingOccurrencesOfString:@"translateZ(5px)" withString:@"translateZ(3px)"];
+        }
+        
     }
     else{
         //hide shadow
-        cssToWrite = [cssToWrite stringByReplacingOccurrencesOfString:@"#boxShadow{ " withString:@"#boxShadow{display:none!important; "];
+        cssToWrite = [cssToWrite stringByReplacingOccurrencesOfString:@"#boxShadow{//" withString:@"#boxShadow{display:none!important; "];
+        cssToWrite = [cssToWrite stringByReplacingOccurrencesOfString:@"-10px);" withString:@"0px);"];
+        cssToWrite = [cssToWrite stringByReplacingOccurrencesOfString:@"translateZ(3px)" withString:@"translateZ(0px)"];
         
     }
     if(![[GMTHelper sharedInstance] rotateWallpaper])

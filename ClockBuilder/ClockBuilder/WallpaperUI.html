@@ -93,8 +93,9 @@ Created by: Gustavo Tandeciarz
             position: absolute;
             background: transparent;
             *-webkit-transition: transform .1s;
-            -webkit-transform: translate3d(0px,0px,5px);
-            -webkit-transform: translateZ(5px);
+            -webkit-transform: translate3d(0px,0px,6px);
+            -webkit-transform: translateZ(7px);
+            opacity:.8;
         }
     </style>
             
@@ -152,10 +153,7 @@ Created by: Gustavo Tandeciarz
                var dbg = $('#debug');
                
                function initialize(){
-                   
-                   $boxShadow.width(w + growthBase);
-                   $boxShadow.height(h + (ratioedBase));
-                   $boxShadow.css({top:'-'+(ratioedBase/2)+'px', left:'-'+(growthBase/2)+'px'});
+                   updateBoxShadow();
                    
                    var ipadBGmult = 2.8;
                    var iphoneBGMult = 2.2;
@@ -179,9 +177,19 @@ Created by: Gustavo Tandeciarz
                }
                
                function updateBoxShadow(){
-                   $boxShadow.width(window.innerWidth + growthBase);
-                   $boxShadow.height(window.innerHeight + (ratioedBase));
-                   $boxShadow.css({top:'-'+(ratioedBase/2)+'px', left:'-'+(growthBase/2)+'px'});
+                   if(kIsiPad){
+                       $boxShadow.width(window.innerWidth + growthBase);
+                       $boxShadow.height(window.innerHeight + (ratioedBase));
+                       $boxShadow.css({top:'-'+(ratioedBase/2)+'px', left:'-'+(growthBase/2)+'px'});
+                   }
+                   else
+                   {
+                       var tempgro = growthBase/1.5;
+                       var temprat = ratioedBase/1.5;
+                       $boxShadow.width(window.innerWidth + (tempgro));
+                       $boxShadow.height(window.innerHeight + (temprat));
+                       $boxShadow.css({top:'-'+(temprat/2)+'px', left:'-'+(tempgro/2)+'px'});
+                   }
                }
                
                function resetOnIdle(){

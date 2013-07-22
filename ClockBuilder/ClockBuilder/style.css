@@ -143,15 +143,18 @@ body#wallpaperBody{
     -webkit-transform: translate3d(0px,0px,-10px);
     -webkit-transform: translateZ(-10px);
 }
-#boxShadow{
+#boxShadow{//
     height: 480px;
     box-shadow: 0 0 30px 10px rgba(0,0,0,1) inset;
     width: 320px;
     display: block;
     position: absolute;
     background: transparent;
-    -webkit-transform: translate3d(0px,0px,5px);
-    -webkit-transform: translateZ(5px);
+    -webkit-transform: translate3d(0px,0px,7px);
+    -webkit-transform: translateZ(7px);
+    top:0;
+    left:0;
+    opacity:.8;
 }
 #backgroundWP{
 	background-image: url('WallpaperBG.png?1372730710');

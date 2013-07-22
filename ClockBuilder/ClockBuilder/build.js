@@ -323,12 +323,11 @@ var addParallax = function(resetView){
     var debugID = $('#debugWP');
     var rotationTimeout;
     
+    var shadowWidth = w + growthBase;
+    var shadowHeight = h + ratioedBase;
+    
     function initialize(){
-        
-        $boxShadow.width(w + growthBase);
-        $boxShadow.height(h + (ratioedBase));
-        $boxShadow.css({top:'-'+(ratioedBase/2)+'px', left:'-'+(growthBase/2)+'px'});
-        
+        updateBoxShadow();
         var ipadBGmult = 2.6;
         var iphoneBGMult = 2.2;
         
@@ -349,12 +348,31 @@ var addParallax = function(resetView){
         addEventListener( 'devicemotion', onMotionChange, false );        
     }
     
+    
+    function updateBoxShadow(){
+        if(kIsiPad){
+            $boxShadow.width(window.innerWidth + growthBase);
+            $boxShadow.height(window.innerHeight + (ratioedBase));
+            $boxShadow.css({top:'-'+(ratioedBase/2)+'px', left:'-'+(growthBase/2)+'px'});
+        }
+        else
+        {
+            var tempgro = growthBase/1.5;
+            var temprat = ratioedBase/1.5;
+            $boxShadow.width(window.innerWidth + (tempgro));
+            $boxShadow.height(window.innerHeight + (temprat));
+            $boxShadow.css({top:'-'+(temprat/2)+'px', left:'-'+(tempgro/2)+'px'});
+        }
+        
+    }
+    
+    
     function handleOrientation(event){
         
 		var rD = 3;
         
 		var faceUp = (acGrav.z < 0);
-		var shouldRotate = false;        
+		var shouldRotate = false;
         
         if( Math.abs(acGrav.z) < 8.6){
 			if(currentHomeButtonPosition == 'top' || currentHomeButtonPosition == 'bottom'){
@@ -432,14 +450,6 @@ var addParallax = function(resetView){
             debugID.html(html);
         }
     }
-    
-    
-    function updateBoxShadow(){
-        $boxShadow.width(window.innerWidth + growthBase);
-        $boxShadow.height(window.innerHeight + (ratioedBase));
-        $boxShadow.css({top:'-'+(ratioedBase/2)+'px', left:'-'+(growthBase/2)+'px'});
-    }
-    
     function resetOnIdle(){
         perspective.cx = 50 ;
         perspective.cy = 50 ;
