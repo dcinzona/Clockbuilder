@@ -573,7 +573,6 @@
 		76D605D1179D52D90036A8AF /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D6059C179D52D80036A8AF /* SDWebImagePrefetcher.m */; };
 		76D605D2179D52D90036A8AF /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D6059E179D52D80036A8AF /* UIButton+WebCache.m */; };
 		76D605D3179D52D90036A8AF /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D605A0179D52D80036A8AF /* UIImageView+WebCache.m */; };
-		76D6064C179D562E0036A8AF /* libGMGridView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76D60649179D55320036A8AF /* libGMGridView.a */; };
 		76D6EE25133D0C48007BE0FA /* LockBackground.html in Resources */ = {isa = PBXBuildFile; fileRef = 76D6EE24133D0C48007BE0FA /* LockBackground.html */; };
 		76DC643615E3AB7600AEBF86 /* climacons.png in Resources */ = {isa = PBXBuildFile; fileRef = 76DC642A15E3AB7600AEBF86 /* climacons.png */; };
 		76DC643715E3AB7600AEBF86 /* climacons@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76DC642B15E3AB7600AEBF86 /* climacons@2x.png */; };
@@ -679,6 +678,7 @@
 		CB94A218133AA9E100D4A38C /* NoThemes@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB94A216133AA9E100D4A38C /* NoThemes@2x.png */; };
 		CB94A219133AA9E100D4A38C /* NoThemes.png in Resources */ = {isa = PBXBuildFile; fileRef = CB94A217133AA9E100D4A38C /* NoThemes.png */; };
 		CB9851701343E272002E326F /* build.js in Resources */ = {isa = PBXBuildFile; fileRef = 76D764A2134392DA0058C5E7 /* build.js */; };
+		CB9FC2AC179DE6940031A903 /* libGMGridView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB9FC2A9179DE54C0031A903 /* libGMGridView.a */; };
 		CBA4E8571329A00D00176FFF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA4E8531329A00D00176FFF /* CFNetwork.framework */; };
 		CBA4E8581329A00D00176FFF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA4E8541329A00D00176FFF /* CoreData.framework */; };
 		CBA4E8591329A00D00176FFF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBA4E8551329A00D00176FFF /* MobileCoreServices.framework */; };
@@ -768,14 +768,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		76D60648179D55320036A8AF /* PBXContainerItemProxy */ = {
+		CB9FC2A8179DE54C0031A903 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 76D60644179D55310036A8AF /* GMGridView.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 78509312149FAC2E000787E4;
 			remoteInfo = GMGridView;
 		};
-		76D6064A179D561C0036A8AF /* PBXContainerItemProxy */ = {
+		CB9FC2AA179DE68C0031A903 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 76D60644179D55310036A8AF /* GMGridView.xcodeproj */;
 			proxyType = 1;
@@ -1462,7 +1462,7 @@
 		76D6059E179D52D80036A8AF /* UIButton+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WebCache.m"; sourceTree = "<group>"; };
 		76D6059F179D52D80036A8AF /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
 		76D605A0179D52D80036A8AF /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
-		76D60644179D55310036A8AF /* GMGridView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = GMGridView.xcodeproj; sourceTree = "<group>"; };
+		76D60644179D55310036A8AF /* GMGridView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GMGridView.xcodeproj; path = Frameworks/GMGridView/GMGridView.xcodeproj; sourceTree = "<group>"; };
 		76D6EE24133D0C48007BE0FA /* LockBackground.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = LockBackground.html; sourceTree = "<group>"; };
 		76D764A2134392DA0058C5E7 /* build.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = build.js; sourceTree = "<group>"; };
 		76DC642A15E3AB7600AEBF86 /* climacons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = climacons.png; sourceTree = "<group>"; };
@@ -1702,7 +1702,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76D6064C179D562E0036A8AF /* libGMGridView.a in Frameworks */,
+				CB9FC2AC179DE6940031A903 /* libGMGridView.a in Frameworks */,
 				76F78BFD179D4F2200428F30 /* ImageIO.framework in Frameworks */,
 				CBFB259315D5BD6C00DD97AF /* libSSToolkit.a in Frameworks */,
 				76E2D06D15C175C2000D5851 /* StoreKit.framework in Frameworks */,
@@ -2511,23 +2511,6 @@
 			path = Frameworks/SDWebImage;
 			sourceTree = "<group>";
 		};
-		76D6062C179D545A0036A8AF /* GMGridView */ = {
-			isa = PBXGroup;
-			children = (
-				76D60644179D55310036A8AF /* GMGridView.xcodeproj */,
-			);
-			name = GMGridView;
-			path = Frameworks/GMGridView;
-			sourceTree = "<group>";
-		};
-		76D60645179D55310036A8AF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				76D60649179D55320036A8AF /* libGMGridView.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		76DC642915E3AB7600AEBF86 /* weatherIconThumbs */ = {
 			isa = PBXGroup;
 			children = (
@@ -2816,6 +2799,14 @@
 			name = ColorPickerActionsheet;
 			sourceTree = "<group>";
 		};
+		CB9FC2A5179DE54C0031A903 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB9FC2A9179DE54C0031A903 /* libGMGridView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		CBBDC1A613285C6A00EE9349 = {
 			isa = PBXGroup;
 			children = (
@@ -2839,8 +2830,8 @@
 		CBBDC1B413285C6B00EE9349 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				76D60644179D55310036A8AF /* GMGridView.xcodeproj */,
 				CBFB257F15D5BD3400DD97AF /* SSToolkit.xcodeproj */,
-				76D6062C179D545A0036A8AF /* GMGridView */,
 				76D6054A179D52D80036A8AF /* SDWebImage */,
 				76D60546179D52A70036A8AF /* JSONKit */,
 				76D60542179D526A0036A8AF /* MBProgressHUD */,
@@ -3054,7 +3045,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				76D6064B179D561C0036A8AF /* PBXTargetDependency */,
+				CB9FC2AB179DE68C0031A903 /* PBXTargetDependency */,
 				CBFB259215D5BD5000DD97AF /* PBXTargetDependency */,
 				CBFB259015D5BD4D00DD97AF /* PBXTargetDependency */,
 			);
@@ -3084,7 +3075,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 76D60645179D55310036A8AF /* Products */;
+					ProductGroup = CB9FC2A5179DE54C0031A903 /* Products */;
 					ProjectRef = 76D60644179D55310036A8AF /* GMGridView.xcodeproj */;
 				},
 				{
@@ -3100,11 +3091,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		76D60649179D55320036A8AF /* libGMGridView.a */ = {
+		CB9FC2A9179DE54C0031A903 /* libGMGridView.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libGMGridView.a;
-			remoteRef = 76D60648179D55320036A8AF /* PBXContainerItemProxy */;
+			remoteRef = CB9FC2A8179DE54C0031A903 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CBFB258A15D5BD3400DD97AF /* libSSToolkit.a */ = {
@@ -3883,10 +3874,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		76D6064B179D561C0036A8AF /* PBXTargetDependency */ = {
+		CB9FC2AB179DE68C0031A903 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = GMGridView;
-			targetProxy = 76D6064A179D561C0036A8AF /* PBXContainerItemProxy */;
+			targetProxy = CB9FC2AA179DE68C0031A903 /* PBXContainerItemProxy */;
 		};
 		CBFB259015D5BD4D00DD97AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4007,6 +3998,7 @@
 					"-fobjc-arc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "80DD2B58-006B-4B55-A499-F5520D127479";
 				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
@@ -4094,8 +4086,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				BUILD_STYLE = Debug;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gustavo Tandeciarz (X5VE9NGGP6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gustavo Tandeciarz (X5VE9NGGP6)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4130,8 +4122,8 @@
 					"-fobjc-arc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "CB1F639E-FE1D-400F-BDB7-DAB1FB3714FC";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB1F639E-FE1D-400F-BDB7-DAB1FB3714FC";
+				PROVISIONING_PROFILE = "80DD2B58-006B-4B55-A499-F5520D127479";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "80DD2B58-006B-4B55-A499-F5520D127479";
 				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
@@ -4176,7 +4168,7 @@
 					"-fobjc-arc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "10393B12-C204-46C9-A22A-19C8EA1FA3DB";
+				PROVISIONING_PROFILE = "80DD2B58-006B-4B55-A499-F5520D127479";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "10393B12-C204-46C9-A22A-19C8EA1FA3DB";
 				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = "1,2";
