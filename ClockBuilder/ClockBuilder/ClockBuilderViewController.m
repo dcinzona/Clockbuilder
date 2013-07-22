@@ -497,7 +497,7 @@
     if(!kIsiOS7){
         //[self.toolbar setBackgroundColor:[UIColor clearColor]];
         //[self.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
-        [self.toolbar setFrame:CGRectMake(0, self.view.frame.size.height-44, 320, 44)];
+        [self.toolbar setFrame:CGRectMake(0, self.view.frame.size.height-44, kScreenWidth, 44)];
     }
     UIBarButtonItem *saveActionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionSheet)];//showAlertWithEditField
     UIBarButtonItem *browseButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"themeBrowser.png"] style:UIBarButtonItemStylePlain target:self action:@selector(browseButtonClick:)];
