@@ -16,7 +16,7 @@
     [self setSliderValuesFromColor:color];
     int screenHeight = view.frame.size.height;
     if(!kIsIpad){
-        //screenHeight = [UIScreen mainScreen].bounds.size.height;
+        screenHeight = [UIScreen mainScreen].bounds.size.height;
     }
     [sliderView setFrame:CGRectMake(0,screenHeight, 320, 200)];
     dimView = [UIButton buttonWithType:UIButtonTypeCustom];

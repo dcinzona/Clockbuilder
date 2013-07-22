@@ -157,6 +157,8 @@ fontButtonLabel;
     else{
         if(kIsIpad){
             [sliderView setFrame:CGRectMake(0, toolbar.frame.size.height, sliderView.frame.size.width,sliderView.frame.size.height)];
+        }else{
+            [sliderView setFrame:CGRectMake(0, 30, sliderView.frame.size.width,sliderView.frame.size.height)];
         }
     }
     
