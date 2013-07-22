@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+Created by: Gustavo Tandeciarz
+-->
+<html>
+    <head>
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+		<script src="jquery.min.js" charset="utf-8"></script>
+		<script src="jquery.simpleWeather.min.js" charset="utf-8"></script>
+        <script class="dataScript" type="text/javascript">var data = [];</script>
+		<script class="weatherDataScript" type="text/javascript">weatherDataSettings = {}</script>
+        <script src="build.js?1304373860" type="text/javascript"></script>
+		<script src="weather.js" type="text/javascript"></script>
+        <style type="text/css">@import url("style.css?1304391742");</style>
+    </head>
+    <body onload="buildTheme()">
+		<div id="background"></div>
+        
+        <div class="slideshow">
+            <img class="slide current" src="slides/empty.png" alt="" />
+            <img class="slide last" src="slides/empty.png" alt="" />
+            <img class="slide next" src="slides/empty.png" alt="" />
+        </div>
+        
+		<div id="loader"></div>
+        <div id="unlock" class="hidden">UNLOCK</div>
+		<script>
+		$('#body').click(function(){
+			getWeather();
+		});
+		</script>
+		<a id="noTheme" class="hidden" href="http://itunes.apple.com/us/app/clock-builder/id429716375?mt=8&ls=1">
+
+		</a>
+    </body>
+</html>

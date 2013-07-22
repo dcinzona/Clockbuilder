@@ -1,0 +1,820 @@
+TSSToolkitResources
+v5
+r1
+cCheck dependencies
+cProcessInfoPlistFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/Info.plist Resources/SSToolkitResources-Info.plist
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/en.lproj/SSToolkit.strings Resources/en.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/fr.lproj/SSToolkit.strings Resources/fr.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/it.lproj/SSToolkit.strings Resources/it.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/es.lproj/SSToolkit.strings Resources/es.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/id.lproj/SSToolkit.strings Resources/id.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ja.lproj/SSToolkit.strings Resources/ja.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ko.lproj/SSToolkit.strings Resources/ko.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/de.lproj/SSToolkit.strings Resources/de.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ms.lproj/SSToolkit.strings Resources/ms.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/nl.lproj/SSToolkit.strings Resources/nl.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/pt.lproj/SSToolkit.strings Resources/pt.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/pt_PT.lproj/SSToolkit.strings Resources/pt_PT.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hant.lproj/SSToolkit.strings Resources/zh_Hant.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ru.lproj/SSToolkit.strings Resources/ru.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hans.lproj/SSToolkit.strings Resources/zh_Hans.lproj/SSToolkit.strings
+cCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/sv.lproj/SSToolkit.strings Resources/sv.lproj/SSToolkit.strings
+cCpResource Resources/Images/hud-check.png build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check.png
+cCpResource Resources/Images/hud-x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x.png
+cCpResource Resources/Images/hud-x@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x@2x.png
+cCpResource Resources/Images/orange-star@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star@2x.png
+cCpResource Resources/Images/hud-check@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check@2x.png
+cCpResource Resources/Images/gray-star@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star@2x.png
+cCpResource Resources/Images/gray-star.png build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star.png
+cCpResource Resources/Images/orange-star.png build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star.png
+cCpResource Resources/Images/SSAddressBarTextFieldBackground@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground@2x.png
+cCpResource Resources/Images/SSAddressBarTextFieldBackground.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground.png
+cCpResource Resources/Images/SSAddressBarTextFieldReload@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload@2x.png
+cCpResource Resources/Images/SSAddressBarTextFieldStop.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop.png
+cCpResource Resources/Images/SSAddressBarTextFieldStop@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop@2x.png
+cCpResource Resources/Images/SSVignetteiPad.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPad.png
+cCpResource Resources/Images/SSAddressBarTextFieldReload.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload.png
+cCpResource Resources/Images/SSVignetteiPhone.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone.png
+cCpResource Resources/Images/UISegmentBarButton.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton.png
+cCpResource Resources/Images/SSVignetteiPhone@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone@2x.png
+cCpResource Resources/Images/UISegmentBarButton@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton@2x.png
+cCpResource Resources/Images/UISegmentBarButtonHighlighted.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted.png
+cCpResource Resources/Images/UISegmentBarButtonHighlighted@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted@2x.png
+cCpResource Resources/Images/UISegmentBarDivider.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider.png
+cCpResource Resources/Images/UISegmentBarDivider@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider@2x.png
+cCpResource Resources/Images/UISegmentBarDividerHighlighted.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted.png
+cCpResource Resources/Images/UISegmentBarDividerHighlighted@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted@2x.png
+cTouch /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldBackground.png
+c000000005011D48B0000000000000100
+t1343345803
+s256
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldBackground@2x.png
+c000000005011D48B000000000000015E
+t1343345803
+s350
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldReload.png
+c000000005011D48B000000000000036F
+t1343345803
+s879
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldReload@2x.png
+c000000005011D48B00000000000004E0
+t1343345803
+s1248
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldStop.png
+c000000005011D48B000000000000027C
+t1343345803
+s636
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldStop@2x.png
+c000000005011D48B00000000000003C9
+t1343345803
+s969
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSVignetteiPad.png
+c000000005011D48B0000000000011E69
+t1343345803
+s73321
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSVignetteiPhone.png
+c000000005011D48B0000000000007AC5
+t1343345803
+s31429
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSVignetteiPhone@2x.png
+c000000005011D48B0000000000012181
+t1343345803
+s74113
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarButton.png
+c000000005011D48B0000000000000240
+t1343345803
+s576
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarButton@2x.png
+c000000005011D48B0000000000000525
+t1343345803
+s1317
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarButtonHighlighted.png
+c000000005011D48B0000000000000248
+t1343345803
+s584
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarButtonHighlighted@2x.png
+c000000005011D48B000000000000053E
+t1343345803
+s1342
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarDivider.png
+c000000005011D48B000000000000008E
+t1343345803
+s142
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarDivider@2x.png
+c000000005011D48B00000000000000CC
+t1343345803
+s204
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarDividerHighlighted.png
+c000000005011D48B000000000000008E
+t1343345803
+s142
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarDividerHighlighted@2x.png
+c000000005011D48B00000000000000E7
+t1343345803
+s231
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/gray-star.png
+c000000005011D48B0000000000000DC4
+t1343345803
+s3524
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/gray-star@2x.png
+c000000005011D48B000000000000118E
+t1343345803
+s4494
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/hud-check.png
+c000000005011D48B00000000000001A1
+t1343345803
+s417
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/hud-check@2x.png
+c000000005011D48B0000000000000299
+t1343345803
+s665
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/hud-x.png
+c000000005011D48B00000000000001BA
+t1343345803
+s442
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/hud-x@2x.png
+c000000005011D48B0000000000000310
+t1343345803
+s784
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/orange-star.png
+c000000005011D48B0000000000000EB3
+t1343345803
+s3763
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/orange-star@2x.png
+c000000005011D48B0000000000001456
+t1343345803
+s5206
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/de.lproj/SSToolkit.strings
+c000000005011D48B000000000000035B
+t1343345803
+s859
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/en.lproj/SSToolkit.strings
+c000000005011D48B0000000000000352
+t1343345803
+s850
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/es.lproj/SSToolkit.strings
+c000000005011D48B0000000000000374
+t1343345803
+s884
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/fr.lproj/SSToolkit.strings
+c000000005011D48B0000000000000361
+t1343345803
+s865
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/id.lproj/SSToolkit.strings
+c000000005011D48B0000000000000361
+t1343345803
+s865
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/it.lproj/SSToolkit.strings
+c000000005011D48B000000000000035C
+t1343345803
+s860
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/ja.lproj/SSToolkit.strings
+c000000005011D48B00000000000005F0
+t1343345803
+s1520
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/ko.lproj/SSToolkit.strings
+c000000005011D48B000000000000033A
+t1343345803
+s826
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/ms.lproj/SSToolkit.strings
+c000000005011D48B0000000000000370
+t1343345803
+s880
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/nl.lproj/SSToolkit.strings
+c000000005011D48B0000000000000376
+t1343345803
+s886
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/pt.lproj/SSToolkit.strings
+c000000005011D48B000000000000035A
+t1343345803
+s858
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/pt_PT.lproj/SSToolkit.strings
+c000000005011D48B0000000000000361
+t1343345803
+s865
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/ru.lproj/SSToolkit.strings
+c000000005011D48B0000000000000382
+t1343345803
+s898
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/sv.lproj/SSToolkit.strings
+c000000005011D48B000000000000036C
+t1343345803
+s876
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/zh_Hans.lproj/SSToolkit.strings
+c000000005011D48B000000000000035A
+t1343345803
+s858
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/zh_Hant.lproj/SSToolkit.strings
+c000000005011D48B0000000000000358
+t1343345803
+s856
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle
+t1374452958
+s1496
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/Info.plist
+t1374452958
+s930
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground.png
+t1374452958
+s256
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground@2x.png
+t1374452958
+s350
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload.png
+t1374452958
+s879
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload@2x.png
+t1374452958
+s1248
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop.png
+t1374452958
+s636
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop@2x.png
+t1374452958
+s969
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPad.png
+t1374452958
+s73321
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone.png
+t1374452958
+s31429
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone@2x.png
+t1374452958
+s74113
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton.png
+t1374452958
+s576
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton@2x.png
+t1374452958
+s1317
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted.png
+t1374452958
+s584
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted@2x.png
+t1374452958
+s1342
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider.png
+t1374452958
+s142
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider@2x.png
+t1374452958
+s204
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted.png
+t1374452958
+s142
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted@2x.png
+t1374452958
+s231
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/de.lproj/SSToolkit.strings
+t1374452958
+s519
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/en.lproj/SSToolkit.strings
+t1374452958
+s306
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/es.lproj/SSToolkit.strings
+t1374452958
+s548
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/fr.lproj/SSToolkit.strings
+t1374452958
+s489
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star.png
+t1374452958
+s3524
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star@2x.png
+t1374452958
+s4494
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check.png
+t1374452958
+s417
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check@2x.png
+t1374452958
+s665
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x.png
+t1374452958
+s442
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x@2x.png
+t1374452958
+s784
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/id.lproj/SSToolkit.strings
+t1374452958
+s481
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/it.lproj/SSToolkit.strings
+t1374452958
+s530
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ja.lproj/SSToolkit.strings
+t1374452958
+s482
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ko.lproj/SSToolkit.strings
+t1374452958
+s474
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ms.lproj/SSToolkit.strings
+t1374452958
+s531
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/nl.lproj/SSToolkit.strings
+t1374452958
+s522
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star.png
+t1374452958
+s3763
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star@2x.png
+t1374452958
+s5206
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/pt.lproj/SSToolkit.strings
+t1374452958
+s496
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/pt_PT.lproj/SSToolkit.strings
+t1374452958
+s501
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ru.lproj/SSToolkit.strings
+t1374452958
+s608
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/sv.lproj/SSToolkit.strings
+t1374452958
+s597
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hans.lproj/SSToolkit.strings
+t1374452958
+s515
+
+N/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hant.lproj/SSToolkit.strings
+t1374452958
+s504
+
+NResources/SSToolkitResources-Info.plist
+c000000005011D48B0000000000000572
+t1343345803
+s1394
+
+CCheck dependencies
+r0
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependencies37a71afbc29cb741^77f41bfbc29cb741^---0#1#0#--18"Check dependencies36"23CD6345-EBA4-4C6E-8B2A-3EDAFDF69C36-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/de.lproj/SSToolkit.strings Resources/de.lproj/SSToolkit.strings
+s396145758.081522
+e396145758.107738
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/de.lproj/SSToolkit.strings
+xResources/de.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/de.lproj/SSToolkit.stringsf90f155eb49cb741^d9981b5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/de.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/de.lproj/SSToolkit.strings Resources/de.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/de.lproj -- Resources/de.lproj/SSToolkit.strings36"2C71390B-5AB4-41CC-B2FA-6AABDEF169EF-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/en.lproj/SSToolkit.strings Resources/en.lproj/SSToolkit.strings
+s396145758.081507
+e396145758.084177
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/en.lproj/SSToolkit.strings
+xResources/en.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/en.lproj/SSToolkit.strings9014155eb49cb741^8f8c155eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/en.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/en.lproj/SSToolkit.strings Resources/en.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/en.lproj -- Resources/en.lproj/SSToolkit.strings36"3475C8CA-1F65-45BE-ADAF-1407669BBF94-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/es.lproj/SSToolkit.strings Resources/es.lproj/SSToolkit.strings
+s396145758.081508
+e396145758.090070
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/es.lproj/SSToolkit.strings
+xResources/es.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/es.lproj/SSToolkit.stringsd009155eb49cb741^cde6155eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/es.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/es.lproj/SSToolkit.strings Resources/es.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/es.lproj -- Resources/es.lproj/SSToolkit.strings36"8C2C8705-B763-4E54-92B2-B6A57D92C61A-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/fr.lproj/SSToolkit.strings Resources/fr.lproj/SSToolkit.strings
+s396145758.081538
+e396145758.097278
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/fr.lproj/SSToolkit.strings
+xResources/fr.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/fr.lproj/SSToolkit.stringse813155eb49cb741^eaec185eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/fr.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/fr.lproj/SSToolkit.strings Resources/fr.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/fr.lproj -- Resources/fr.lproj/SSToolkit.strings36"DCDFECA9-16E4-4F3E-85F6-B52B17CA5369-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/id.lproj/SSToolkit.strings Resources/id.lproj/SSToolkit.strings
+s396145758.081543
+e396145758.108743
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/id.lproj/SSToolkit.strings
+xResources/id.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/id.lproj/SSToolkit.strings670a155eb49cb741^95d61b5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/id.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/id.lproj/SSToolkit.strings Resources/id.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/id.lproj -- Resources/id.lproj/SSToolkit.strings36"8E75CEA6-DFB0-4545-BC90-8CBB81EEAD48-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/it.lproj/SSToolkit.strings Resources/it.lproj/SSToolkit.strings
+s396145758.081568
+e396145758.107911
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/it.lproj/SSToolkit.strings
+xResources/it.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/it.lproj/SSToolkit.stringsdc0e155eb49cb741^b79c1b5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/it.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/it.lproj/SSToolkit.strings Resources/it.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/it.lproj -- Resources/it.lproj/SSToolkit.strings36"D73BFED2-659E-4E7B-9DF1-D56FEFF3D6C6-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ja.lproj/SSToolkit.strings Resources/ja.lproj/SSToolkit.strings
+s396145758.081746
+e396145758.111585
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ja.lproj/SSToolkit.strings
+xResources/ja.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/ja.lproj/SSToolkit.stringsbf0d155eb49cb741^3f901c5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/ja.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/ja.lproj/SSToolkit.strings Resources/ja.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ja.lproj -- Resources/ja.lproj/SSToolkit.strings36"CDD13536-3BBE-4036-8F2D-077E5B57E5CF-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ko.lproj/SSToolkit.strings Resources/ko.lproj/SSToolkit.strings
+s396145758.081924
+e396145758.107890
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ko.lproj/SSToolkit.strings
+xResources/ko.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/ko.lproj/SSToolkit.strings5a11155eb49cb741^f5a11b5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/ko.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/ko.lproj/SSToolkit.strings Resources/ko.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ko.lproj -- Resources/ko.lproj/SSToolkit.strings36"61960508-692F-452D-A142-C2572518A859-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ms.lproj/SSToolkit.strings Resources/ms.lproj/SSToolkit.strings
+s396145758.085391
+e396145758.111907
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ms.lproj/SSToolkit.strings
+xResources/ms.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/ms.lproj/SSToolkit.stringsaaee155eb49cb741^44a61c5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/ms.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/ms.lproj/SSToolkit.strings Resources/ms.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ms.lproj -- Resources/ms.lproj/SSToolkit.strings36"F53DE052-AE46-4D2A-A44D-85C9C1FE7511-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/nl.lproj/SSToolkit.strings Resources/nl.lproj/SSToolkit.strings
+s396145758.093232
+e396145758.112963
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/nl.lproj/SSToolkit.strings
+xResources/nl.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/nl.lproj/SSToolkit.strings95b6185eb49cb741^03eb1c5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/nl.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/nl.lproj/SSToolkit.strings Resources/nl.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/nl.lproj -- Resources/nl.lproj/SSToolkit.strings36"2E91BEEB-D798-4FFC-B467-5B0EEB387051-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/pt.lproj/SSToolkit.strings Resources/pt.lproj/SSToolkit.strings
+s396145758.110127
+e396145758.115326
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/pt.lproj/SSToolkit.strings
+xResources/pt.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/pt.lproj/SSToolkit.strings395f1c5eb49cb741^23861d5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/pt.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/pt.lproj/SSToolkit.strings Resources/pt.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/pt.lproj -- Resources/pt.lproj/SSToolkit.strings36"10C4826B-CA04-470F-9204-811033A12503-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/pt_PT.lproj/SSToolkit.strings Resources/pt_PT.lproj/SSToolkit.strings
+s396145758.107771
+e396145758.114135
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/pt_PT.lproj/SSToolkit.strings
+xResources/pt_PT.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection44"Copy Resources/pt_PT.lproj/SSToolkit.stringse6ac1b5eb49cb741^e3371d5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@111"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/pt_PT.lproj/SSToolkit.strings0000000000000000^653"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/pt_PT.lproj/SSToolkit.strings Resources/pt_PT.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/pt_PT.lproj -- Resources/pt_PT.lproj/SSToolkit.strings36"F94A5BA4-D8D4-4AF0-85F2-E22021231F7C-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ru.lproj/SSToolkit.strings Resources/ru.lproj/SSToolkit.strings
+s396145758.110171
+e396145758.116729
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ru.lproj/SSToolkit.strings
+xResources/ru.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/ru.lproj/SSToolkit.stringsdd601c5eb49cb741^8be21d5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/ru.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/ru.lproj/SSToolkit.strings Resources/ru.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/ru.lproj -- Resources/ru.lproj/SSToolkit.strings36"7348E3C8-8F3A-4C83-BE64-8369517105A4-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/sv.lproj/SSToolkit.strings Resources/sv.lproj/SSToolkit.strings
+s396145758.110286
+e396145758.123440
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/sv.lproj/SSToolkit.strings
+xResources/sv.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection41"Copy Resources/sv.lproj/SSToolkit.stringse0671c5eb49cb741^e5991f5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@108"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/sv.lproj/SSToolkit.strings0000000000000000^641"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/sv.lproj/SSToolkit.strings Resources/sv.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/sv.lproj -- Resources/sv.lproj/SSToolkit.strings36"598ACD25-6DD1-4BE1-BE76-9894EC4091BE-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hans.lproj/SSToolkit.strings Resources/zh_Hans.lproj/SSToolkit.strings
+s396145758.110485
+e396145758.117778
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hans.lproj/SSToolkit.strings
+xResources/zh_Hans.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection46"Copy Resources/zh_Hans.lproj/SSToolkit.strings9d671c5eb49cb741^07271e5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@113"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/zh_Hans.lproj/SSToolkit.strings0000000000000000^661"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hans.lproj/SSToolkit.strings Resources/zh_Hans.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hans.lproj -- Resources/zh_Hans.lproj/SSToolkit.strings36"312C11E7-83DD-4029-AA5E-7A8686A557AB-
+
+CCopyStringsFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hant.lproj/SSToolkit.strings Resources/zh_Hant.lproj/SSToolkit.strings
+s396145758.112753
+e396145758.131253
+r1
+xCopyStringsFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hant.lproj/SSToolkit.strings
+xResources/zh_Hant.lproj/SSToolkit.strings
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection46"Copy Resources/zh_Hant.lproj/SSToolkit.stringsc4e91c5eb49cb741^4e9b215eb49cb741^---0#0#0#-19%DVTDocumentLocation2@113"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/zh_Hant.lproj/SSToolkit.strings0000000000000000^661"CopyStringsFile build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hant.lproj/SSToolkit.strings Resources/zh_Hant.lproj/SSToolkit.strings    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copyStrings --validate --inputencoding utf-8 --outputencoding binary --outdir /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/zh_Hant.lproj -- Resources/zh_Hant.lproj/SSToolkit.strings36"A3988CE0-02D8-4133-B0A1-EAE8BFE3228C-
+
+CCpResource Resources/Images/SSAddressBarTextFieldBackground.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground.png
+s396145758.141132
+e396145758.148399
+r1
+xCpResource
+xResources/Images/SSAddressBarTextFieldBackground.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection94"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground.pnga034245eb49cb741^f0fd255eb49cb741^---0#0#0#-19%DVTDocumentLocation2@161"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground.png000000000080d041^743"CpResource Resources/Images/SSAddressBarTextFieldBackground.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldBackground.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"12BC00AE-D647-4ED9-91D4-AAB3F2124769-
+
+CCpResource Resources/Images/SSAddressBarTextFieldBackground@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground@2x.png
+s396145758.141145
+e396145758.146301
+r1
+xCpResource
+xResources/Images/SSAddressBarTextFieldBackground@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection97"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground@2x.pnge334245eb49cb741^da73255eb49cb741^---0#0#0#-19%DVTDocumentLocation2@164"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground@2x.png000000000080d041^758"CpResource "Resources/Images/SSAddressBarTextFieldBackground@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldBackground@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldBackground@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"3D7FB3DD-99A0-4E78-99AF-7A6FE2861A67-
+
+CCpResource Resources/Images/SSAddressBarTextFieldReload.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload.png
+s396145758.143917
+e396145758.150765
+r1
+xCpResource
+xResources/Images/SSAddressBarTextFieldReload.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection90"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload.png0402255eb49cb741^6798265eb49cb741^---0#0#0#-19%DVTDocumentLocation2@157"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload.png000000000080d041^731"CpResource Resources/Images/SSAddressBarTextFieldReload.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldReload.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"866C0A2A-0FE7-4715-888A-A170A57189AC-
+
+CCpResource Resources/Images/SSAddressBarTextFieldReload@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload@2x.png
+s396145758.143844
+e396145758.149535
+r1
+xCpResource
+xResources/Images/SSAddressBarTextFieldReload@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection93"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload@2x.png3e04255eb49cb741^cb47265eb49cb741^---0#0#0#-19%DVTDocumentLocation2@160"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload@2x.png000000000080d041^746"CpResource "Resources/Images/SSAddressBarTextFieldReload@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldReload@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldReload@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"244B099D-905E-4925-A721-E055FAF115F9-
+
+CCpResource Resources/Images/SSAddressBarTextFieldStop.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop.png
+s396145758.144824
+e396145758.151816
+r1
+xCpResource
+xResources/Images/SSAddressBarTextFieldStop.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection88"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop.pngfb22255eb49cb741^cedd265eb49cb741^---0#0#0#-19%DVTDocumentLocation2@155"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop.png000000000080d041^725"CpResource Resources/Images/SSAddressBarTextFieldStop.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldStop.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"AAAB4E90-C0D6-475D-B3FB-F92E4D96BD30-
+
+CCpResource Resources/Images/SSAddressBarTextFieldStop@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop@2x.png
+s396145758.145893
+e396145758.158545
+r1
+xCpResource
+xResources/Images/SSAddressBarTextFieldStop@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection91"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop@2x.png016b255eb49cb741^077d295eb49cb741^---0#0#0#-19%DVTDocumentLocation2@158"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop@2x.png000000000080d041^740"CpResource "Resources/Images/SSAddressBarTextFieldStop@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/SSAddressBarTextFieldStop@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSAddressBarTextFieldStop@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"481707F2-4DF3-43DA-973C-CF9288BA20AC-
+
+CCpResource Resources/Images/SSVignetteiPad.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPad.png
+s396145758.145896
+e396145758.157286
+r1
+xCpResource
+xResources/Images/SSVignetteiPad.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPad.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection77"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPad.png9468255eb49cb741^4146285eb49cb741^---0#0#0#-19%DVTDocumentLocation2@144"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPad.png000000000080d041^692"CpResource Resources/Images/SSVignetteiPad.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPad.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSVignetteiPad.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"B0FB71AE-08D5-4DD7-BB35-C6BE8E7FE95B-
+
+CCpResource Resources/Images/SSVignetteiPhone.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone.png
+s396145758.147444
+e396145758.161666
+r1
+xCpResource
+xResources/Images/SSVignetteiPhone.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection79"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone.pngb3cd255eb49cb741^e97f295eb49cb741^---0#0#0#-19%DVTDocumentLocation2@146"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone.png000000000080d041^698"CpResource Resources/Images/SSVignetteiPhone.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSVignetteiPhone.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"3529BEF9-6919-4681-A186-138417DBC654-
+
+CCpResource Resources/Images/SSVignetteiPhone@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone@2x.png
+s396145758.147447
+e396145758.161947
+r1
+xCpResource
+xResources/Images/SSVignetteiPhone@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection82"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone@2x.png03cf255eb49cb741^2789295eb49cb741^---0#0#0#-19%DVTDocumentLocation2@149"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone@2x.png000000000080d041^713"CpResource "Resources/Images/SSVignetteiPhone@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/SSVignetteiPhone@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/SSVignetteiPhone@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"17ED1128-3D53-4572-B314-B9503409B564-
+
+CCpResource Resources/Images/UISegmentBarButton.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton.png
+s396145758.149527
+e396145758.162226
+r1
+xCpResource
+xResources/Images/UISegmentBarButton.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection81"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton.png4357265eb49cb741^f390295eb49cb741^---0#0#0#-19%DVTDocumentLocation2@148"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton.png000000000080d041^704"CpResource Resources/Images/UISegmentBarButton.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarButton.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"CB651FBF-6338-4B54-B5A3-C6121B7EF93D-
+
+CCpResource Resources/Images/UISegmentBarButton@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton@2x.png
+s396145758.150712
+e396145758.173340
+r1
+xCpResource
+xResources/Images/UISegmentBarButton@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection84"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton@2x.png4ca6265eb49cb741^e4bb2c5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@151"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton@2x.png000000000080d041^719"CpResource "Resources/Images/UISegmentBarButton@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButton@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarButton@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"9A256619-1B11-4CE6-9AC3-E27275D7905D-
+
+CCpResource Resources/Images/UISegmentBarButtonHighlighted.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted.png
+s396145758.151925
+e396145758.175833
+r1
+xCpResource
+xResources/Images/UISegmentBarButtonHighlighted.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection92"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted.pngd3f7265eb49cb741^32032d5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@159"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted.png000000000080d041^737"CpResource Resources/Images/UISegmentBarButtonHighlighted.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarButtonHighlighted.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"CAB00427-F588-411B-BD48-1C3E3BD07701-
+
+CCpResource Resources/Images/UISegmentBarButtonHighlighted@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted@2x.png
+s396145758.151916
+e396145758.174699
+r1
+xCpResource
+xResources/Images/UISegmentBarButtonHighlighted@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection95"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted@2x.png0ff2265eb49cb741^bdc82c5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@162"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted@2x.png000000000080d041^752"CpResource "Resources/Images/UISegmentBarButtonHighlighted@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarButtonHighlighted@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarButtonHighlighted@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"3D122791-06E2-4C2E-9BDE-A6389D838831-
+
+CCpResource Resources/Images/UISegmentBarDivider.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider.png
+s396145758.159654
+e396145758.176314
+r1
+xCpResource
+xResources/Images/UISegmentBarDivider.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection82"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider.pngd4f1285eb49cb741^92232d5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@149"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider.png000000000080d041^707"CpResource Resources/Images/UISegmentBarDivider.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarDivider.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"3F8442E5-AA91-42C2-AD87-E9BAE01D7DE1-
+
+CCpResource Resources/Images/UISegmentBarDivider@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider@2x.png
+s396145758.162983
+e396145758.178549
+r1
+xCpResource
+xResources/Images/UISegmentBarDivider@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection85"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider@2x.pngbbd3295eb49cb741^feb42d5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@152"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider@2x.png000000000080d041^722"CpResource "Resources/Images/UISegmentBarDivider@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDivider@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarDivider@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"72A6E596-D7BD-4EBB-9B79-104646D360FA-
+
+CCpResource Resources/Images/UISegmentBarDividerHighlighted.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted.png
+s396145758.163001
+e396145758.177467
+r1
+xCpResource
+xResources/Images/UISegmentBarDividerHighlighted.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection93"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted.pngf2ce295eb49cb741^486e2d5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@160"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted.png000000000080d041^740"CpResource Resources/Images/UISegmentBarDividerHighlighted.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarDividerHighlighted.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"9366B41A-00A0-4089-837D-7251259FA4D1-
+
+CCpResource Resources/Images/UISegmentBarDividerHighlighted@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted@2x.png
+s396145758.163344
+e396145758.179581
+r1
+xCpResource
+xResources/Images/UISegmentBarDividerHighlighted@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection96"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted@2x.png9a602c5eb49cb741^48f92d5eb49cb741^---0#0#0#-19%DVTDocumentLocation2@163"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted@2x.png000000000080d041^755"CpResource "Resources/Images/UISegmentBarDividerHighlighted@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/UISegmentBarDividerHighlighted@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/UISegmentBarDividerHighlighted@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"AA2DDF1D-ECE9-466E-BD79-B54029FC85A0-
+
+CCpResource Resources/Images/gray-star.png build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star.png
+s396145758.117882
+e396145758.144792
+r1
+xCpResource
+xResources/Images/gray-star.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star.png10401e5eb49cb741^6b11255eb49cb741^---0#0#0#-19%DVTDocumentLocation2@139"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star.png000000000080d041^677"CpResource Resources/Images/gray-star.png build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/gray-star.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"DD487904-B1D2-48B4-BFC8-448E2BC6181A-
+
+CCpResource Resources/Images/gray-star@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star@2x.png
+s396145758.117899
+e396145758.143579
+r1
+xCpResource
+xResources/Images/gray-star@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection75"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star@2x.pngc8401e5eb49cb741^76c1245eb49cb741^---0#0#0#-19%DVTDocumentLocation2@142"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star@2x.png000000000080d041^692"CpResource "Resources/Images/gray-star@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/gray-star@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/gray-star@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"4C33B0E0-2DAF-4450-ABE4-2EECCEA6BD87-
+
+CCpResource Resources/Images/hud-check.png build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check.png
+s396145758.112750
+e396145758.130190
+r1
+xCpResource
+xResources/Images/hud-check.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection72"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check.png4eed1c5eb49cb741^1d55215eb49cb741^---0#0#0#-19%DVTDocumentLocation2@139"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check.png000000000080d041^677"CpResource Resources/Images/hud-check.png build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/hud-check.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"4C59EA39-1934-4C4F-B262-F936979FDFD0-
+
+CCpResource Resources/Images/hud-check@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check@2x.png
+s396145758.114143
+e396145758.130394
+r1
+xCpResource
+xResources/Images/hud-check@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection75"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check@2x.png52451d5eb49cb741^7061215eb49cb741^---0#0#0#-19%DVTDocumentLocation2@142"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check@2x.png000000000080d041^692"CpResource "Resources/Images/hud-check@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-check@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/hud-check@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"A771766A-0AB1-4770-AF29-FF7A48EE3D8E-
+
+CCpResource Resources/Images/hud-x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x.png
+s396145758.115323
+e396145758.141914
+r1
+xCpResource
+xResources/Images/hud-x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection68"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x.png5f971d5eb49cb741^bd54245eb49cb741^---0#0#0#-19%DVTDocumentLocation2@135"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x.png000000000080d041^665"CpResource Resources/Images/hud-x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/hud-x.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"9DEF13B8-F82A-4370-A2C9-FA0C128C7571-
+
+CCpResource Resources/Images/hud-x@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x@2x.png
+s396145758.116489
+e396145758.142076
+r1
+xCpResource
+xResources/Images/hud-x@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection71"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x@2x.png22df1d5eb49cb741^2460245eb49cb741^---0#0#0#-19%DVTDocumentLocation2@138"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x@2x.png000000000080d041^680"CpResource "Resources/Images/hud-x@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/hud-x@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/hud-x@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"FF923DB5-4486-49F4-8CA5-04D97F077690-
+
+CCpResource Resources/Images/orange-star.png build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star.png
+s396145758.129722
+e396145758.145162
+r1
+xCpResource
+xResources/Images/orange-star.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection74"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star.pngc749215eb49cb741^aa29255eb49cb741^---0#0#0#-19%DVTDocumentLocation2@141"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star.png000000000080d041^683"CpResource Resources/Images/orange-star.png build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star.png    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/orange-star.png /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"58971B2C-1D68-471B-8DEA-592E79CC9EF9-
+
+CCpResource Resources/Images/orange-star@2x.png build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star@2x.png
+s396145758.141113
+e396145758.147342
+r1
+xCpResource
+xResources/Images/orange-star@2x.png
+xbuild/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star@2x.png
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection77"Copy build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star@2x.pngb134245eb49cb741^aab8255eb49cb741^---0#0#0#-19%DVTDocumentLocation2@144"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star@2x.png000000000080d041^698"CpResource "Resources/Images/orange-star@2x.png" "build/Debug-iphonesimulator/SSToolkitResources.bundle/orange-star@2x.png"    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks "/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/Images/orange-star@2x.png" /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"C0A5CEED-88D6-43B7-8A95-1E8FCC017472-
+
+CProcessInfoPlistFile /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/Info.plist Resources/SSToolkitResources-Info.plist
+s396145758.058087
+e396145758.073396
+r1
+xProcessInfoPlistFile
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/Info.plist
+xResources/SSToolkitResources-Info.plist
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection47"Process Resources/SSToolkitResources-Info.plistae0e105eb49cb741^24ed125eb49cb741^---0#0#0#-19%DVTDocumentLocation2@111"file://localhost/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/Resources/SSToolkitResources-Info.plist0000000000000000^639"ProcessInfoPlistFile build/Debug-iphonesimulator/SSToolkitResources.bundle/Info.plist Resources/SSToolkitResources-Info.plist    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility Resources/SSToolkitResources-Info.plist -expandbuildsettings -format binary -platform iphonesimulator -o /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle/Info.plist36"94E7598F-492B-42E8-B202-EF2793A7863E-
+
+CTouch /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle
+s396145758.186850
+e396145758.203046
+r1
+xTouch
+x/Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection115"Touch /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundleedd4305eb49cb741^4cfa335eb49cb741^---0#0#0#--450"Touch build/Debug-iphonesimulator/SSToolkitResources.bundle    cd /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit    setenv PATH "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/build/Debug-iphonesimulator/SSToolkitResources.bundle36"49D86199-C484-45C6-8F50-7DC2E2B66090-
+

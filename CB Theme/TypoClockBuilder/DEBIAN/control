@@ -1,0 +1,12 @@
+Package: com.gmtaz.typoclockbuilder
+Name: TypoClock Builder
+Priority: optional
+Section: Themes
+Maintainer: Gustavo Tandeciarz (dcinzona) <gmt@gmtaz.com>
+Architecture: iphoneos-arm
+Version: 5.0.2
+Description: Theme companion for Clockbuilder iPhone app.  This is required for setting your Clockbuilder theme as your lockscreen.  As of v.5.0, an additional tweak is installed called GMTSync to help with syncing on newer iOS devices.  LSSync is no longer required as of Clockbuilder v.5.0+. Clockbuilder 5.0 also now includes Climacon support.  Please use this version if you are running on an iPhone 5 or using Climacons in your theme.
+Depends: winterboard,com.gmtaz.gmtsync
+Author: Gustavo Tandeciarz (dcinzona) <gmt@gmtaz.com>
+Depiction: 
+Homepage: http://gmt.io

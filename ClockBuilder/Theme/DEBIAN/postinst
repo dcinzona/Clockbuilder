@@ -1,0 +1,27 @@
+#!/bin/bash
+
+declare -a cydia
+cydia=($CYDIA)
+
+
+echo "Restoring config";
+
+if [ -f /tmp/LockBackground.png.tmp ];then
+cp -f /tmp/LockBackground.png.tmp /Library/Themes/TypoClockBuilder.theme/LockBackground.png;
+fi
+if [ -f /tmp/LockBackground.html.tmp ];then
+cp -f /tmp/LockBackground.html.tmp /Library/Themes/TypoClockBuilder.theme/LockBackground.html;
+fi
+if [ -f /tmp/style.css.tmp ];then
+cp -f /tmp/style.css.tmp /Library/Themes/TypoClockBuilder.theme/style.css.tmp;
+fi
+if [ -f /tmp/build.js.tmp ];then
+cp -f /tmp/build.js.tmp /Library/Themes/TypoClockBuilder.theme/build.js.tmp;
+fi
+
+echo "Setting Permissions"
+
+chmod -R 777 /Library/Themes/TypoClockBuilder.theme/
+
+
+exit 0

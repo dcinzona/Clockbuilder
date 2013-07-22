@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>conditions</key>
+	<array>
+		<string>tornado</string>
+		<string>tropical storm</string>
+		<string>hurricane</string>
+		<string>severe thunderstorms</string>
+		<string>thunderstorms</string>
+		<string>mixed rain and snow</string>
+		<string>mixed rain and sleet</string>
+		<string>mixed snow and sleet</string>
+		<string>freezing drizzle</string>
+		<string>drizzle</string>
+		<string>freezing rain</string>
+		<string>showers</string>
+		<string>snow flurries</string>
+		<string>light snow showers</string>
+		<string>blowing snow</string>
+		<string>snow</string>
+		<string>hail</string>
+		<string>sleet</string>
+		<string>dust</string>
+		<string>foggy</string>
+		<string>haze</string>
+		<string>smoky</string>
+		<string>blustery</string>
+		<string>windy</string>
+		<string>cold</string>
+		<string>cloudy</string>
+		<string>mostly cloudy</string>
+		<string>partly cloudy</string>
+		<string>clear</string>
+		<string>sunny</string>
+		<string>fair</string>
+		<string>mixed rain and hail</string>
+		<string>hot</string>
+		<string>isolated thunderstorms</string>
+		<string>scattered thunderstorms</string>
+		<string>scattered showers</string>
+		<string>heavy snow</string>
+		<string>thundershowers</string>
+		<string>snow showers</string>
+		<string>isolated thundershowers</string>
+		<string>not available</string>
+	</array>
+	<key>months</key>
+	<array>
+		<string>January</string>
+		<string>February</string>
+		<string>March</string>
+		<string>April</string>
+		<string>May</string>
+		<string>June</string>
+		<string>July</string>
+		<string>August</string>
+		<string>September</string>
+		<string>October</string>
+		<string>November</string>
+		<string>December</string>
+	</array>
+	<key>days</key>
+	<array>
+		<string>Monday</string>
+		<string>Tuesday</string>
+		<string>Wednesday</string>
+		<string>Thursday</string>
+		<string>Friday</string>
+		<string>Saturday</string>
+		<string>Sunday</string>
+	</array>
+</dict>
+</plist>

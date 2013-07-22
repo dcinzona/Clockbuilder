@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Currently</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="css/application.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+<body class="animated fadeIn">
+<a class="options" href="javascript:chrome.tabs.update({url:chrome.extension.getURL('options.html')})"><i class="icon-cog"></i></a>
+<a class="home" href='javascript:chrome.tabs.update({url:"chrome-internal://newtab/"})'><i class="icon-th"></i></a>
+<div id ="content" class="container">
+  <div id="time" class="fadeInDown animated"></div>
+  <p id="date" class="title"></p>
+  <div id="weather">
+    <div id="loader" class="status fadeInDown animated">Y</div>
+    <div id="error">
+      <p>Sorry! We can't find you. Tell where you are:</p>
+      <form id="set-location">
+        <input type="text" placeholder="Boulder, Colorado, 80305, USA" />
+        <button>SAVE</button>
+      </form>
+    </div>
+
+    <div id="weather-inner" class="hidden">
+      <div class="now animated bounceIn">
+        <span class='weather'></span>
+        <b class="temp"></b>
+        <p>Now</p>
+      </div>
+      <ul class='clearfix'>
+        <li>
+          <span class='weather'></span>
+          <div class="temp">
+            <p class="high"></p>
+            <p class="low"></p>
+          </div>
+          <p class="day"></p>
+        </li>
+        <li>
+          <span class='weather'></span>
+          <div class="temp">
+            <p class="high"></p>
+            <p class="low"></p>
+          </div>
+          <p class="day"></p>
+        </li>
+        <li>
+          <span class='weather'></span>
+          <div class="temp">
+            <p class="high"></p>
+            <p class="low"></p>
+          </div>
+          <p class="day"></p>
+        </li>
+        <li>
+          <span class='weather'></span>
+          <div class="temp">
+            <p class="high"></p>
+            <p class="low"></p>
+          </div>
+          <p class="day"></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <p id="city" class="title"></p>
+</div>
+
+</body>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/libs.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+</html>

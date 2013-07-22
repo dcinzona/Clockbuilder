@@ -1,0 +1,145 @@
+body
+{
+	background-image: url('images/bg.png');
+	background-repeat: repeat;
+}
+a:focus, a:active { 
+outline: 0 none;	
+-moz-outline: 0 none; 
+}
+a.dashed
+{
+	border-bottom: 1px dotted #999;
+}
+a:hover.dashed
+{
+	border-bottom: 1px dotted #000;
+	color:#333;
+}
+#logo
+{
+	margin-top: 40px;
+	width: 570px;
+	height: 122px;
+	display: block;
+	background: transparent url('images/Header.png') no-repeat;
+}
+.container_24
+{
+	background: transparent url('images/davinci.jpg') no-repeat;
+}
+.RHC
+{
+	margin-top: 60px;
+	color: #636363;
+}
+#boomButton span
+{
+	padding-left: 10px;
+	font-size: 20px;
+}
+.center
+{
+	text-align: center;
+}
+.RHCiPhone
+{
+	min-height: 600px;
+	position: relative;
+	float: right;
+	padding-top: 20px;
+}
+#iphoneMask
+{
+	display: block;
+	position: absolute;
+	width: 230px;
+	height: 514px;
+	background: url('images/iphoneMask.png') no-repeat;
+}
+.sliderImg
+{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	opacity: 1;
+}
+#appStore
+{
+	position: absolute;
+	bottom: 40px;
+	left: 10px;
+}
+#badge
+{
+	position: absolute;
+	bottom: 20px;
+	left: -30px;
+}
+#slider
+{
+	position: absolute;
+	top: 99px;
+	left: 21px;
+	overflow: hidden;
+	display: block;
+	width: 190px;
+	height: 285px;
+}
+.content
+{
+	padding-top: 40px;
+}
+h2
+{
+	font-size: 1.1em;
+	margin-bottom: 5px;
+}
+p
+{
+	color: #777;
+}
+li
+{
+	color:#333;
+}
+.disclaimer
+{
+	color: #777;
+	padding: 20px;
+	font-size: .9em;
+}
+
+#flowpanes img
+{
+	cursor: pointer;
+}
+
+
+.tooltip {
+display:none;
+background:transparent url(images/black_arrow_under.png) no-repeat;
+font-size:12px;
+height:70px;
+width:160px;
+padding:40px 25px;
+color:#fff;
+}
+
+
+#topRightRHC
+{
+	display: none;
+	opacity: 0;
+}
+
+ol
+{
+	
+	list-style: decimal outside;
+}
+.bold
+{
+	font-weight: bold;
+}
+

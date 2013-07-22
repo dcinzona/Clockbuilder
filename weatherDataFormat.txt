@@ -1,0 +1,82 @@
+Weather Data: {
+    data =     {
+        astronomy =         {
+            sunrise = "7:18 am";
+            sunset = "7:17 pm";
+        };
+        atmosphere =         {
+            humidity = 89;
+            pressure = "30.09";
+            rising = 0;
+            visibility = 10;
+        };
+        description = "Yahoo! Weather for Portland, OR";
+        image =         {
+            height = 18;
+            link = "http://weather.yahoo.com";
+            title = "Yahoo! Weather";
+            url = "http://l.yimg.com/a/i/brand/purplelogo//uh/us/news-wea.gif";
+            width = 142;
+        };
+        item =         {
+            condition =             {
+                code = 28;
+                date = "Thu, 17 Mar 2011 8:52 am PDT";
+                temp = 40;
+                text = "Mostly Cloudy";
+            };
+            description = "\n<img src=\"http://l.yimg.com/a/i/us/we/52/28.gif\"/><br />\n<b>Current Conditions:</b><br />\nMostly Cloudy, 40 F<BR />\n<BR /><b>Forecast:</b><BR />\nThu - Showers. High: 51 Low: 43<br />\nFri - Showers. High: 50 Low: 41<br />\n<br />\n<a href=\"http://us.rd.yahoo.com/dailynews/rss/weather/Portland__OR/*http://weather.yahoo.com/forecast/USOR0275_f.html\">Full Forecast at Yahoo! Weather</a><BR/><BR/>\n(provided by <a href=\"http://www.weather.com\" >The Weather Channel</a>)<br/>\n";
+            forecast =             (
+                                {
+                    code = 11;
+                    date = "17 Mar 2011";
+                    day = Thu;
+                    high = 51;
+                    low = 43;
+                    text = Showers;
+                },
+                                {
+                    code = 11;
+                    date = "18 Mar 2011";
+                    day = Fri;
+                    high = 50;
+                    low = 41;
+                    text = Showers;
+                }
+            );
+            guid =             {
+                content = "USOR0275_2011_03_17_8_52_PDT";
+                isPermaLink = false;
+            };
+            lat = "45.52";
+            link = "http://us.rd.yahoo.com/dailynews/rss/weather/Portland__OR/*http://weather.yahoo.com/forecast/USOR0275_f.html";
+            long = "-122.68";
+            pubDate = "Thu, 17 Mar 2011 8:52 am PDT";
+            title = "Conditions for Portland, OR at 8:52 am PDT";
+        };
+        language = "en-us";
+        lastBuildDate = "Thu, 17 Mar 2011 8:52 am PDT";
+        link = "http://us.rd.yahoo.com/dailynews/rss/weather/Portland__OR/*http://weather.yahoo.com/forecast/USOR0275_f.html";
+        location =         {
+            city = Portland;
+            country = US;
+            region = OR;
+        };
+        title = "Yahoo! Weather - Portland, OR";
+        ttl = 60;
+        units =         {
+            distance = mi;
+            pressure = in;
+            speed = mph;
+            temperature = F;
+        };
+        wind =         {
+            chill = 33;
+            direction = 110;
+            speed = 10;
+        };
+    };
+    interval = 60;
+    location = "Current Location";
+    locationName = "Portland, OR";
+}

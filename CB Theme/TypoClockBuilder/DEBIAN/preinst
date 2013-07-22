@@ -1,0 +1,8 @@
+#!/bin/bash
+
+declare -a cydia
+cydia=($CYDIA)
+
+echo 'installing theme'
+
+exit 0

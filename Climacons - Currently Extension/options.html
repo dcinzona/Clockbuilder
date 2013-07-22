@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Currently</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="css/application.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+</head>
+
+<body>
+  <div id="options">
+  <a class="main-return" href="javascript:chrome.tabs.update(null, {url:chrome.extension.getURL('index.html')})"><i class="icon-home"></i></a>
+    <h1>Options <span class="hidden">Saved</span></h1>
+      <form>
+        <section>
+          <h2>Celsius or Fahrenheit</h2>
+          <div>
+            <input name="temp" type="radio" value="c" id="celsius"/>
+            <label for="celsius">Celsius</label>
+          </div>
+          <div>
+            <input name="temp" type="radio" value="f" id="fahrenheit"/>
+            <label for="fahrenheit">Fahrenheit</label>
+          </div>
+        </section>
+        <section>
+          <h2>12 hour or 24 hour</h2>
+          <div>
+            <input name="clock" type="radio" value="12" id="time12"/>
+            <label for="time12">12</label>
+          </div>
+          <div>
+            <input name="clock" type="radio" value="24" id="time24"/>
+            <label for="time24">24</label>
+          </div>
+        </section>
+        <section>
+          <h2>Color</h2>
+          <div>
+            <input name="color" type="radio" value="dark" id="dark"/>
+            <label for="dark">Dark</label>
+          </div>
+          <div>
+            <input name="color" type="radio" value="light" id="light"/>
+            <label for="light">Light</label>
+          </div>
+          <div>
+            <input name="color" type="radio" value="blue" id="blue"/>
+            <label for="blue">Blue</label>
+          </div>
+        </section>
+        <section>
+          <h2>Seconds Toggle</h2>
+          <div>
+            <input type="radio" name="seconds" id="seconds-on" value="true"/>
+            <label for="seconds-on">On</label>
+          </div>
+          <div>
+            <input type="radio" name="seconds" id="seconds-off" value="false"2/>
+            <label for="seconds-off">Off</label>
+          </div>
+        </section>
+        <section>
+          <h2>Animation Toggle</h2>
+          <div>
+            <input type="radio" name="animation" id="animation-on" value="true" />
+            <label for="animation-on">On</label>
+          </div>
+          <div>
+            <input type="radio" name="animation" id="animation-off" value="false"/>
+            <label for="animation-off">Off</label>
+          </div>
+        </section>
+        <section>
+          <h2>Location Address <i>(optional)</i></h2>
+          <div>
+            <input type="text" name="address" id="address" placeholder="Boulder, CO, 80305, USA" />
+          </div>
+        </section>
+        <button type="sbumit">SAVE</button>
+        <span id="save-home" class="hidden animated fadeIn"><a href="javascript:chrome.tabs.update(null, {url:chrome.extension.getURL('index.html')})"><i class="icon-home"></i></a></span>
+        
+      </form>
+ <h1>Feedback and Support</h1>
+    <h2>We would love to hear your ideas for future iterations as well as any bugs you stumble across. <a href="javascript:UserVoice.showPopupWidget();" title="Open feedback & support dialog (powered by UserVoice)">Feedback &amp; Support</a></h2>
+    <h1>Who made this?</h1>
+    <h2>This extension was built by <a href="https://twitter.com/henrymodis">@Henry</a> and <a href="https://twitter.com/vitaly_babiy">@Vitaly</a>. If you have any questions or requests, then tweet at one of us!</h2>
+  </div>
+
+</body>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/options.js"></script>
+</html>

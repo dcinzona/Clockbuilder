@@ -1,0 +1,25 @@
+dependencies: \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/ClockBuilderViewController.m \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/textSettingsTableViewIndex.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/UIView+glowLabelSelections.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/textBasedWidget.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/weatherIconView.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/appManagementTableView.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/mySavedThemes.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/helpers.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/savedThemesTVC.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/gridViewController.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/GMGridView/GMGridView.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/GMGridView/GMGridView-Constants.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/GMGridView/GMGridViewCell.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/themeBrowserController.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/deleteThemeOnline.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/JScrollingRow.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/themeScreenshotViewCDN.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/instructionsForTheme.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/settingsUIActionsheetDelegate.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/weatherSettingsIndex.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/PrettyCell.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/themeBrowserNavigationController.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/NavigationBarUI/SCNavigationBar.h \
+  /Users/gmt/Dropbox/iPhone/ClockBuilder/ClockBuilder/ClockBuilder/RegexKitLite.h

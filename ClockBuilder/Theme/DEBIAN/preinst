@@ -1,0 +1,21 @@
+#!/bin/bash
+
+declare -a cydia
+cydia=($CYDIA)
+
+echo "Backing up current theme";
+
+if [ -f /Library/Themes/TypoClockBuilder.theme/LockBackground.png ];then
+cp -f /Library/Themes/TypoClockBuilder.theme/LockBackground.png /tmp/LockBackground.png.tmp;
+fi
+if [ -f /Library/Themes/TypoClockBuilder.theme/LockBackground.html ];then
+cp -f /Library/Themes/TypoClockBuilder.theme/LockBackground.html /tmp/LockBackground.html.tmp;
+fi
+if [ -f /Library/Themes/TypoClockBuilder.theme/style.css.tmp ];then
+cp -f /Library/Themes/TypoClockBuilder.theme/style.css.tmp /tmp/style.css.tmp;
+fi
+if [ -f /Library/Themes/TypoClockBuilder.theme/build.js.tmp ];then
+cp -f /Library/Themes/TypoClockBuilder.theme/build.js.tmp /tmp/build.js.tmp;
+fi
+
+exit 0

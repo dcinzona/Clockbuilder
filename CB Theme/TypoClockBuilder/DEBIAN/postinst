@@ -1,0 +1,9 @@
+#!/bin/bash
+
+declare -a cydia
+cydia=($CYDIA)
+
+echo "Fixing Permissions"
+chown -R mobile /Library/Themes/TypoClockBuilder.theme
+
+exit 0

@@ -1,0 +1,52 @@
+//
+// Prefix header for all source files of the 'ClockBuilder' target in the 'ClockBuilder' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iPhone SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import "CBThemeHelper.h"
+    #import "CBTheme.h"
+    #import "GMTThemeSync.h"
+    #import "JSON.h"
+    #import "MKEntryPanel.h"
+    #import "MBProgressHUD.h"
+    #import "MKNetworkKit.h"
+#import "CustomAlertView.h"
+#import "GMTHelper.h"
+#import "weatherSingleton.h"
+#import "ClockBuilderAppDelegate.h"
+#import <SSToolkit/SSToolkit.h>
+#import "UIAlertViewBlock.h"
+
+
+/*LOGGING
+#import "DDLog.h"
+#import "DDTTYLogger.h"
+#import "DDFileLogger.h"
+
+#ifdef DEBUG
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+static const int ddLogLevel = LOG_LEVEL_WARN;
+#endif
+*/
+
+#define kCoreDataStoreName @"clockbuilderdb.sqlite"
+#define kCoreDataStoreNameiPad @"clockbuilderdb-ipad.sqlite"
+
+#define CLOCKBUILDERAPI @"SDFB52f4vw9230V45gdfg"
+#define kShowGlobalHud @"showGlobalHud"
+#define kShowGlobalHudWithSpinner @"showGlobalHudWithSpinner"
+#define kHideGlobalHud @"hideGlobalHud"
+#define kIsIpad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define kPopoverSize CGSizeMake(320,460)
+#define AppDelegate ((ClockBuilderAppDelegate *)[UIApplication sharedApplication].delegate)
+
+#endif
