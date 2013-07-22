@@ -38,10 +38,12 @@
 {
     [super viewDidLoad];
     
-    
     CGRect frameSize = [UIScreen mainScreen].bounds;
-    //adjust for navbar
-    frameSize.size.height = frameSize.size.height - 44;
+    if(!kIsiOS7){
+        //adjust for navbar
+        frameSize.size.height = frameSize.size.height - 44;
+        
+    }
     
     if (kIsIpad) {
         self.contentSizeForViewInPopover = kPopoverSize;
@@ -50,7 +52,6 @@
                                        kPopoverSize.height)];
         frameSize = self.view.frame;
     }
-    
     
     UIImageView *bg2 = [[UIImageView alloc] initWithFrame:frameSize];
     [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
@@ -64,7 +65,6 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"Clock Builder";
     [appNameVer setText:[NSString stringWithFormat:@"Clock Builder %@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
-    
     //[iconView setImage:[UIImage imageNamed:@"clockbuilder-Icon.png"]];
     
     if(kIsIpad){
@@ -187,7 +187,7 @@
         [mailViewController setMessageBody:@"" isHTML:YES];
         
         //[mailViewController addAttachmentData:dataFromString mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@", @"DEBUGDATA"]];
-        [self presentViewController:mailViewController animated:YES completion:nil];
+        [self presentModalViewController:mailViewController animated:YES];
     }
     
     else {
@@ -199,7 +199,9 @@
 }
 
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [self dismissModalViewControllerAnimated:YES];
+    
 }
 
 -(IBAction)clearCache

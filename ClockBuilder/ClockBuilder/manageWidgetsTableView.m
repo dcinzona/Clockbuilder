@@ -85,25 +85,25 @@
     [self setWidgetObjects];
     self.widgetClasses = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]objectForKey:@"widgetClasses"];
     tv = self.tableView;
-    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-    [bg setContentMode:UIViewContentModeTopLeft];
-    [tv setTableFooterView:bg];
-    [self.tableView setSectionFooterHeight:0];
-    
-    /*
-    UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
-    [self.tableView setBackgroundView:TVbgView];
-    */
-    
-    UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-    [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-    [bg2 setContentMode:UIViewContentModeTop];
-    UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-    [self.tableView setBackgroundView:bgView];
-    [bgView addSubview:bg2];
-    UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-    [bgView setBackgroundColor:tableBGColor];
-    [self.tableView setBackgroundColor:tableBGColor];
+    if(!kIsiOS7){
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
+        [bg setContentMode:UIViewContentModeTopLeft];
+        [tv setTableFooterView:bg];
+        [self.tableView setSectionFooterHeight:0];
+        /*
+        UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
+        [self.tableView setBackgroundView:TVbgView];
+        */        
+        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
+        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
+        [bg2 setContentMode:UIViewContentModeTop];
+        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
+        [self.tableView setBackgroundView:bgView];
+        [bgView addSubview:bg2];
+        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+        [bgView setBackgroundColor:tableBGColor];
+        [self.tableView setBackgroundColor:tableBGColor];
+    }
     
     [tv setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
@@ -122,11 +122,16 @@
         
         UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Done" target:self action:@selector(exitModal)];
         self.navigationItem.leftBarButtonItem = doneButton;
-        
+        if(!kIsiOS7){
         self.navigationItem.rightBarButtonItem = [CBThemeHelper createBlueButtonItemWithImage:[UIImage imageNamed:@"IconPlusSign.png"]
                                                                               andPressedImage:[UIImage imageNamed:@"IconPlusSignSelected.png"]
                                                                                        target:self
                                                                                        action:@selector(launchWidgetPicker)];
+        }
+        else{
+            [self.tableView setBackgroundColor:[UIColor whiteColor]];
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonSystemItemAdd target:self action:@selector(launchWidgetPicker)];
+        }
     }
     
     [self setTitle:@"Items"];
@@ -191,6 +196,17 @@
     return ret;
 }
 
+-(void)addCellAccessory:(UITableViewCell *) cell{
+    if(!kIsiOS7){
+        UIImageView *accessory = [[ UIImageView alloc ]
+                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
+        cell.accessoryView = accessory;
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section==0){
@@ -253,9 +269,7 @@
             [cell.textLabel setText:widgetName];
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"DateTime Format: %@",[widgetClass objectForKey:@"dateFormatOverride"]]];
         }
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;
+        [self addCellAccessory:cell];
         [cell.backgroundView setClipsToBounds:YES];
         
         
@@ -485,11 +499,20 @@
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
     [titleItem setStyle:UIBarButtonItemStylePlain];
+    
+    if(kIsiOS7){
+        [titleLabel setTextColor:[UIColor darkGrayColor]];
+        [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0]];
+        [self.pickerAS setBackgroundColor:[UIColor whiteColor]];
+        [pickertoolbar setTintColor:nil];
+
+    }
+    
     [barItems addObject:cancelBtn];
     [barItems addObject:flexSpace];  
     [barItems addObject:titleItem];
@@ -599,11 +622,27 @@
 
 -(void)launchWidgetPicker
 {   
-    
+    //if(!kIsiOS7){
     self.picker = [[addWidgetPicker alloc] init];
     NSString *title = @"Items";
-    self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
-    [self addToolbarToPicker:title];
+    if(!self.pickerAS){
+        if(!kIsiOS7)
+            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+        else
+            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        [self addToolbarToPicker:title];
+    }
+    /*}
+    else{
+        if(!self.pickerAS)
+            self.pickerAS = [[UIActionSheet alloc] initWithTitle:@"Items" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:Nil otherButtonTitles:@"Add", nil];
+        if(!self.picker)
+            self.picker = [[addWidgetPicker alloc] init];
+        [self.pickerAS addSubview:self.picker.pickerView];
+        [self.pickerAS showInView:self.view];
+        [self.pickerAS setBounds:CGRectMake(0,0,320, 464)];
+    }
+     */
 }
 
 

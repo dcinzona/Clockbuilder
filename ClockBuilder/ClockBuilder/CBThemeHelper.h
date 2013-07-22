@@ -56,6 +56,10 @@
 +(void)setTitle:(NSString *)title forCustomBarButton:(UIBarButtonItem*)button;
 +(NSString*)getTitleCustBarButton:(UIBarButtonItem*)button;
 
++(UIButton *)createBlueUIButtonWithTitle: (NSString *)t target:(id)tgt action:(SEL)a frame:(CGRect)buttonFrame;
++(UIButton *)createGrayUIButtonWithTitle: (NSString *)t target:(id)tgt action:(SEL)a frame:(CGRect)buttonFrame;
+
+
 //Toolbar
 +(void)setBackgroundImage:(UIImage*)bg forToolbar:(UIToolbar*)toolbar;
 +(BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL;

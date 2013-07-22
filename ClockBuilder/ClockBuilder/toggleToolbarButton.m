@@ -54,6 +54,7 @@
 {
     toolbarHidden = NO;
     [self setShowsTouchWhenHighlighted:YES];
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, 40, 40)];
     //UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPiece:)];
     [self addTarget:self action:@selector(tapPiece:) forControlEvents:UIControlEventTouchUpInside];
     self.layer.cornerRadius = 20;

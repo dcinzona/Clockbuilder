@@ -16,7 +16,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code        [self setBackgroundColor:[UIColor clearColor]];
+        // Initialization code
+        [self setBackgroundColor:[UIColor clearColor]];
         CGRect frame = CGRectMake(40, 0, 240, 360);
         if(kIsIpad)
             frame = CGRectMake(40, 0, 300, 360);

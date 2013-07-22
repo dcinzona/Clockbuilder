@@ -1360,7 +1360,16 @@
 
 + (UIBarButtonItem *)createBlueButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
 {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [button setTitle:t forState:UIControlStateNormal];
+    
+    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
+    //[button addTarget:tgt action:a forControlEvents:UIControlEventAllTouchEvents];
+    
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    if(!kIsiOS7){
         // Since the buttons can be any width we use a thin image with a stretchable center point
         UIImage *buttonImage = [[UIImage imageNamed:@"ButtonBlue30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
         UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonBlue30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
@@ -1371,27 +1380,39 @@
         [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
         [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
         [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
-        
         CGRect buttonFrame = [button frame];
         buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
         buttonFrame.size.height = buttonImage.size.height;
         [button setFrame:buttonFrame];
         
+        
         [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
         [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
         
-        [button setTitle:t forState:UIControlStateNormal];
-        
-        [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
-        
-        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-        
         return buttonItem;
+    }
+    else{
+        CGRect buttonFrame = [button frame];
+        buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
+        [button setFrame:buttonFrame];
+        [button setTitleColor:kDefaultBlue forState:UIControlStateNormal];
+        [button setTitleColor:kDefaultBlue forState:UIControlStateHighlighted];
+         UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStylePlain target:tgt action:a];
+        [buttonItem setTintColor:kDefaultBlue];
+        return buttonItem;
+    }
 }
 + (UIBarButtonItem *)createDoneButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
 {
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:t forState:UIControlStateNormal];
+    
+    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    if(!kIsiOS7){
         // Since the buttons can be any width we use a thin image with a stretchable center point
         UIImage *buttonImage = [[UIImage imageNamed:@"ButtonDarkGrey30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
         UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonDarkGrey30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
@@ -1411,6 +1432,154 @@
         [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
         [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
         
+        return buttonItem;
+    }
+    else{
+        CGRect buttonFrame = [button frame];
+        buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
+        [button setFrame:buttonFrame];
+        [button setTitleColor:kDefaultBlue forState:UIControlStateNormal];
+        [button setTitleColor:kDefaultBlue forState:UIControlStateHighlighted];
+        [buttonItem setTintColor:kDefaultBlue];
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStylePlain target:tgt action:a];
+        return buttonItem;
+    }
+}
++ (UIBarButtonItem *)createDarkButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
+{
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:t forState:UIControlStateNormal];
+    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    if(!kIsiOS7){
+        // Since the buttons can be any width we use a thin image with a stretchable center point
+        UIImage *buttonImage = [[UIImage imageNamed:@"ButtonDarkGrey30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonDarkGrey30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        
+        [[button titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
+        [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
+        
+        CGRect buttonFrame = [button frame];
+        buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
+        buttonFrame.size.height = buttonImage.size.height;
+        [button setFrame:buttonFrame];
+        
+        [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+        
+    
+        return buttonItem;
+    }
+        else{
+            
+            UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStylePlain target:tgt action:a];
+            [buttonItem setTintColor:[UIColor blackColor]];
+            return buttonItem;
+        }
+}
++ (UIBarButtonItem *)createButtonItemWithImage:(UIImage *)image andPressedImage:(UIImage*)imagePressed target:(id)tgt action:(SEL)a
+{
+    
+    if(!kIsiOS7){
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        // Since the buttons can be any width we use a thin image with a stretchable center point
+        UIImage *buttonImage = [[UIImage imageNamed:@"ButtonDarkGrey30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonDarkGrey30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        
+        [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+        
+        CGRect buttonFrame = [button frame];
+        buttonFrame.size.width = image.size.width + 15.0;
+        buttonFrame.size.height = image.size.height + 15.0;
+        [button setFrame:buttonFrame];
+        
+        [button setImage:image forState:UIControlStateNormal];
+        [button setImage:imagePressed forState:UIControlStateHighlighted];
+        
+        [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        
+        return buttonItem;
+    }
+    else{
+        
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:tgt action:a];
+        
+        return buttonItem;
+    }
+}
++ (UIBarButtonItem *)createBlueButtonItemWithImage:(UIImage *)image andPressedImage:(UIImage*)imagePressed target:(id)tgt action:(SEL)a
+{
+    
+    if(!kIsiOS7){
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        // Since the buttons can be any width we use a thin image with a stretchable center point
+        UIImage *buttonImage = [[UIImage imageNamed:@"ButtonBlue30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonBlue30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        
+        [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+        
+        CGRect buttonFrame = [button frame];
+        buttonFrame.size.width = image.size.width + 15.0;
+        buttonFrame.size.height = image.size.height + 15.0;
+        [button setFrame:buttonFrame];
+        
+        [button setImage:image forState:UIControlStateNormal];
+        [button setImage:imagePressed forState:UIControlStateHighlighted];
+        
+        [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        
+        return buttonItem;
+    }
+    else{
+        
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:tgt action:a];
+        return buttonItem;
+    }
+}
++ (UIBarButtonItem *)createBackButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
+{
+    if(!kIsiOS7){
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        // Since the buttons can be any width we use a thin image with a stretchable center point
+        UIImage *buttonImage = [[UIImage imageNamed:@"BarButtonItemBack.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:5];
+        UIImage *buttonPressedImage = [[UIImage imageNamed:@"BarButtonItemBackSelected.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:5];
+        
+        [[button titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
+        [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
+        
+        
+        int clipLength = 8;
+        if([t length]>clipLength)
+        {
+            t = [NSString stringWithFormat:@"%@...",[t substringToIndex:clipLength]];
+        }
+        
+        
+        CGRect buttonFrame = [button frame];
+        buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 30.0;
+        
+        buttonFrame.size.height = buttonImage.size.height;
+        [button setFrame:buttonFrame];
+        
+        [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+        
         [button setTitle:t forState:UIControlStateNormal];
         
         [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
@@ -1418,127 +1587,10 @@
         UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
         
         return buttonItem;
-}
-+ (UIBarButtonItem *)createDarkButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
-{
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    // Since the buttons can be any width we use a thin image with a stretchable center point
-    UIImage *buttonImage = [[UIImage imageNamed:@"ButtonDarkGrey30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonDarkGrey30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    
-    [[button titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
-    [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
-    [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
-    
-    CGRect buttonFrame = [button frame];
-    buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
-    buttonFrame.size.height = buttonImage.size.height;
-    [button setFrame:buttonFrame];
-    
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
-    
-    [button setTitle:t forState:UIControlStateNormal];
-    
-    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
-    return buttonItem;
-}
-+ (UIBarButtonItem *)createButtonItemWithImage:(UIImage *)image andPressedImage:(UIImage*)imagePressed target:(id)tgt action:(SEL)a
-{
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    // Since the buttons can be any width we use a thin image with a stretchable center point
-    UIImage *buttonImage = [[UIImage imageNamed:@"ButtonDarkGrey30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonDarkGrey30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
-    
-    CGRect buttonFrame = [button frame];
-    buttonFrame.size.width = image.size.width + 15.0;
-    buttonFrame.size.height = image.size.height + 15.0;
-    [button setFrame:buttonFrame];
-    
-    [button setImage:image forState:UIControlStateNormal];
-    [button setImage:imagePressed forState:UIControlStateHighlighted];
-    
-    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
-    return buttonItem;
-}
-+ (UIBarButtonItem *)createBlueButtonItemWithImage:(UIImage *)image andPressedImage:(UIImage*)imagePressed target:(id)tgt action:(SEL)a
-{
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    // Since the buttons can be any width we use a thin image with a stretchable center point
-    UIImage *buttonImage = [[UIImage imageNamed:@"ButtonBlue30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonBlue30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
-    
-    CGRect buttonFrame = [button frame];
-    buttonFrame.size.width = image.size.width + 15.0;
-    buttonFrame.size.height = image.size.height + 15.0;
-    [button setFrame:buttonFrame];
-    
-    [button setImage:image forState:UIControlStateNormal];
-    [button setImage:imagePressed forState:UIControlStateHighlighted];
-    
-    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
-    return buttonItem;
-}
-+ (UIBarButtonItem *)createBackButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
-{
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    // Since the buttons can be any width we use a thin image with a stretchable center point
-    UIImage *buttonImage = [[UIImage imageNamed:@"BarButtonItemBack.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:5];
-    UIImage *buttonPressedImage = [[UIImage imageNamed:@"BarButtonItemBackSelected.png"] stretchableImageWithLeftCapWidth:15 topCapHeight:5];
-    
-    [[button titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
-    [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
-    [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
-    
-    
-    int clipLength = 8;
-    if([t length]>clipLength)
-    {
-        t = [NSString stringWithFormat:@"%@...",[t substringToIndex:clipLength]];
     }
-    
-    
-    CGRect buttonFrame = [button frame];
-    buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 30.0;
-    
-    buttonFrame.size.height = buttonImage.size.height;
-    [button setFrame:buttonFrame];
-    
-    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
-    
-    [button setTitle:t forState:UIControlStateNormal];
-    
-    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
-    return buttonItem;
+    else{
+        return [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStylePlain target:tgt action:a];
+    }
 }
 
 + (UIBarButtonItem *)createBorderlessButtonItemWithImage:(UIImage *)image andPressedImage:(UIImage*)imagePressed target:(id)tgt action:(SEL)a
@@ -1560,36 +1612,118 @@
     
     return buttonItem;
 }
+
++(UIButton *)createBlueUIButtonWithTitle: (NSString *)t target:(id)tgt action:(SEL)a frame:(CGRect)buttonFrame{
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    // Since the buttons can be any width we use a thin image with a stretchable center point
+    UIImage *buttonImage = [[UIImage imageNamed:@"ButtonBlue30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+    if(!kIsiOS7){
+        UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonBlue30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+        [[button titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
+        [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
+        
+        buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
+        buttonFrame.size.height = buttonImage.size.height;
+    }
+    else{
+        [button setBackgroundColor:kDefaultBlue];
+    }
+    [button setFrame:buttonFrame];
+    [button setTitle:t forState:UIControlStateNormal];
+    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
+    
+    return button;
+}
++(UIButton *)createGrayUIButtonWithTitle: (NSString *)t target:(id)tgt action:(SEL)a frame:(CGRect)buttonFrame{
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    // Since the buttons can be any width we use a thin image with a stretchable center point
+    UIImage *buttonImage = [[UIImage imageNamed:@"ButtonDarkGrey30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+    if(!kIsiOS7){
+        UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonDarkGrey30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+        [[button titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
+        [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
+        
+        buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
+        buttonFrame.size.height = buttonImage.size.height;
+    }
+    else{
+        [button setBackgroundColor:[UIColor darkGrayColor]];
+    }
+    [button setFrame:buttonFrame];
+    [button setTitle:t forState:UIControlStateNormal];
+    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
+    
+    return button;
+}
+
 +(void)setTitle:(NSString *)title forCustomBarButton:(UIBarButtonItem*)button{
-    UIButton *b = (UIButton*)button.customView;
-    [b setTitle:title forState:UIControlStateNormal];
-    [b setTitle:title forState:UIControlStateHighlighted];
-    [button setCustomView:b];
+    //NSLog(@"button class: %@", NSStringFromClass(button.class));
+    //if(!kIsiOS7 || button.class == UIButton.class){
+        UIButton *b = (UIButton*)button.customView;
+    if(b){
+        [b setTitle:title forState:UIControlStateNormal];
+        [b setTitle:title forState:UIControlStateHighlighted];
+        [button setCustomView:b];
+    }
+    else{
+        [button setTitle:title];
+    }
+    /*}
+    else{
+        [button setTitle:title];
+    }*/
 }
 +(NSString*)getTitleCustBarButton:(UIBarButtonItem*)barButton{
+    //if(!kIsiOS7 || barButton.class == UIButton.class){
     UIButton *b = (UIButton*)barButton.customView;
-    //NSLog(@"buttonTitle:%@", b.currentTitle);
-    return b.currentTitle;
+    if(b)
+        return b.currentTitle;
+    else{
+        return barButton.title;
+    }
+    //}
+    //else{
+    //    return barButton.title;
+    //}
 }
 
 +(void)setBackgroundImage:(UIImage*)bg forToolbar:(UIToolbar*)toolbar{
 
-    if(!bg){
-        bg = [UIImage imageNamed:@"ToolbarBackground.png"];
+    if(!kIsiOS7){
+        if(!bg){
+            bg = [UIImage imageNamed:@"ToolbarBackground.png"];
+        }
+        if ([toolbar respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
+            [toolbar setBackgroundImage:bg forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+        } else {
+            CGRect screenBounds = [[UIScreen mainScreen] bounds];
+            UIColor *bgPattern = [UIColor colorWithPatternImage:bg];
+            [toolbar setBackgroundColor:bgPattern];
+            UIImageView *bgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, screenBounds.size.width , toolbar.bounds.size.height)];
+            [bgView setBackgroundColor:bgPattern];
+            [toolbar insertSubview:bgView atIndex:0];
+            //[toolbar insertSubview:[[UIImageView alloc] initWithImage:bg] atIndex:0];
+        }
     }
-    if ([toolbar respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
-        [toolbar setBackgroundImage:bg forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
-    } else {
-        CGRect screenBounds = [[UIScreen mainScreen] bounds];
-        UIColor *bgPattern = [UIColor colorWithPatternImage:bg];
-        [toolbar setBackgroundColor:bgPattern];
-        UIImageView *bgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, screenBounds.size.width , toolbar.bounds.size.height)];
-        [bgView setBackgroundColor:bgPattern];
-        [toolbar insertSubview:bgView atIndex:0];
-        //[toolbar insertSubview:[[UIImageView alloc] initWithImage:bg] atIndex:0];
+    else{
+        if([toolbar respondsToSelector:@selector(setBarTintColor:)])
+            [toolbar performSelector:@selector(setBarTintColor:) withObject:[UIColor whiteColor]];
+        [toolbar setTintColor:[UIColor blackColor]];
     }
 }
-                           
+
 
 
 @end

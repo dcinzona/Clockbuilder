@@ -51,7 +51,9 @@
     //[self.navigationBar setBarStyle:UIBarStyleBlackOpaque];
     // Do any additional setup after loading the view from its nib.
     if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]){
+        if(!kIsiOS7){
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"] forBarMetrics:UIBarMetricsDefault];
+        }
     }
 }
 
@@ -69,7 +71,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 - (IBAction)doneButtonClick:(id*)sender{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
@@ -80,7 +82,9 @@
 -(void)viewDidLoad{
     
     if ([self.navigationController.navigationBar respondsToSelector:@selector( setBackgroundImage:forBarMetrics:)]){
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"] forBarMetrics:UIBarMetricsDefault];
+        if(!kIsiOS7){
+            [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"NavigationBarBackground.png"] forBarMetrics:UIBarMetricsDefault];
+        }
     }
 }
 

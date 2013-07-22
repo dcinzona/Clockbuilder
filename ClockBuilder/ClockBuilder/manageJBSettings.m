@@ -262,6 +262,17 @@
 }
 
 
+-(void)addCellAccessory:(UITableViewCell *) cell{
+    if(!kIsiOS7){
+        UIImageView *accessory = [[ UIImageView alloc ]
+                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
+        cell.accessoryView = accessory;
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -283,18 +294,14 @@
         NSString *appFilePNG = [documentsDirectory stringByAppendingPathComponent:@"/lockscreen/slider@2x.png"];
         UIImage *bgImage = [UIImage imageWithContentsOfFile:appFilePNG];
         cell.imageView.image = bgImage;
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;
+        [self addCellAccessory:cell];
         return cell;
     }
     if(indexPath.row == 1){
         
         cell.textLabel.text = @"Customize Language Elements";
         
-        UIImageView *accessory = [[ UIImageView alloc ]
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;
+        [self addCellAccessory:cell];
         
     }
     
@@ -389,7 +396,7 @@
     }
     else
     {
-        [self presentViewController:wallpaperPicker animated:YES completion:nil];
+        [self presentModalViewController:wallpaperPicker animated:YES];
     }
 }
 
@@ -402,7 +409,7 @@
     [cell.imageView setNeedsDisplay];
     if([self.parentViewController respondsToSelector:@selector(viewWillAppear:)])
         [self.parentViewController performSelector:@selector(viewWillAppear:) withObject:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
@@ -470,7 +477,7 @@
     {
         [pop dismissPopoverAnimated:YES];
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+	[self dismissModalViewControllerAnimated:YES];
 	//exit(0);
 }
 

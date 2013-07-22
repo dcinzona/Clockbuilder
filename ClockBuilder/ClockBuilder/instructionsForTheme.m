@@ -15,7 +15,7 @@
 
 -(IBAction)CloseModal
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

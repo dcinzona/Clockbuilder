@@ -74,32 +74,36 @@
     if (self) {
         
         /*
-        UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-        [bg setImage:[UIImage imageNamed:@"fadedBG.JPG"]];
-        [self.view addSubview:bg];
-        
-        bg.layer.masksToBounds = NO;
-        bg.layer.cornerRadius = 0;
-        [bg.layer setShadowColor:[UIColor blackColor].CGColor];
-        bg.layer.shadowOffset = CGSizeMake(0,0);
-        bg.layer.shadowRadius = 10;
-        bg.layer.shadowOpacity = 1;
-        bg.layer.shadowPath = [UIBezierPath bezierPathWithRect:bg.bounds].CGPath;
+         UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+         [bg setImage:[UIImage imageNamed:@"fadedBG.JPG"]];
+         [self.view addSubview:bg];
+         
+         bg.layer.masksToBounds = NO;
+         bg.layer.cornerRadius = 0;
+         [bg.layer setShadowColor:[UIColor blackColor].CGColor];
+         bg.layer.shadowOffset = CGSizeMake(0,0);
+         bg.layer.shadowRadius = 10;
+         bg.layer.shadowOpacity = 1;
+         bg.layer.shadowPath = [UIBezierPath bezierPathWithRect:bg.bounds].CGPath;
          */
-        
-        UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-        [bg setImage:[UIImage imageNamed:@"tableGradient"]];
-        [bg setContentMode:UIViewContentModeTop];
-        UIView *bgView = [[UIView alloc] initWithFrame:bg.frame];
-        [self.view addSubview:bgView];        
-        [bgView addSubview:bg];
-        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-        [bgView setBackgroundColor:tableBGColor];
-        
+        if(!kIsiOS7){
+            UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
+            [bg setImage:[UIImage imageNamed:@"tableGradient"]];
+            [bg setContentMode:UIViewContentModeTop];
+            UIView *bgView = [[UIView alloc] initWithFrame:bg.frame];
+            [self.view addSubview:bgView];
+            [bgView addSubview:bg];
+            UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+            [bgView setBackgroundColor:tableBGColor];
+        }
         // Custom initialization
         _gmGridView = [[GMGridView alloc] initWithFrame:self.view.bounds];
         _gmGridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _gmGridView.backgroundColor = [UIColor clearColor];
+        if(kIsiOS7){
+            [_gmGridView setBackgroundColor:[UIColor whiteColor]];
+            [self.view setBackgroundColor:[UIColor whiteColor]];
+        }
         [_gmGridView setClipsToBounds:YES];
         [self.view addSubview:_gmGridView];
         
@@ -112,26 +116,30 @@
         _gmGridView.dataSource = self;
         
         
-        
         if(kIsIpad){
             UIBarButtonItem *search = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showThemePicker)];
             self.navigationItem.rightBarButtonItem = search;
             self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
         }
         else{
-            UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                     andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                              target:self action:@selector(showThemePicker)
-                                             ];
-            self.navigationItem.rightBarButtonItem = searchButton;
-            UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved Themes" target:self.navigationController action:@selector(popViewControllerAnimated:)];
+            if(kIsiOS7){
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showThemePicker)];
+            }
+            else{
+                UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
+                                                                         andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
+                                                                                  target:self action:@selector(showThemePicker)
+                                                 ];
+                self.navigationItem.rightBarButtonItem = searchButton;
+            }
+            UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved" target:self.navigationController action:@selector(popViewControllerAnimated:)];
             [self.navigationItem setLeftBarButtonItem: backButton];
         }
         
         _data =[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"onlineThemesArray"]];
         selectedCategory = [[NSUserDefaults standardUserDefaults] objectForKey:@"onlineThemesArrayCategory"];
         //if(selectedCategory==nil){
-            [self getCategoriesArray];
+        [self getCategoriesArray];
         //}
         if(!_data)
             [self getThemesFromOnline];
@@ -175,9 +183,9 @@
             dispatch_async(dispatch_get_main_queue(), ^(void) {
                 NSDictionary *dict = [[GMTHelper sharedInstance] buildDictForHUDWithLabelText:nil andImage:nil andHide:YES withDelay:10 andDim:YES];
                 [[GMTHelper sharedInstance] notifyToShowGlobalHudWithDict:dict];
-            });            
+            });
             if([[GMTHelper sharedInstance] deviceIsConnectedToInet]){
-                isLoading = YES;                
+                isLoading = YES;
                 NSString *URL = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/getThemes2.php?api=SDFB52f4vw9230V45gdfg&v=1.5.1&category=%@",[selectedCategory stringByReplacingOccurrencesOfString:@"-" withString:@""]];
                 if (kIsIpad) {
                     URL = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/getThemes-ipad.php?api=SDFB52f4vw9230V45gdfg&v=1.5.1&category=%@",[selectedCategory stringByReplacingOccurrencesOfString:@"-" withString:@""]];
@@ -222,7 +230,7 @@
                     [_gmGridView scrollToObjectAtIndex:0 atScrollPosition:GMGridViewScrollPositionTop animated:NO];
                     [self.navigationController.navigationBar.topItem setTitle:[selectedCategory stringByReplacingOccurrencesOfString:@"-" withString:@""]];
                     [_gmGridView reloadData];
-                });   
+                });
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -232,7 +240,7 @@
                     [[GMTHelper sharedInstance]alertNotConnected];
                 });
             }
-        }  
+        }
     });
 }
 
@@ -278,12 +286,18 @@
         self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
     }
     else{
-        UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                 andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                          target:self action:@selector(showThemePicker)
-                                         ];
-        self.navigationItem.rightBarButtonItem = searchButton;
-        UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved Themes" target:self.navigationController action:@selector(popViewControllerAnimated:)];
+        
+        if(kIsiOS7){
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showThemePicker)];
+        }
+        else{
+            UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
+                                                                     andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
+                                                                              target:self action:@selector(showThemePicker)
+                                             ];
+            self.navigationItem.rightBarButtonItem = searchButton;
+        }
+        UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved" target:self.navigationController action:@selector(popViewControllerAnimated:)];
         [self.navigationItem setLeftBarButtonItem: backButton];
     }
 }
@@ -292,14 +306,14 @@
                                              selector:@selector(completedUploadingTheme:)
                                                  name:@"completedUploadingTheme"
                                                object:nil];
-
+    
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"completedUploadingTheme" object:nil];
 }
 -(void)viewDidDisappear:(BOOL)animated{
     
-    //[self viewDidUnload];
+    [self viewDidUnload];
 }
 - (void)viewDidUnload
 {
@@ -333,10 +347,10 @@
 {
     
     if(kIsIpad){
-       return CGSizeMake(kiPadThumbSizeWidth, kiPadThumbSizeHeight);
+        return CGSizeMake(kiPadThumbSizeWidth, kiPadThumbSizeHeight);
     }
     
-     return CGSizeMake(kiPhoneThumbSizeWidth, kiPhoneThumbSizeHeight);
+    return CGSizeMake(kiPhoneThumbSizeWidth, kiPhoneThumbSizeHeight);
 }
 
 - (GMGridViewCell *)GMGridView:(GMGridView *)gridView cellForItemAtIndex:(NSInteger)index
@@ -347,18 +361,20 @@
     
     GMGridViewCell *cell = [gridView dequeueReusableCell];
     
-    if (!cell) 
+    if (!cell)
     {
         cell = [[GMGridViewCell alloc] init];
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-        view.backgroundColor = [UIColor blackColor];
-        view.layer.masksToBounds = NO;
-        view.layer.cornerRadius = 0;
-        [view.layer setShadowColor:[UIColor blackColor].CGColor];
-        view.layer.shadowOffset = CGSizeMake(0,5);
-        view.layer.shadowRadius = 5;
-        view.layer.shadowOpacity = 1;
-        view.layer.shadowPath = [UIBezierPath bezierPathWithRect:view.bounds].CGPath;
+        if(!kIsiOS7){
+            view.backgroundColor = [UIColor blackColor];
+            view.layer.masksToBounds = NO;
+            view.layer.cornerRadius = 0;
+            [view.layer setShadowColor:[UIColor blackColor].CGColor];
+            view.layer.shadowOffset = CGSizeMake(0,5);
+            view.layer.shadowRadius = 5;
+            view.layer.shadowOpacity = 1;
+            view.layer.shadowPath = [UIBezierPath bezierPathWithRect:view.bounds].CGPath;
+        }
         cell.contentView = view;
         
         CGRect frame = CGRectMake(0, 0, kiPhoneThumbSizeWidth, kiPhoneThumbSizeHeight);
@@ -420,18 +436,24 @@
             self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
         }
         else{
-            UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"] 
-                                                                     andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                              target:self action:@selector(showThemePicker)
-                                             ];
-            self.navigationItem.rightBarButtonItem = searchButton;
             
-            UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved Themes" target:self.navigationController action:@selector(popViewControllerAnimated:)];
+            if(kIsiOS7){
+                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showThemePicker)];
+            }
+            else{
+                UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
+                                                                         andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
+                                                                                  target:self action:@selector(showThemePicker)
+                                                 ];
+                self.navigationItem.rightBarButtonItem = searchButton;
+            }
+            
+            UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved" target:self.navigationController action:@selector(popViewControllerAnimated:)];
             //[self.navigationItem setBackBarButtonItem:backButton];
             [self.navigationItem setLeftBarButtonItem: backButton];
         }
         
-        CGRect slidDown = CGRectMake(0, 0, _gmGridView.frame.size.width, _gmGridView.frame.size.height); 
+        CGRect slidDown = CGRectMake(0, 0, _gmGridView.frame.size.width, _gmGridView.frame.size.height);
         UIView *bottomView = [self.view.subviews objectAtIndex:1];
         
         [UIView animateWithDuration:0.3
@@ -440,11 +462,12 @@
                          animations:^{
                              [bottomView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, 320, 180)];
                              [_gmGridView setFrame:slidDown];
-                         } 
+                             [_gmGridView setAlpha:1];
+                         }
                          completion:^(BOOL finished){
                              [catPicker removeFromSuperview],catPicker = nil;
                              
-                         }];   
+                         }];
         selectedCategory = self.navigationController.navigationBar.topItem.title;
         _pickerVisible = NO;
         return true;
@@ -468,7 +491,7 @@
     if(![self cancelCategoryPicker]){
         themeNameToDownload = [[_currentData objectAtIndex:position] objectForKey:@"themeName"];
         selectedIndex = position;
-        UIActionSheet *themeActions; 
+        UIActionSheet *themeActions;
 #ifdef DEBUG
         if([self isSimulator] && ![[selectedCategory stringByReplacingOccurrencesOfString:@"-" withString:@""] isEqualToString:@"Flagged"]){
             themeActions = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Download", kInappropriate, nil];
@@ -481,7 +504,7 @@
 #endif
         
         [themeActions setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-        [themeActions showInView:self.view];        
+        [themeActions showInView:self.view];
         CGRect cellRect = [_gmGridView cellForItemAtIndex:position].frame;
         UIImageView *thmb = [[UIImageView alloc] initWithFrame:cellRect];
         for (UIView *v in [[_gmGridView cellForItemAtIndex:position].contentView subviews]){
@@ -512,7 +535,7 @@
         } completion:^(BOOL finished) {
             
         }];
-
+        
         
     }
     else {
@@ -531,7 +554,7 @@
 //////////////////////////////////////////////////////////////
 
 - (NSDictionary *)downloadPlist:(NSString *)url {
-    NSMutableURLRequest *request  = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10]; 
+    NSMutableURLRequest *request  = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10];
     NSURLResponse *resp = nil;
     NSError *err = nil;
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&resp error:&err];
@@ -549,7 +572,7 @@
     return nil;
 }
 - (NSData *)downloadImageFrom:(NSString *)url {
-    NSMutableURLRequest *request  = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10]; 
+    NSMutableURLRequest *request  = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10];
     NSURLResponse *resp = nil;
     NSError *err = nil;
     NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&resp error:&err];
@@ -583,7 +606,7 @@
     if([buttonTitle isEqualToString:kInappropriate]){
         //hide up
         [UIView animateWithDuration:.3 animations:^{
-            [thmb setFrame:CGRectMake(thmb.frame.origin.x, -1000, thmb.frame.size.width, thmb.frame.size.height)]; 
+            [thmb setFrame:CGRectMake(thmb.frame.origin.x, -1000, thmb.frame.size.width, thmb.frame.size.height)];
             [thmb setAlpha:0];
         } completion:^(BOOL finished) {
             [thmb removeFromSuperview];
@@ -594,13 +617,13 @@
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/flagTheme.php?api=thisisasecretapikeygmt2745694&themeName=%@",themeNameToFlag]];
         
         UIView *mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].view;
-        UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController);
+        UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController);
         if(modalPresent!=nil){
-            mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController.view;
+            mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController.view;
         }
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:mainView animated:YES];
         hud.labelText = @"Flagging...";
-
+        
         
         dispatch_async(dispatch_queue_create("com.gmtaz.Clockbuilder.FlagTheme", NULL), ^{
             NSError *error;
@@ -646,9 +669,9 @@
         if(themeNameToDownload && selectedIndex>=0){
             
             UIView *mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].view;
-            UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController);
+            UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController);
             if(modalPresent!=nil){
-                mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController.view;
+                mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController.view;
             }
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:mainView animated:YES];
             hud.labelText = @"Deleting...";
@@ -667,9 +690,9 @@
                             //[_gmGridView reloadData];
                             selectedIndex = -1;
                             UIView *mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].view;
-                            UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController);
+                            UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController);
                             if(modalPresent!=nil){
-                                mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController.view;
+                                mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController.view;
                             }
                             
                             hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"doneCheck.png"]];
@@ -694,7 +717,7 @@
         else {
             NSLog(@"did not try to delete:%@ index:%i", themeNameToDownload, selectedIndex);
         }
-
+        
     }
     
     
@@ -707,7 +730,7 @@
         }
         [thmb setFrame:frame];
         [UIView animateWithDuration:.4 animations:^{
-            [thmb setFrame:CGRectMake(-200, thmb.frame.origin.y,thmb.frame.size.width, thmb.frame.size.height)]; 
+            [thmb setFrame:CGRectMake(-200, thmb.frame.origin.y,thmb.frame.size.width, thmb.frame.size.height)];
             [thmb setAlpha:0];
         } completion:^(BOOL finished) {
             [thmb removeFromSuperview];
@@ -725,13 +748,13 @@
                 NSDictionary *widgetList = [self downloadPlist:[themeURLString stringByAppendingString:@"widgetsList.plist"]];
                 //save data
                 if(widgetList!=nil && themeScreenshotData!=nil && lockbackgroundData!=nil){
-                    NSMutableDictionary *wListMutable = [widgetList mutableCopy];  
+                    NSMutableDictionary *wListMutable = [widgetList mutableCopy];
                     NSMutableDictionary *themeDict = [[NSMutableDictionary alloc] init];
                     [themeDict setObject:lockbackgroundData forKey:@"LockBackground.png"];
                     [themeDict setObject:themeScreenshotData forKey:@"themeScreenshot.jpg"];
                     [themeDict setObject:wListMutable forKey:@"widgetsList"];
                     
-                    NSManagedObjectContext *addingContext = [delegate getManagedObjectContext];                        
+                    NSManagedObjectContext *addingContext = [delegate getManagedObjectContext];
                     CoreTheme *cTheme = (CoreTheme *)[NSEntityDescription insertNewObjectForEntityForName:@"CoreTheme"
                                                                                    inManagedObjectContext:addingContext];
                     [addingContext obtainPermanentIDsForObjects:[NSArray arrayWithObject:cTheme] error:nil];
@@ -752,7 +775,7 @@
                             NSLog(@"error downloading theme: %@", error);
                         }
                         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
-                    });     
+                    });
                 }
                 else {
                     dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -761,7 +784,7 @@
                         [[GMTHelper sharedInstance] alertWithString:@"There was an error downloading the theme. Support has been notified."];
                         
                         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
-                    });     
+                    });
                 }
             });
         }
@@ -785,33 +808,54 @@
         self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
     }
     else{
-        UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                 andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                          target:self action:@selector(showThemePicker)
-                                         ];
-        self.navigationItem.rightBarButtonItem = searchButton;
+        
+        
+        if(kIsiOS7){
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showThemePicker)];
+        }
+        else{
+            UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
+                                                                     andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
+                                                                              target:self action:@selector(showThemePicker)
+                                             ];
+            self.navigationItem.rightBarButtonItem = searchButton;
+        }
+        
         UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved Themes" target:self.navigationController action:@selector(popViewControllerAnimated:)];
         [self.navigationItem setLeftBarButtonItem: backButton];
     }
     CGRect slidDown = CGRectMake(0, 0, _gmGridView.frame.size.width, _gmGridView.frame.size.height);
     UIView *pickerView = [self.view.subviews objectAtIndex:1];
-
+    
     [UIView animateWithDuration:0.3
                           delay:0
                         options: UIViewAnimationCurveEaseOut
                      animations:^{
                          [pickerView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, 320, 180)];
                          [_gmGridView setFrame:slidDown];
-                     } 
+                         [_gmGridView setAlpha:1];
+                     }
                      completion:^(BOOL finished){
-                         [catPicker removeFromSuperview],catPicker = nil;   
+                         [catPicker removeFromSuperview],catPicker = nil;
                          [self refreshThemes];
-                     }];    
+                     }];
 }
 
 -(void)showThemePicker{
     _pickerVisible = YES;
-    catPicker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 440, 320, 180)];
+    CGRect pickerRect = CGRectMake(0, self.view.frame.size.height, 320, 180);
+    if(kIsiOS7){
+        //pickerRect = CGRectMake(0, 0, 320, 180);
+        if(!catPicker){
+            catPicker = [[UIPickerView alloc] initWithFrame:pickerRect];
+        }
+        [catPicker setBackgroundColor:[UIColor whiteColor]];
+    }
+    else{
+        if(!catPicker){
+            catPicker = [[UIPickerView alloc] initWithFrame:pickerRect];
+        }
+    }
     catPicker.delegate = self;
     catPicker.showsSelectionIndicator = YES;
     selectedCategory = self.navigationController.navigationBar.topItem.title;
@@ -830,20 +874,26 @@
         UIBarButtonItem *cancelButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Cancel" target:self action:@selector(cancelCategoryPicker)];
         self.navigationItem.leftBarButtonItem = cancelButton;
     }
+    [_gmGridView setAlpha:.3];
     [self.view insertSubview:catPicker aboveSubview:[self.view.subviews objectAtIndex:0]];
-        
+    
+    
     [UIView animateWithDuration:0.3
                           delay:0
                         options: UIViewAnimationCurveEaseOut
                      animations:^{
                          if(kIsIpad){
-                             [catPicker setFrame:CGRectMake(0, 280, 320, 180)];
+                             [catPicker setFrame:CGRectMake(0, self.view.frame.size.height - 180, 320, 180)];
                          }
                          else{
-                             [catPicker setFrame:CGRectMake(0, kPickerVertDisplace, 320, 180)];
+                             [catPicker setFrame:CGRectMake(0, self.view.frame.size.height - 180, 320, 180)];
                          }
-                         [_gmGridView setFrame:CGRectMake(0, -180, _gmGridView.frame.size.width, _gmGridView.frame.size.height)];
-                     } 
+                         if(!kIsiOS7){
+                             [_gmGridView setFrame:CGRectMake(0, -180, _gmGridView.frame.size.width, _gmGridView.frame.size.height)];
+                         }else{
+                             [_gmGridView setAlpha:.2];
+                         }
+                     }
                      completion:^(BOOL finished){
                          NSString *title = self.navigationController.navigationBar.topItem.title;
 #ifdef DEBUG
@@ -854,8 +904,8 @@
                          
                          NSInteger index = [[self getCategoriesArray] indexOfObject:title];
                          if(index != NSNotFound && index>=0 && index <[self getCategoriesArray].count)
-                            [catPicker selectRow:index inComponent:0 animated:YES];
-
+                             [catPicker selectRow:index inComponent:0 animated:YES];
+                         
                      }];
     
 }

@@ -15,7 +15,7 @@
     BOOL toolbarHidden;
 }
 
-@property (nonatomic, strong) UIImageView *alignmentIcon;
+@property (nonatomic) UIImageView *alignmentIcon;
 
 -(void)build;
 

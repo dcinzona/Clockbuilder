@@ -137,6 +137,17 @@
 {
     return 64;//self.view.window.screen.scale * 64;
 }
+-(void)addCellAccessory:(UITableViewCell *) cell{
+    if(!kIsiOS7){
+        UIImageView *accessory = [[ UIImageView alloc ]
+                                  initWithImage:[UIImage imageNamed:@"tvCellAccessoryCheck.png" ]];
+        cell.accessoryView = accessory;
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -153,9 +164,7 @@
     if([[AllFonts objectAtIndex:indexPath.row]isEqualToString:[self getFontStringFromWidgetClass]])
     {
         selectedFont = indexPath;
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessoryCheck.png" ]];
-        cell.accessoryView = accessory;    
+        [self addCellAccessory:cell];
     }
     else
     {
@@ -174,7 +183,12 @@
     //if([tableView cellForRowAtIndexPath:selectedFont]!=nil)
     //    [tableView cellForRowAtIndexPath:selectedFont].accessoryView = nil;  
     selectedFont = indexPath;
-    [tableView cellForRowAtIndexPath:selectedFont].accessoryView = accessory;  
+    if(!kIsiOS7){
+    [tableView cellForRowAtIndexPath:selectedFont].accessoryView = accessory;
+    }
+    else{
+        [tableView cellForRowAtIndexPath:selectedFont].accessoryType = UITableViewCellAccessoryCheckmark;
+    }
     NSString *font = [[[tableView cellForRowAtIndexPath:indexPath] textLabel]text];
     NSMutableDictionary *widgetData = [[[[[NSUserDefaults standardUserDefaults] 
                                           objectForKey:@"settings"] 

@@ -506,6 +506,7 @@
 		76889B35135C5A5F0047B9B3 /* tick_8n.png in Resources */ = {isa = PBXBuildFile; fileRef = 768899AF135C5A5F0047B9B3 /* tick_8n.png */; };
 		76889B36135C5A5F0047B9B3 /* tick_9d.png in Resources */ = {isa = PBXBuildFile; fileRef = 768899B0135C5A5F0047B9B3 /* tick_9d.png */; };
 		76889B37135C5A5F0047B9B3 /* tick_9n.png in Resources */ = {isa = PBXBuildFile; fileRef = 768899B1135C5A5F0047B9B3 /* tick_9n.png */; };
+		7689D4B3179DB5BC00DA13AF /* GMTThemeSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 7689D4B2179DB5BC00DA13AF /* GMTThemeSync.m */; };
 		768B88C4134E1C65007F1251 /* Boycott.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 768B88C3134E1C65007F1251 /* Boycott.ttf */; };
 		768C39CD1397DC0A00A6B65D /* weather.js in Resources */ = {isa = PBXBuildFile; fileRef = 768C39CB1397DBE200A6B65D /* weather.js */; };
 		768C39D01397DFE100A6B65D /* manageJBSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 768C39CF1397DFE100A6B65D /* manageJBSettings.m */; };
@@ -1344,6 +1345,8 @@
 		768899AF135C5A5F0047B9B3 /* tick_8n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_8n.png; sourceTree = "<group>"; };
 		768899B0135C5A5F0047B9B3 /* tick_9d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_9d.png; sourceTree = "<group>"; };
 		768899B1135C5A5F0047B9B3 /* tick_9n.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick_9n.png; sourceTree = "<group>"; };
+		7689D4B1179DB5BC00DA13AF /* GMTThemeSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMTThemeSync.h; sourceTree = SOURCE_ROOT; };
+		7689D4B2179DB5BC00DA13AF /* GMTThemeSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMTThemeSync.m; sourceTree = SOURCE_ROOT; };
 		768B88C3134E1C65007F1251 /* Boycott.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Boycott.ttf; sourceTree = "<group>"; };
 		768C39CB1397DBE200A6B65D /* weather.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = weather.js; sourceTree = "<group>"; };
 		768C39CE1397DFE100A6B65D /* manageJBSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = manageJBSettings.h; sourceTree = "<group>"; };
@@ -2754,6 +2757,8 @@
 		CB3D7935154BBA67005BE664 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				7689D4B1179DB5BC00DA13AF /* GMTThemeSync.h */,
+				7689D4B2179DB5BC00DA13AF /* GMTThemeSync.m */,
 				766EC21715110CB800BEDD2E /* CBTheme.h */,
 				766EC21815110CB800BEDD2E /* CBTheme.m */,
 				CB3D7931154BAE30005BE664 /* GMTHelper.h */,
@@ -3064,7 +3069,7 @@
 		CBBDC1A813285C6A00EE9349 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = CBBDC1AB13285C6A00EE9349 /* Build configuration list for PBXProject "ClockBuilder" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -3781,6 +3786,7 @@
 				76F99EB4132E39A4008A3E14 /* PrettyCell.m in Sources */,
 				76F99ED6132E7873008A3E14 /* BGImageCell.m in Sources */,
 				766224B3132FE5900051512F /* textBasedWidget.m in Sources */,
+				7689D4B3179DB5BC00DA13AF /* GMTThemeSync.m in Sources */,
 				760F2E7C1330F27500F6810E /* WidgetPickerViewController.m in Sources */,
 				CBE982F7133171A6002C14C2 /* weatherIconView.m in Sources */,
 				7620731713337AA400C696EE /* weatherSettingsIndex.m in Sources */,
@@ -3933,10 +3939,6 @@
 		CBBAE6CD135A1B8100FF4923 /* AdHoc_Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv7,
-					armv6,
-				);
 				BUILD_STYLE = Release;
 				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Gustavo Tandeciarz";
@@ -4016,10 +4018,6 @@
 		CBBDC1D013285C6B00EE9349 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv7,
-					armv6,
-				);
 				BUILD_STYLE = Debug;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gustavo Tandeciarz (X5VE9NGGP6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gustavo Tandeciarz (X5VE9NGGP6)";
@@ -4035,9 +4033,13 @@
 				HEADER_SEARCH_PATHS = (
 					"${SDK_DIR}/usr/include/libxml2",
 					"\"$(BUILT_PRODUCTS_DIR)/../../Headers\"",
+					"\"$(BUILT_PRODUCTS_DIR)\"/**",
+					../Vendor/SStoolkit,
+					"GMGridView/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4053,10 +4055,6 @@
 		CBBDC1D113285C6B00EE9349 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				"ARCHS[sdk=*]" = (
 					armv6,
 					armv7,
@@ -4132,8 +4130,8 @@
 					"-fobjc-arc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "CB1F639E-FE1D-400F-BDB7-DAB1FB3714FC";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CB1F639E-FE1D-400F-BDB7-DAB1FB3714FC";
 				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
@@ -4145,10 +4143,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				BUILD_STYLE = Release;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Gustavo Tandeciarz";

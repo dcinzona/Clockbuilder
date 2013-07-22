@@ -29,18 +29,20 @@
             frame = CGRectMake(12, 26, 288-68, 288);
         }
         [imageView setFrame:frame];
-        [imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [imageView setContentMode:UIViewContentModeScaleToFill];
         imageView.layer.borderColor = [UIColor colorWithRed:.85 green:.85 blue:.85 alpha:.4].CGColor;
         imageView.layer.borderWidth = 1.0;   
         [imageView setBackgroundColor:[UIColor blackColor]];
         [imageView setAlpha:0];
         imageView.layer.masksToBounds = NO;
         imageView.layer.cornerRadius = 0;
-        [imageView.layer setShadowColor:[UIColor blackColor].CGColor];
-        imageView.layer.shadowOffset = CGSizeMake(0,5);
-        imageView.layer.shadowRadius = 15;
-        imageView.layer.shadowOpacity = .8;
-        imageView.layer.shadowPath = [UIBezierPath bezierPathWithRect:imageView.bounds].CGPath;
+        if(!kIsiOS7){
+            [imageView.layer setShadowColor:[UIColor blackColor].CGColor];
+            imageView.layer.shadowOffset = CGSizeMake(0,5);
+            imageView.layer.shadowRadius = 15;
+            imageView.layer.shadowOpacity = .8;
+            imageView.layer.shadowPath = [UIBezierPath bezierPathWithRect:imageView.bounds].CGPath;
+        }
         //[imageView setImage:[UIImage imageNamed:@"placeholderThemeThumb.png"]];
         /*
         UIImageView *ds = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"themeFrame.png"]];

@@ -175,7 +175,7 @@ weatherData;
 
 - (void) closeModal
 {        
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -230,6 +230,17 @@ weatherData;
 
 #define _conditionalCell 6
 
+-(void)addCellAccessory:(UITableViewCell *) cell{
+    if(!kIsiOS7){
+        UIImageView *accessory = [[ UIImageView alloc ]
+                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
+        cell.accessoryView = accessory;
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -263,9 +274,7 @@ weatherData;
             [[cell detailTextLabel] setTextColor:[UIColor whiteColor]];
         }
         [[cell detailTextLabel] setText:desc]; 
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;     
+        [self addCellAccessory:cell];
     }
     if(indexPath.row==2)
     {
@@ -282,9 +291,7 @@ weatherData;
             [[cell detailTextLabel] setTextColor:[UIColor whiteColor]];
         }
         [[cell detailTextLabel] setText:desc]; 
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;     
+        [self addCellAccessory:cell];
     }
     if(indexPath.row==3)
     {
@@ -372,9 +379,7 @@ weatherData;
                 if([[self.widgetData objectForKey:@"forecast"]isEqualToString:@"current"])
                     detail = [NSString stringWithFormat:@"%@ Conditions",[[self.widgetData objectForKey:@"forecast"] capitalizedString]];
                 [[cell detailTextLabel] setText:detail]; 
-                UIImageView *accessory = [[ UIImageView alloc ] 
-                                          initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-                cell.accessoryView = accessory;     
+                [self addCellAccessory:cell];
 
             }
             if([[self.widgetData objectForKey:@"className"] isEqualToString:@"Temperature"]){
@@ -383,9 +388,7 @@ weatherData;
                 if([[self.widgetData objectForKey:@"forecast"]isEqualToString:@"current"])
                     detail = @"Current Temperature";
                 [[cell detailTextLabel] setText:detail]; 
-                UIImageView *accessory = [[ UIImageView alloc ] 
-                                          initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-                cell.accessoryView = accessory;     
+                [self addCellAccessory:cell];
             }
         }
         
@@ -453,7 +456,7 @@ weatherData;
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];

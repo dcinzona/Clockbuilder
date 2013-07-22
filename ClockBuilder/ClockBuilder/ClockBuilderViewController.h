@@ -15,7 +15,6 @@
 #import "themeConverter.h"
 #import "widgetTools.h"
 #import "weatherIconPickerTool.h"
-//#import "SHK.h"
 #import "CBTheme.h"
 
 @interface ClockBuilderViewController : UIViewController <UIGestureRecognizerDelegate, UIActionSheetDelegate, UIWebViewDelegate, NSMetadataQueryDelegate, UIPopoverControllerDelegate> {

@@ -78,7 +78,7 @@
     //set these based on frame
     //NSLog(@"widget Frame: %@", NSStringFromCGRect(frame));
     
-    [self.textLabel setMinimumScaleFactor:2.0];
+    [self.textLabel setMinimumFontSize:5.0];
     self.textLabel = [[RRSGlowLabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self.textLabel setTextColor:fontColor];    
     [self.textLabel setFont:[UIFont fontWithName:digitsFont size:digitFont]];
@@ -553,7 +553,7 @@
         
     }
     [NSThread detachNewThreadSelector:@selector(setText:) toTarget:self.textLabel withObject:[self transformGivenText:string]];
-    if(self && self.textLabel && self.indexInList)
+    //if(isClimacon)
         [self setFontSizeForPiece:[self.indexInList integerValue] fontSize:self.textLabel.font.pointSize];
 }
 
@@ -597,21 +597,21 @@
     {
         NSString *align = [self.widgetData objectForKey:@"textalignment"];
         if ([align isEqualToString:@"left"]) {
-            return NSTextAlignmentLeft;
+            return UITextAlignmentLeft;
         }
         if ([align isEqualToString:@"center"]) {
-            return NSTextAlignmentCenter;
+            return UITextAlignmentCenter;
         }
         if ([align isEqualToString:@"right"]) {
-            return NSTextAlignmentRight;
+            return UITextAlignmentRight;
         }
     }
     else{
     }
     if (isClimacon) {
-        return NSTextAlignmentCenter;
+        return UITextAlignmentCenter;
     }
-    return NSTextAlignmentLeft;
+    return UITextAlignmentLeft;
 }
 
 -(void)updateAlpha:(NSString *)alphaVal
@@ -683,13 +683,13 @@
 -(void)setTextAlignmentTo:(NSString *)align
 {
     if ([align isEqualToString:@"left"]) {
-        [self.textLabel setTextAlignment:NSTextAlignmentLeft];
+        [self.textLabel setTextAlignment:UITextAlignmentLeft];
     }
     if ([align isEqualToString:@"center"]) {
-        [self.textLabel setTextAlignment: NSTextAlignmentCenter];
+        [self.textLabel setTextAlignment: UITextAlignmentCenter];
     }
     if ([align isEqualToString:@"right"]) {
-        [self.textLabel setTextAlignment: NSTextAlignmentRight];
+        [self.textLabel setTextAlignment: UITextAlignmentRight];
     }
 }
 

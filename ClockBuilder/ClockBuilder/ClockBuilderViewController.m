@@ -65,11 +65,7 @@
     }
     
     [ApplicationDelegate performSelectorInBackground:@selector(setupThemeFiles) withObject:nil];
-    /*
-    if ([[DBSession sharedSession]isLinked]) {
-        [ApplicationDelegate beginSynchronizing:nil];
-    }
-     */
+
     if(/*![[NSUserDefaults standardUserDefaults] boolForKey:@"DidShowiCloudAlert"] && */![[NSUserDefaults standardUserDefaults] boolForKey:@"iCloudEnabled"]){
         if(NSClassFromString(@"NSUbiquitousKeyValueStore")) { // is iOS 5?
             
@@ -120,8 +116,8 @@
     screenWidth = mainS.applicationFrame.size.width;
     screenHeight = mainS.applicationFrame.size.height;
     
-    //screenWidth = [[UIScreen mainScreen] bounds].size.width;
-    //screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    screenHeight = [[UIScreen mainScreen] bounds].size.height;
     
     
     editField = [[UITextField alloc] initWithFrame:CGRectMake(16, 83, 252, 25)];
@@ -179,7 +175,12 @@
     }
     [CBThemeHelper setBackgroundImage:nil forToolbar:self.toolbar];
     self.addItem = [CBThemeHelper createDarkButtonItemWithTitle:@"Edit" target:self action:@selector(addButtonClick:)];
-    self.done = [CBThemeHelper createBlueButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];
+    if(!kIsiOS7){
+        self.done = [CBThemeHelper createBlueButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];
+    }
+    else{
+        self.done = [CBThemeHelper createBlueButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];
+    }
     
     [self performSelector:@selector(resetToolbar)];
     [self addWidgetsToView];
@@ -240,7 +241,7 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
-    bgWebView.alpha = 0;
+    //bgWebView.alpha = 0;
 }
 -(void)viewWillDisappear:(BOOL)animated{
     //NSLog(@"VIEWCONTROLLER - view will disappear");
@@ -259,6 +260,8 @@
 -(void)viewDidAppear:(BOOL)animated{
     
     //iCloud Alert
+    NSLog(@"view did appear (root view controller");
+    [self resetToolbar];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(drawBackground) name:@"refreshBG" object:nil];
     
@@ -307,7 +310,7 @@
 
 -(void) runTimer 
 {	
-    if(![self presentedViewController])
+    if(!self.modalViewController)
         [[[UIApplication sharedApplication]delegate]performSelector:@selector(runTimer)];
 }
 -(void)buildActionSheet
@@ -444,13 +447,13 @@
     }
     if([title isEqualToString:@"Share"])
     { 
-        //if([[GMTHelper sharedInstance] checkAppVersion]){
            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
            NSString *documentsDirectory = [paths objectAtIndex:0]; 
            NSString *appFileJPG = [documentsDirectory stringByAppendingPathComponent:@"themeScreenshot.jpg"];
            
            UIImage *thmb = [UIImage imageWithContentsOfFile:appFileJPG];
             if (thmb) {
+                
                 NSArray *activityItems = @[thmb];
                 
                 UIActivityViewController *activityController =
@@ -459,19 +462,7 @@
                 
                 [self presentViewController:activityController
                                    animated:YES completion:nil];
-                /*
-                SHKItem *item = [SHKItem image:thmb title:@"Check out my new theme created using Clock Builder.  You can get Clock Builder for iPhone at http://bit.ly/jlQxb6"];
-                
-                SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-                [item setShareType:SHKShareTypeImage];
-                [actionSheet setSharers:[NSMutableArray arrayWithObjects:@"SHKFacebook",@"SHKTwitter",nil]];
-                
-                // Display the action sheet
-                [actionSheet showInView:self.view];
-                 */
             }
-           
-        //}
   
     }
 }
@@ -480,8 +471,7 @@
 {
     instructionsForTheme *instructions = [[instructionsForTheme alloc] initWithNibName:@"instructionsForTheme" bundle:[NSBundle mainBundle]];
     
-    [self presentViewController:instructions animated:YES completion:nil];
-    
+    [self presentModalViewController:instructions animated:YES];
     [[[UIApplication sharedApplication] delegate] performSelector:@selector(setScreenVisible:) withObject:@"NO"];
     
 };
@@ -492,7 +482,7 @@
     _editing = YES;//yesNo;
     if(_editing){
         [CBThemeHelper setTitle:@"List" forCustomBarButton:self.addItem];
-        [CBThemeHelper setTitle:@"Close" forCustomBarButton:self.done];
+        [CBThemeHelper setTitle:@"Done" forCustomBarButton:self.done];
     }
     else{
         _editingWidget = NO;
@@ -504,6 +494,11 @@
 
 - (void)resetToolbar
 {
+    if(!kIsiOS7){
+        //[self.toolbar setBackgroundColor:[UIColor clearColor]];
+        //[self.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+        [self.toolbar setFrame:CGRectMake(0, self.view.frame.size.height-44, 320, 44)];
+    }
     UIBarButtonItem *saveActionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionSheet)];//showAlertWithEditField
     UIBarButtonItem *browseButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"themeBrowser.png"] style:UIBarButtonItemStylePlain target:self action:@selector(browseButtonClick:)];
     UIBarButtonItem *flex1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
@@ -518,21 +513,20 @@
         [saveActionButton setEnabled:YES];
     
     NSArray *toolbarbuttons = [NSArray arrayWithObjects:self.addItem, flexibleSpace1,browseButton,flex1, saveActionButton,flex2, settingsButton, flexibleSpace1, self.done, nil]; 
-    if(!_editing){
-        
-        [CBThemeHelper setTitle:@"Edit" forCustomBarButton:self.addItem];
-        [CBThemeHelper setTitle:@"Close" forCustomBarButton:self.done];
-        
-    }else {
-        
-        [CBThemeHelper setTitle:@"List" forCustomBarButton:self.addItem];
-        [CBThemeHelper setTitle:@"Done" forCustomBarButton:self.done];
-    }
+    
+    [CBThemeHelper setTitle:@"List" forCustomBarButton:self.addItem];
+    [CBThemeHelper setTitle:@"Done" forCustomBarButton:self.done];
+    
     if(toolbar!=nil){
         [toolbar setItems:toolbarbuttons];    
         [ScaleIconImageView setHidden:YES];
         [OpacityIconImageView setHidden:YES];
         [widgetNameView setHidden:YES];
+    }
+    if(kIsiOS7){
+        //[self toggleToolbar:@"hide"];
+        //[self toggleToolbar:@"show"];
+        
     }
 }
 
@@ -1203,7 +1197,8 @@
         {
             NSInteger index = [[[NSUserDefaults standardUserDefaults] objectForKey:@"widgetIndex"] integerValue];
             [tbl editWidget:index];
-        }    
+        }
+        [self set_Editing:NO];
     }
     else{
         [self set_Editing:YES];
@@ -2102,7 +2097,7 @@
     else
     {
         //push controller
-        [self presentViewController:controller animated:YES completion:nil];
+        [self presentModalViewController:controller animated:YES];
         
     }
     
@@ -2123,7 +2118,7 @@
     else
     {
         //push controller
-        [self presentViewController:controller animated:YES completion:nil];
+        [self presentModalViewController:controller animated:YES];
         
     }
     
@@ -2131,6 +2126,8 @@
 -(void)dismissPopover:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
+    //or better yet
+    [self dismissModalViewControllerAnimated:YES];
     //the latter works fine for Modal segues
 }
 @end

@@ -55,14 +55,16 @@
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics
 {
-    if ([UINavigationBar instancesRespondToSelector:@selector(setBackgroundImage:forBarMetrics:)])
-    {
-        [super setBackgroundImage:backgroundImage forBarMetrics:barMetrics];
-    }
-    else
-    {
-        [[self backgroundImages] setObject:backgroundImage forKey:[NSNumber numberWithInt:barMetrics]];
-        [self updateBackgroundImage];
+    if(!kIsiOS7){
+        if ([UINavigationBar instancesRespondToSelector:@selector(setBackgroundImage:forBarMetrics:)])
+        {
+            [super setBackgroundImage:backgroundImage forBarMetrics:barMetrics];
+        }
+        else
+        {
+            [[self backgroundImages] setObject:backgroundImage forKey:[NSNumber numberWithInt:barMetrics]];
+            [self updateBackgroundImage];
+        }
     }
 }
 
@@ -86,11 +88,12 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
-    if (_backgroundImageView != nil)
-    {
-        [self updateBackgroundImage];
-        [self sendSubviewToBack:_backgroundImageView];
+    if(!kIsiOS7){
+        if (_backgroundImageView != nil)
+        {
+            [self updateBackgroundImage];
+            [self sendSubviewToBack:_backgroundImageView];
+        }
     }
 }
 

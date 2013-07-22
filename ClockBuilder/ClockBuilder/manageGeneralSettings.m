@@ -16,7 +16,6 @@
 #import "themeConverter.h"
 #import "manageJBSettings.h"
 #import "CBThemeHelper.h"
-//#import <DropboxSDK/DropboxSDK.h>
 
 @implementation manageGeneralSettings
 
@@ -58,29 +57,32 @@
     if (kIsIpad) {
         self.contentSizeForViewInPopover = kPopoverSize;
     }
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    
-    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-    [bg setContentMode:UIViewContentModeTopLeft];
-    [self.tableView setTableFooterView:bg];
-    [self.tableView setSectionFooterHeight:0];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];   
-    
-    /*
-    UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
-    [self.tableView setBackgroundView:TVbgView];
-    */
-    
-    UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-    [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-    [bg2 setContentMode:UIViewContentModeTop];
-    UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-    [self.tableView setBackgroundView:bgView];
-    [bgView addSubview:bg2];
-    UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-    [bgView setBackgroundColor:tableBGColor];
-    [self.tableView setBackgroundColor:tableBGColor];
-    
+    if(!kIsiOS7){
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
+        [bg setContentMode:UIViewContentModeTopLeft];
+        [self.tableView setTableFooterView:bg];
+        [self.tableView setSectionFooterHeight:0];
+        
+        /*
+        UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
+        [self.tableView setBackgroundView:TVbgView];
+        */
+        
+        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
+        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
+        [bg2 setContentMode:UIViewContentModeTop];
+        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
+        [self.tableView setBackgroundView:bgView];
+        [bgView addSubview:bg2];
+        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+        [bgView setBackgroundColor:tableBGColor];
+        [self.tableView setBackgroundColor:tableBGColor];
+    }
+    else{
+        
+    }
     
     if(kIsIpad){
         
@@ -103,7 +105,7 @@
     
     showStatusBar = [[UISwitch alloc] initWithFrame:CGRectZero];
     [showStatusBar addTarget: self action: @selector(showStatusBar:) forControlEvents: UIControlEventValueChanged];
-    showStatusBar.center = CGPointMake(250, 32);
+    showStatusBar.center = CGPointMake(self.tableView.frame.size.width - (showStatusBar.frame.size.width/2) - 10, 32);
     
     BOOL statusBarPref = YES;
     if([[[NSUserDefaults standardUserDefaults] objectForKey:@"showStatusBar"] boolValue]==NO)
@@ -112,57 +114,29 @@
     
     disablePaging = [[UISwitch alloc] initWithFrame:CGRectZero];
     [disablePaging addTarget: self action: @selector(togglePaging:) forControlEvents: UIControlEventValueChanged];
-    disablePaging.center = CGPointMake(250, 32);
+    disablePaging.center = CGPointMake(self.tableView.frame.size.width - (disablePaging.frame.size.width/2) - 10, 32);
     
     BOOL paging = [[[NSUserDefaults standardUserDefaults] objectForKey:@"pagingEnabled"] boolValue];
     disablePaging.on = paging;
     
     militaryTime = [[UISwitch alloc] initWithFrame:CGRectZero];
     [militaryTime addTarget: self action: @selector(toggle24hr:) forControlEvents: UIControlEventValueChanged];
-    militaryTime.center = CGPointMake(250, 32);
+    militaryTime.center = CGPointMake(self.tableView.frame.size.width - (militaryTime.frame.size.width/2) - 10, 32);
     
     BOOL mt = [[[NSUserDefaults standardUserDefaults] objectForKey:@"militaryTime"] boolValue];
     militaryTime.on = mt;
-    /*
-    iCloudSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-    [iCloudSwitch addTarget: self action: @selector(toggleiCloud:) forControlEvents: UIControlEventValueChanged];
-    iCloudSwitch.center = CGPointMake(250, 32);
-    iCloudSwitch.on = [[DBSession sharedSession] isLinked];
-    */
+    
     if(kIsIpad)
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:@"refreshBG" object:nil];
     }
     
-    //Dropbox sync button
-    dbSyncButton= [UIButton buttonWithType:UIButtonTypeCustom];
-    // Since the buttons can be any width we use a thin image with a stretchable center point
-    UIImage *buttonImage = [[UIImage imageNamed:@"ButtonBlue30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonBlue30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
     
-    [[dbSyncButton titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
-    [dbSyncButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [dbSyncButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [dbSyncButton setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
-    [dbSyncButton setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
-    [[dbSyncButton titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
-    
-    CGRect buttonFrame = [dbSyncButton frame];
-    buttonFrame.size.width = [@"Sync" sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
-    buttonFrame.size.height = buttonImage.size.height;
-    [dbSyncButton setFrame:buttonFrame];
-    
-    [dbSyncButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [dbSyncButton setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
-    
-    [dbSyncButton setTitle:@"Sync" forState:UIControlStateNormal];
-    
-    [dbSyncButton addTarget:self action:@selector(synchronizeWithDB) forControlEvents:UIControlEventTouchUpInside];
-    [dbSyncButton setCenter:CGPointMake(250 - (buttonFrame.size.width + 20), 32)];
-    
-    
-    
-    saveBGButton= [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect buttonFrame = CGRectMake(0, 0, 100, 32);
+    saveBGButton= [CBThemeHelper createBlueUIButtonWithTitle:@"Save" target:self action:@selector(saveBackgroundImageToLibrary) frame:buttonFrame];
+    /*
+    if(!kIsiOS7){
+        [UIButton buttonWithType:UIButtonTypeCustom];
     // Since the buttons can be any width we use a thin image with a stretchable center point
     buttonImage = [[UIImage imageNamed:@"ButtonBlue30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
     buttonPressedImage = [[UIImage imageNamed:@"ButtonBlue30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
@@ -175,56 +149,37 @@
     [[saveBGButton titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
     
     buttonFrame = [saveBGButton frame];
-    buttonFrame.size.width = [@"Save to Photos" sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
+    buttonFrame.size.width = [@"Save" sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
     buttonFrame.size.height = buttonImage.size.height;
     [saveBGButton setFrame:buttonFrame];
     
     [saveBGButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [saveBGButton setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
     
-    [saveBGButton setTitle:@"Save to Photos" forState:UIControlStateNormal];
+    [saveBGButton setTitle:@"Save" forState:UIControlStateNormal];
     
     [saveBGButton addTarget:self action:@selector(saveBackgroundImageToLibrary) forControlEvents:UIControlEventTouchUpInside];
-    [saveBGButton setCenter:CGPointMake(250, 32)];
+    }
+     */
+    [saveBGButton setCenter:CGPointMake(self.tableView.frame.size.width - (saveBGButton.frame.size.width/2) - 10, 32)];
     
-    
-    
-    clearBGButton= [UIButton buttonWithType:UIButtonTypeCustom];
-    // Since the buttons can be any width we use a thin image with a stretchable center point
-    buttonImage = [[UIImage imageNamed:@"ButtonBlue30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    buttonPressedImage = [[UIImage imageNamed:@"ButtonBlue30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    
-    [[clearBGButton titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
-    [clearBGButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [clearBGButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [clearBGButton setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
-    [clearBGButton setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
-    [[clearBGButton titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
-    
-    buttonFrame = [clearBGButton frame];
-    buttonFrame.size.width = [@"Clear" sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
-    buttonFrame.size.height = buttonImage.size.height;
-    [clearBGButton setFrame:buttonFrame];
-    
-    [clearBGButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [clearBGButton setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
-    
-    [clearBGButton setTitle:@"Clear" forState:UIControlStateNormal];
-    
-    [clearBGButton addTarget:self action:@selector(selectBlackBG) forControlEvents:UIControlEventTouchUpInside];
-    [clearBGButton setCenter:CGPointMake(282, 32)];
+    clearBGButton= [CBThemeHelper createBlueUIButtonWithTitle:@"Clear" target:self action:@selector(selectBlackBG) frame:buttonFrame];
+    if(kIsiOS7){
+        [clearBGButton setBackgroundColor:kDefaultDeleteColor];
+    }
+    [clearBGButton setCenter:CGPointMake(self.tableView.frame.size.width - (clearBGButton.frame.size.width/2) - 10, 32)];
     
     
     parallaxSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [parallaxSwitch addTarget: self action: @selector(toggleParallax:) forControlEvents: UIControlEventValueChanged];
-    parallaxSwitch.center = CGPointMake(250, 32);
+    parallaxSwitch.center = CGPointMake(self.tableView.frame.size.width - (parallaxSwitch.frame.size.width/2) - 10, 32);
     BOOL parlax = [[[NSUserDefaults standardUserDefaults] objectForKey:@"parallaxEnabled"] boolValue];
     parallaxSwitch.on = parlax;
     
     
     backgroundSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [backgroundSwitch addTarget: self action: @selector(toggleBackground:) forControlEvents: UIControlEventValueChanged];
-    backgroundSwitch.center = CGPointMake(250, 32);
+    backgroundSwitch.center = CGPointMake(self.tableView.frame.size.width - (backgroundSwitch.frame.size.width/2) - 10, 32);
     BOOL bgOn = [[[NSUserDefaults standardUserDefaults] objectForKey:@"backgroundEnabled"] boolValue];
     backgroundSwitch.on = bgOn;
     
@@ -257,7 +212,8 @@
             imagepicker.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
             [imagepicker setDelegate:self];
         }
-        [self presentViewController:imagepicker animated:YES completion:nil];
+        
+        [self presentModalViewController:imagepicker animated:YES];
     }
     else{
         //select black bg
@@ -530,6 +486,18 @@
     return rows;
 }
 
+-(void)addCellAccessory:(UITableViewCell *) cell{
+    if(!kIsiOS7){
+        UIImageView *accessory = [[ UIImageView alloc ]
+                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
+        cell.accessoryView = accessory;
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -546,6 +514,7 @@
             cell = [[BGImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             [cell addSubview:saveBGButton];
         }
+        NSLog(@"savebgbutton frame: %@",NSStringFromCGRect([saveBGButton frame]));
         [[cell textLabel] setText:@" Background"];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -577,9 +546,7 @@
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         [[cell textLabel] setText:@"Weather Settings"];
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;
+        [self addCellAccessory:cell];
         
         return cell;
     }
@@ -590,9 +557,7 @@
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         [[cell textLabel] setText:@"Modify All Text"];
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;
+        [self addCellAccessory:cell];
         
         return cell;
     }
@@ -648,9 +613,7 @@
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         [[cell textLabel] setText:@"Lockscreen Settings"];
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;
+        [self addCellAccessory:cell];
         
         return cell;
     }
@@ -658,7 +621,7 @@
 }
 
 -(void)synchronizeWithDB{
-    //[AppDelegate beginSynchronizing:nil];
+    
 }
 
 -(void)refreshData
@@ -712,7 +675,7 @@
             [pop presentPopoverFromRect:cell.imageView.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
         else{
-            [self presentViewController:imagepicker animated:YES completion:nil];
+            [self presentModalViewController:imagepicker animated:YES];
         }
 
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -796,7 +759,7 @@
     [[GMTHelper sharedInstance] notifyToHideGlobalHud];
     if([self.parentViewController respondsToSelector:@selector(viewWillAppear:)])
         [self.parentViewController performSelector:@selector(viewWillAppear:) withObject:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
@@ -843,7 +806,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:keyValue forKey:@"backgroundEnabled"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [backgroundSwitch setOn:[keyValue boolValue]];
-    [self dismissViewControllerAnimated:YES completion:nil];
+	[self dismissModalViewControllerAnimated:YES];
 	//exit(0);
 }
 

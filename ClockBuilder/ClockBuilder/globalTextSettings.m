@@ -148,20 +148,21 @@ weatherData;
     UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
     [self.tableView setBackgroundView:TVbgView];
      */
-    
-    UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-    [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-    [bg2 setContentMode:UIViewContentModeTop];
-    UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-    [self.tableView setBackgroundView:bgView];
-    [bgView addSubview:bg2];
-    UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-    [bgView setBackgroundColor:tableBGColor];
-    [self.tableView setBackgroundColor:tableBGColor];
-    
-    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-    [bg setContentMode:UIViewContentModeTopLeft];
-    [self.tableView setTableFooterView:bg];
+    if(!kIsiOS7){
+        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
+        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
+        [bg2 setContentMode:UIViewContentModeTop];
+        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
+        [self.tableView setBackgroundView:bgView];
+        [bgView addSubview:bg2];
+        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+        [bgView setBackgroundColor:tableBGColor];
+        [self.tableView setBackgroundColor:tableBGColor];
+        
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
+        [bg setContentMode:UIViewContentModeTopLeft];
+        [self.tableView setTableFooterView:bg];
+    }
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.title = @"Change All Text";
@@ -178,7 +179,7 @@ weatherData;
 
 - (void) closeModal
 {        
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -232,6 +233,17 @@ weatherData;
 
 #define _conditionalCell 6
 
+-(void)addCellAccessory:(UITableViewCell *) cell{
+    if(!kIsiOS7){
+        UIImageView *accessory = [[ UIImageView alloc ]
+                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
+        cell.accessoryView = accessory;
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -246,9 +258,7 @@ weatherData;
         [[cell textLabel] setText:@"Select Font"];
         [[cell detailTextLabel] setText:[self.widgetData objectForKey:@"fontFamily"]];//Set to text font for widget
         
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;
+        [self addCellAccessory:cell];
     }
     if(indexPath.row==1)
     {
@@ -267,9 +277,7 @@ weatherData;
             [[cell detailTextLabel] setTextColor:[UIColor whiteColor]];
         }
         [[cell detailTextLabel] setText:desc]; 
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;     
+        [self addCellAccessory:cell];
     }
     if(indexPath.row==2)
     {
@@ -288,9 +296,7 @@ weatherData;
             [[cell detailTextLabel] setTextColor:[UIColor whiteColor]];
         }
         [[cell detailTextLabel] setText:desc]; 
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;     
+        [self addCellAccessory:cell];
     }
     if(indexPath.row==3)
     {
@@ -406,9 +412,18 @@ weatherData;
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
+    
+    
+    if(kIsiOS7){
+        [titleLabel setTextColor:[UIColor darkGrayColor]];
+        [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0]];
+        [self.pickerAS setBackgroundColor:[UIColor whiteColor]];
+        [toolbar setTintColor:nil];
+    }
+    
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
     [titleItem setStyle:UIBarButtonItemStylePlain];
     [barItems addObject:cancelBtn];
@@ -464,7 +479,10 @@ weatherData;
     self.picker = (WidgetPickerViewController *)[[fontPicker alloc] initWithPickerItems:pickerList pickerType:@"fontFamily"];
     NSString *title = @"Font Family";
     self.pickerASType = @"picker";
-    self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    if(!kIsiOS7)
+        self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    else
+        self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [self addToolbarToPicker:title];
 }
 
@@ -525,7 +543,7 @@ weatherData;
         [self updateAllWidgets:colorData forKey:@"fontColor"];
     if(self.SelectedCell.row==2)
         [self updateAllWidgets:colorData forKey:@"glowColor"];
-    [colorPicker.parentViewController dismissViewControllerAnimated:YES completion:nil];
+    [colorPicker.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
 

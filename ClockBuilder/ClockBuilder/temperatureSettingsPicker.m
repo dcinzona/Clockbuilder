@@ -45,6 +45,10 @@
         self.forecastType = @"Current";
         self.temperatureValue = @"Current Temperature";
         
+        if(kIsiOS7){
+            [self.pickerView setBackgroundColor:[UIColor whiteColor]];
+        }
+        
     }
     return self;
 }

@@ -56,17 +56,18 @@
     if (self) {
         self.managedObjectContext = ApplicationDelegate.managedObjectContext;//ApplicationDelegate.coreDataController.mainThreadContext;
         th = [themeConverter new];
-        
-        UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-        [bg setImage:[UIImage imageNamed:@"tableGradient"]];
-        [bg setContentMode:UIViewContentModeTop];
-        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-        [self.tableView setBackgroundView:bgView];
-        [bgView addSubview:bg];
-        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-        [bgView setBackgroundColor:tableBGColor];
-        [self.tableView setBackgroundColor:tableBGColor];
-        
+        if(!kIsiOS7){
+            UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
+            [bg setImage:[UIImage imageNamed:@"tableGradient"]];
+            [bg setContentMode:UIViewContentModeTop];
+            UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
+            [self.tableView setBackgroundView:bgView];
+            [bgView addSubview:bg];
+            UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+            [bgView setBackgroundColor:tableBGColor];
+            [self.tableView setBackgroundColor:tableBGColor];
+        }
+        //[self.tableView setBackgroundColor:[UIColor clearColor]];
         
         
         [self.tableView setSeparatorColor:[UIColor clearColor]];
@@ -84,7 +85,7 @@
         [syncingView addSubview:activityIndicator];
         
         UILabel *syncLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 23, 320, 18)];
-        [syncLabel setTextAlignment:NSTextAlignmentCenter];
+        [syncLabel setTextAlignment:UITextAlignmentCenter];
         [syncLabel setText:@"Syncing with Dropbox"];
         [syncLabel setTextColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:.7]];
         [syncLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
@@ -93,7 +94,7 @@
         [syncingView addSubview:syncLabel];
         
         
-        [self.view addSubview:syncingView];
+        //[self.view addSubview:syncingView];
         
         
         
@@ -108,18 +109,26 @@
         else{
             UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Done" target:self action:@selector(exitModal)];
             self.navigationItem.leftBarButtonItem = doneButton;
-            
-            
+            if(!kIsiOS7){
             UIBarButtonItem *GridButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationGlobalDashboardButton.png"]
                                                                    andPressedImage:[UIImage imageNamed:@"NavigationGlobalDashboardButton.png"] 
                                                                             target:self 
                                                                             action:@selector(showOnlineThemes)
                                            ];
-            
+                
             self.navigationItem.rightBarButtonItem = GridButton;
+            }
+            else{
+                UIBarButtonItem *bb = [CBThemeHelper createBlueButtonItemWithTitle:@"Browse" target:self action:@selector(showOnlineThemes)];
+                self.navigationItem.rightBarButtonItem = bb;
+            }
         }
         
         [self setTitle:@"Saved Themes"];
+        if(kIsiOS7){
+           // self.tableView.contentInset = UIEdgeInsetsMake(64, 0, self.navigationController.navigationBar.frame.size.height, 0);
+           // self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, self.navigationController.navigationBar.frame.size.height, 0);
+        }
     }
     return self;
 }
@@ -194,9 +203,12 @@
     else{
         [syncingView setAlpha:0];
         [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        if(kIsiOS7){
+            self.tableView.contentInset = UIEdgeInsetsMake(64, 0, self.navigationController.navigationBar.frame.size.height, 0);
+            self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, self.navigationController.navigationBar.frame.size.height, 0);
+        }
     }
-     */
-    [syncingView setAlpha:0];
+    */
 }
 
 -(void)activityDecreasedToZero{
@@ -208,13 +220,16 @@
     else{
         [UIView animateWithDuration:.2 animations:^{
             [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+            if(kIsiOS7){
+                self.tableView.contentInset = UIEdgeInsetsMake(64, 0, self.navigationController.navigationBar.frame.size.height, 0);
+                self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, self.navigationController.navigationBar.frame.size.height, 0);
+            }
             [syncingView setAlpha:0];
         } completion:^(BOOL finished) {
             
         }];
     }
     */
-    [syncingView setAlpha:0];
     
 }
 
@@ -887,9 +902,15 @@ replacementString:(NSString *)string
                                           destructiveButtonTitle:@"Delete Theme"
                                                otherButtonTitles:@"Activate Theme",@"Email",@"Upload", nil];
     }
-    [actionButtonSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    
     [actionButtonSheet setBounds:CGRectMake(0,0,320, 408)];
-    [actionButtonSheet showInView:ApplicationDelegate.window.rootViewController.view];
+    if(!kIsiOS7){
+        [actionButtonSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+        [actionButtonSheet showInView:ApplicationDelegate.window.rootViewController.view];
+    }
+    else{
+        [actionButtonSheet showInView:self.view];
+    }
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -988,7 +1009,7 @@ replacementString:(NSString *)string
         
         
         if(picker)
-            [self presentViewController:picker animated:YES completion:nil];
+            [self presentModalViewController:picker animated:YES];
         else{
             [[GMTHelper sharedInstance] alertWithString:@"Email window failed to display - Do you have an email account configured?"];
         }
@@ -1005,7 +1026,7 @@ replacementString:(NSString *)string
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 
 {	
     //NSLog(@"email result: %@",result);
-	[self dismissViewControllerAnimated:YES completion:nil];
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 
@@ -1018,7 +1039,14 @@ replacementString:(NSString *)string
     pickerView.delegate = self;
     [pickerView setShowsSelectionIndicator:YES];
     [pickerView selectRow:0 inComponent:0 animated:NO];
-    pickerAS = [[UIActionSheet alloc] initWithTitle:@"Select Category" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    if(kIsiOS7){
+        pickerAS = [[UIActionSheet alloc] initWithTitle:@"Select Category" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+        [pickerAS setBackgroundColor:[UIColor whiteColor]];
+        [pickerView setFrame:CGRectMake(0, 24, 320, 400)];
+    }
+    else{
+        pickerAS = [[UIActionSheet alloc] initWithTitle:@"Select Category" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    }
     [pickerAS addSubview:pickerView];
         UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     if (!kIsIpad)
@@ -1030,11 +1058,13 @@ replacementString:(NSString *)string
     UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setText:@"Select Category"];
-    [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
-    [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
+    if(!kIsiOS7){
+        [titleLabel setTextColor:[UIColor whiteColor]];
+        [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
+        [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
+    }
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
     [titleItem setStyle:UIBarButtonItemStylePlain];
@@ -1046,7 +1076,7 @@ replacementString:(NSString *)string
     [toolbar setItems:barItems animated:YES];
     [pickerAS addSubview:toolbar];
     [pickerAS showInView:self.view];
-    [pickerAS setBounds:CGRectMake(0,0,320, 408)];   
+    [pickerAS setBounds:CGRectMake(0,0,320, 408)];
     
 }
 
@@ -1098,7 +1128,7 @@ replacementString:(NSString *)string
     
     // This part just colorizes everything, since you asked about that.
     [label setTextColor:[UIColor blackColor]];
-    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setTextAlignment:UITextAlignmentCenter];
     
     //if([pickerType isEqualToString:@"locations"] && row == 0)
     //   [label setTextColor:[UIColor colorWithRed:.3 green:.3 blue:1.0 alpha:1.0]];

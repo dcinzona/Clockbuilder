@@ -26,18 +26,6 @@
 #import "UIAlertViewBlock.h"
 
 
-/*LOGGING
-#import "DDLog.h"
-#import "DDTTYLogger.h"
-#import "DDFileLogger.h"
-
-#ifdef DEBUG
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-#else
-static const int ddLogLevel = LOG_LEVEL_WARN;
-#endif
-*/
-
 #define kCoreDataStoreName @"clockbuilderdb.sqlite"
 #define kCoreDataStoreNameiPad @"clockbuilderdb-ipad.sqlite"
 
@@ -48,5 +36,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 #define kIsIpad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define kPopoverSize CGSizeMake(320,460)
 #define AppDelegate ((ClockBuilderAppDelegate *)[UIApplication sharedApplication].delegate)
+#define kIsiOS7 ([[[[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."] objectAtIndex:0]intValue]>=7)
+#define kDefaultBlue [UIColor colorWithRed:0.01f green:0.48f blue:1.00f alpha:1.00f]
+#define kDefaultDeleteColor [UIColor colorWithRed:1.00f green:0.22f blue:0.14f alpha:1.00f]
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+#define kJpegifierURL @"/var/mobile/Library/SpringBoard/LockBackground.jpg"
+#define kJpegifierURLLegacy @"/var/mobile/Library/SpringBoard/Converted-LockBackground.jpg"
 
 #endif

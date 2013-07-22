@@ -14,18 +14,18 @@
 
 -(void)activateInView:(UIView *)view withColor:(UIColor *)color{
     [self setSliderValuesFromColor:color];
-    int screenHeight = 480;
+    int screenHeight = kScreenHeight;
     if(!kIsIpad){
         screenHeight = [UIScreen mainScreen].bounds.size.height;
     }
     [sliderView setFrame:CGRectMake(0,screenHeight, 320, 200)];
     dimView = [UIButton buttonWithType:UIButtonTypeCustom];
-    [dimView setFrame:self.frame];
     [dimView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [dimView setAlpha:0];
     [self addSubview:dimView];
     [dimView addTarget:self action:@selector(dismissView) forControlEvents:UIControlEventTouchUpInside];
     [self setFrame:CGRectMake(0, 0, 320, screenHeight)];
+    [dimView setFrame:self.frame];
     [self addSubview:sliderView];
     [self addSubview:whiteButton];
     [self addSubview:blackButton];
@@ -78,7 +78,7 @@
         slidertop = 210;
     }
     
-    int screenHeight = 480;
+    int screenHeight = kScreenHeight;
     if(!kIsIpad){
         screenHeight = [UIScreen mainScreen].bounds.size.height;
     }
@@ -110,7 +110,7 @@
         [exampleLabel setTextColor:[UIColor whiteColor]];
         [exampleLabel setBackgroundColor:[UIColor clearColor]];
         [exampleLabel setText:@"Selected Color"];
-        [exampleLabel setTextAlignment:NSTextAlignmentCenter];
+        [exampleLabel setTextAlignment:UITextAlignmentCenter];
         [exampleLabel setGlowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.9]];
         [exampleLabel setGlowAmount:7];
         [exampleLabel setGlowOffset:CGSizeMake(0, 0)];
@@ -169,17 +169,22 @@
         
         [CBThemeHelper setBackgroundImage:nil forToolbar:toolbar];
         NSMutableArray *barItems = [[NSMutableArray alloc] init];
-        UIBarButtonItem *cancelBtn = [CBThemeHelper createDarkButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
+        UIBarButtonItem *cancelBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
         UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];  
         UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
         UILabel *titleLabel = [[UILabel alloc] init];
         [titleLabel setText:@"Set Color"];
-        [titleLabel setFont:[UIFont boldSystemFontOfSize:16]];
-        [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.8]];
-        [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
+        if(!kIsiOS7){
+            [titleLabel setFont:[UIFont boldSystemFontOfSize:16]];
+            [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.8]];
+            [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
+            [titleLabel setTextColor:[UIColor whiteColor]];
+        }
+        else{
+            [titleLabel setTextColor:[UIColor darkGrayColor]];
+        }
         [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-        [titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [titleLabel setTextColor:[UIColor whiteColor]];
+        [titleLabel setTextAlignment:UITextAlignmentCenter];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
         [titleItem setStyle:UIBarButtonItemStylePlain];
