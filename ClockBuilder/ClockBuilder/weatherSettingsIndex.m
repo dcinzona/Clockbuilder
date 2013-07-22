@@ -248,6 +248,8 @@ monitorInBG;
     }
     
 }
+#define kViewWidth self.view.frame.size.width
+#define kCellHeight 64
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -307,12 +309,17 @@ monitorInBG;
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            [cell addSubview:self.onOff];
+            [self.onOff setFrame:CGRectMake(kViewWidth-self.onOff.frame.size.width-20,
+                                           (kCellHeight - self.onOff.frame.size.height)/2,
+                                           self.onOff.frame.size.width,
+                                            self.onOff.frame.size.height)];
         }
         [[cell textLabel] setText:@"Use Windchill:"];
         [[cell detailTextLabel] setText:@"Only affects current temp"];        
-        if ([[cell subviews] indexOfObject:self.onOff]==NSNotFound) {
-            [cell addSubview:self.onOff];
-        }
+        //if ([[cell subviews] indexOfObject:self.onOff]==NSNotFound) {
+        //    [cell addSubview:self.onOff];
+        //}
         return cell;
     }
     if(indexPath.row==4){
@@ -320,11 +327,13 @@ monitorInBG;
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        }
-        [[cell textLabel] setText:@"Show Degree Symbol:"];      
-        if ([[cell subviews] indexOfObject:self.showDegree]==NSNotFound) {
             [cell addSubview:self.showDegree];
+            [self.showDegree setFrame:CGRectMake(kViewWidth-self.showDegree.frame.size.width-20,
+                                            (kCellHeight - self.showDegree.frame.size.height)/2,
+                                            self.showDegree.frame.size.width,
+                                            self.showDegree.frame.size.height)];
         }
+        [[cell textLabel] setText:@"Show Degree Symbol:"];
         return cell;
     }
     if(indexPath.row==5)

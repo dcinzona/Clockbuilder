@@ -303,7 +303,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "284"
             endingLineNumber = "284"
-            landmarkName = "-saveBackgroundImageToLibrary"
+            landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -621,7 +621,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "254"
             endingLineNumber = "254"
-            landmarkName = "-toggleBackground:"
+            landmarkName = "-saveBackgroundImageToLibrary"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -648,13 +648,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/manageGeneralSettings.m"
-            timestampString = "394834824.975157"
+            timestampString = "396227962.631351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "828"
-            endingLineNumber = "828"
-            landmarkName = "-imagePickerControllerDidCancel:"
-            landmarkType = "5">
+            startingLineNumber = "774"
+            endingLineNumber = "774"
+            landmarkName = "@implementation manageGeneralSettings"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

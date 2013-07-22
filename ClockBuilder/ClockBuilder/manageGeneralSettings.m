@@ -307,77 +307,6 @@
 
 - (IBAction)toggleiCloud:(id)sender
 {
-    /*
-    NSString *keyValue = @"NO";
-    if(iCloudSwitch.on){
-        keyValue = @"YES";
-    }
-    if([keyValue boolValue]){
-        if(NSClassFromString(@"NSUbiquitousKeyValueStore")) { // is iOS 5?
-            
-            if([NSUbiquitousKeyValueStore defaultStore]) {  // is iCloud enabled
-                
-                NSURL *ubiq = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-                if (ubiq) {
-                    
-                } else {
-                    CustomAlertView *iCloudNotEnabled = [[CustomAlertView alloc] initWithTitle:@"Enable iCloud" 
-                                                                               message:@"You must enable iCloud support to use this. You can do this in your device settings." 
-                                                                              delegate:nil cancelButtonTitle:@"OK, Thanks" otherButtonTitles:nil];
-                    [iCloudNotEnabled show];
-                    [iCloudSwitch setOn:NO animated:YES];
-                    keyValue = @"NO";
-                }
-                
-            } else {
-                CustomAlertView *iCloudNotEnabled = [[CustomAlertView alloc] initWithTitle:@"Enable iCloud" 
-                                                                           message:@"You must enable iCloud support to use this. You can do this in your device settings." 
-                                                                          delegate:nil cancelButtonTitle:@"OK, Thanks" otherButtonTitles:nil];
-                [iCloudNotEnabled show];
-                [iCloudSwitch setOn:NO animated:YES];
-                keyValue = @"NO";
-            }
-        }
-        else {
-            
-            CustomAlertView *iCloudNotEnabled = [[CustomAlertView alloc] initWithTitle:@"iOS 5 Required" 
-                                                                       message:@"You must be running iOS 5 or greater to use iCloud.  Please update your device." 
-                                                                      delegate:nil cancelButtonTitle:@"OK, Thanks" otherButtonTitles:nil];
-            [iCloudNotEnabled show];
-            [iCloudSwitch setOn:NO animated:YES];
-            keyValue = @"NO";
-        }
-        
-    }
-    [[NSUserDefaults standardUserDefaults] setBool:[keyValue boolValue] forKey:@"iCloudEnabled"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    //if([keyValue boolValue])
-        [self setThemeUbiquity:[[NSUserDefaults standardUserDefaults] boolForKey:@"iCloudEnabled"]];
-     */
-    
-    /*  TEMPORARILY DISABLE DB SYNC
-    if(!iCloudSwitch.on){
-        if ([[DBSession sharedSession] isLinked]){
-            NSArray *unlinkIDs= [[DBSession sharedSession]userIds];
-            NSLog(@"unlinkID's: %@",unlinkIDs);
-            [[DBSession sharedSession] unlinkAll];
-        }      
-        
-    }
-    else{
-        if (![[DBSession sharedSession] isLinked]) {
-            [[DBSession sharedSession] link];
-            //[dbSyncButton setHidden:NO];
-        }
-        else
-        {
-            NSArray *unlinkIDs= [[DBSession sharedSession]userIds];
-            NSLog(@"unlinkID's: %@",unlinkIDs);
-            [[DBSession sharedSession] unlinkAll];
-            //[dbSyncButton setHidden:YES];
-        }
-    }
-     */
     [self refreshData];
 }
 - (IBAction)togglePaging:(id)sender
@@ -497,7 +426,8 @@
     }
     
 }
-
+#define kViewWidth self.view.frame.size.width
+#define kCellHeight 64
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -512,9 +442,13 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[BGImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            [cell addSubview:saveBGButton];
+            [cell.contentView addSubview:saveBGButton];
+            [saveBGButton setFrame:CGRectMake(kViewWidth-saveBGButton.frame.size.width-20,
+                                              (kCellHeight - saveBGButton.frame.size.height)/2,
+                                              saveBGButton.frame.size.width,
+                                              saveBGButton.frame.size.height)];
         }
-        NSLog(@"savebgbutton frame: %@",NSStringFromCGRect([saveBGButton frame]));
+        NSLog(@"savebgbutton frame: %@",NSStringFromCGRect([self.view frame]));
         [[cell textLabel] setText:@" Background"];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -535,6 +469,10 @@
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             [cell addSubview:clearBGButton];
+            [clearBGButton setFrame:CGRectMake(320-clearBGButton.frame.size.width-20,
+                                              (64 - clearBGButton.frame.size.height)/2,
+                                              clearBGButton.frame.size.width,
+                                              clearBGButton.frame.size.height)];
         }
         [[cell textLabel] setText:@"Clear Background"];
         return cell;
@@ -567,6 +505,10 @@
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             [cell addSubview:militaryTime];
+            [militaryTime setFrame:CGRectMake(320-militaryTime.frame.size.width-20,
+                                               (64 - militaryTime.frame.size.height)/2,
+                                               militaryTime.frame.size.width,
+                                               militaryTime.frame.size.height)];
         }
         [[cell textLabel] setText:@"Use 24hr Time"];        
         
@@ -601,6 +543,10 @@
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             [cell addSubview:parallaxSwitch];
+            [parallaxSwitch setFrame:CGRectMake(320-parallaxSwitch.frame.size.width-20,
+                                              (64 - parallaxSwitch.frame.size.height)/2,
+                                              parallaxSwitch.frame.size.width,
+                                              parallaxSwitch.frame.size.height)];
         }
         [[cell textLabel] setText:@"3D Background Effect"];
         

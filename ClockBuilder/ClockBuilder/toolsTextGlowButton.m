@@ -155,6 +155,11 @@ fontButtonLabel;
             }
         }
     }
+    else{
+        if(kIsIpad){
+            [sliderView setFrame:CGRectMake(0, toolbar.frame.size.height, sliderView.frame.size.width,sliderView.frame.size.height)];
+        }
+    }
     
     if(kIsIpad){
         UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 225)];
