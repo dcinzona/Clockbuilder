@@ -310,7 +310,7 @@
 
 -(void) runTimer 
 {	
-    if(!self.modalViewController)
+    if(!self.presentedViewController)
         [[[UIApplication sharedApplication]delegate]performSelector:@selector(runTimer)];
 }
 -(void)buildActionSheet
@@ -471,7 +471,7 @@
 {
     instructionsForTheme *instructions = [[instructionsForTheme alloc] initWithNibName:@"instructionsForTheme" bundle:[NSBundle mainBundle]];
     
-    [self presentModalViewController:instructions animated:YES];
+    [self presentViewController:instructions animated:YES completion:nil];
     [[[UIApplication sharedApplication] delegate] performSelector:@selector(setScreenVisible:) withObject:@"NO"];
     
 };
@@ -2097,7 +2097,7 @@
     else
     {
         //push controller
-        [self presentModalViewController:controller animated:YES];
+        [self presentViewController:controller animated:YES completion:nil];
         
     }
     
@@ -2118,16 +2118,14 @@
     else
     {
         //push controller
-        [self presentModalViewController:controller animated:YES];
+        [self presentViewController:controller animated:YES completion:nil];
         
     }
     
 }
 -(void)dismissPopover:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    //or better yet
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     //the latter works fine for Modal segues
 }
 @end

@@ -313,7 +313,8 @@
 }
 -(void)viewDidDisappear:(BOOL)animated{
     
-    [self viewDidUnload];
+    //[self viewDidUnload];
+    [self performSelector:@selector(viewDidUnload) withObject:nil];
 }
 - (void)viewDidUnload
 {
@@ -617,9 +618,9 @@
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/flagTheme.php?api=thisisasecretapikeygmt2745694&themeName=%@",themeNameToFlag]];
         
         UIView *mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].view;
-        UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController);
+        UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController);
         if(modalPresent!=nil){
-            mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController.view;
+            mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController.view;
         }
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:mainView animated:YES];
         hud.labelText = @"Flagging...";
@@ -669,9 +670,9 @@
         if(themeNameToDownload && selectedIndex>=0){
             
             UIView *mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].view;
-            UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController);
+            UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController);
             if(modalPresent!=nil){
-                mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController.view;
+                mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController.view;
             }
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:mainView animated:YES];
             hud.labelText = @"Deleting...";
@@ -690,9 +691,9 @@
                             //[_gmGridView reloadData];
                             selectedIndex = -1;
                             UIView *mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].view;
-                            UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController);
+                            UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController);
                             if(modalPresent!=nil){
-                                mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].modalViewController.view;
+                                mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController.view;
                             }
                             
                             hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"doneCheck.png"]];

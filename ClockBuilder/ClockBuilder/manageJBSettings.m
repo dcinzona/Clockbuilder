@@ -396,7 +396,7 @@
     }
     else
     {
-        [self presentModalViewController:wallpaperPicker animated:YES];
+        [self presentViewController:wallpaperPicker animated:YES completion:nil];
     }
 }
 
@@ -409,7 +409,7 @@
     [cell.imageView setNeedsDisplay];
     if([self.parentViewController respondsToSelector:@selector(viewWillAppear:)])
         [self.parentViewController performSelector:@selector(viewWillAppear:) withObject:nil];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
@@ -477,7 +477,7 @@
     {
         [pop dismissPopoverAnimated:YES];
     }
-	[self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 	//exit(0);
 }
 

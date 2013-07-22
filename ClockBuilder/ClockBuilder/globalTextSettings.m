@@ -178,8 +178,8 @@ weatherData;
 }
 
 - (void) closeModal
-{        
-    [self dismissModalViewControllerAnimated:YES];
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -412,7 +412,7 @@ weatherData;
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:UITextAlignmentCenter];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     
@@ -543,7 +543,7 @@ weatherData;
         [self updateAllWidgets:colorData forKey:@"fontColor"];
     if(self.SelectedCell.row==2)
         [self updateAllWidgets:colorData forKey:@"glowColor"];
-    [colorPicker.parentViewController dismissModalViewControllerAnimated:YES];
+    [colorPicker.parentViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 

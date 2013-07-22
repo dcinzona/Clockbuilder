@@ -85,7 +85,7 @@
         [syncingView addSubview:activityIndicator];
         
         UILabel *syncLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 23, 320, 18)];
-        [syncLabel setTextAlignment:UITextAlignmentCenter];
+        [syncLabel setTextAlignment:NSTextAlignmentCenter];
         [syncLabel setText:@"Syncing with Dropbox"];
         [syncLabel setTextColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:.7]];
         [syncLabel setFont:[UIFont fontWithName:@"Helvetica" size:12]];
@@ -1009,7 +1009,7 @@ replacementString:(NSString *)string
         
         
         if(picker)
-            [self presentModalViewController:picker animated:YES];
+            [self presentViewController:picker animated:YES completion:nil];
         else{
             [[GMTHelper sharedInstance] alertWithString:@"Email window failed to display - Do you have an email account configured?"];
         }
@@ -1026,7 +1026,7 @@ replacementString:(NSString *)string
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error 
 {	
     //NSLog(@"email result: %@",result);
-	[self dismissModalViewControllerAnimated:YES];
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -1059,7 +1059,7 @@ replacementString:(NSString *)string
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setText:@"Select Category"];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:UITextAlignmentCenter];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     if(!kIsiOS7){
         [titleLabel setTextColor:[UIColor whiteColor]];
         [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
@@ -1128,7 +1128,7 @@ replacementString:(NSString *)string
     
     // This part just colorizes everything, since you asked about that.
     [label setTextColor:[UIColor blackColor]];
-    [label setTextAlignment:UITextAlignmentCenter];
+    [label setTextAlignment:NSTextAlignmentCenter];
     
     //if([pickerType isEqualToString:@"locations"] && row == 0)
     //   [label setTextColor:[UIColor colorWithRed:.3 green:.3 blue:1.0 alpha:1.0]];

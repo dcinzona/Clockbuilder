@@ -187,7 +187,7 @@
         [mailViewController setMessageBody:@"" isHTML:YES];
         
         //[mailViewController addAttachmentData:dataFromString mimeType:@"application/xml" fileName:[NSString stringWithFormat:@"%@", @"DEBUGDATA"]];
-        [self presentModalViewController:mailViewController animated:YES];
+        [self presentViewController:mailViewController animated:YES completion:nil];
     }
     
     else {
@@ -200,7 +200,7 @@
 
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 

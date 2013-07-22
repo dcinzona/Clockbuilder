@@ -25,7 +25,6 @@
 #import <SSToolkit/SSToolkit.h>
 #import "UIAlertViewBlock.h"
 
-
 #define kCoreDataStoreName @"clockbuilderdb.sqlite"
 #define kCoreDataStoreNameiPad @"clockbuilderdb-ipad.sqlite"
 

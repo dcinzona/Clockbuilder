@@ -31,7 +31,7 @@
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:UITextAlignmentCenter];
+    [titleLabel setTextAlignment:NSTextAlignmentCenter];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
@@ -123,7 +123,7 @@
     
     // This part just colorizes everything, since you asked about that.
     [label setTextColor:[UIColor blackColor]];
-    [label setTextAlignment:UITextAlignmentCenter];
+    [label setTextAlignment:NSTextAlignmentCenter];
     
     //if([pickerType isEqualToString:@"locations"] && row == 0)
     //   [label setTextColor:[UIColor colorWithRed:.3 green:.3 blue:1.0 alpha:1.0]];
@@ -161,7 +161,7 @@
     self.layer.borderWidth = 4;
     fontButtonLabel = [[UILabel alloc] init];
     [fontButtonLabel setFrame:CGRectMake(5, 5, 30, 30)];
-    [fontButtonLabel setTextAlignment:UITextAlignmentCenter];
+    [fontButtonLabel setTextAlignment:NSTextAlignmentCenter];
     [fontButtonLabel setBackgroundColor:[UIColor clearColor]];
     [fontButtonLabel setFont:[UIFont fontWithName:@"Helvetica" size:(30*.8)]];
     fontButtonLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:.8];

@@ -213,7 +213,7 @@
             [imagepicker setDelegate:self];
         }
         
-        [self presentModalViewController:imagepicker animated:YES];
+        [self presentViewController:imagepicker animated:YES completion:nil];
     }
     else{
         //select black bg
@@ -675,7 +675,7 @@
             [pop presentPopoverFromRect:cell.imageView.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         }
         else{
-            [self presentModalViewController:imagepicker animated:YES];
+            [self presentViewController:imagepicker animated:YES completion:nil];
         }
 
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -759,7 +759,8 @@
     [[GMTHelper sharedInstance] notifyToHideGlobalHud];
     if([self.parentViewController respondsToSelector:@selector(viewWillAppear:)])
         [self.parentViewController performSelector:@selector(viewWillAppear:) withObject:nil];
-    [self dismissModalViewControllerAnimated:YES];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
@@ -806,7 +807,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:keyValue forKey:@"backgroundEnabled"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [backgroundSwitch setOn:[keyValue boolValue]];
-	[self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 	//exit(0);
 }
 

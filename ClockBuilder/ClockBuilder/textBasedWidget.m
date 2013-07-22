@@ -78,7 +78,7 @@
     //set these based on frame
     //NSLog(@"widget Frame: %@", NSStringFromCGRect(frame));
     
-    [self.textLabel setMinimumFontSize:5.0];
+    [self.textLabel setMinimumScaleFactor:3];
     self.textLabel = [[RRSGlowLabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self.textLabel setTextColor:fontColor];    
     [self.textLabel setFont:[UIFont fontWithName:digitsFont size:digitFont]];
@@ -597,21 +597,21 @@
     {
         NSString *align = [self.widgetData objectForKey:@"textalignment"];
         if ([align isEqualToString:@"left"]) {
-            return UITextAlignmentLeft;
+            return NSTextAlignmentLeft;
         }
         if ([align isEqualToString:@"center"]) {
-            return UITextAlignmentCenter;
+            return NSTextAlignmentCenter;
         }
         if ([align isEqualToString:@"right"]) {
-            return UITextAlignmentRight;
+            return NSTextAlignmentRight;
         }
     }
     else{
     }
     if (isClimacon) {
-        return UITextAlignmentCenter;
+        return NSTextAlignmentCenter;
     }
-    return UITextAlignmentLeft;
+    return NSTextAlignmentLeft;
 }
 
 -(void)updateAlpha:(NSString *)alphaVal
@@ -683,13 +683,13 @@
 -(void)setTextAlignmentTo:(NSString *)align
 {
     if ([align isEqualToString:@"left"]) {
-        [self.textLabel setTextAlignment:UITextAlignmentLeft];
+        [self.textLabel setTextAlignment:NSTextAlignmentLeft];
     }
     if ([align isEqualToString:@"center"]) {
-        [self.textLabel setTextAlignment: UITextAlignmentCenter];
+        [self.textLabel setTextAlignment: NSTextAlignmentCenter];
     }
     if ([align isEqualToString:@"right"]) {
-        [self.textLabel setTextAlignment: UITextAlignmentRight];
+        [self.textLabel setTextAlignment: NSTextAlignmentRight];
     }
 }
 

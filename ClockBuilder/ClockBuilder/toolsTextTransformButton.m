@@ -66,7 +66,7 @@
     
     fontLabel = [[UILabel alloc] init];
     [fontLabel setFrame:CGRectMake(5, 5, 30, 30)];
-    [fontLabel setTextAlignment:UITextAlignmentCenter];
+    [fontLabel setTextAlignment:NSTextAlignmentCenter];
     [fontLabel setBackgroundColor:[UIColor clearColor]];
     [fontLabel setFont:[UIFont fontWithName:@"Helvetica" size:(30*.8)]];
     [fontLabel setAdjustsFontSizeToFitWidth:YES];

@@ -110,7 +110,7 @@
         [exampleLabel setTextColor:[UIColor whiteColor]];
         [exampleLabel setBackgroundColor:[UIColor clearColor]];
         [exampleLabel setText:@"Selected Color"];
-        [exampleLabel setTextAlignment:UITextAlignmentCenter];
+        [exampleLabel setTextAlignment:NSTextAlignmentCenter];
         [exampleLabel setGlowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.9]];
         [exampleLabel setGlowAmount:7];
         [exampleLabel setGlowOffset:CGSizeMake(0, 0)];
@@ -184,7 +184,7 @@
             [titleLabel setTextColor:[UIColor darkGrayColor]];
         }
         [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-        [titleLabel setTextAlignment:UITextAlignmentCenter];
+        [titleLabel setTextAlignment:NSTextAlignmentCenter];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
         [titleItem setStyle:UIBarButtonItemStylePlain];
