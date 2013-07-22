@@ -31,7 +31,7 @@
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
@@ -44,6 +44,14 @@
     [toolbar setItems:barItems animated:YES];
     [pickerAS addSubview:toolbar];    
     [pickerAS setBounds:CGRectMake(0,0,320, 408)];
+    if(kIsiOS7){
+        [titleLabel setCenter:toolbar.center];
+        [titleLabel setShadowColor:nil];
+        [titleLabel setTextColor:[UIColor darkGrayColor]];
+        [pickerAS setBackgroundColor:[UIColor whiteColor]];
+        [toolbar setFrame:CGRectMake(0, 0, toolbar.frame.size.width, toolbar.frame.size.height)];
+        [pickerAS setBounds:CGRectMake(0,0,320, 340)];
+    }
     
     if(kIsIpad){
         UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
@@ -115,7 +123,7 @@
     
     // This part just colorizes everything, since you asked about that.
     [label setTextColor:[UIColor blackColor]];
-    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setTextAlignment:UITextAlignmentCenter];
     
     //if([pickerType isEqualToString:@"locations"] && row == 0)
     //   [label setTextColor:[UIColor colorWithRed:.3 green:.3 blue:1.0 alpha:1.0]];
@@ -143,6 +151,9 @@
 -(void)build
 {
     [self setShowsTouchWhenHighlighted:YES];
+    //ios 7 fix
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, 40, 40)];
+    
     [self addTarget:self action:@selector(fontButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.layer.cornerRadius = 20;
     self.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.7].CGColor;
@@ -150,7 +161,7 @@
     self.layer.borderWidth = 4;
     fontButtonLabel = [[UILabel alloc] init];
     [fontButtonLabel setFrame:CGRectMake(5, 5, 30, 30)];
-    [fontButtonLabel setTextAlignment:NSTextAlignmentCenter];
+    [fontButtonLabel setTextAlignment:UITextAlignmentCenter];
     [fontButtonLabel setBackgroundColor:[UIColor clearColor]];
     [fontButtonLabel setFont:[UIFont fontWithName:@"Helvetica" size:(30*.8)]];
     fontButtonLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:.8];
@@ -214,7 +225,14 @@
     pickerView.delegate = self;
     [pickerView setShowsSelectionIndicator:YES];
     NSString *title = @"\n\n\n\n\n\n\n\n\n";
-    pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    if(!kIsiOS7){
+        pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    }else{
+        [pickerView setBackgroundColor:[UIColor whiteColor]];
+        [pickerView setFrame:CGRectMake(0, 24, 320, 400)];
+        NSString *title = @"\n\n\n\n\n\n\n\n\n\n\n\n";
+        pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    }
     [pickerAS addSubview:pickerView];
     
 }

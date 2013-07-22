@@ -56,6 +56,7 @@
 -(void)build
 {
     [self setShowsTouchWhenHighlighted:YES];
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, 40, 40)];
     //UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPiece:)];
     [self addTarget:self action:@selector(tapPiece:) forControlEvents:UIControlEventTouchUpInside];
     self.layer.cornerRadius = 20;
@@ -65,7 +66,7 @@
     
     fontLabel = [[UILabel alloc] init];
     [fontLabel setFrame:CGRectMake(5, 5, 30, 30)];
-    [fontLabel setTextAlignment:NSTextAlignmentCenter];
+    [fontLabel setTextAlignment:UITextAlignmentCenter];
     [fontLabel setBackgroundColor:[UIColor clearColor]];
     [fontLabel setFont:[UIFont fontWithName:@"Helvetica" size:(30*.8)]];
     [fontLabel setAdjustsFontSizeToFitWidth:YES];

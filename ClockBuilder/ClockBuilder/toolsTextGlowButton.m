@@ -15,6 +15,7 @@ fontButtonLabel;
 
 -(void)build{
     [self setShowsTouchWhenHighlighted:YES];
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, 40, 40)];
     [self addTarget:self action:@selector(fontButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.layer.cornerRadius = 20;
     self.layer.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:.7].CGColor;
@@ -22,13 +23,17 @@ fontButtonLabel;
     self.layer.borderWidth = 4;
     fontButtonLabel = [[RRSGlowLabel alloc] init];
     [fontButtonLabel setFrame:CGRectMake(5, 5, 30, 30)];
-    [fontButtonLabel setTextAlignment:NSTextAlignmentCenter];
+    [fontButtonLabel setTextAlignment:UITextAlignmentCenter];
     [fontButtonLabel setBackgroundColor:[UIColor clearColor]];
     [fontButtonLabel setFont:[UIFont fontWithName:@"Helvetica" size:(30*.8)]];
     fontButtonLabel.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:.8];
     [fontButtonLabel setText:@"A"];
     [self addSubview:fontButtonLabel];
-    pickerAS = [[UIActionSheet alloc] initWithTitle:@"\n\n\n\n\n\n\n\n\n\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    NSString *title =@"\n\n\n\n\n\n\n\n\n\n\n";
+    if(kIsiOS7){
+        title =@"\n\n\n\n\n\n\n\n\n\n\n\n";
+    }
+    pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [pickerAS addSubview:sliderView];  
 }
 
@@ -117,7 +122,7 @@ fontButtonLabel;
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
@@ -131,7 +136,25 @@ fontButtonLabel;
     [pickerAS addSubview:toolbar];    
     [pickerAS setBounds:CGRectMake(0,0,320, 400)];    
     [self setSliderValuesFromColor:fontButtonLabel.glowColor intensity:fontButtonLabel.glowAmount];
-    
+    if(kIsiOS7){
+        [titleLabel setCenter:toolbar.center];
+        [titleLabel setShadowColor:nil];
+        [titleLabel setTextColor:[UIColor darkGrayColor]];
+        [pickerAS setBackgroundColor:[UIColor whiteColor]];
+        [sliderView setBackgroundColor:[UIColor whiteColor]];
+        [sliderView setFrame:CGRectMake(0, 20, sliderView.frame.size.width, sliderView.frame.size.height)];
+        [toolbar setFrame:CGRectMake(0, 0, toolbar.frame.size.width, toolbar.frame.size.height)];
+        [pickerAS setBounds:CGRectMake(0,0,320, 340)];
+        for (UIView *lbl in sliderView.subviews) {
+            if([NSStringFromClass(lbl.class) isEqualToString:NSStringFromClass(UILabel.class)]){
+                NSString * lblcolor = [NSString stringWithFormat:@"%@",[(UILabel*)lbl textColor]];
+                NSString * whitecolor = [NSString stringWithFormat:@"%@",[UIColor colorWithRed:1 green:1 blue:1 alpha:1]];
+                if([lblcolor isEqualToString:whitecolor]){
+                    [(UILabel *)lbl setTextColor:[UIColor darkGrayColor]];
+                }
+            }
+        }
+    }
     
     if(kIsIpad){
         UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 225)];

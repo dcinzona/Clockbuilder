@@ -12,10 +12,10 @@
 
 
 @interface toolsTextTransformButton : UIButton {
-
+    UILabel *fontLabel;
 }
 
-@property (nonatomic, retain) UILabel *fontLabel;
+@property (nonatomic) UILabel *fontLabel;
 
 -(void)build;
 

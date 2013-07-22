@@ -37,6 +37,9 @@
         self.pickerView.delegate = self;
         [self.pickerView setShowsSelectionIndicator:YES];
         self.pickerComponentItems = [NSArray arrayWithArray:[[self.pickerItems objectAtIndex:1]objectAtIndex:0]];
+        if(kIsiOS7){
+            [self.pickerView setBackgroundColor:[UIColor whiteColor]];
+        }
     }
     return  self;
 }

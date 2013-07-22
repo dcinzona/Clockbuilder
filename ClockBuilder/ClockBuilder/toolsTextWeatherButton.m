@@ -75,6 +75,7 @@
 -(void)build
 {
     [self setShowsTouchWhenHighlighted:YES];
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, 40, 40)];
     [self addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.layer.cornerRadius = 20;
     self.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.7].CGColor;
@@ -119,7 +120,7 @@
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
@@ -137,6 +138,14 @@
         [pickerAS addSubview:tempPicker.pickerView];
     
     [pickerAS setBounds:CGRectMake(0,0,320, 408)];
+    if(kIsiOS7){
+        [titleLabel setCenter:toolbar.center];
+        [titleLabel setShadowColor:nil];
+        [titleLabel setTextColor:[UIColor darkGrayColor]];
+        [pickerAS setBackgroundColor:[UIColor whiteColor]];
+        [toolbar setFrame:CGRectMake(0, 0, toolbar.frame.size.width, toolbar.frame.size.height)];
+        [pickerAS setBounds:CGRectMake(0,0,320, 340)];
+    }
     
     if(kIsIpad){
         UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
@@ -213,7 +222,15 @@
     picker = [[WidgetPickerViewController alloc] initWithPickerItems:pickerList pickerType:@"conditions"];
     NSString *title = @"Forecast";
     pickerType = @"picker";
-    pickerAS = [[UIActionSheet alloc] initWithTitle:@"\n\n\n\n\n\n\n\n\n" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    NSString *titleBlank = @"\n\n\n\n\n\n\n\n\n";
+    if(!kIsiOS7){
+        pickerAS = [[UIActionSheet alloc] initWithTitle:titleBlank delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    }else{
+        [pickerView setBackgroundColor:[UIColor whiteColor]];
+        [picker.pickerView setFrame:CGRectMake(0, 24, 320, 400)];
+        NSString *title = @"\n\n\n\n\n\n\n\n\n\n\n\n";
+        pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    }
     [self addToolbarToPicker:title];
 }
 - (void) showTemperatureSettingsPicker
@@ -221,7 +238,15 @@
     tempPicker = [[temperatureSettingsPicker alloc] init];
     NSString *title = @"Forecast / Temp";
     pickerType = @"tempPicker";
-    pickerAS = [[UIActionSheet alloc] initWithTitle:@"\n\n\n\n\n\n\n\n\n" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    NSString *titleBlank = @"\n\n\n\n\n\n\n\n\n";
+    if(!kIsiOS7){
+        pickerAS = [[UIActionSheet alloc] initWithTitle:titleBlank delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+    }else{
+        [pickerView setBackgroundColor:[UIColor whiteColor]];
+        [tempPicker.pickerView setFrame:CGRectMake(0, 24, 320, 400)];
+        NSString *title = @"\n\n\n\n\n\n\n\n\n\n\n\n";
+        pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    }
     [self addToolbarToPicker:title];
 }
 

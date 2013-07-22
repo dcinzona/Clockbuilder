@@ -51,6 +51,16 @@
         self.widgetClass = @"TimeView";
         self.widgetType = @"dateTime";
         
+        if(kIsiOS7){
+            
+            [self.pickerView setBackgroundColor:[UIColor whiteColor]];            
+            [self.pickerView setFrame:CGRectMake(0,
+                                                self.pickerView.frame.origin.y-15,
+                                                self.pickerView.frame.size.width,
+                                                self.pickerView.frame.size.height
+                                                )];
+        }
+        
     }
     return self;
 }

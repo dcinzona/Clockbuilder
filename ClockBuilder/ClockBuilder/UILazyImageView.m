@@ -34,12 +34,11 @@
 }
 - (void)loadWithURL:(NSURL *)url    
 {
-	self.alpha = 0;
-    __block UIImageView *weakSelf = self;
+	//self.alpha = 0;
     [self setImageWithURL:url placeholderImage:nil success:^(UIImage *image) {
         [UIView beginAnimations:@"fadeIn" context:NULL];
         [UIView setAnimationDuration:0.5];
-        weakSelf.alpha = 1.0;
+        //[self setAlpha:1];
         [UIView commitAnimations];
     } failure:^(NSError *error) {
         

@@ -615,7 +615,6 @@
 		76F99ED3132E63F3008A3E14 /* tvCellAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = 76F99ED2132E63F3008A3E14 /* tvCellAccessory.png */; };
 		76F99ED6132E7873008A3E14 /* BGImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F99ED5132E7870008A3E14 /* BGImageCell.m */; };
 		76F99ED9132E827D008A3E14 /* LockBackgroundThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 76F99ED8132E827D008A3E14 /* LockBackgroundThumb.png */; };
-		CB067917151D6072005C8198 /* GMTThemeSync.m in Sources */ = {isa = PBXBuildFile; fileRef = CB067916151D6072005C8198 /* GMTThemeSync.m */; };
 		CB2A74CD154DB05800FF6BFA /* weatherSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A74CC154DB05800FF6BFA /* weatherSingleton.m */; };
 		CB2B667B135935440029B2E6 /* tvCellBG.png in Resources */ = {isa = PBXBuildFile; fileRef = CB2B6679135935440029B2E6 /* tvCellBG.png */; };
 		CB2B667C135935440029B2E6 /* tvCellBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB2B667A135935440029B2E6 /* tvCellBG@2x.png */; };
@@ -1513,8 +1512,6 @@
 		76F99ED4132E786D008A3E14 /* BGImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGImageCell.h; sourceTree = "<group>"; };
 		76F99ED5132E7870008A3E14 /* BGImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGImageCell.m; sourceTree = "<group>"; };
 		76F99ED8132E827D008A3E14 /* LockBackgroundThumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LockBackgroundThumb.png; sourceTree = "<group>"; };
-		CB067915151D6072005C8198 /* GMTThemeSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GMTThemeSync.h; path = ../../../GMTSync/GMTThemeSync.h; sourceTree = "<group>"; };
-		CB067916151D6072005C8198 /* GMTThemeSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GMTThemeSync.m; path = ../../../GMTSync/GMTThemeSync.m; sourceTree = "<group>"; };
 		CB2A74CB154DB05800FF6BFA /* weatherSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weatherSingleton.h; sourceTree = "<group>"; };
 		CB2A74CC154DB05800FF6BFA /* weatherSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = weatherSingleton.m; sourceTree = "<group>"; };
 		CB2B6679135935440029B2E6 /* tvCellBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tvCellBG.png; sourceTree = "<group>"; };
@@ -2757,8 +2754,6 @@
 		CB3D7935154BBA67005BE664 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				CB067915151D6072005C8198 /* GMTThemeSync.h */,
-				CB067916151D6072005C8198 /* GMTThemeSync.m */,
 				766EC21715110CB800BEDD2E /* CBTheme.h */,
 				766EC21815110CB800BEDD2E /* CBTheme.m */,
 				CB3D7931154BAE30005BE664 /* GMTHelper.h */,
@@ -3827,7 +3822,6 @@
 				76B1D3DE13CDE50400A61950 /* toggleToolbarButton.m in Sources */,
 				766EC2121510F12D00BEDD2E /* CBThemeHelper.m in Sources */,
 				766EC21915110CB800BEDD2E /* CBTheme.m in Sources */,
-				CB067917151D6072005C8198 /* GMTThemeSync.m in Sources */,
 				768113B7152DC39700ED6749 /* themeBrowserNavigationController.m in Sources */,
 				7661D3D9153C7B2600DA85F6 /* gridViewController.m in Sources */,
 				76BCAC6F153CAF4B00124A14 /* UILazyImageView.m in Sources */,

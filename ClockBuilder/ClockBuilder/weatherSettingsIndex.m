@@ -83,28 +83,29 @@ monitorInBG;
     [self.textField setReturnKeyType:UIReturnKeyDone];
     [self.textField setClearButtonMode:UITextFieldViewModeWhileEditing];
     self.textField.placeholder = @"Current Location";
-    [self.textField setTextAlignment:NSTextAlignmentRight];
+    [self.textField setTextAlignment:UITextAlignmentRight];
     
     /*
     UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
     [self.tableView setBackgroundView:TVbgView];
      */
-    
-    UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-    [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-    [bg2 setContentMode:UIViewContentModeTop];
-    UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-    [self.tableView setBackgroundView:bgView];
-    [bgView addSubview:bg2];
-    UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-    [bgView setBackgroundColor:tableBGColor];
-    [self.tableView setBackgroundColor:tableBGColor];
-    
-    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-    [bg setContentMode:UIViewContentModeTopLeft];
-    [self.tableView setTableFooterView:bg];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];    
-    [self.tableView setSectionFooterHeight:0];
+    if(!kIsiOS7){
+        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
+        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
+        [bg2 setContentMode:UIViewContentModeTop];
+        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
+        [self.tableView setBackgroundView:bgView];
+        [bgView addSubview:bg2];
+        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+        [bgView setBackgroundColor:tableBGColor];
+        [self.tableView setBackgroundColor:tableBGColor];
+        
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
+        [bg setContentMode:UIViewContentModeTopLeft];
+        [self.tableView setTableFooterView:bg];
+        [self.tableView setSectionFooterHeight:0];
+    }
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [self.loadingIndicator setFrame:CGRectMake(120, 23, 20, 20)];
@@ -112,17 +113,17 @@ monitorInBG;
     self.onOff = [[UISwitch alloc] initWithFrame:CGRectZero];
     [self.onOff setOn:[[weatherData objectForKey:@"useWindchill"] boolValue]];
     [self.onOff addTarget: self action: @selector(flip:) forControlEvents: UIControlEventValueChanged];
-    self.onOff.center = CGPointMake(250, 32);
+    self.onOff.center = CGPointMake(self.tableView.frame.size.width - (onOff.frame.size.width/2) - 10, 32);
     //showDegree
     self.showDegree = [[UISwitch alloc] initWithFrame:CGRectZero];
     [self.showDegree setOn:[[weatherData objectForKey:@"showDegreeSymbol"] boolValue]];
     [self.showDegree addTarget: self action: @selector(setDegreeShow:) forControlEvents: UIControlEventValueChanged];
-    self.showDegree.center = CGPointMake(250, 32);
+    self.showDegree.center = CGPointMake(self.tableView.frame.size.width - (showDegree.frame.size.width/2) - 10, 32);
     
     self.monitorInBG = [[UISwitch alloc] initWithFrame:CGRectZero];
     [self.monitorInBG setOn:[[weatherData objectForKey:@"monitorInBackground"] boolValue]];
     [self.monitorInBG addTarget: self action: @selector(setMonitoring:) forControlEvents: UIControlEventValueChanged];
-    self.monitorInBG.center = CGPointMake(250, 32);
+    self.monitorInBG.center = CGPointMake(self.tableView.frame.size.width - (monitorInBG.frame.size.width/2) - 10, 32);
     
     [weatherData setObject:[NSNumber numberWithBool:NO] forKey:@"monitorInBackground"];
     
@@ -235,6 +236,18 @@ monitorInBG;
 {
     return 64;//self.view.window.screen.scale * 64;
 }
+
+-(void)addCellAccessory:(UITableViewCell *) cell{
+    if(!kIsiOS7){
+        UIImageView *accessory = [[ UIImageView alloc ]
+                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
+        cell.accessoryView = accessory;
+    }
+    else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -248,6 +261,9 @@ monitorInBG;
         [[cell textLabel] setText:@"Location:"];
         [[cell detailTextLabel] setText:[weatherData objectForKey:@"location"]];
         [self.textField setText:[weatherData objectForKey:@"locationName"]];
+        if(kIsiOS7){
+            [self.textField setTextColor:[UIColor darkGrayColor]];
+        }
         if ([[cell subviews] indexOfObject:self.textField]==NSNotFound) {
             [cell addSubview:self.textField];
         }
@@ -266,9 +282,7 @@ monitorInBG;
         }
         [[cell textLabel] setText:@"Weather Refresh Rate:"];
         [[cell detailTextLabel] setText:[self getFriendlyIntervalName]];   
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;     
+        [self addCellAccessory:cell];
         return cell;
     }
     
@@ -283,9 +297,7 @@ monitorInBG;
         }
         [[cell textLabel] setText:@"Temperature Units:"];
         [[cell detailTextLabel] setText:[self getFriendlyTemperatureName]]; 
-        UIImageView *accessory = [[ UIImageView alloc ] 
-                                  initWithImage:[UIImage imageNamed:@"tvCellAccessory.png" ]];
-        cell.accessoryView = accessory;       
+        [self addCellAccessory:cell];
         return cell;
     }
     
@@ -442,9 +454,18 @@ monitorInBG;
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
+    
+    
+    if(kIsiOS7){
+        [titleLabel setTextColor:[UIColor darkGrayColor]];
+        [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0]];
+        [self.pickerAS setBackgroundColor:[UIColor whiteColor]];
+        [toolbar setTintColor:nil];
+    }
+    
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
     [titleItem setStyle:UIBarButtonItemStylePlain];
     [barItems addObject:cancelBtn];
@@ -564,13 +585,13 @@ monitorInBG;
                 }
                 else
                 {
-                    dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                    //dispatch_sync(dispatch_get_main_queue(), ^(void) {
                         
                         [self.loadingIndicator stopAnimating];
                         if(_valid){
                             [[GMTHelper sharedInstance] alertWithString:@"No internet connection detected. Unable to get location."];
                         }
-                    });
+                    //});
                 }
             }
         //});
@@ -680,7 +701,10 @@ monitorInBG;
     NSString *title = @"Weather Refresh Rate";
     self.picker = [[WidgetPickerViewController alloc] initWithPickerItems:nil pickerType:@"refreshInteval"];
     self.picker.pickerItems = [pickerList copy];
-    self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+        if(!kIsiOS7)
+            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+        else
+            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [self addToolbarToPicker:title];
     //[pickerList release];    
     }
@@ -693,8 +717,11 @@ monitorInBG;
     NSArray *pickerList = [NSArray arrayWithObjects:@"Fahrenheit",@"Celsius", nil];
     NSString *title = @"Weather Units";
     self.picker = [[WidgetPickerViewController alloc] initWithPickerItems:nil pickerType:@"units"];
-    self.picker.pickerItems = [pickerList copy];
-    self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+        self.picker.pickerItems = [pickerList copy];
+        if(!kIsiOS7)
+            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+        else
+            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [self addToolbarToPicker:title];
     //[pickerList release];    
     }
@@ -706,8 +733,11 @@ monitorInBG;
         _pickerVisible = YES;
     NSArray *pickerList = [NSArray arrayWithObjects: @"Climacons", @"Flat", @"HTC", @"Stardock", @"Tick",nil];
     self.picker = [[WidgetPickerViewController alloc] initWithPickerItems:pickerList pickerType:@"iconSet"];
-    NSString *title = @"Icon Set:";
-    self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+        NSString *title = @"Icon Set:";
+        if(!kIsiOS7)
+            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+        else
+            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [self addToolbarToPicker:title];
     }
 }

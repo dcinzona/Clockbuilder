@@ -69,6 +69,7 @@
 -(void)build
 {
     [self setShowsTouchWhenHighlighted:YES];
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, 40, 40)];
     [self addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.layer.cornerRadius = 20;
     self.layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.7].CGColor;

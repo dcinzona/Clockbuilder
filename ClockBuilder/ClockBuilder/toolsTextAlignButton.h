@@ -11,10 +11,10 @@
 
 
 @interface toolsTextAlignButton : UIButton <UIGestureRecognizerDelegate> {
-
+    UIImageView *alignmentIcon;
 }
 
-@property (nonatomic, retain) UIImageView *alignmentIcon;
+@property (nonatomic) UIImageView *alignmentIcon;
 
 -(void)build;
 

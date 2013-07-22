@@ -10,7 +10,6 @@
 
 @interface UILazyImageView : UIImageView{
     NSMutableData *receivedData;
-    UIImageView *thisView;
 }
 - (id)initWithURL:(NSURL *)url;
 - (void)loadWithURL:(NSURL *)url;

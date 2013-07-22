@@ -7,7 +7,6 @@
 //
 
 #import "weatherSingleton.h"
-#import <AddressBook/AddressBook.h>
 /*
 #if TARGET_IPHONE_SIMULATOR 
 @interface CLLocationManager (Simulator)
@@ -41,6 +40,8 @@
     NSString *currentLocationName;
 	CLLocationManager* locationManager;
 	CLLocation* location;
+    
+    CLGeocoder *reverseGeocoder5;//iOS 5 Only
     CLPlacemark *placemark;
     
     //XMLPARSER
@@ -60,15 +61,6 @@
     NSTimer *timoutTimer;
     BOOL isUpdatingFromLocation;
     SBJsonParser *jsonParser;
-    
-    BOOL triedPostal;
-    BOOL triedCityState;
-    BOOL triedStreetState;
-    BOOL triedStreetCountry;
-    BOOL triedStateCountry;
-    BOOL triedCityCountry;
-    
-    BOOL showAlertFromInitialLocationGrab;
 }
 
 @property (nonatomic,strong)NSDictionary *weatherDataDictionary;
@@ -77,7 +69,7 @@
 @property (nonatomic,strong)NSString *currentLocationName;
 @property (nonatomic,strong)CLLocationManager* locationManager;
 @property (nonatomic,strong)CLLocation* cllocation;
-//@property (nonatomic,strong)MKReverseGeocoder *reverseGeocoder;
+@property (nonatomic,strong)MKReverseGeocoder *reverseGeocoder;
 @property (nonatomic,strong)NSTimer *timer;
 
 
@@ -88,7 +80,7 @@
 
 @implementation weatherSingleton
 
-@synthesize timer,weatherDataDictionary, weatherData, locationString, currentLocationName, locationManager, cllocation;
+@synthesize timer,weatherDataDictionary, weatherData, locationString, currentLocationName, locationManager, cllocation, reverseGeocoder;
 
 static weatherSingleton *sharedInstance = nil;
 static dispatch_queue_t serialQueue;
@@ -135,6 +127,11 @@ static dispatch_queue_t serialQueue;
             arrayOfPlacesAsDict = [[NSMutableArray alloc] init];
             _pickerVisible = NO;
             selectedPickerRow = 0;
+            NSString *ver = [[UIDevice currentDevice] systemVersion];
+            float ver_float = [ver floatValue];
+            if (ver_float >= 5.0) {
+                reverseGeocoder5 = [[CLGeocoder alloc] init];
+            }
         }
     });
     
@@ -162,34 +159,31 @@ static dispatch_queue_t serialQueue;
 
 
 -(void)setLocation:(NSString *)loc{
-    dispatch_sync(serialQueue, ^{
-        tempLocation = loc;
-            if([loc isEqualToString:@"Current Location"]){
-                //dispatch_async(dispatch_get_main_queue(), ^{
-                    NSString *ver = [[UIDevice currentDevice] systemVersion];
-                    float ver_float = [ver floatValue];
-                    if (ver_float < 4.3) {
-                        
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
-                        
-                    }
-                    else {
-                        [locationManager setDelegate:[weatherSingleton sharedInstance]];
-                        [locationManager startUpdatingLocation];
-                    }
+    //dispatch_sync(serialQueue, ^{
+    tempLocation = loc;
+        if([loc isEqualToString:@"Current Location"]){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSString *ver = [[UIDevice currentDevice] systemVersion];
+                float ver_float = [ver floatValue];
+                if (ver_float < 4.3) {
                     
-                //});
-            }
-            else {
-                if (postalString != loc) {
-                    postalString = loc;
-                    if(![self getWeatherForLocation:loc]){
-                        //try getting weather for string first.  otherwise get locations
-                        [self parseLocation:postalString];
-                    }
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
+                    
                 }
+                else {
+                    [locationManager setDelegate:[weatherSingleton sharedInstance]];
+                    [locationManager startUpdatingLocation];
+                }
+                
+            });
+        }
+        else {
+            if (postalString != loc) {
+                postalString = loc;
+                [self parseLocation:postalString];
             }
-    });
+        }
+    //});    
 }
 
 -(NSDictionary *)currentWeatherData{
@@ -286,9 +280,6 @@ static dispatch_queue_t serialQueue;
             timer = [NSTimer scheduledTimerWithTimeInterval:interval target:[weatherSingleton sharedInstance] selector:@selector(updateWeatherData) userInfo:nil repeats:NO];
         }
     }
-    else{
-        isUpdatingFromLocation = NO;
-    }
 }
 
 -(void)didUpdateWeatherData{
@@ -326,48 +317,21 @@ static dispatch_queue_t serialQueue;
 	didUpdateToLocation:(CLLocation*)newLocation
 		   fromLocation:(CLLocation*)oldLocation
 {
+    [locationManager stopUpdatingLocation];
     cllocation = newLocation;
-    placemark = nil;
     //reverseGeo location
-    
-    NSLog(@"location timestamp: %@",newLocation.timestamp);
-    NSLog(@"location timestamp: %f",[newLocation.timestamp timeIntervalSinceReferenceDate]);
-    NSLog(@"current time: %f",[NSDate timeIntervalSinceReferenceDate]);
-    NSLog(@"difference between location timestamp and current time: %f",[NSDate timeIntervalSinceReferenceDate] - [newLocation.timestamp timeIntervalSinceReferenceDate]);
-    NSLog(@"NEW LOCATION: %f, %f",newLocation.coordinate.latitude,newLocation.coordinate.longitude);
-    
-    
-    if ([NSDate timeIntervalSinceReferenceDate] - [newLocation.timestamp timeIntervalSinceReferenceDate] > 60){
-        
-    }else{
-        NSLog(@"is less than 60");
-    }
-    
-    
-    if(!isUpdatingFromLocation && newLocation.horizontalAccuracy < 100){
-        [locationManager stopUpdatingLocation];
-        isUpdatingFromLocation = YES;
+    if(!isUpdatingFromLocation){
         [self getReverseGeoCode:newLocation];
-    }
-    else{
-        
-    }
+        isUpdatingFromLocation = YES;
+    };
+    
 }
 
 - (void)locationManager:(CLLocationManager*)manager
 	   didFailWithError:(NSError*)error
 {
-    [locationManager stopUpdatingLocation];
-    triedPostal = NO;
-    triedCityState = NO;
-    triedStreetState = NO;
-    triedStreetCountry = NO;
-    triedStateCountry = NO;
-    triedCityCountry = NO;
+    [locationManager stopUpdatingLocation];    
     isUpdatingFromLocation = NO;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
-    });
     //alert that location failed
 }
 
@@ -379,36 +343,91 @@ static dispatch_queue_t serialQueue;
 
     - (void) getReverseGeoCode:(CLLocation *)newLocation
     {
-        
-        isUpdatingFromLocation = NO;       
-        
-        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        
-       // dispatch_sync(serialQueue, ^{
-        [geocoder reverseGeocodeLocation:newLocation
-                       completionHandler:^(NSArray *placemarks, NSError *error) {
-                           if (error) {
-                               NSLog(@"Geocode failed with error: %@", error);
-                               dispatch_async(dispatch_get_main_queue(), ^{
-                                   [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
-                               });
-                               return;
-                           }
-                           
-                           if (placemarks && placemarks.count > 0)
-                           {
-                               CLPlacemark *foundplacemark = placemarks[0];
-                               placemark = foundplacemark;                               
-                               [self getLocationFromPlacemark];
-                            }
-                           
-                       }];
-        //});
-        
-        
-        return;
-        
-        
+        NSString *ver = [[UIDevice currentDevice] systemVersion];
+        float ver_float = [ver floatValue];
+        if (ver_float < 5.0) {
+            
+            NSString *fetchURL = [NSString stringWithFormat:@"http://maps.google.com/maps/geo?q=%@,%@&amp;output=json&amp;sensor=true", [NSString     stringWithFormat:@"%f",newLocation.coordinate.latitude], [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude]];
+            NSURL *url = [NSURL URLWithString:fetchURL];
+            NSError *Err;
+            NSString *htmlData = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&Err];
+            
+            SBJsonParser *parser = [[SBJsonParser alloc] init];
+            NSDictionary *json = [parser objectWithString:htmlData];
+            NSArray *array = [json objectForKey:@"Placemark"];
+            
+            isUpdatingFromLocation = NO;
+            if(array.count > 0){
+                NSDictionary *addressDetails = [[array objectAtIndex:0] objectForKey:@"AddressDetails"];
+                if(addressDetails == nil){
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
+                    return;
+                }
+                NSDictionary *country = [addressDetails objectForKey:@"Country"];
+                if (country == nil) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
+                    });
+                    return;
+                }
+                NSDictionary *adminArea = [country objectForKey:@"AdministrativeArea"];
+                if(adminArea ==nil){
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
+                    });
+                    return;
+                }
+                NSDictionary *locality = [adminArea objectForKey:@"Locality"];
+                if(locality ==nil){
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
+                    });
+                    return;
+                }
+                NSDictionary *postal = [locality objectForKey:@"PostalCode"];
+                if (postal !=nil) {
+                    postalString = [postal objectForKey:@"PostalCodeNumber"];
+                    [self parseLocation:postalString];
+                }
+                else {
+                    if([locality objectForKey:@"LocalityName"]!=nil && [adminArea objectForKey:@"AdministrativeAreaName"]!=nil){
+                        NSString *ls = [NSString stringWithFormat:@"%@ %@",
+                                        [locality objectForKey:@"LocalityName"],
+                                        [adminArea objectForKey:@"AdministrativeAreaName"]];
+                        [self parseLocation:ls];
+                    }
+                    else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
+                        });
+                    }
+                }         
+            
+            }
+            else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
+                });
+            }
+            
+        }
+        else {
+            [reverseGeocoder5 reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error){
+                
+                isUpdatingFromLocation = NO;
+                
+                if([placemarks count]>0){
+                    placemark = [placemarks objectAtIndex:0];
+                    [self getLocationFromPlacemark];
+                }
+                else{
+                    if (error) {
+                        NSLog(@"error reverseGeocode: %@",[error localizedDescription]);
+                    }
+                }
+            }];
+
+        }
     }
 
 
@@ -417,11 +436,10 @@ static dispatch_queue_t serialQueue;
 //////////////////////////////////////////////////////////////////////////////////////
 
 -(void)parseLocation:(NSString *)str{
-    showAlertFromInitialLocationGrab = YES;
-    //dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    
+    //dispatch_sync(serialQueue, ^{
         NSString *urlStr = [NSString stringWithFormat:@"http://xoap.weather.com/search/search?where=%@",[str stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
         NSURL *xmlURL = [NSURL URLWithString:[urlStr stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
-    NSLog(@"parser url string: %@", xmlURL);
         [[NSURLCache sharedURLCache] setMemoryCapacity:0];
         [[NSURLCache sharedURLCache] setDiskCapacity:0];
         NSURLRequest *request = [NSURLRequest requestWithURL:xmlURL];
@@ -438,61 +456,20 @@ static dispatch_queue_t serialQueue;
 
 -(void)getLocationFromPlacemark{
     
-    if (placemark.postalCode!=nil && ![placemark.postalCode isEqualToString:@""] && !triedPostal) {
-        triedPostal = YES;
+    if (placemark.postalCode!=nil && ![placemark.postalCode isEqualToString:@""]) {
         postalString  = placemark.postalCode;
-        NSLog(@"postal code found: %@", postalString);
         [self parseLocation:placemark.postalCode];
     }
     else {
         
         NSDictionary *addr = placemark.addressDictionary;
         //NSString *state = [placemark.addressDictionary objectForKey:@"State"];
-        if(!triedStreetState){
-            triedStreetState = YES;
-            if([addr objectForKey:(NSString *)kABPersonAddressStreetKey]!=nil && [addr objectForKey:@"State"]!=nil){
-                NSString *ls = [NSString stringWithFormat:@"%@ %@",[addr objectForKey:(NSString *)kABPersonAddressStreetKey],[addr objectForKey:@"State"]];
-                [self parseLocation:ls];
-            }
-            
-        }
-        else if(!triedStreetCountry){
-            triedStreetCountry = YES;
-            if([addr objectForKey:(NSString *)kABPersonAddressStreetKey]!=nil && [addr objectForKey:@"Country"]!=nil){
-                NSString *ls = [NSString stringWithFormat:@"%@ %@",[addr objectForKey:(NSString *)kABPersonAddressStreetKey],[addr objectForKey:@"Country"]];
-                [self parseLocation:ls];
-            }
-            
-        }
-        else if(!triedCityState){
-            triedCityState = YES;
-            if([addr objectForKey:@"City"]!=nil && [addr objectForKey:@"State"]!=nil){
-                NSString *ls = [NSString stringWithFormat:@"%@ %@",[addr objectForKey:@"City"],[addr objectForKey:@"State"]];
-                [self parseLocation:ls];
-            }
-        }
-        else if(!triedCityCountry){
-            triedCityCountry = YES;
-            if([addr objectForKey:@"City"]!=nil && [addr objectForKey:@"Country"]!=nil){
-                NSString *ls = [NSString stringWithFormat:@"%@ %@",[addr objectForKey:@"City"],[addr objectForKey:@"Country"]];
-                [self parseLocation:ls];
-            }
-        }
-        else if(!triedStateCountry){
-            triedStateCountry = YES;
-            if([addr objectForKey:@"State"]!=nil && [addr objectForKey:@"Country"]!=nil){
-                NSString *ls = [NSString stringWithFormat:@"%@ %@",[addr objectForKey:@"State"],[addr objectForKey:@"Country"]];
-                [self parseLocation:ls];
-            }
-            
+        
+        if([addr objectForKey:@"City"]!=nil && [addr objectForKey:@"State"]!=nil){
+            NSString *ls = [NSString stringWithFormat:@"%@ %@",[addr objectForKey:@"City"],[addr objectForKey:@"State"]];
+            [self parseLocation:ls];
         }
         else {
-            triedPostal = NO;
-            triedCityState = NO;
-            triedStreetState = NO;
-            triedStreetCountry = NO;
-            triedStateCountry = NO;
-            triedCityCountry = NO;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
             });
@@ -506,20 +483,12 @@ static dispatch_queue_t serialQueue;
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
 	//NSString * errorString = [NSString stringWithFormat:@"Unable to locate the location entered. (Error code %i )", [parseError code]];
-	[self getLocationFromPlacemark];
-    /*
-     CustomAlertView * errorAlert = [[CustomAlertView alloc] initWithTitle:@"Error Verifying Location" message:@"Please try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-     [errorAlert show];
-    triedPostal = NO;
-    triedCityState = NO;
-    triedStreetState = NO;
-    triedStreetCountry = NO;
-    triedStateCountry = NO;
-    triedCityCountry = NO;
-     */
+	
+	CustomAlertView * errorAlert = [[CustomAlertView alloc] initWithTitle:@"Error Verifying Location" message:@"Please try again later." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[errorAlert show];
 }
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{		
     
 	currentElement = [elementName copy];
 	if ([elementName isEqualToString:@"loc"]) {
@@ -572,20 +541,12 @@ static dispatch_queue_t serialQueue;
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
     //dispatch_async(dispatch_get_main_queue(), ^{
     if(placeNames !=nil && placeWOEIDS != nil && placeNames.count >0 && placeNames.count == placeWOEIDS.count){
-        
-        triedPostal = NO;
-        triedCityState = NO;
-        triedStreetState = NO;
-        triedStreetCountry = NO;
-        triedStateCountry = NO;
-        triedCityCountry = NO;
-        
+
         if(placeWOEIDS.count >1){
             NSArray *singleArray = [NSArray arrayWithArray:0];
             singleArray = [self getSingleArrayOfPlaces];
             if(singleArray.count>1){
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    showAlertFromInitialLocationGrab = NO;
                     [self showLocationPicker:singleArray];
                 });
             }
@@ -631,19 +592,9 @@ static dispatch_queue_t serialQueue;
         }
     }
     else {
-        /*
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
         });
-         */
-        if([tempLocation isEqualToString:@"Current Location"]){
-            [self getLocationFromPlacemark];
-        }
-        else{            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
-            });
-        }
     }
 }
     //});
@@ -754,7 +705,6 @@ static dispatch_queue_t serialQueue;
 
 -(NSDictionary*)getWeatherForLocation:(NSString*)WOEID{
     
-    [locationManager stopUpdatingLocation];
     [[NSUserDefaults standardUserDefaults] setObject:WOEID forKey:@"currentLocation"];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSDictionary /*__block*/ *retDict;
@@ -763,10 +713,8 @@ static dispatch_queue_t serialQueue;
         NSString *temp = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]objectForKey:@"weatherData"] objectForKey:@"units"];
         NSString *urlString = [NSString stringWithFormat:@"%@%@%@%@%@",@"http://query.yahooapis.com/v1/public/yql?format=json&diagnostics=true&env=store://datatables.org/alltableswithkeys&q=select%20*%20from%20weather.forecast%20where%20location%20in%20%28%22",WOEID,@"%22%29%20and%20u=%22",temp,@"%22"];
         NSDictionary *data = [self weatherDictDataWithUrl:[NSURL URLWithString:urlString]];
-    NSLog(@"urslString: %@", urlString);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        });
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         if(data!=nil){
             NSDictionary *query = [data objectForKey:@"query"];
             if(query){
@@ -774,53 +722,31 @@ static dispatch_queue_t serialQueue;
                 NSString *resultsToString = [NSString stringWithFormat:@"%@",results];
                 if(![resultsToString isEqualToString:@"<null>"]){
                     weatherDataDictionary = [results objectForKey:@"channel"];
+                                        
                     NSString *desc = [weatherDataDictionary objectForKey:@"description"];
                     NSRange range = [desc rangeOfString:@"Error"];
-                    NSString *title = [weatherDataDictionary objectForKey:@"title"];
-                    title = [title stringByReplacingOccurrencesOfString:@"Yahoo! Weather - " withString:@""];
                     if(!(range.length > 0)){
                         tryLocationName=NO;
-                        currentLocationName = title;
-                        locationString = WOEID;
-                        [weatherData setObject:title forKey:@"locationName"];
-                        [weatherData setObject:WOEID forKey:@"location"];
                         [weatherData setObject:weatherDataDictionary forKey:@"data"];
                         [self didUpdateWeatherData];
                         retDict = weatherDataDictionary;
                     }
                     else{
                         //alert error
-                        if(showAlertFromInitialLocationGrab && [currentLocationName isEqualToString:title]){
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                NSString *alertString = [NSString stringWithFormat:@"Could not find weather from Yahoo! for location: %@", [self currentLocationName]];
-                                [[GMTHelper sharedInstance]alertWithString:alertString];
-                                [[NSNotificationCenter defaultCenter] postNotificationName:@"weatherDataChanged"
-                                                                                    object:nil
-                                                                                  userInfo:nil];
-                            });
-                            showAlertFromInitialLocationGrab = NO;
-                        }
+                        //dispatch_async(dispatch_get_main_queue(), ^{
+                        NSString *alertString = [NSString stringWithFormat:@"Could not find weather from Yahoo! for location: %@", [self currentLocationName]];
+                        [[GMTHelper sharedInstance]alertWithString:alertString];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"weatherDataChanged"
+                                                                            object:nil
+                                                                          userInfo:nil];
                     }
                 }
             }
             
         }
-        else{
-            if(showAlertFromInitialLocationGrab){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSString *alertString = [NSString stringWithFormat:@"Could not find weather from Yahoo! for location: %@", [self currentLocationName]];
-                    [[GMTHelper sharedInstance]alertWithString:alertString];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"weatherDataChanged"
-                                                                        object:nil
-                                                                      userInfo:nil];
-                });
-                showAlertFromInitialLocationGrab = NO;
-            }
-        }
     //});
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    });
+    
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     return retDict;
 }
 
@@ -876,7 +802,7 @@ static dispatch_queue_t serialQueue;
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [titleLabel setTextAlignment:UITextAlignmentCenter];
     [titleLabel setTextColor:[UIColor whiteColor]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
@@ -931,10 +857,7 @@ static dispatch_queue_t serialQueue;
         [weatherData setObject:locationString forKey:@"location"];
         currentLocationName = [NSString stringWithFormat:@"%@", [dict objectForKey:@"locationName"]];
         [weatherData setObject:currentLocationName forKey:@"locationName"];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-                       , ^(void) {
-                           [self getWeatherForLocation:locationString];
-                       });
+        [self getWeatherForLocation:locationString];
         //[self saveWeatherData];
         //[self getWeatherForLocation:locationString];
     }
