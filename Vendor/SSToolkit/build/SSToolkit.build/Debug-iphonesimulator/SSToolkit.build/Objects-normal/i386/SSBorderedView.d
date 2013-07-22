@@ -1,4 +1,4 @@
 dependencies: \
-  /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/SSToolkit/SSBorderedView.m \
-  /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/SSToolkit/SSBorderedView.h \
-  /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/SSToolkit/SSDrawingUtilities.h
+  /Users/gmt/Desktop/Clockbuilder/Vendor/SSToolkit/SSToolkit/SSBorderedView.m \
+  /Users/gmt/Desktop/Clockbuilder/Vendor/SSToolkit/SSToolkit/SSBorderedView.h \
+  /Users/gmt/Desktop/Clockbuilder/Vendor/SSToolkit/SSToolkit/SSDrawingUtilities.h

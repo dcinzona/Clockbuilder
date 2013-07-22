@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/SSToolkit/SSConcurrentOperation.m \
-  /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/SSToolkit/SSConcurrentOperation.h
+  /Users/gmt/Desktop/Clockbuilder/Vendor/SSToolkit/SSToolkit/SSConcurrentOperation.m \
+  /Users/gmt/Desktop/Clockbuilder/Vendor/SSToolkit/SSToolkit/SSConcurrentOperation.h

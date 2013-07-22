@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/SSToolkit/UIViewController+SSToolkitAdditions.m \
-  /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/SSToolkit/UIViewController+SSToolkitAdditions.h
+  /Users/gmt/Desktop/Clockbuilder/Vendor/SSToolkit/SSToolkit/UIViewController+SSToolkitAdditions.m \
+  /Users/gmt/Desktop/Clockbuilder/Vendor/SSToolkit/SSToolkit/UIViewController+SSToolkitAdditions.h

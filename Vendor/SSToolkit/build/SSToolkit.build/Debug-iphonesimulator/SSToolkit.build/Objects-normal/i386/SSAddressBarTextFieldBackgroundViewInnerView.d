@@ -1,4 +1,4 @@
 dependencies: \
-  /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/SSToolkit/SSAddressBarTextFieldBackgroundViewInnerView.m \
-  /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/SSToolkit/SSAddressBarTextFieldBackgroundViewInnerView.h \
-  /Users/gmt/Dropbox/iPhone/ClockBuilder/Vendor/SSToolkit/SSToolkit/UIImage+SSToolkitAdditions.h
+  /Users/gmt/Desktop/Clockbuilder/Vendor/SSToolkit/SSToolkit/SSAddressBarTextFieldBackgroundViewInnerView.m \
+  /Users/gmt/Desktop/Clockbuilder/Vendor/SSToolkit/SSToolkit/SSAddressBarTextFieldBackgroundViewInnerView.h \
+  /Users/gmt/Desktop/Clockbuilder/Vendor/SSToolkit/SSToolkit/UIImage+SSToolkitAdditions.h
