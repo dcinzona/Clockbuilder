@@ -364,13 +364,14 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            [cell addSubview:rotateWallpaper];
-            [rotateWallpaper setFrame:CGRectMake(320-rotateWallpaper.frame.size.width-20,
-                                              (64 - rotateWallpaper.frame.size.height)/2,
-                                              rotateWallpaper.frame.size.width,
-                                              rotateWallpaper.frame.size.height)];
+            UISwitch *unlockSliderBGSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            [unlockSliderBGSwitch addTarget:self action:@selector(toggleRotateWallpaper:) forControlEvents:UIControlEventValueChanged];
+            [cell setAccessoryView:unlockSliderBGSwitch];
         }
+        //rotateWallpaper
         [[cell textLabel] setText:@"Wallpaper Rotation"];
+        UISwitch *swtch = (UISwitch*)cell.accessoryView;
+        swtch.on = [[[NSUserDefaults standardUserDefaults] objectForKey:@"hasSliderBackground"] boolValue];
         
         return cell;
     }
