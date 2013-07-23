@@ -83,7 +83,10 @@
     [_textField addTarget:self action:@selector(updateDateUsingContentsOfTextField:) forControlEvents:UIControlEventEditingChanged];
     [_textField setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.3]];
     [_textField setTextColor:[UIColor whiteColor]];
-    
+    [_textField setFrame:CGRectMake(_textField.frame.origin.x,
+                                    _textField.frame.origin.y,
+                                    _textField.frame.size.width,
+                                    [@"text" sizeWithFont:_textField.font].height+5)];
     
     if(kIsIpad){
         

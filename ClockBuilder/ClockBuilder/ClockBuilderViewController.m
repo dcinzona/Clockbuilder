@@ -236,6 +236,65 @@
             }
         });
     }
+    
+    if(!_coordinatesView){
+        NSString *coor = @"X = -0000 px";
+        CGSize coorWidth = [coor sizeWithFont:[UIFont systemFontOfSize:12]];
+        
+        int viewHeight = round((coorWidth.height * 2) + 5);
+        
+        CGRect coordRect = CGRectMake(kScreenWidth - coorWidth.width - 5,
+                                     kScreenHeight - 44 - viewHeight - 5,
+                                     coorWidth.width + 5, viewHeight + 5);
+        _coordinatesView = [[UIView alloc] initWithFrame:coordRect];
+        [_coordinatesView setHidden:YES];
+        [_coordinatesView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.6]];
+        [self.view addSubview:_coordinatesView];
+        _coordinatesViewLabelX = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, coorWidth.width, coorWidth.height)];
+        [_coordinatesViewLabelX setFont:[UIFont systemFontOfSize:12]];
+        [_coordinatesViewLabelX setTextColor:[UIColor whiteColor]];
+        
+        [_coordinatesView addSubview:_coordinatesViewLabelX];
+        _coordinatesViewLabelY = [[UILabel alloc] initWithFrame:CGRectMake(5, coorWidth.height + 5, coorWidth.width, coorWidth.height)];
+        [_coordinatesViewLabelY setFont:[UIFont systemFontOfSize:12]];
+        [_coordinatesViewLabelY setTextColor:[UIColor whiteColor]];
+        [_coordinatesView addSubview:_coordinatesViewLabelY];
+        NSLog(@"coordinates view frame: %@", NSStringFromCGRect(_coordinatesView.frame));
+        [_coordinatesView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedCoordinatesView:)]];
+    }
+    
+}
+-(void)tappedCoordinatesView:(id)sender{
+    [self becomeFirstResponder];    
+    UIMenuController *coordMenuController = [UIMenuController sharedMenuController];
+    UIMenuItem *editWidgetX = [[UIMenuItem alloc]initWithTitle:@"Edit X" action:@selector(editWidgetCoordinateX)];
+    UIMenuItem *editWidgetY = [[UIMenuItem alloc]initWithTitle:@"Edit Y" action:@selector(editWidgetCoordinateY)];
+    [coordMenuController setMenuItems:[NSArray arrayWithObjects:editWidgetX, editWidgetY, nil]];
+    [coordMenuController setTargetRect:_coordinatesView.frame inView:self.view];
+    [coordMenuController setMenuVisible:YES animated:YES];
+    [[UIMenuController sharedMenuController] setMenuItems:nil];
+}
+-(void)editWidgetCoordinateX{
+    NSString *current =[NSString stringWithFormat:@"%i",(int)self.widgetSelected.frame.origin.x];
+    [MKEntryPanel showPanelWithTitle:@"Edit Widget X Position" inView:self.view withText:current numericOnly:YES onTextEntered:^(NSString *inputString) {
+        CGRect frame = self.widgetSelected.frame;
+        frame.origin.x = [inputString intValue];
+        [self.widgetSelected setFrame:frame];
+        [self showWidgetCoordinates:self.widgetSelected];
+    } onCancel:^{
+        [self showWidgetCoordinates:self.widgetSelected];
+    }];
+}
+-(void)editWidgetCoordinateY{
+    NSString *current =[NSString stringWithFormat:@"%i",(int)self.widgetSelected.frame.origin.y];
+    [MKEntryPanel showPanelWithTitle:@"Edit Widget Y Position" inView:self.view withText:current numericOnly:YES onTextEntered:^(NSString *inputString) {
+        CGRect frame = self.widgetSelected.frame;
+        frame.origin.y = [inputString intValue];
+        [self.widgetSelected setFrame:frame];
+        [self showWidgetCoordinates:self.widgetSelected];
+    } onCancel:^{
+        [self showWidgetCoordinates:self.widgetSelected];
+    }];
 }
 
 
@@ -494,6 +553,9 @@
 
 - (void)resetToolbar
 {
+    [_coordinatesView setHidden:YES];
+    [opacityPopup dismiss];
+    [scalePopup dismiss];
     if(!kIsiOS7){
         //[self.toolbar setBackgroundColor:[UIColor clearColor]];
         //[self.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
@@ -761,41 +823,36 @@
 
 -(void)setOpacityToolbar
 {
-    [ScaleIconImageView setHidden:YES];
-    [OpacityIconImageView setHidden:NO];
     NSArray *toolbarbuttons = [NSArray arrayWithObjects:
                                openTools, 
                                flexibleSpace1,
                                scaleButtonItem,
                                flexibleSpace1,
-                               opacitySliderContainer, 
-                               flexibleSpace1,
+                               //opacitySliderContainer,
+                               //flexibleSpace1,
                                opacityButtonItem,
                                flexibleSpace1, 
                                done, nil];
-    [toolbar setItems:toolbarbuttons];  
+    [toolbar setItems:toolbarbuttons];
 }
 -(void)setScalingToolbar
 {
-    [ScaleIconImageView setHidden:NO];
-    [OpacityIconImageView setHidden:YES];
     NSArray *toolbarbuttons = [NSArray arrayWithObjects:
                                openTools, 
                                flexibleSpace1,
                                scaleButtonItem,
                                flexibleSpace1,
-                               sliderContainer, 
-                               flexibleSpace1,
+                               //sliderContainer,
+                               //flexibleSpace1,
                                opacityButtonItem,
                                flexibleSpace1, 
                                done, nil];
-    [toolbar setItems:toolbarbuttons];  
+    [toolbar setItems:toolbarbuttons];
 }
 
 - (void) selectWidget:(UIView *)widget{
     if(self.widgetSelected !=nil)
     {
-        
         //save widget data here laters
     }
     
@@ -838,8 +895,18 @@
             else
                 [self setScalingToolbar];
         }
-        
+        //toggle coordinates view
+        [_coordinatesView setHidden:NO];
+        [self showWidgetCoordinates:widget];
     }
+}
+
+-(void)showWidgetCoordinates:(UIView *)widget{
+    [_coordinatesView setHidden:NO];
+    float x = widget.frame.origin.x;
+    float y = widget.frame.origin.y;
+    [_coordinatesViewLabelX setText:[NSString stringWithFormat:@"X = %i px",(int)x]];
+    [_coordinatesViewLabelY setText:[NSString stringWithFormat:@"Y = %i px",(int)y]];
 }
 
 -(void)setWeatherIconCurrent
@@ -1136,10 +1203,61 @@
 -(IBAction)scaleButtonClicked:(id)sender
 {
     [self setScalingToolbar];
+    
+    if(opacitySliderVisible){
+        [opacityPopup dismiss];
+        opacitySliderVisible = NO;
+    }
+    if(scaleSliderVisible){
+        [scalePopup dismiss];
+        scaleSliderVisible = NO;
+    }
+    else{
+        [opacityPopup dismiss];
+        //[scaleSlider setFrame:CGRectMake(0, 0, 280, scaleSlider.frame.size.height)];
+        UISlider *sclSlider = [[UISlider alloc]initWithFrame:CGRectMake(0, 0, 280, scaleSlider.frame.size.height)];
+        if(!scalePopup){
+            scalePopup = [[SNPopupView alloc]initWithContentView:sclSlider contentSize:sclSlider.frame.size];
+        }
+        //[scaleSlider setHidden:NO];
+        [sclSlider setMinimumValue:scaleSlider.minimumValue];
+        [sclSlider setMaximumValue:scaleSlider.maximumValue];
+        [sclSlider setValue:scaleSlider.value animated:YES];
+        [sclSlider setCenter:scalePopup.center];
+        [sclSlider addTarget:self action:@selector(SlideToScaleView:) forControlEvents:UIControlEventValueChanged];
+        [sclSlider addTarget:self action:@selector(doneScalingUsingSlider:) forControlEvents:UIControlEventTouchUpInside];
+        [sclSlider addTarget:self action:@selector(doneScalingUsingSlider:) forControlEvents:UIControlEventTouchUpOutside];
+        [scalePopup showFromBarButtonItem:scaleButtonItem inView:self.view];
+        scaleSliderVisible = YES;
+    }
 }
 -(IBAction)opacityButtonClicked:(id)sender
 {
     [self setOpacityToolbar];
+    if(scaleSliderVisible){
+        [scalePopup dismiss];
+        scaleSliderVisible = NO;
+    }
+    if(opacitySliderVisible){
+        [opacityPopup dismiss];
+        opacitySliderVisible = NO;
+    }
+    else{
+        UISlider *opacSlider = [[UISlider alloc]initWithFrame:CGRectMake(0, 0, 280, opacitySlider.frame.size.height)];
+        //[opacitySlider setFrame:CGRectMake(0, 0, 280, opacitySlider.frame.size.height)];
+        if(!opacityPopup){
+            opacityPopup = [[SNPopupView alloc]initWithContentView:opacSlider contentSize:opacSlider.frame.size];
+        }
+        [opacSlider setMinimumValue:opacitySlider.minimumValue];
+        [opacSlider setMaximumValue:opacitySlider.maximumValue];
+        [opacSlider setValue:opacitySlider.value animated:YES];
+        [opacSlider setCenter:opacityPopup.center];
+        [opacSlider addTarget:self action:@selector(SlideToAlphaView:) forControlEvents:UIControlEventValueChanged];
+        [opacSlider addTarget:self action:@selector(doneSettingAlphaUsingSlider:) forControlEvents:UIControlEventTouchUpInside];
+        [opacSlider addTarget:self action:@selector(doneSettingAlphaUsingSlider:) forControlEvents:UIControlEventTouchUpOutside];
+        [opacityPopup showFromBarButtonItem:opacityButtonItem inView:self.view];
+        opacitySliderVisible = YES;
+    }
 }
 
 
@@ -1467,14 +1585,32 @@
                     [tools closeTextTools];
                     
                 }
-                
+                //set anchorpoint
+                CGPoint locationInView = [gestureRecognizer locationInView:piece];
+                piece.layer.anchorPoint = CGPointMake(locationInView.x / piece.frame.size.width, locationInView.y / piece.frame.size.height);
             }
             
             if ([gestureRecognizer state] == UIGestureRecognizerStateChanged) {
-                CGPoint translation = [gestureRecognizer translationInView:[piece superview]];
                 
-                [piece setCenter:CGPointMake([piece center].x + translation.x, [piece center].y + translation.y)];
+                CGPoint translation = [gestureRecognizer translationInView:[piece superview]];
+                CGPoint newcenter = CGPointMake([piece center].x + translation.x, [piece center].y + translation.y);
+                if([[[NSUserDefaults standardUserDefaults] objectForKey:@"snapToGrid"] boolValue]){
+                    
+                    //SNAP TO GRID
+                    int gridCubeWidth  = 5;
+                    int gridCubeHeight = 5;
+                    if([[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"]){
+                        gridCubeWidth =[[[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"] intValue];
+                        gridCubeHeight = gridCubeWidth;
+                    }
+                    newcenter.x = round(newcenter.x / gridCubeWidth)  * gridCubeWidth;
+                    newcenter.y = round(newcenter.y / gridCubeHeight)  * gridCubeHeight;
+                }
+                
+                
+                [piece setCenter:newcenter];
                 [gestureRecognizer setTranslation:CGPointZero inView:[piece superview]];
+                [self showWidgetCoordinates:piece];
                 
             }
             if([gestureRecognizer state]==UIGestureRecognizerStateEnded)
@@ -1484,8 +1620,13 @@
                 int newHeight = gestureRecognizer.view.frame.size.height;
                 int top = gestureRecognizer.view.frame.origin.y;
                 int left = gestureRecognizer.view.frame.origin.x;
+                
+                
                 CGRect frame = CGRectMake((int)left, (int)top, (int)newWidth, (int)newHeight);
                 [self setFrameForView:frame widgetView:piece forceRedraw:NO];
+                
+                NSLog(@"widget frame: %@", NSStringFromCGRect(frame));
+                [self showWidgetCoordinates:piece];
                 
                 if(_toolsOpen){
                     //check if widget being dragged was not imageWidget                    
@@ -1507,54 +1648,61 @@
     
 }
 
-- (IBAction)SlideToScaleView: (id)sender {  
-    if(scaleSlider.state == UIControlEventTouchDown){
-    [self.widgetSelected setBackgroundColor:[UIColor redColor]];
-    CGPoint p = CGPointMake(self.widgetSelected.frame.origin.x / (self.widgetSelected.frame.size.width), 
-                            self.widgetSelected.frame.origin.y / (self.widgetSelected.frame.size.height));
-    if(scaleSlider.value == 0)
-        self.widgetSelected.layer.anchorPoint = p;
-    self.widgetSelected.transform = CGAffineTransformMakeScale(scaleSlider.value, scaleSlider.value);
+- (IBAction)SlideToScaleView: (id)sender {
+    UISlider *slider = (UISlider*)sender;
+    if(slider.state == UIControlEventTouchDown){
+        [self.widgetSelected setBackgroundColor:[UIColor redColor]];
+        if(slider.value < .1){
+            slider.value = .1;
+        }
+        self.widgetSelected.transform = CGAffineTransformMakeScale(slider.value, slider.value);
+        [self showWidgetCoordinates:self.widgetSelected];
     }
 }
-- (IBAction)doneScalingUsingSlider: (id)sender {   
+- (IBAction)doneScalingUsingSlider: (id)sender {
+    UISlider *slider = (UISlider*)sender;
     int top = self.widgetSelected.frame.origin.y;
     int left = self.widgetSelected.frame.origin.x;
     int sw = self.widgetSelected.frame.size.width;
     int sh = self.widgetSelected.frame.size.height;
     CGRect frame = CGRectMake( (int)left , (int)top, (int)sw, (int)sh);
+    
+    NSLog(@"widget frame: %@", NSStringFromCGRect(frame));
+    
     [self setFrameForView:frame widgetView:self.widgetSelected forceRedraw:YES];
-    [scaleSlider setValue:1];
+    [self showWidgetCoordinates:self.widgetSelected];
+    [slider setValue:1];
 }
 
 
-- (IBAction)SlideToAlphaView: (id)sender {  
-    if(opacitySlider.state == UIControlEventTouchDown){
+- (IBAction)SlideToAlphaView: (id)sender {
+    UISlider *slider = (UISlider*)sender;
+    if(slider.state == UIControlEventTouchDown){
         if([self.widgetSelected respondsToSelector:@selector(updateAlpha:)])
         { 
             [self.widgetSelected performSelector:@selector(updateAlpha:) 
-                                      withObject:[NSString stringWithFormat:@"%f",opacitySlider.value]];
+                                      withObject:[NSString stringWithFormat:@"%f",slider.value]];
         }
         //[self.widgetSelected setAlpha:opacitySlider.value];
     }
 }
-- (IBAction)doneSettingAlphaUsingSlider: (id)sender {       
-    NSInteger index = self.widgetSelected.tag-10;
-    NSMutableDictionary *widgetData = [self.widgetSelected performSelector:@selector(getWidgetData)];//[NSMutableDictionary dictionaryWithDictionary:[widgetsAdded objectAtIndex:index]];
-    NSString *opS = [NSString stringWithFormat:@"%f", opacitySlider.value];
-    if(opacitySlider.value <.1){
-        opS = @"0.1";
-    }/*
-    if([self.widgetSelected respondsToSelector:@selector(updateAlpha:)] && [opS isEqualToString:@"0.1"])
-    {
-        [self.widgetSelected performSelector:@selector(updateAlpha:)
-                                  withObject:[NSString stringWithFormat:@"%f",.1]];
-    }*/
-    
-    [widgetData setObject:opS forKey:@"opacity"];
-    [widgetHelper setWidgetData:index withData:widgetData];
+- (IBAction)doneSettingAlphaUsingSlider: (id)sender {
+    UISlider *slider = (UISlider*)sender;
+    if(slider.state != UIControlEventTouchDown){
+        NSInteger index = self.widgetSelected.tag-10;
+        NSMutableDictionary *widgetData = [self.widgetSelected performSelector:@selector(getWidgetData)];//[NSMutableDictionary dictionaryWithDictionary:[widgetsAdded objectAtIndex:index]];
+        NSString *opS = [NSString stringWithFormat:@"%f", opacitySlider.value];
+        if(slider.value <.1){
+            opS = @"0.1";
+        }
+        
+        [widgetData setObject:opS forKey:@"opacity"];
+        [widgetHelper setWidgetData:index withData:widgetData];
+    }
 }
-
+-(void)showCoordinates{
+    
+}
 
 // rotate the piece by the current rotation
 // reset the gesture recognizer's rotation to 0 after applying so the next callback is a delta from the current rotation

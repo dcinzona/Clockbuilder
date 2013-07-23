@@ -44,5 +44,7 @@ typedef void (^CloseBlock)(NSString *inputString);
 
 +(void) showPanelWithTitle:(NSString*) title inView:(UIView*) view onTextEntered:(CloseBlock) editingEndedBlock;
 +(void) showPanelWithTitle:(NSString*) title inView:(UIView*) view onTextEntered:(CloseBlock) editingEndedBlock onCancel:(CancelBlock) editCancelBlock;
++(void) showPanelWithTitle:(NSString*) title inView:(UIView*) view numericOnly:(BOOL)onlyNumbers onTextEntered:(CloseBlock) editingEndedBlock onCancel:(CancelBlock) editCancelBlock;
++(void) showPanelWithTitle:(NSString*) title inView:(UIView*) view withText:(NSString*)defaultText numericOnly:(BOOL)onlyNumbers onTextEntered:(CloseBlock) editingEndedBlock onCancel:(CancelBlock) editCancelBlock;
 - (IBAction) textFieldDidEndOnExit:(UITextField *)textField;
 @end

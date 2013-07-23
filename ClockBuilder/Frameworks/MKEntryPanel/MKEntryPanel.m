@@ -128,6 +128,88 @@
     [view addSubview:panel];
 }
 
++(void) showPanelWithTitle:(NSString*) title inView:(UIView*) view numericOnly:(BOOL)onlyNumbers onTextEntered:(CloseBlock) editingEndedBlock onCancel:(CancelBlock) editCancelBlock{
+    
+    MKEntryPanel *panel = [MKEntryPanel panel];
+    [panel setFrame:CGRectMake(0, 0, view.frame.size.width, panel.frame.size.height)];
+    panel.closeBlock = editingEndedBlock;
+    panel.cancelBlock = editCancelBlock;
+    panel.titleLabel.text = title;
+    if(onlyNumbers){
+        [panel.entryField setKeyboardType:UIKeyboardTypeNumberPad];
+    }
+    [panel.entryField becomeFirstResponder];
+    
+    panel.dimView = [[[DimView alloc] initWithParent:panel onTappedSelector:@selector(cancelTapped:)] autorelease];
+    panel.dimView.alpha = 0.0;
+    [view addSubview:panel.dimView];
+    [UIView animateWithDuration:mkAnimationDuration animations:^{
+        panel.dimView.alpha = mkDimViewAlpha;
+    } completion:^(BOOL finished) {
+        
+    }];
+    [view addSubview:panel];
+}
++(void) showPanelWithTitle:(NSString*) title inView:(UIView*) view withText:(NSString*)defaultText numericOnly:(BOOL)onlyNumbers onTextEntered:(CloseBlock) editingEndedBlock onCancel:(CancelBlock) editCancelBlock{
+
+    MKEntryPanel *panel = [MKEntryPanel panel];
+    [panel setFrame:CGRectMake(0, 0, view.frame.size.width, panel.frame.size.height)];
+    panel.closeBlock = editingEndedBlock;
+    panel.cancelBlock = editCancelBlock;
+    panel.titleLabel.text = title;
+    if(onlyNumbers){
+        [panel.entryField setKeyboardType:UIKeyboardTypeNumberPad];
+        if(!kIsIpad){
+            [[NSNotificationCenter defaultCenter] addObserver:panel
+                selector:@selector(keyboardWillShow:)
+                    name:UIKeyboardDidShowNotification
+                  object:nil];
+        }
+    }
+    if(defaultText){
+        [panel.entryField setText:defaultText];
+    }
+    [panel.entryField becomeFirstResponder];
+    
+    panel.dimView = [[[DimView alloc] initWithParent:panel onTappedSelector:@selector(cancelTapped:)] autorelease];
+    panel.dimView.alpha = 0.0;
+    [view addSubview:panel.dimView];
+    [UIView animateWithDuration:mkAnimationDuration animations:^{
+        panel.dimView.alpha = mkDimViewAlpha;
+    } completion:^(BOOL finished) {
+        
+    }];
+    [view addSubview:panel];
+}
+- (void)keyboardWillShow:(NSNotification *)note {
+    // create custom button
+    UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    doneButton.frame = CGRectMake(0, 163, 106, 53);
+    doneButton.adjustsImageWhenHighlighted = NO;
+    [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+    [doneButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
+    [doneButton addTarget:self action:@selector(textFieldDidEndOnExit:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // locate keyboard view
+    // locate keyboard view
+    NSArray *winArray = [[UIApplication sharedApplication] windows];
+    if(winArray == nil || [winArray count] < 2) {
+        NSLog(@"No winArray found!");
+        return;
+    }
+    UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
+    UIView* keyboard;
+    for(int i=0; i<[tempWindow.subviews count]; i++) {
+        keyboard = [tempWindow.subviews objectAtIndex:i];
+        // keyboard view found; add the custom button to it
+        NSLog(@"Keyboard description : %@", [keyboard description]);
+        keyboard = [tempWindow.subviews objectAtIndex:i];
+        // keyboard view found; add the custom button to it
+        if([[keyboard description] hasPrefix:@"UIKeyboard"] == YES || [[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES)
+            [keyboard addSubview:doneButton];
+    }
+}
+
 - (IBAction) textFieldDidEndOnExit:(UITextField *)textField {
         
     [self performSelectorOnMainThread:@selector(hidePanel) withObject:nil waitUntilDone:YES];    
@@ -143,6 +225,7 @@
 
 -(void) hidePanel
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.entryField resignFirstResponder];
     CATransition *transition = [CATransition animation];
 	transition.duration = mkAnimationDuration;

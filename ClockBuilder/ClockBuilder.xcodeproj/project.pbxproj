@@ -556,6 +556,8 @@
 		76C6BEC0137338F300D75307 /* popular@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C6BEBE137338F100D75307 /* popular@2x.png */; };
 		76C6BEC313733CEF00D75307 /* myUploads.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C6BEC113733CEF00D75307 /* myUploads.png */; };
 		76C6BEC413733CEF00D75307 /* myUploads@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76C6BEC213733CEF00D75307 /* myUploads@2x.png */; };
+		76CAA663179EA77900B92D7B /* SNPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76CAA660179EA77900B92D7B /* SNPopupView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		76CAA664179EA77900B92D7B /* SNPopupView+UsingPrivateMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 76CAA662179EA77900B92D7B /* SNPopupView+UsingPrivateMethod.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		76D2FEA613701FE100534EC5 /* slideshow.html in Resources */ = {isa = PBXBuildFile; fileRef = 76D2FEA513701FE100534EC5 /* slideshow.html */; };
 		76D2FEAA13702FAA00534EC5 /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 76D2FEA81370224C00534EC5 /* jquery.min.js */; };
 		76D2FEAC1370318000534EC5 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D2FEAB1370318000534EC5 /* empty.png */; };
@@ -1431,6 +1433,10 @@
 		76C6BEBE137338F100D75307 /* popular@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "popular@2x.png"; sourceTree = "<group>"; };
 		76C6BEC113733CEF00D75307 /* myUploads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myUploads.png; sourceTree = "<group>"; };
 		76C6BEC213733CEF00D75307 /* myUploads@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myUploads@2x.png"; sourceTree = "<group>"; };
+		76CAA65F179EA77900B92D7B /* SNPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNPopupView.h; sourceTree = "<group>"; };
+		76CAA660179EA77900B92D7B /* SNPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNPopupView.m; sourceTree = "<group>"; };
+		76CAA661179EA77900B92D7B /* SNPopupView+UsingPrivateMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SNPopupView+UsingPrivateMethod.h"; sourceTree = "<group>"; };
+		76CAA662179EA77900B92D7B /* SNPopupView+UsingPrivateMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SNPopupView+UsingPrivateMethod.m"; sourceTree = "<group>"; };
 		76D2FEA513701FE100534EC5 /* slideshow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = slideshow.html; sourceTree = "<group>"; };
 		76D2FEA81370224C00534EC5 /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
 		76D2FEAB1370318000534EC5 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
@@ -2452,6 +2458,17 @@
 			name = "Text Widget Settings Controller";
 			sourceTree = "<group>";
 		};
+		76CAA665179EA77D00B92D7B /* Popup View */ = {
+			isa = PBXGroup;
+			children = (
+				76CAA65F179EA77900B92D7B /* SNPopupView.h */,
+				76CAA660179EA77900B92D7B /* SNPopupView.m */,
+				76CAA661179EA77900B92D7B /* SNPopupView+UsingPrivateMethod.h */,
+				76CAA662179EA77900B92D7B /* SNPopupView+UsingPrivateMethod.m */,
+			);
+			name = "Popup View";
+			sourceTree = "<group>";
+		};
 		76D60538179D52560036A8AF /* MKEntryPanel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2833,6 +2850,7 @@
 		CBBDC1B413285C6B00EE9349 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				76CAA665179EA77D00B92D7B /* Popup View */,
 				76D60644179D55310036A8AF /* GMGridView.xcodeproj */,
 				CBFB257F15D5BD3400DD97AF /* SSToolkit.xcodeproj */,
 				76D6054A179D52D80036A8AF /* SDWebImage */,
@@ -3773,6 +3791,7 @@
 				76C3EB8D13296C8A00CC2DA9 /* chooseFont.m in Sources */,
 				765EE555132AB96000FAB080 /* ImagePickerView.m in Sources */,
 				765EE55F132AC3C800FAB080 /* UIImage+Alpha.m in Sources */,
+				76CAA663179EA77900B92D7B /* SNPopupView.m in Sources */,
 				765EE560132AC3C800FAB080 /* UIImage+Resize.m in Sources */,
 				765EE561132AC3C800FAB080 /* UIImage+RoundedCorner.m in Sources */,
 				CBF65941132C1F6B00088B19 /* UIView+glowLabelSelections.m in Sources */,
@@ -3781,6 +3800,7 @@
 				76F99EB4132E39A4008A3E14 /* PrettyCell.m in Sources */,
 				76F99ED6132E7873008A3E14 /* BGImageCell.m in Sources */,
 				766224B3132FE5900051512F /* textBasedWidget.m in Sources */,
+				76CAA664179EA77900B92D7B /* SNPopupView+UsingPrivateMethod.m in Sources */,
 				7689D4B3179DB5BC00DA13AF /* GMTThemeSync.m in Sources */,
 				760F2E7C1330F27500F6810E /* WidgetPickerViewController.m in Sources */,
 				CBE982F7133171A6002C14C2 /* weatherIconView.m in Sources */,

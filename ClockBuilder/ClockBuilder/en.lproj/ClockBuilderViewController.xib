@@ -7,17 +7,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ClockBuilderViewController">
             <connections>
-                <outlet property="OpacityIconImageView" destination="59" id="61"/>
-                <outlet property="ScaleIconImageView" destination="58" id="60"/>
                 <outlet property="addItem" destination="9" id="12"/>
                 <outlet property="done" destination="11" id="13"/>
                 <outlet property="flexibleSpace1" destination="25" id="30"/>
                 <outlet property="opacityButtonItem" destination="74" id="76"/>
-                <outlet property="opacitySlider" destination="80" id="84"/>
-                <outlet property="opacitySliderContainer" destination="83" id="85"/>
+                <outlet property="opacitySlider" destination="66c-Xu-iuR" id="Bhf-a9-mbZ"/>
                 <outlet property="scaleButtonItem" destination="73" id="75"/>
-                <outlet property="scaleSlider" destination="33" id="36"/>
-                <outlet property="sliderContainer" destination="34" id="37"/>
+                <outlet property="scaleSlider" destination="gO3-Mb-nol" id="K3e-6p-Niq"/>
                 <outlet property="toolbar" destination="8" id="19"/>
                 <outlet property="tools" destination="92" id="93"/>
                 <outlet property="view" destination="6" id="7"/>
@@ -30,6 +26,23 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.10000000149011612" maxValue="1" id="66c-Xu-iuR" userLabel="opacity slider">
+                    <rect key="frame" x="58" y="480" width="204" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <action selector="SlideToAlphaView:" destination="-1" eventType="valueChanged" id="qO6-q1-76y"/>
+                        <action selector="doneSettingAlphaUsingSlider:" destination="-1" eventType="touchDragOutside" id="VXF-qZ-Cc2"/>
+                        <action selector="doneSettingAlphaUsingSlider:" destination="-1" eventType="touchUpInside" id="rjg-1e-Mh9"/>
+                    </connections>
+                </slider>
+                <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.20000000298023224" maxValue="3" id="gO3-Mb-nol" userLabel="Scale Slider">
+                    <rect key="frame" x="58" y="480" width="204" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <connections>
+                        <action selector="SlideToScaleView:" destination="-1" eventType="valueChanged" id="ZkO-EW-ewj"/>
+                        <action selector="doneScalingUsingSlider:" destination="-1" eventType="touchUpInside" id="1uB-zH-oPO"/>
+                    </connections>
+                </slider>
                 <view alpha="0.0" contentMode="scaleToFill" id="66" userLabel="Widget Tools">
                     <rect key="frame" x="268" y="460" width="40" height="416"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -50,27 +63,7 @@
                                 <action selector="scaleButtonClicked:" destination="-1" id="77"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="SliderContainer" style="plain" id="34" userLabel="sliderContainer">
-                            <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.20000000298023224" maxValue="3" id="33" userLabel="Scale Slider">
-                                <rect key="frame" x="61" y="8" width="94" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="SlideToScaleView:" destination="-1" eventType="valueChanged" id="35"/>
-                                    <action selector="doneScalingUsingSlider:" destination="-1" eventType="touchUpInside" id="42"/>
-                                </connections>
-                            </slider>
-                        </barButtonItem>
-                        <barButtonItem style="plain" id="83" userLabel="opacity slider container">
-                            <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.10000000149011612" maxValue="1" id="80" userLabel="opacity slider">
-                                <rect key="frame" x="165" y="8" width="94" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="SlideToAlphaView:" destination="-1" eventType="valueChanged" id="87"/>
-                                    <action selector="doneSettingAlphaUsingSlider:" destination="-1" eventType="touchUpInside" id="90"/>
-                                    <action selector="doneSettingAlphaUsingSlider:" destination="-1" eventType="touchDragOutside" id="91"/>
-                                </connections>
-                            </slider>
-                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="dHo-kQ-hwT"/>
                         <barButtonItem image="opacity.png" style="plain" id="74" userLabel="OpacityButtonItem">
                             <connections>
                                 <action selector="opacityButtonClicked:" destination="-1" id="78"/>
@@ -84,14 +77,6 @@
                         </barButtonItem>
                     </items>
                 </toolbar>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="TabBarGlow.png" id="58" userLabel="resize">
-                    <rect key="frame" x="66" y="542" width="24" height="24"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="TabBarGlow.png" id="59" userLabel="opacity">
-                    <rect key="frame" x="219" y="542" width="24" height="24"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <view hidden="YES" contentMode="scaleToFill" id="62">
                     <rect key="frame" x="-12" y="503" width="156" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -439,7 +424,6 @@
         </view>
     </objects>
     <resources>
-        <image name="TabBarGlow.png" width="19" height="15"/>
         <image name="bgOverlay.png" width="320" height="480"/>
         <image name="opacity.png" width="24" height="24"/>
         <image name="resize.png" width="24" height="24"/>

@@ -20,6 +20,18 @@
 @implementation manageGeneralSettings
 
 
+#define kTotalCells  8
+#define kBackgroundCell 0
+#define kClearBackgroundCell 1
+#define kWeatherSettingsCell  2
+#define kGlobalTextCell  3
+#define kSnapToGrid 4
+#define kGridSize 5
+#define kMilitaryTimeCell  6
+#define kParallaxCell  7
+#define kLockscreenCell  8
+#define kiCloudCell  9
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -311,6 +323,34 @@
     [[UIApplication sharedApplication] setStatusBarHidden:!showStatusBar.on withAnimation:YES];
     
 }
+- (IBAction)setSnapToGrid:(id)sender
+{
+    UISwitch *snapSwitch = (UISwitch*)sender;
+    NSString *keyValue = @"NO";
+    if(snapSwitch.on)
+        keyValue = @"YES";
+    [[NSUserDefaults standardUserDefaults] setObject:keyValue forKey:@"snapToGrid"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+- (IBAction)setGridSize:(id)sender
+{
+    UISlider *slider = (UISlider*)sender;
+    
+    int val = round(slider.value);
+    
+    [slider setValue:val animated:NO];
+    
+    NSString *keyValue = [NSString stringWithFormat:@"%i",val];
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:kGridSize inSection:0]];
+    
+    [cell.textLabel setText:[NSString stringWithFormat:@"Grid Size: %i", val]];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:keyValue forKey:@"gridSize"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
 
 
 -(void)showInfoView
@@ -360,16 +400,6 @@
 }
 
 #pragma mark - Table view data source
-
-#define kTotalCells  6
-#define kBackgroundCell 0
-#define kClearBackgroundCell 1
-#define kWeatherSettingsCell  2
-#define kGlobalTextCell  3
-#define kMilitaryTimeCell  4
-#define kiCloudCell  7
-#define kParallaxCell  5
-#define kLockscreenCell  6
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -442,11 +472,6 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            /*[cell addSubview:clearBGButton];
-            [clearBGButton setFrame:CGRectMake(320-clearBGButton.frame.size.width-20,
-                                              (64 - clearBGButton.frame.size.height)/2,
-                                              clearBGButton.frame.size.width,
-                                              clearBGButton.frame.size.height)];*/
             [cell setAccessoryView:clearBGButton];
         }
         [[cell textLabel] setText:@"Clear Background"];
@@ -472,6 +497,44 @@
         [[cell textLabel] setText:@"Modify All Text"];
         [self addCellAccessory:cell];
         
+        return cell;
+    }
+    if(indexPath.row==kSnapToGrid ){
+        static NSString *CellIdentifier = @"switchCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            UISwitch *cellSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            [cellSwitch addTarget:self action:@selector(setSnapToGrid:) forControlEvents:UIControlEventValueChanged];
+            [cell setAccessoryView:cellSwitch];
+        }
+        [[cell textLabel] setText:@"Snap to Grid"];
+        UISwitch *sw = (UISwitch *)[cell accessoryView];
+        sw.on = [[[NSUserDefaults standardUserDefaults] objectForKey:@"snapToGrid"] boolValue];
+        
+        return cell;
+    }
+    if(indexPath.row==kGridSize ){
+        static NSString *CellIdentifier = @"sliderCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 100, 0)];
+            slider.continuous = YES;
+            [slider setMinimumValue:1];
+            [slider setMaximumValue:20];
+            [slider addTarget:self action:@selector(setGridSize:) forControlEvents:UIControlEventValueChanged];
+            [cell setAccessoryView:slider];
+        }
+        UISlider *slider = (UISlider *)[cell accessoryView];
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"]){
+            slider.value = [[[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"] intValue];
+        }
+        else{
+            slider.value = 5;
+            [[NSUserDefaults standardUserDefaults] setObject:@"5" forKey:@"gridSize"];
+        }
+        [[cell textLabel] setText:[NSString stringWithFormat:@"Grid Size: %i",(int)slider.value]];
         return cell;
     }
     if(indexPath.row==kMilitaryTimeCell ){

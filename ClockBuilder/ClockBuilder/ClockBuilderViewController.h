@@ -16,6 +16,7 @@
 #import "widgetTools.h"
 #import "weatherIconPickerTool.h"
 #import "CBTheme.h"
+#import "SNPopupView+UsingPrivateMethod.h"
 
 @interface ClockBuilderViewController : UIViewController <UIGestureRecognizerDelegate, UIActionSheetDelegate, UIWebViewDelegate, NSMetadataQueryDelegate, UIPopoverControllerDelegate> {
     
@@ -71,6 +72,11 @@
     
     BOOL _ranInitialRefresh;
     BOOL _cantFindYouAlertShowing;
+    
+    SNPopupView *opacityPopup;
+    SNPopupView *scalePopup;
+    BOOL opacitySliderVisible;
+    BOOL scaleSliderVisible;
 }
 @property (strong, nonatomic) NSMetadataQuery *query;
 -(void)setupAndStartQuery;
@@ -97,6 +103,9 @@
 @property (strong, nonatomic) CustomTabBarViewController *tabsController;
 @property (strong, nonatomic) NSArray *tabItems;
 @property (nonatomic,strong) NSTimer *timer;
+@property (nonatomic, strong) UIView *coordinatesView;
+@property (nonatomic, strong) UILabel *coordinatesViewLabelX;
+@property (nonatomic, strong) UILabel *coordinatesViewLabelY;
 
 @property (nonatomic, strong) UIPopoverController *pop;
 
