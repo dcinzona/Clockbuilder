@@ -21,9 +21,18 @@
 @synthesize themeName;
 @synthesize bgImageData;
 
+-(BOOL)isRunningInSimulator{
+    
+#if TARGET_IPHONE_SIMULATOR
+    return YES;
+#endif
+    return NO;
+}
+
 -(BOOL)checkIfJB
 {
-    
+    if([self isRunningInSimulator])
+        return [self isRunningInSimulator];
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *cydiaDirPath = @"/Applications/Cydia.app";
     BOOL exists = [fm fileExistsAtPath:cydiaDirPath];    
@@ -52,6 +61,8 @@
 }
 -(BOOL)checkIfThemeInstalled
 {
+    if([self isRunningInSimulator])
+        return [self isRunningInSimulator];
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *themeDirPath = @"/Library/Themes/TypoClockBuilder.theme";
     BOOL exists = [fm fileExistsAtPath:themeDirPath];

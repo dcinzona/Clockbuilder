@@ -15,8 +15,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "134"
             endingLineNumber = "134"
-            landmarkName = "-applicationSyncManagerDidFinishRegistering:"
-            landmarkType = "5">
+            landmarkName = "@implementation ClockBuilderAppDelegate"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/themeConverter.m"
-            timestampString = "394985776.660605"
+            timestampString = "396230108.091152"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "570"
-            endingLineNumber = "570"
+            startingLineNumber = "581"
+            endingLineNumber = "581"
             landmarkName = "-createSymLinks"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/themeConverter.m"
-            timestampString = "394985776.660605"
+            timestampString = "396230108.091152"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "567"
-            endingLineNumber = "567"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
             landmarkName = "-createSymLinks"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/themeConverter.m"
-            timestampString = "394985776.660605"
+            timestampString = "396230108.091152"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "506"
-            endingLineNumber = "506"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
             landmarkName = "-writeWallpaperHtmlAndBG:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/themeConverter.m"
-            timestampString = "394856514.425937"
+            timestampString = "396230108.091152"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "-writeToLocalWithStyle:andHTML:andbuildJS:"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/themeConverter.m"
-            timestampString = "394856514.425937"
+            timestampString = "396230108.091152"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "@implementation themeConverter"
             landmarkType = "3">
          </BreakpointContent>
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/manageGeneralSettings.m"
-            timestampString = "394833152.303373"
+            timestampString = "396231397.422169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "-alertView:clickedButtonAtIndex:"
             landmarkType = "5">
          </BreakpointContent>
@@ -616,11 +616,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/manageGeneralSettings.m"
-            timestampString = "394833152.303373"
+            timestampString = "396231397.422169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "-saveBackgroundImageToLibrary"
             landmarkType = "5">
          </BreakpointContent>
@@ -648,11 +648,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/manageGeneralSettings.m"
-            timestampString = "396227962.631351"
+            timestampString = "396231397.422169"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "774"
-            endingLineNumber = "774"
+            startingLineNumber = "745"
+            endingLineNumber = "745"
             landmarkName = "@implementation manageGeneralSettings"
             landmarkType = "3">
          </BreakpointContent>
@@ -664,11 +664,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/themeConverter.m"
-            timestampString = "394985776.660605"
+            timestampString = "396230108.091152"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
+            startingLineNumber = "456"
+            endingLineNumber = "456"
             landmarkName = "-updateHTMLandCSS:weatherData:weatherOnly:"
             landmarkType = "5">
          </BreakpointContent>
@@ -696,11 +696,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/themeConverter.m"
-            timestampString = "394985776.660605"
+            timestampString = "396230108.091152"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
+            startingLineNumber = "493"
+            endingLineNumber = "493"
             landmarkName = "-writeWallpaperHtmlAndBG:"
             landmarkType = "5">
          </BreakpointContent>
@@ -712,12 +712,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/themeConverter.m"
-            timestampString = "394985776.660605"
+            timestampString = "396230108.091152"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "456"
-            endingLineNumber = "456"
+            startingLineNumber = "467"
+            endingLineNumber = "467"
             landmarkName = "-updateWallpaper"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClockBuilder/ClockBuilder/LanguageEditors/LanguageEditorTVC.m"
+            timestampString = "396233345.277441"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "-resignKeyboard"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClockBuilder/ClockBuilder/LanguageEditors/LanguageEditorTVC.m"
+            timestampString = "396234453.547515"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
+            landmarkName = "-textFieldDidEndEditing:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClockBuilder/ClockBuilder/LanguageEditors/LanguageEditorTVC.m"
+            timestampString = "396234453.547515"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
+            landmarkName = "-textFieldDidEndEditing:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClockBuilder/ClockBuilder/LanguageEditors/LanguageEditorTVC.m"
+            timestampString = "396234453.547515"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
+            landmarkName = "-textFieldDidEndEditing:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

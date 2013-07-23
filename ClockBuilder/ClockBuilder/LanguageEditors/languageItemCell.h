@@ -10,7 +10,9 @@
 
 
 @interface languageItemCell : UITableViewCell
-@property (nonatomic) IBOutlet UILabel *cellLabel;
-@property (nonatomic) IBOutlet SSTextField *entryField;
+@property (nonatomic, strong) IBOutlet UILabel *cellLabel;
+@property (nonatomic, strong) IBOutlet SSTextField *entryField;
+
+-(UILabel *)getCellLabel;
 
 @end

@@ -14,7 +14,6 @@
 @interface manageJBSettings : UITableViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     
     UISwitch *adjustShadowForStatusBar;
-    UISwitch *setWallpaper;
     UISwitch *rotateWallpaper;
     UIPopoverController *pop;
     themeConverter *tc;

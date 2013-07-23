@@ -49,30 +49,21 @@
     
     [self setTitle:@"Language Edits"];
     
-    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-    [bg setContentMode:UIViewContentModeTopLeft];
-    [self.tableView setTableFooterView:bg];
-    /*
-    UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
-     [self.tableView setBackgroundView:TVbgView];
-     
-     
-     UIView *bgView = [[UIView alloc]initWithFrame:self.tableView.frame];
-     [bgView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"px"]]];
-     [self.tableView setBackgroundView:bgView];
-     [self.tableView setBackgroundColor:[UIColor blackColor]];
-     */
-    
-    UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-    [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-    [bg2 setContentMode:UIViewContentModeTop];
-    UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-    [self.tableView setBackgroundView:bgView];
-    [bgView addSubview:bg2];
-    UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-    [bgView setBackgroundColor:tableBGColor];
-    [self.tableView setBackgroundColor:tableBGColor];
-    
+    if(!kIsiOS7){
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
+        [bg setContentMode:UIViewContentModeTopLeft];
+        [self.tableView setTableFooterView:bg];
+        
+        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
+        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
+        [bg2 setContentMode:UIViewContentModeTop];
+        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
+        [self.tableView setBackgroundView:bgView];
+        [bgView addSubview:bg2];
+        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+        [bgView setBackgroundColor:tableBGColor];
+        [self.tableView setBackgroundColor:tableBGColor];
+    }
     UITapGestureRecognizer *resign = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                              action:@selector(resignKeyboard)];
     [self.tableView.backgroundView addGestureRecognizer:resign];
@@ -112,8 +103,8 @@
 
 -(void)resignKeyboard{
     NSLog(@"resign keyboard");
-    if(selectedCell){
-        [selectedCell.entryField resignFirstResponder];
+    if(_selectedCell){
+        [_selectedCell.entryField resignFirstResponder];
     }
 }
 
@@ -147,8 +138,6 @@
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UILabel *headerView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 40)];
-    [headerView setShadowColor:[UIColor colorWithRed:.1 green:.1 blue:.1 alpha:.5]];
-    [headerView setShadowOffset:CGSizeMake(1, 1)];
     
     if(section == 0)
         [headerView setText:@"  Day Names"];
@@ -156,9 +145,12 @@
         [headerView setText:@"  Month Names"];
     if(section == 2)
         [headerView setText:@"  Weather Conditions"];
-    
-    [headerView setBackgroundColor:[UIColor clearColor]];
-    [headerView setTextColor:[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.9]];
+    if(!kIsiOS7){
+        [headerView setBackgroundColor:[UIColor clearColor]];
+        [headerView setTextColor:[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.9]];
+        [headerView setShadowColor:[UIColor colorWithRed:.1 green:.1 blue:.1 alpha:.5]];
+        [headerView setShadowOffset:CGSizeMake(1, 1)];
+    }
     
     return headerView;
 }
@@ -173,16 +165,16 @@
     if (cell == nil) {
         [[NSBundle mainBundle] loadNibNamed:@"languageItemCell" owner:self options:nil];
         cell = languageCell;
-        [cell setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
+        if(!kIsiOS7){
+            [cell setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
+        }
         
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [[cell cellLabel] setTextColor:[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.8]];
-        [[cell cellLabel] setBackgroundColor:[UIColor clearColor]];
-        [[cell entryField] setTextColor:[UIColor whiteColor]];
-        [cell.entryField setPlaceholderTextColor:[UIColor colorWithRed:.6 green:.6 blue:.6 alpha:.6]];
-        [cell.entryField setReturnKeyType:UIReturnKeyDone];
-        [cell.entryField setKeyboardType:UIKeyboardTypeNamePhonePad];
         [cell.entryField setDelegate:self];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        if(!kIsiOS7){
+            [[cell cellLabel] setTextColor:[UIColor colorWithRed:.8 green:.8 blue:.8 alpha:1]];
+        }
+        [[cell cellLabel] setBackgroundColor:[UIColor clearColor]];
     }
     
     cell.entryField.text = @"";
@@ -223,62 +215,71 @@
     if(textField.text.length>0){
         valueText = textField.text;
     }
-    NSString *key = selectedCell.cellLabel.text;
-    
-    switch (selectedIndexPath.section) {
-        case 0:
-            //days
-            if(textField.text.length == 0){
-                if([customDays objectForKey:key]){
-                    [customDays removeObjectForKey:key];
+    languageItemCell *cell = (languageItemCell*)[self.tableView cellForRowAtIndexPath:selectedIndexPath];
+    NSString *key = [[cell getCellLabel] text];
+    if(key){
+        switch (selectedIndexPath.section) {
+            case 0:
+                //days
+                if(textField.text.length == 0){
+                    if([customDays objectForKey:key]){
+                        [customDays removeObjectForKey:key];
+                        [defaults setObject:customDays forKey:@"customDays"];
+                    }
+                }else
+                {
+                    [customDays setObject:valueText forKey:key];
                     [defaults setObject:customDays forKey:@"customDays"];
                 }
-            }else
-            {
-                [customDays setObject:valueText forKey:key];
-                [defaults setObject:customDays forKey:@"customDays"];
-            }
-            break;
-        case 1:
-            if(textField.text.length == 0){
-                if([customMonths objectForKey:key]){
-                    [customMonths removeObjectForKey:key];
+                break;
+            case 1:
+                if(textField.text.length == 0){
+                    if([customMonths objectForKey:key]){
+                        [customMonths removeObjectForKey:key];
+                        [defaults setObject:customMonths forKey:@"customMonths"];
+                    }
+                }else
+                {
+                    [customMonths setObject:valueText forKey:key];
                     [defaults setObject:customMonths forKey:@"customMonths"];
                 }
-            }else
-            {
-                [customMonths setObject:valueText forKey:key];
-                [defaults setObject:customMonths forKey:@"customMonths"];
-            }
-            break;
-        case 2:
-            if(textField.text.length == 0){
-                if([customConditions objectForKey:key]){
-                    [customConditions removeObjectForKey:key];
+                break;
+            case 2:
+                if(textField.text.length == 0){
+                    if([customConditions objectForKey:key]){
+                        [customConditions removeObjectForKey:key];
+                        [defaults setObject:customConditions forKey:@"customConditions"];
+                    }
+                }else
+                {
+                    [customConditions setObject:valueText forKey:key];
                     [defaults setObject:customConditions forKey:@"customConditions"];
                 }
-            }else
-            {
-                [customConditions setObject:valueText forKey:key];
-                [defaults setObject:customConditions forKey:@"customConditions"];
-            }
-            break;
-            
-        default:
-            break;
+                break;
+                
+            default:
+                break;
+        }
     }
     [defaults synchronize];
     //either select next text field or end
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-    
     languageItemCell *cell = (languageItemCell *)[[textField superview] superview];
+    
+    NSLog(@"cell superview class: %@", NSStringFromClass([[textField superview] superview].class));
+    NSString *cellClass = NSStringFromClass([[textField superview] superview].class);
+    if([cellClass isEqualToString:@"UITableViewCellScrollView"])
+        cell = (languageItemCell *)[[[textField superview] superview] superview];
+    
+    NSLog(@"cell superview class: %@", NSStringFromClass(cell.class));
+    
     NSIndexPath *index = [self.tableView indexPathForCell:cell];
     
     [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewRowAnimationTop animated:YES];
     selectedIndexPath = index;
-    selectedCell = cell;
+    _selectedCell = cell;
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     

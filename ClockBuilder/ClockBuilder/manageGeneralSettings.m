@@ -134,33 +134,7 @@
     
     CGRect buttonFrame = CGRectMake(0, 0, 100, 32);
     saveBGButton= [CBThemeHelper createBlueUIButtonWithTitle:@"Save" target:self action:@selector(saveBackgroundImageToLibrary) frame:buttonFrame];
-    /*
-    if(!kIsiOS7){
-        [UIButton buttonWithType:UIButtonTypeCustom];
-    // Since the buttons can be any width we use a thin image with a stretchable center point
-    buttonImage = [[UIImage imageNamed:@"ButtonBlue30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-    buttonPressedImage = [[UIImage imageNamed:@"ButtonBlue30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
     
-    [[saveBGButton titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
-    [saveBGButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [saveBGButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    [saveBGButton setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
-    [saveBGButton setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
-    [[saveBGButton titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
-    
-    buttonFrame = [saveBGButton frame];
-    buttonFrame.size.width = [@"Save" sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
-    buttonFrame.size.height = buttonImage.size.height;
-    [saveBGButton setFrame:buttonFrame];
-    
-    [saveBGButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [saveBGButton setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
-    
-    [saveBGButton setTitle:@"Save" forState:UIControlStateNormal];
-    
-    [saveBGButton addTarget:self action:@selector(saveBackgroundImageToLibrary) forControlEvents:UIControlEventTouchUpInside];
-    }
-     */
     [saveBGButton setCenter:CGPointMake(self.tableView.frame.size.width - (saveBGButton.frame.size.width/2) - 10, 32)];
     
     clearBGButton= [CBThemeHelper createBlueUIButtonWithTitle:@"Clear" target:self action:@selector(selectBlackBG) frame:buttonFrame];
@@ -172,7 +146,6 @@
     
     parallaxSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
     [parallaxSwitch addTarget: self action: @selector(toggleParallax:) forControlEvents: UIControlEventValueChanged];
-    parallaxSwitch.center = CGPointMake(self.tableView.frame.size.width - (parallaxSwitch.frame.size.width/2) - 10, 32);
     BOOL parlax = [[[NSUserDefaults standardUserDefaults] objectForKey:@"parallaxEnabled"] boolValue];
     parallaxSwitch.on = parlax;
     
@@ -442,13 +415,12 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[BGImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            [cell.contentView addSubview:saveBGButton];
-            [saveBGButton setFrame:CGRectMake(kViewWidth-saveBGButton.frame.size.width-20,
-                                              (kCellHeight - saveBGButton.frame.size.height)/2,
+            [cell addSubview:saveBGButton];
+            [saveBGButton setFrame:CGRectMake(320-saveBGButton.frame.size.width-20,
+                                              (64 - saveBGButton.frame.size.height)/2,
                                               saveBGButton.frame.size.width,
                                               saveBGButton.frame.size.height)];
         }
-        NSLog(@"savebgbutton frame: %@",NSStringFromCGRect([self.view frame]));
         [[cell textLabel] setText:@" Background"];
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -504,11 +476,14 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            /*
             [cell addSubview:militaryTime];
             [militaryTime setFrame:CGRectMake(320-militaryTime.frame.size.width-20,
                                                (64 - militaryTime.frame.size.height)/2,
                                                militaryTime.frame.size.width,
                                                militaryTime.frame.size.height)];
+             */
+            [cell setAccessoryView:militaryTime];
         }
         [[cell textLabel] setText:@"Use 24hr Time"];        
         
@@ -542,11 +517,7 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            [cell addSubview:parallaxSwitch];
-            [parallaxSwitch setFrame:CGRectMake(320-parallaxSwitch.frame.size.width-20,
-                                              (64 - parallaxSwitch.frame.size.height)/2,
-                                              parallaxSwitch.frame.size.width,
-                                              parallaxSwitch.frame.size.height)];
+            [cell setAccessoryView:parallaxSwitch];
         }
         [[cell textLabel] setText:@"3D Background Effect"];
         

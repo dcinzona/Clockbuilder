@@ -615,6 +615,7 @@
 		76F99ED3132E63F3008A3E14 /* tvCellAccessory.png in Resources */ = {isa = PBXBuildFile; fileRef = 76F99ED2132E63F3008A3E14 /* tvCellAccessory.png */; };
 		76F99ED6132E7873008A3E14 /* BGImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76F99ED5132E7870008A3E14 /* BGImageCell.m */; };
 		76F99ED9132E827D008A3E14 /* LockBackgroundThumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 76F99ED8132E827D008A3E14 /* LockBackgroundThumb.png */; };
+		CB1D7732179E129D0001FC6F /* ios7Stars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB1D7731179E129D0001FC6F /* ios7Stars@2x.png */; };
 		CB2A74CD154DB05800FF6BFA /* weatherSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = CB2A74CC154DB05800FF6BFA /* weatherSingleton.m */; };
 		CB2B667B135935440029B2E6 /* tvCellBG.png in Resources */ = {isa = PBXBuildFile; fileRef = CB2B6679135935440029B2E6 /* tvCellBG.png */; };
 		CB2B667C135935440029B2E6 /* tvCellBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB2B667A135935440029B2E6 /* tvCellBG@2x.png */; };
@@ -1515,6 +1516,7 @@
 		76F99ED4132E786D008A3E14 /* BGImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGImageCell.h; sourceTree = "<group>"; };
 		76F99ED5132E7870008A3E14 /* BGImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGImageCell.m; sourceTree = "<group>"; };
 		76F99ED8132E827D008A3E14 /* LockBackgroundThumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LockBackgroundThumb.png; sourceTree = "<group>"; };
+		CB1D7731179E129D0001FC6F /* ios7Stars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7Stars@2x.png"; sourceTree = "<group>"; };
 		CB2A74CB154DB05800FF6BFA /* weatherSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weatherSingleton.h; sourceTree = "<group>"; };
 		CB2A74CC154DB05800FF6BFA /* weatherSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = weatherSingleton.m; sourceTree = "<group>"; };
 		CB2B6679135935440029B2E6 /* tvCellBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tvCellBG.png; sourceTree = "<group>"; };
@@ -2569,6 +2571,7 @@
 		76E89CEE15D53B7000FBD9E7 /* Language Editor */ = {
 			isa = PBXGroup;
 			children = (
+				CB1D7731179E129D0001FC6F /* ios7Stars@2x.png */,
 				76E89CF715D53C9100FBD9E7 /* plists */,
 				76E89CEF15D53B8300FBD9E7 /* Cells */,
 				76E89CE715D5388700FBD9E7 /* LanguageEditorTVC.h */,
@@ -3471,6 +3474,7 @@
 				76889AB2135C5A5F0047B9B3 /* stardock_38d.png in Resources */,
 				76889AB3135C5A5F0047B9B3 /* stardock_38n.png in Resources */,
 				76889AB4135C5A5F0047B9B3 /* stardock_39d.png in Resources */,
+				CB1D7732179E129D0001FC6F /* ios7Stars@2x.png in Resources */,
 				76889AB5135C5A5F0047B9B3 /* stardock_39n.png in Resources */,
 				76889AB6135C5A5F0047B9B3 /* stardock_3d.png in Resources */,
 				76889AB7135C5A5F0047B9B3 /* stardock_3n.png in Resources */,

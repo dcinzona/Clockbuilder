@@ -220,7 +220,7 @@
         
     }
     //check for updated GMTSync
-    if([th checkIfJB]){
+    if([th checkIfJB] && ![th isRunningInSimulator]){
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
         dispatch_async(queue, ^{
             GMTThemeSync *themeSync = [GMTThemeSync new];

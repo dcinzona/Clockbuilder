@@ -22,6 +22,7 @@
 - (void) updateWallpaper;
 - (void) run:(NSString *)weatherOnly;
 - (void) runFromCoreData:(NSString *)weatherOnly withDict:(NSMutableDictionary*)themeDict;
+-(BOOL)isRunningInSimulator;
 - (BOOL) checkIfJB;
 - (BOOL) checkIfThemeInstalled;
 -(void)checkifupdated;

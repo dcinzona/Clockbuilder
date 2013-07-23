@@ -85,16 +85,9 @@
     adjustShadowForStatusBar.center = CGPointMake(250, 32);    
     BOOL as = [[[NSUserDefaults standardUserDefaults] objectForKey:@"adjustShadowForStatusBar"] boolValue];
     adjustShadowForStatusBar.on = as;
-        
-    setWallpaper = [[UISwitch alloc] initWithFrame:CGRectZero];
-    [setWallpaper addTarget: self action: @selector(toggleSetWallpaper:) forControlEvents: UIControlEventValueChanged];
-    setWallpaper.center = CGPointMake(250, 32);
-    BOOL sw = [[[NSUserDefaults standardUserDefaults] objectForKey:@"setWallpaper"] boolValue];
-    setWallpaper.on = sw;
     
     rotateWallpaper = [[UISwitch alloc] initWithFrame:CGRectZero];
     [rotateWallpaper addTarget: self action: @selector(toggleRotateWallpaper:) forControlEvents: UIControlEventValueChanged];
-    rotateWallpaper.center = CGPointMake(250, 32);
     BOOL rw = [[[NSUserDefaults standardUserDefaults] objectForKey:@"rotateWallpaper"] boolValue];
     rotateWallpaper.on = rw;
 }
@@ -114,6 +107,7 @@
 }
 - (IBAction)toggleSetWallpaper:(id)sender
 {
+    UISwitch *setWallpaper = (UISwitch*)sender;
     if(![[[NSUserDefaults standardUserDefaults] objectForKey:@"showedWallpaperAlert"] boolValue]){
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"showedWallpaperAlert"];
         [[GMTHelper sharedInstance] alertWithString:@"Homescreen changes require setting the theme again AND a respring."];
@@ -299,10 +293,16 @@
     }
     if(indexPath.row == 1){
         
+        static NSString *CellIdentifier = @"Cell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+        
         cell.textLabel.text = @"Customize Language Elements";
         
         [self addCellAccessory:cell];
-        
+        return cell;
     }
     
     
@@ -311,8 +311,14 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            [cell addSubview:setWallpaper];
+            UISwitch *wallSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            [wallSwitch addTarget:self action:@selector(toggleSetWallpaper:) forControlEvents:UIControlEventValueChanged];
+            [cell setAccessoryView:wallSwitch];
         }
+        UISwitch *wallSwitch = (UISwitch*)[cell accessoryView];
+        BOOL sw = [[[NSUserDefaults standardUserDefaults] objectForKey:@"setWallpaper"] boolValue];
+        wallSwitch.on = sw;
+        
         [[cell textLabel] setText:@"Parallax Wallpaper"];
         
         return cell;
@@ -345,6 +351,10 @@
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             [cell addSubview:rotateWallpaper];
+            [rotateWallpaper setFrame:CGRectMake(320-rotateWallpaper.frame.size.width-20,
+                                              (64 - rotateWallpaper.frame.size.height)/2,
+                                              rotateWallpaper.frame.size.width,
+                                              rotateWallpaper.frame.size.height)];
         }
         [[cell textLabel] setText:@"Wallpaper Rotation"];
         

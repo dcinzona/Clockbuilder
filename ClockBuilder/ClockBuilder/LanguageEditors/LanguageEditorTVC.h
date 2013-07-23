@@ -10,8 +10,9 @@
 #import "languageItemCell.h"
 @interface LanguageEditorTVC : UITableViewController <UITextFieldDelegate>
 {
-    languageItemCell *selectedCell;
+    //languageItemCell *selectedCell;
     NSIndexPath *selectedIndexPath;
 }
+@property (nonatomic, assign) languageItemCell *selectedCell;
 @property (strong, nonatomic) IBOutlet languageItemCell *languageCell;
 @end

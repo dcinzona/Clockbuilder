@@ -100,25 +100,37 @@
     
     
     [self setTitle:@"Select Slider"];
+    if(!kIsiOS7 && NO){
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
+        [bg setContentMode:UIViewContentModeTopLeft];
+        [self.tableView setTableFooterView:bg];
     
-    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-    [bg setContentMode:UIViewContentModeTopLeft];
-    [self.tableView setTableFooterView:bg];
+        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
+        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
+        [bg2 setContentMode:UIViewContentModeTop];
+        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
+        [self.tableView setBackgroundView:bgView];
+        [bgView addSubview:bg2];
+        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+        [bgView setBackgroundColor:tableBGColor];
+        [self.tableView setBackgroundColor:tableBGColor];
+        
+    }
     
-    /*
-    UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
-    [self.tableView setBackgroundView:TVbgView];
-    */
+    UIImageView *bg = [[UIImageView alloc] initWithFrame:self.view.frame];
     
-    UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-    [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-    [bg2 setContentMode:UIViewContentModeTop];
-    UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-    [self.tableView setBackgroundView:bgView];
-    [bgView addSubview:bg2];
-    UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-    [bgView setBackgroundColor:tableBGColor];
-    [self.tableView setBackgroundColor:tableBGColor];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:@"LockBackground.png"];
+    if([[NSFileManager defaultManager] fileExistsAtPath:appFile]){
+        [bg setImage:[UIImage imageWithContentsOfFile:appFile]];
+    }else{
+        [bg setImage:[UIImage imageNamed:@"ios7Stars@2x.png"]];
+    }
+    
+    [bg setContentMode:UIViewContentModeScaleAspectFill];
+    [self.tableView setBackgroundView:bg];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
     
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setSectionFooterHeight:0];
@@ -198,6 +210,9 @@
     sliderSelectorCell *cell = (sliderSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[sliderSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        if(kIsiOS7){
+            [cell setBackgroundColor:[UIColor clearColor]];
+        }
     }
     // Configure the cell...
     if(themesArray!=nil && [themesArray count]>0)
