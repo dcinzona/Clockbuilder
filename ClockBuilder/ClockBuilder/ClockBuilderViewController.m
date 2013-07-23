@@ -265,7 +265,7 @@
     
 }
 -(void)tappedCoordinatesView:(id)sender{
-    [self becomeFirstResponder];    
+    [self becomeFirstResponder];
     UIMenuController *coordMenuController = [UIMenuController sharedMenuController];
     UIMenuItem *editWidgetX = [[UIMenuItem alloc]initWithTitle:@"Edit X" action:@selector(editWidgetCoordinateX)];
     UIMenuItem *editWidgetY = [[UIMenuItem alloc]initWithTitle:@"Edit Y" action:@selector(editWidgetCoordinateY)];
@@ -888,12 +888,12 @@
         [CBThemeHelper setTitle:@"Done" forCustomBarButton:self.done];
         [widgetNameView setHidden:NO];
         if(!self.toolbar.hidden){
-            if(OpacityIconImageView.hidden == YES)
-                [self setScalingToolbar];
-            else if(ScaleIconImageView.hidden == YES)
-                [self setOpacityToolbar];
-            else
-                [self setScalingToolbar];
+            [self setScalingToolbar];
+            //dismiss open popup
+            [opacityPopup dismiss];
+            opacitySliderVisible = NO;
+            [scalePopup dismiss];
+            scaleSliderVisible = NO;
         }
         //toggle coordinates view
         [_coordinatesView setHidden:NO];
