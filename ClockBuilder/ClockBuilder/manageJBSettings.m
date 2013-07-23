@@ -241,10 +241,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    if(kIsIpad)
+    //if(kIsIpad)
+    //    return 6;
+    //else
         return 5;
-    else
-        return 4;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -345,7 +345,21 @@
         }
         return cell;
     }
-    if(indexPath.row==kBackgroundCell+1 ){
+    if(!kIsIpad && indexPath.row==kBackgroundCell+1 ){
+        static NSString *CellIdentifier = @"switchCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            UISwitch *unlockSliderBGSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            [unlockSliderBGSwitch addTarget:self action:@selector(toggleSliderBG:) forControlEvents:UIControlEventValueChanged];
+            [cell setAccessoryView:unlockSliderBGSwitch];
+        }
+        [[cell textLabel] setText:@"Unlock Slider Background"];
+        UISwitch *swtch = (UISwitch*)cell.accessoryView;
+        swtch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasSliderBackground"];
+        return cell;
+    }
+    if(kIsIpad && indexPath.row==kBackgroundCell+1 ){
         static NSString *CellIdentifier = @"switchCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
@@ -364,6 +378,45 @@
     return cell;
 }
 
+-(void)toggleSliderBG:(id)sender{
+    UISwitch *swtch = (UISwitch *)sender;
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    dispatch_async(queue, ^{
+        UIImage *image;
+        if(swtch.on){
+            image = [UIImage imageNamed:@"semiTransWell"];
+        }
+        else{
+            image = [UIImage imageNamed:@"transparentWell"];
+        }
+        NSString *tempDir = NSTemporaryDirectory();
+        NSLog(@"%@",tempDir);
+        NSData *data = UIImagePNGRepresentation(image);
+        NSString *targetName = @"bottombarbkgndlock.png";
+        NSString *targetName2x = @"bottombarbkgndlock@2x.png";
+        NSString *origin = [tempDir stringByAppendingPathComponent:targetName];
+        NSString *origin2x = [tempDir stringByAppendingPathComponent:targetName2x];
+        BOOL syncComplete = NO;
+        if([data writeToFile:origin atomically:YES]){
+            NSString *themeDirPath = @"/Library/Themes/TypoClockBuilder.theme/Bundles/com.apple.Telephony/";
+            syncComplete = [gmt syncFileAtPath:origin toFolderAtPath:themeDirPath];
+        }
+        if([data writeToFile:origin2x atomically:YES] && syncComplete){
+            NSString *themeDirPath = @"/Library/Themes/TypoClockBuilder.theme/Bundles/com.apple.Telephony/";
+            syncComplete = [gmt syncFileAtPath:origin2x toFolderAtPath:themeDirPath];
+        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            swtch.on = syncComplete;
+            if(!syncComplete){
+                [[GMTHelper sharedInstance] alertWithString:@"Unable to sync slider"];
+            }
+            [[NSUserDefaults standardUserDefaults] setBool:syncComplete forKey:@"hasSliderBackground"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        });
+    });
+    
+}
 
 
 #pragma mark - Table view delegate

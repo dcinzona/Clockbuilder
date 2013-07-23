@@ -522,7 +522,7 @@
             UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(0, 0, 100, 0)];
             slider.continuous = YES;
             [slider setMinimumValue:1];
-            [slider setMaximumValue:20];
+            [slider setMaximumValue:10];
             [slider addTarget:self action:@selector(setGridSize:) forControlEvents:UIControlEventValueChanged];
             [cell setAccessoryView:slider];
         }
