@@ -51,7 +51,7 @@ static CGFloat indicatorRightMargin = 8.0f;
 								indicatorSize);
 	
 	CGSize textSize = [_textLabel.text sizeWithFont:_textLabel.font constrainedToSize:maxSize
-									  lineBreakMode:UILineBreakModeWordWrap];
+									  lineBreakMode:NSLineBreakByCharWrapping];
 	
 	// Calculate position
 	CGFloat totalWidth = textSize.width + indicatorSize + indicatorRightMargin;

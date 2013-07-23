@@ -1632,7 +1632,10 @@
         buttonFrame.size.height = buttonImage.size.height;
     }
     else{
-        [button setBackgroundColor:kDefaultBlue];
+        [button setTintColor:kDefaultBlue];
+        [[button titleLabel]setFont:[UIFont boldSystemFontOfSize:16]];
+        buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:16.0]].width+5;
+        [button setTitleColor:kDefaultBlue forState:UIControlStateNormal];
     }
     [button setFrame:buttonFrame];
     [button setTitle:t forState:UIControlStateNormal];

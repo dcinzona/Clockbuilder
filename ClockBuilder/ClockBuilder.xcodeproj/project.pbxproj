@@ -3993,7 +3993,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/ClockBuilder\\\"",
+					"$(SRCROOT)/ClockBuilder",
 					"$(SRCROOT)",
 					"$(SRCROOT)/Frameworks/GMGridView/**",
 				);
@@ -4119,7 +4119,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/ClockBuilder\\\"",
+					"$(SRCROOT)/ClockBuilder",
 					"$(SRCROOT)",
 					"$(SRCROOT)/Frameworks/GMGridView/**",
 				);
@@ -4166,7 +4166,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/ClockBuilder\\\"",
+					"$(SRCROOT)/ClockBuilder",
 					"$(SRCROOT)",
 					"$(SRCROOT)/Frameworks/GMGridView/**",
 				);

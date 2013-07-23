@@ -139,7 +139,7 @@
     
     clearBGButton= [CBThemeHelper createBlueUIButtonWithTitle:@"Clear" target:self action:@selector(selectBlackBG) frame:buttonFrame];
     if(kIsiOS7){
-        [clearBGButton setBackgroundColor:kDefaultDeleteColor];
+        [clearBGButton setTitleColor:kDefaultDeleteColor forState:UIControlStateNormal];
     }
     [clearBGButton setCenter:CGPointMake(self.tableView.frame.size.width - (clearBGButton.frame.size.width/2) - 10, 32)];
     
@@ -415,11 +415,13 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[BGImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            [cell addSubview:saveBGButton];
-            [saveBGButton setFrame:CGRectMake(320-saveBGButton.frame.size.width-20,
+            
+            //[cell addSubview:saveBGButton];
+            /*[saveBGButton setFrame:CGRectMake(320-saveBGButton.frame.size.width-20,
                                               (64 - saveBGButton.frame.size.height)/2,
                                               saveBGButton.frame.size.width,
-                                              saveBGButton.frame.size.height)];
+                                              saveBGButton.frame.size.height)];*/
+            [cell setAccessoryView:saveBGButton];
         }
         [[cell textLabel] setText:@" Background"];
         
@@ -440,11 +442,12 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-            [cell addSubview:clearBGButton];
+            /*[cell addSubview:clearBGButton];
             [clearBGButton setFrame:CGRectMake(320-clearBGButton.frame.size.width-20,
                                               (64 - clearBGButton.frame.size.height)/2,
                                               clearBGButton.frame.size.width,
-                                              clearBGButton.frame.size.height)];
+                                              clearBGButton.frame.size.height)];*/
+            [cell setAccessoryView:clearBGButton];
         }
         [[cell textLabel] setText:@"Clear Background"];
         return cell;
