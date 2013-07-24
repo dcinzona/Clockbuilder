@@ -1126,14 +1126,13 @@
                 v = nil;
             }
         }
-        [self selectWidget:nil];
         [self initWidgetsArray]; 
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self selectWidget:nil];
             [self drawBackground];
             if([self.widgetsAdded count] > 0){
                 [self addWidgetsToView];
             }
-            [self resetToolbar];
         });
 
     });

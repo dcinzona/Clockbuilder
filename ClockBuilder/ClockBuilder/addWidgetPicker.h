@@ -21,6 +21,6 @@
 @property (strong, nonatomic) NSArray *selectedTypeItems;
 @property (strong, nonatomic) NSString *widgetClass;
 @property (strong, nonatomic) NSString *widgetType;
-
+-(id)initWithFrame:(CGRect)pickerFrame;
 
 @end

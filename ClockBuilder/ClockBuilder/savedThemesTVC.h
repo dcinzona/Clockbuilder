@@ -27,6 +27,8 @@
     CloseBlock _closeBlock;
     BOOL converting;
     BOOL fetching;
+    BOOL _pickerVisible;
+    BOOL _actionSheetVisible;
 }
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;

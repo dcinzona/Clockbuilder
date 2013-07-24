@@ -55,6 +55,7 @@
     //UIActionsheetPicker
     BOOL _pickerVisible;
     UIActionSheet *pickerAS;
+    UIPickerView *pickerView;
     UIView *viewForPicker;
     NSInteger selectedPickerRow;
     NSTimer *timoutTimer;
@@ -169,9 +170,9 @@ static dispatch_queue_t serialQueue;
             NSString *ver = [[UIDevice currentDevice] systemVersion];
             float ver_float = [ver floatValue];
             if (ver_float < 4.3) {
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
-                
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"cantGeoLocate" object:nil];
+                });
             }
             else {
                 [locationManager setDelegate:[weatherSingleton sharedInstance]];
@@ -756,7 +757,10 @@ static dispatch_queue_t serialQueue;
     
     [locationManager stopUpdatingLocation];
     [[NSUserDefaults standardUserDefaults] setObject:WOEID forKey:@"currentLocation"];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    });
     NSDictionary /*__block*/ *retDict;
     
     //dispatch_sync(serialQueue, ^{
@@ -831,7 +835,21 @@ static dispatch_queue_t serialQueue;
 -(void)setViewForPicker:(UIView *)theView{
     viewForPicker = theView;
 }
+- (UIViewController *) firstAvailableUIViewController:(UIView *)theView {
+    // convenience function for casting and to "mask" the recursive function
+    return (UIViewController *)[self traverseResponderChainForUIViewController:theView];
+}
 
+- (id) traverseResponderChainForUIViewController:(id)view {
+    id nextResponder = [view nextResponder];
+    if ([nextResponder isKindOfClass:[UIViewController class]]) {
+        return nextResponder;
+    } else if ([nextResponder isKindOfClass:[UIView class]]) {
+        return [self traverseResponderChainForUIViewController:nextResponder];
+    } else {
+        return nil;
+    }
+}
 - (void) showLocationPicker:(NSArray *)places
 {
     if(!_pickerVisible){
@@ -846,24 +864,46 @@ static dispatch_queue_t serialQueue;
         }
         
         NSString *title = @"Select Location";
-        if(!pickerAS){
-            NSString *cancelText = @"Cancel";
-            NSString *newLines = @"\n\n\n\n\n\n\n\n\n";
-            if(kIsiOS7){
-                cancelText = nil;
-                newLines = @"\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+        if(!kIsiOS7){
+            if(!pickerAS){
+                NSString *cancelText = @"Cancel";
+                NSString *newLines = @"\n\n\n\n\n\n\n\n\n";
+                if(kIsiOS7){
+                    cancelText = nil;
+                    newLines = @"\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+                }
+                if (kIsIpad) {
+                    
+                    pickerAS = [[UIActionSheet alloc] initWithTitle:newLines delegate:self cancelButtonTitle:cancelText destructiveButtonTitle:nil otherButtonTitles:nil];
+                }
+                else{
+                    
+                    pickerAS = [[UIActionSheet alloc] initWithTitle:newLines delegate:self cancelButtonTitle:cancelText destructiveButtonTitle:nil otherButtonTitles:nil];
+                }
             }
-            if (kIsIpad) {
+            [self addToolbarToPicker:title];
+        }
+        else{
+            UIViewController *visibleViewController = [self firstAvailableUIViewController:viewForPicker];
+            NSLog(@"****** window root view controller class\n\r %@",NSStringFromClass(visibleViewController.class));
+            NSLog(@"****** window root view controller superclass\n\r %@",NSStringFromClass(visibleViewController.superclass));
+            if(visibleViewController && [visibleViewController isKindOfClass:[UITableViewController class]]){
+                if(!pickerView){
+                    pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 320, 400)];
+                }
+                pickerView.delegate = self;
+                pickerView.dataSource = self;
+                pickerView.showsSelectionIndicator = YES;
                 
-                pickerAS = [[UIActionSheet alloc] initWithTitle:newLines delegate:self cancelButtonTitle:cancelText destructiveButtonTitle:nil otherButtonTitles:nil];
-            }
-            else{
-                
-                pickerAS = [[UIActionSheet alloc] initWithTitle:newLines delegate:self cancelButtonTitle:cancelText destructiveButtonTitle:nil otherButtonTitles:nil];
-                //pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+                UIBarButtonItem *cancelBtn = [CBThemeHelper createDarkButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
+                UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Select" target:self action:@selector(saveActionSheet)];
+                visibleViewController.navigationItem.leftBarButtonItem = cancelBtn;
+                visibleViewController.navigationItem.rightBarButtonItem = doneBtn;
+                [CBThemeHelper showPicker:pickerView aboveUITableView:[(UITableViewController *)visibleViewController tableView] onCompletion:^{
+                    
+                }];
             }
         }
-        [self addToolbarToPicker:title];
     }
 }
 
@@ -894,11 +934,13 @@ static dispatch_queue_t serialQueue;
     [barItems addObject:doneBtn];
     [toolbar setItems:barItems animated:YES];
     //build picker
-    UIPickerView *picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 320, 400)];
-    picker.delegate = self;
-    picker.dataSource = self;
-    picker.showsSelectionIndicator = YES;
-    [pickerAS addSubview:picker];
+    if(!pickerView){
+        pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 44, 320, 400)];
+    }
+    pickerView.delegate = self;
+    pickerView.dataSource = self;
+    pickerView.showsSelectionIndicator = YES;
+    [pickerAS addSubview:pickerView];
     [pickerAS addSubview:toolbar];
     //[pickerAS setBounds:CGRectMake(0,0,320, 408)];
     
@@ -922,6 +964,15 @@ static dispatch_queue_t serialQueue;
 -(void)actionSheetCancel:(UIActionSheet *)actionSheet{
     
     [pickerAS dismissWithClickedButtonIndex:0 animated:YES];
+    UIViewController *visibleViewController = [self firstAvailableUIViewController:viewForPicker];
+    if(visibleViewController && [visibleViewController isKindOfClass:[UITableViewController class]]){
+        [CBThemeHelper dismissPicker:pickerView fromUITableView:[(UITableViewController*)visibleViewController tableView] onCompletion:^{
+            pickerView = nil;
+        }];
+    }
+    else{
+        pickerView = nil;
+    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"weatherDataChanged"
                                                         object:nil
@@ -931,6 +982,15 @@ static dispatch_queue_t serialQueue;
 }
 -(void)dismissActionSheet{
     [pickerAS dismissWithClickedButtonIndex:0 animated:YES];
+    UIViewController *visibleViewController = [self firstAvailableUIViewController:viewForPicker];
+    if(visibleViewController && [visibleViewController isKindOfClass:[UITableViewController class]]){
+        [CBThemeHelper dismissPicker:pickerView fromUITableView:[(UITableViewController*)visibleViewController tableView] onCompletion:^{
+            pickerView = nil;
+        }];
+    }
+    else{
+        pickerView = nil;
+    }
     _pickerVisible = NO;
     pickerAS = nil;
 }
@@ -954,6 +1014,17 @@ static dispatch_queue_t serialQueue;
     else{
         NSLog(@"arrayofplaces count did not match picker list: %@", arrayOfPlacesAsDict);
         
+    }
+    UIViewController *visibleViewController = [self firstAvailableUIViewController:viewForPicker];
+    if(visibleViewController && [visibleViewController isKindOfClass:[UITableViewController class]]){
+        [CBThemeHelper dismissPicker:pickerView fromUITableView:[(UITableViewController*)visibleViewController tableView] onCompletion:^{
+            pickerView = nil;
+            visibleViewController.navigationItem.leftBarButtonItem = nil;
+            visibleViewController.navigationItem.rightBarButtonItem = nil;
+        }];
+    }
+    else{
+        pickerView = nil;
     }
     
     selectedPickerRow = 0;

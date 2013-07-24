@@ -45,6 +45,9 @@
     float slidertop = 200;
     if(kIsIpad){
         slidertop = 210;
+        if(kIsiOS7){
+            slidertop = sliderView.bounds.size.height+60;//toolbar + 16
+        }
     }
     
     [exampleLabel setTextColor:color];
@@ -75,7 +78,9 @@
     float slidertop = 200;
     if(kIsIpad){
         yorigin = 120;
-        slidertop = 210;
+        if(kIsiOS7){
+            slidertop = sliderView.bounds.size.height+60;//toolbar + 16
+        }
     }
     
     int screenHeight = kScreenHeight;
@@ -182,6 +187,8 @@
         }
         else{
             [titleLabel setTextColor:[UIColor darkGrayColor]];
+            [labelA setTextColor:[UIColor blackColor]];
+            [sliderView setBackgroundColor:[UIColor whiteColor]];
         }
         [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
@@ -196,9 +203,13 @@
         [toolbar setItems:barItems animated:YES];
         [sliderView addSubview:toolbar];
         
+        int buttonTop = 40;
+        if(kIsiOS7 && kIsIpad){
+            buttonTop = 10;
+        }
         
-        whiteButton = [[UIButton alloc] initWithFrame:CGRectMake(230, 40, 30, 30)];
-        blackButton = [[UIButton alloc] initWithFrame:CGRectMake(270, 40, 30, 30)];
+        whiteButton = [[UIButton alloc] initWithFrame:CGRectMake(230, buttonTop, 30, 30)];
+        blackButton = [[UIButton alloc] initWithFrame:CGRectMake(270, buttonTop, 30, 30)];
         [whiteButton setShowsTouchWhenHighlighted:YES];
         [whiteButton addTarget:self action:@selector(lightenDimView) forControlEvents:UIControlEventTouchUpInside];
         whiteButton.layer.cornerRadius = 5;

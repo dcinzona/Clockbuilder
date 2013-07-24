@@ -122,6 +122,9 @@
     
     
     [label setBackgroundColor:[UIColor clearColor]];
+    if(kIsiOS7){
+        [label setBackgroundColor:[UIColor whiteColor]];
+    }
     CGSize rowSize = [pv rowSizeForComponent:component];
     CGRect labelRect = CGRectMake (10, 0, rowSize.width-10, rowSize.height);
     [label setFrame:labelRect];

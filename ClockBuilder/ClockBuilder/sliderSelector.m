@@ -100,22 +100,8 @@
     
     
     [self setTitle:@"Select Slider"];
-    if(!kIsiOS7 && NO){
-        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-        [bg setContentMode:UIViewContentModeTopLeft];
-        [self.tableView setTableFooterView:bg];
     
-        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-        [bg2 setContentMode:UIViewContentModeTop];
-        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-        [self.tableView setBackgroundView:bgView];
-        [bgView addSubview:bg2];
-        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-        [bgView setBackgroundColor:tableBGColor];
-        [self.tableView setBackgroundColor:tableBGColor];
-        
-    }
+    [CBThemeHelper styleTableView:self.tableView];
     
     UIImageView *bg = [[UIImageView alloc] initWithFrame:self.view.frame];
     

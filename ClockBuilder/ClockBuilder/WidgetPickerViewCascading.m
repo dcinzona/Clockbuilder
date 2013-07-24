@@ -39,6 +39,7 @@
         self.pickerComponentItems = [NSArray arrayWithArray:[[self.pickerItems objectAtIndex:1]objectAtIndex:0]];
         if(kIsiOS7){
             [self.pickerView setBackgroundColor:[UIColor whiteColor]];
+            [self.pickerView.inputView setBackgroundColor:[UIColor whiteColor]];
         }
     }
     return  self;
@@ -101,6 +102,9 @@
     [label setTextColor:[UIColor blackColor]];
     
     [label setBackgroundColor:[UIColor clearColor]];
+    if(kIsiOS7){
+        [label setBackgroundColor:[UIColor whiteColor]];
+    }
     CGSize rowSize = [pv rowSizeForComponent:component];
     CGRect labelRect = CGRectMake (5, 0, rowSize.width-5, rowSize.height);
     [label setFrame:labelRect];

@@ -105,6 +105,7 @@
 	<string>MainWindow-iPad</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>FontAwesome.ttf</string>
 		<string>climacons-webfont.ttf</string>
 		<string>Boycott.ttf</string>
 		<string>dearjoe_four.ttf</string>

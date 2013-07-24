@@ -85,58 +85,11 @@
     [self setWidgetObjects];
     self.widgetClasses = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]objectForKey:@"widgetClasses"];
     tv = self.tableView;
-    if(!kIsiOS7){
-        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-        [bg setContentMode:UIViewContentModeTopLeft];
-        [tv setTableFooterView:bg];
-        [self.tableView setSectionFooterHeight:0];
-        /*
-        UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
-        [self.tableView setBackgroundView:TVbgView];
-        */        
-        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-        [bg2 setContentMode:UIViewContentModeTop];
-        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-        [self.tableView setBackgroundView:bgView];
-        [bgView addSubview:bg2];
-        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-        [bgView setBackgroundColor:tableBGColor];
-        [self.tableView setBackgroundColor:tableBGColor];
-    }
+    [CBThemeHelper styleTableView:self.tableView];
     
-    [tv setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    
-    
-    if(kIsIpad){
-        
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(exitModal)];
-        self.navigationItem.leftBarButtonItem = doneButton;
-        
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(launchWidgetPicker)];
-        self.navigationItem.rightBarButtonItem = addButton;
-        
-    }
-    else{
-        
-        
-        UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Done" target:self action:@selector(exitModal)];
-        self.navigationItem.leftBarButtonItem = doneButton;
-        if(!kIsiOS7){
-        self.navigationItem.rightBarButtonItem = [CBThemeHelper createBlueButtonItemWithImage:[UIImage imageNamed:@"IconPlusSign.png"]
-                                                                              andPressedImage:[UIImage imageNamed:@"IconPlusSignSelected.png"]
-                                                                                       target:self
-                                                                                       action:@selector(launchWidgetPicker)];
-        }
-        else{
-            [self.tableView setBackgroundColor:[UIColor whiteColor]];
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonSystemItemAdd target:self action:@selector(launchWidgetPicker)];
-        }
-    }
+    [self resetNavBarButtons];
     
     [self setTitle:@"Items"];
-    
-    
     [self.tableView setEditing:YES];
     
 }
@@ -491,9 +444,9 @@
     }
     [CBThemeHelper setBackgroundImage:nil forToolbar:pickertoolbar];
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
-    UIBarButtonItem *cancelBtn = [CBThemeHelper createDarkButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
+    UIBarButtonItem *cancelBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
     UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];  
-    UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
+    UIBarButtonItem *doneBtn = [CBThemeHelper createDoneButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setText:title];
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
@@ -510,7 +463,9 @@
         [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0]];
         [self.pickerAS setBackgroundColor:[UIColor whiteColor]];
         [pickertoolbar setTintColor:nil];
-
+        [self.picker.pickerView setBackgroundColor:[UIColor whiteColor]];
+        
+        
     }
     
     [barItems addObject:cancelBtn];
@@ -521,8 +476,8 @@
     [pickertoolbar setItems:barItems animated:YES];
     [self.pickerAS addSubview:pickertoolbar];    
     [self.pickerAS addSubview:self.picker.pickerView];
-    [self.pickerAS showInView:[self.view superview]];
-    [self.pickerAS setBounds:CGRectMake(0,0,320, 408)];
+    [self.pickerAS showInView:self.view.superview];
+    [self.pickerAS setBounds:self.view.superview.bounds];//CGRectMake(0,0,320, self.view.superview.bounds.size.height)];
 }
 
 -(void)dismissActionSheet{
@@ -532,7 +487,8 @@
 }
 
 -(void)saveActionSheet{
-    [self.pickerAS dismissWithClickedButtonIndex:1 animated:YES];
+    if(self.pickerAS)
+        [self.pickerAS dismissWithClickedButtonIndex:1 animated:YES];
 
     NSUInteger selectedTypeRow = [self.picker.pickerView selectedRowInComponent:0];
     NSUInteger selectedItemRow = [self.picker.pickerView selectedRowInComponent:1];
@@ -615,7 +571,9 @@
             NSLog(@"widgetClasses: %@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetClasses"]);
         }
     }
-    
+    if(kIsiOS7){
+        [self dismissPicker];
+    }
     self.picker = nil;
     self.pickerAS = nil;
 }
@@ -623,15 +581,19 @@
 -(void)launchWidgetPicker
 {   
     //if(!kIsiOS7){
-    self.picker = [[addWidgetPicker alloc] init];
     NSString *title = @"Items";
-    if(!self.pickerAS){
-        if(!kIsiOS7)
-            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
-        else
-            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-        [self addToolbarToPicker:title];
-    }
+        if(!kIsiOS7){
+            self.picker = [[addWidgetPicker alloc] init];
+            if(!self.pickerAS){
+                self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+                [self addToolbarToPicker:title];
+            }
+        }
+        else{
+            //self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+            
+            [self showPickerWithoutAS];
+        }
     /*}
     else{
         if(!self.pickerAS)
@@ -644,7 +606,78 @@
     }
      */
 }
-
+-(void)resetNavBarButtons{
+    
+    UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Done" target:self action:@selector(exitModal)];
+    self.navigationItem.leftBarButtonItem = doneButton;
+    
+    self.navigationItem.rightBarButtonItem = [CBThemeHelper createFontAwesomeBlueBarButtonItemWithIcon:@"icon-plus-sign" target:self action:@selector(launchWidgetPicker)];
+    
+    [self setTitle:@"Items"];
+}
+-(void)dismissPicker{
+    
+    [self resetNavBarButtons];
+    [CBThemeHelper dismissPicker:self.picker.pickerView fromUITableView:self.tableView onCompletion:^{
+        self.picker = nil;
+    }];
+    /*
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options: UIViewAnimationCurveEaseOut
+                     animations:^{
+                         [self.picker.pickerView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, 320, 180)];
+                         [self.view setAlpha:1];
+                         [self.view setTransform:CGAffineTransformMakeScale(1, 1)];
+                     }
+                     completion:^(BOOL finished){
+                         [self.picker.pickerView removeFromSuperview],self.picker = nil;
+                         //[self refreshThemes];
+                     }];
+     */
+}
+-(void)setNavBarButtonsForActionView{
+    UIBarButtonItem *cancelButton = [CBThemeHelper createBlueButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissPicker)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
+    
+    UIBarButtonItem *donePicking = [CBThemeHelper createBlueButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
+    self.navigationItem.rightBarButtonItem = donePicking;
+    [self setTitle:@"Add Item"];
+}
+-(void)showPickerWithoutAS{
+    CGRect pickerRect = CGRectMake(0, self.view.frame.size.height, 320, 180);
+        //pickerRect = CGRectMake(0, 0, 320, 180);
+    if(!self.picker){
+        self.picker = [[addWidgetPicker alloc] initWithFrame:pickerRect];
+    }
+    self.picker.pickerView.delegate = self.picker;
+    self.picker.pickerView.showsSelectionIndicator = YES;
+    [self setNavBarButtonsForActionView];
+    
+    [CBThemeHelper showPicker:self.picker.pickerView aboveUITableView:self.tableView onCompletion:^{
+        
+    }];
+    
+    /*
+    [self.view.superview insertSubview:self.picker.pickerView aboveSubview:[self.view.superview.subviews objectAtIndex:0]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.tableView setBackgroundColor:[UIColor whiteColor]];
+    [self.tableView.superview setBackgroundColor:[UIColor whiteColor]];
+    
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options: UIViewAnimationCurveEaseOut
+                     animations:^{
+                         [self.picker.pickerView setFrame:CGRectMake(0, self.view.frame.size.height - 180, 320, 180)];
+                         [self.tableView setAlpha:.1];
+                         [self.tableView setTransform:CGAffineTransformMakeScale(.9, .9)];
+                     }
+                     completion:^(BOOL finished){
+                         
+                         
+                     }];
+     */
+}
 
 
 

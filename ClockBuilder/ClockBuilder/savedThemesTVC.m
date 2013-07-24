@@ -96,39 +96,7 @@
         
         //[self.view addSubview:syncingView];
         
-        
-        
-        if(kIsIpad){
-            UIBarButtonItem *donebutton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(exitModal)];
-            self.navigationItem.leftBarButtonItem = donebutton;
-            
-            UIBarButtonItem *grid = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationGlobalDashboardButton.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showOnlineThemes)];
-            self.navigationItem.rightBarButtonItem = grid;
-            
-        }
-        else{
-            UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Done" target:self action:@selector(exitModal)];
-            self.navigationItem.leftBarButtonItem = doneButton;
-            if(!kIsiOS7){
-            UIBarButtonItem *GridButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationGlobalDashboardButton.png"]
-                                                                   andPressedImage:[UIImage imageNamed:@"NavigationGlobalDashboardButton.png"] 
-                                                                            target:self 
-                                                                            action:@selector(showOnlineThemes)
-                                           ];
-                
-            self.navigationItem.rightBarButtonItem = GridButton;
-            }
-            else{
-                UIBarButtonItem *bb = [CBThemeHelper createBlueButtonItemWithTitle:@"Browse" target:self action:@selector(showOnlineThemes)];
-                self.navigationItem.rightBarButtonItem = bb;
-            }
-        }
-        
-        [self setTitle:@"Saved Themes"];
-        if(kIsiOS7){
-           // self.tableView.contentInset = UIEdgeInsetsMake(64, 0, self.navigationController.navigationBar.frame.size.height, 0);
-           // self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, self.navigationController.navigationBar.frame.size.height, 0);
-        }
+        [self resetNavBarItems];
     }
     return self;
 }
@@ -149,7 +117,12 @@
     [super viewDidLoad];
     
     if (kIsIpad) {
-        self.contentSizeForViewInPopover = kPopoverSize;
+        if(!kIsiOS7){
+            self.contentSizeForViewInPopover = kPopoverSize;
+        }
+        else{
+            self.preferredContentSize = kPopoverSize;
+        }
     }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -176,7 +149,8 @@
 -(void)viewWillAppear:(BOOL)animated{
     //NSLog(@"SAVED THEMES VIEW WILL APPEAR");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedConvertingDocuments) name:@"finishedConvertingDocumentsToCoreData" object:nil];
-    
+    //completedUploadingTheme
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedUploadingTheme:) name:@"completedUploadingTheme" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activityDecreasedToZero) name:@"DBSyncActivityChanged" object:nil];
     
@@ -190,6 +164,7 @@
     //NSLog(@"SAVED THEMES VIEW DISAPPEAR");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"finishedConvertingDocumentsToCoreData" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DBSyncActivityChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"completedUploadingTheme" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSPersistentStoreCoordinatorStoresDidChangeNotification object:[[self managedObjectContext] persistentStoreCoordinator]];
     
 }
@@ -367,16 +342,17 @@
     [super didReceiveMemoryWarning];
     
     NSLog(@"did receive memory warning (SAVED THEMES)");
-    
-    UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-    [bg setImage:[UIImage imageNamed:@"tableGradient"]];
-    [bg setContentMode:UIViewContentModeTop];
-    UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-    [self.tableView setBackgroundView:bgView];
-    [bgView addSubview:bg];
-    UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-    [bgView setBackgroundColor:tableBGColor];
-    [self.tableView setBackgroundColor:tableBGColor];
+    if(!kIsiOS7){
+        UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
+        [bg setImage:[UIImage imageNamed:@"tableGradient"]];
+        [bg setContentMode:UIViewContentModeTop];
+        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
+        [self.tableView setBackgroundView:bgView];
+        [bgView addSubview:bg];
+        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+        [bgView setBackgroundColor:tableBGColor];
+        [self.tableView setBackgroundColor:tableBGColor];
+    }
     [self.tableView setSeparatorColor:[UIColor clearColor]];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     // Release any cached data, images, etc that aren't in use.
@@ -470,7 +446,10 @@
     selectedCellIndex = indexPath;
     //selectedThemeName = [self getSelectedCoreTheme].themeName;//[themesArray objectAtIndex:selectedCellIndex.row];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [self performSelector:@selector(showActionsheet)];
+    if(!_pickerVisible && !_actionSheetVisible){
+        _actionSheetVisible = YES;
+        [self performSelector:@selector(showActionsheet)];
+    }
 }
 
 
@@ -644,43 +623,6 @@ UIImage * resizeImage(UIImage * img, CGSize newSize){
                 if(kIsIpad){
                     
                     UIImage *bg2x = [UIImage imageWithData:background];
-                    /*
-                    UIImage *bg1x;// = [UIImage imageWithData:background];
-                    if(bg2x.size.height<2000){
-                        bg1x = [UIImage imageWithData:background];
-                        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-                            if ((NSInteger)[[UIScreen mainScreen] scale] == 2) {
-                                
-                                bg2x = resizeImage(bg2x, CGSizeMake(2048, 2048));
-                                NSData * background2x = UIImageJPEGRepresentation(bg2x, 70);
-                                NSString *appFilePNG2x = [documentsDirectory stringByAppendingPathComponent:@"LockBackground@2x.png"];
-                                if(![background2x writeToFile:appFilePNG2x atomically:YES]){
-                                    
-                                }
-                                
-                            }
-                        }
-                        
-                    }
-                    else{
-                        
-                        bg1x = resizeImage(bg2x, CGSizeMake(1024, 1024));
-                        
-                        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-                            if ((NSInteger)[[UIScreen mainScreen] scale] == 2) {
-                                NSString *appFilePNG2x = [documentsDirectory stringByAppendingPathComponent:@"LockBackground@2x.png"];
-                                if(![background writeToFile:appFilePNG2x atomically:YES]){
-                                    
-                                }
-                            }
-                        }
-                    }
-                    
-                    NSData *background1x = UIImagePNGRepresentation(bg1x);
-                    if(![background1x writeToFile:appFilePNG atomically:YES]){
-                        //didnt save 1x image
-                    }
-                     */
                     
                     [[GMTHelper sharedInstance] resizeImageToBackground:bg2x];
                     
@@ -689,44 +631,7 @@ UIImage * resizeImage(UIImage * img, CGSize newSize){
                     UIImage *image = [UIImage imageWithData:background];
                     NSLog(@"image size height: %f",image.size.height);
                     [[GMTHelper sharedInstance] resizeImageToBackground:image];
-                    /*
-                    if(image.size.height == 960 && [UIScreen mainScreen].bounds.size.height != 480){
-#warning scale image to 640x1136
-                        
-                        
-                    }
-                    else if (image.size.height == 1136 && [UIScreen mainScreen].bounds.size.height == 480) {
-#warning scale down to 640x960
-                        
-                        
-                        
-                    }
-                    else if(image.size.height == 480){
-                        
-                        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-                            if ((NSInteger)[[UIScreen mainScreen] scale] == 2) {
-#warning scale up to 640x [UIScreen mainScreen].bounds.size.height x 2
-                                
-                                
-                                
-                            }
-                        }
-                    }
-                    else{
-                        
-                    }
-                    if(![background writeToFile:appFilePNG atomically:YES]){
-                        
-                    }
-                    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-                        if ((NSInteger)[[UIScreen mainScreen] scale] == 2) {
-                            NSString *appFilePNG2x = [documentsDirectory stringByAppendingPathComponent:@"LockBackground@2x.png"];
-                            if(![background writeToFile:appFilePNG2x atomically:YES]){
-                                
-                            }
-                        }
-                    }*/
-                }
+                                    }
             }
             //background thumb
             NSData *backgroundThumb = [themeDict objectForKey:@"LockBackgroundThumb.png"];
@@ -903,14 +808,15 @@ replacementString:(NSString *)string
                                                otherButtonTitles:@"Activate Theme",@"Email",@"Upload", nil];
     }
     
-    [actionButtonSheet setBounds:CGRectMake(0,0,320, 408)];
-    if(!kIsiOS7){
-        [actionButtonSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    
+    [actionButtonSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    if(kIsIpad){
         [actionButtonSheet showInView:ApplicationDelegate.window.rootViewController.view];
     }
     else{
         [actionButtonSheet showInView:self.view];
     }
+    
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -940,7 +846,10 @@ replacementString:(NSString *)string
 
             NSArray *categoriesArray = [NSArray arrayWithArray:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"categoriesArray"]];
             if(categoriesArray!=nil && categoriesArray.count > 0){
+                _pickerVisible = YES;
                 [self showCategoriesPickerWithCloseBlock:^(NSString *inputString) {
+                    
+                    _pickerVisible = NO;
                     
                     NSString *category = inputString;
                     
@@ -968,7 +877,8 @@ replacementString:(NSString *)string
                    
                     
                 } andCancelBlock:^{
-                    [[GMTHelper sharedInstance] alertWithString:@"A category is required to upload your theme"];
+                    _pickerVisible = NO;
+                    //[[GMTHelper sharedInstance] alertWithString:@"A category is required to upload your theme"];
                 }];
             }
         }
@@ -985,6 +895,7 @@ replacementString:(NSString *)string
     {
         [self performSelector:@selector(composeEmailToShareTheme)];
     }
+    _actionSheetVisible = NO;
 }
 
 
@@ -1029,72 +940,112 @@ replacementString:(NSString *)string
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)setNavBarItemsForPicker{
+    
+    UIBarButtonItem *cancelBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
+    UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Upload" target:self action:@selector(saveActionSheet)];
+    self.navigationItem.leftBarButtonItem = cancelBtn;
+    self.navigationItem.rightBarButtonItem = doneBtn;
+    [self setTitle:@"Select Category"];
+}
+
+-(void)resetNavBarItems{
+    
+    UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Done" target:self action:@selector(exitModal)];
+    self.navigationItem.leftBarButtonItem = doneButton;
+    UIBarButtonItem *bb = [CBThemeHelper createFontAwesomeBlueBarButtonItemWithIcon:@"icon-globe" target:self action:@selector(showOnlineThemes)];
+    self.navigationItem.rightBarButtonItem = bb;
+    
+    [self setTitle:@"Saved Themes"];
+    _pickerVisible = NO;
+}
+
 
 -(void)showCategoriesPickerWithCloseBlock:(CloseBlock)cb andCancelBlock:(CancelBlock)cancel{
     self.closeBlock = cb;
     self.cancelBlock = cancel;
-    CGRect pickerFrame = CGRectMake(0, 44, 320, 400);
-    pickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
-    pickerView.dataSource = self;
-    pickerView.delegate = self;
-    [pickerView setShowsSelectionIndicator:YES];
-    [pickerView selectRow:0 inComponent:0 animated:NO];
     if(kIsiOS7){
-        pickerAS = [[UIActionSheet alloc] initWithTitle:@"Select Category" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-        [pickerAS setBackgroundColor:[UIColor whiteColor]];
-        [pickerView setFrame:CGRectMake(0, 24, 320, 400)];
+        CGRect pickerFrame = CGRectMake(0, self.view.frame.size.height, 320, 400);
+        if(!pickerView){
+            pickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
+            pickerView.dataSource = self;
+            pickerView.delegate = self;
+            [pickerView setShowsSelectionIndicator:YES];
+            [pickerView selectRow:0 inComponent:0 animated:NO];
+        }
+        [CBThemeHelper showPicker:pickerView aboveUITableView:self.tableView onCompletion:^{
+            [self setNavBarItemsForPicker];
+        }];
     }
     else{
+        CGRect pickerFrame = CGRectMake(0, 0, 320, 400);
+        if(!pickerView){
+            pickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
+            pickerView.dataSource = self;
+            pickerView.delegate = self;
+            [pickerView setShowsSelectionIndicator:YES];
+            [pickerView selectRow:0 inComponent:0 animated:NO];
+        }
         pickerAS = [[UIActionSheet alloc] initWithTitle:@"Select Category" delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
+        [pickerAS addSubview:pickerView];
+            UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        if (!kIsIpad)
+            [toolbar sizeToFit];
+        [CBThemeHelper setBackgroundImage:nil forToolbar:toolbar];
+        NSMutableArray *barItems = [[NSMutableArray alloc] init];
+        UIBarButtonItem *cancelBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
+        UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];  
+        UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
+        UILabel *titleLabel = [[UILabel alloc] init];
+        [titleLabel setText:@"Select Category"];
+        [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
+        [titleLabel setTextAlignment:NSTextAlignmentCenter];
+        if(!kIsiOS7){
+            [titleLabel setTextColor:[UIColor whiteColor]];
+            [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
+            [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
+        }
+        [titleLabel setBackgroundColor:[UIColor clearColor]];
+        UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
+        [titleItem setStyle:UIBarButtonItemStylePlain];
+        [barItems addObject:cancelBtn];
+        [barItems addObject:flexSpace];  
+        [barItems addObject:titleItem];
+        [barItems addObject:flexSpace];
+        [barItems addObject:doneBtn];
+        [toolbar setItems:barItems animated:YES];
+        [pickerAS addSubview:toolbar];
+        [pickerAS showInView:self.view];
+        [pickerAS setBounds:CGRectMake(0,0,320, 408)];
+        
     }
-    [pickerAS addSubview:pickerView];
-        UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    if (!kIsIpad)
-        [toolbar sizeToFit];
-    [CBThemeHelper setBackgroundImage:nil forToolbar:toolbar];
-    NSMutableArray *barItems = [[NSMutableArray alloc] init];
-    UIBarButtonItem *cancelBtn = [CBThemeHelper createDarkButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
-    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];  
-    UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
-    UILabel *titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:@"Select Category"];
-    [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-    if(!kIsiOS7){
-        [titleLabel setTextColor:[UIColor whiteColor]];
-        [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
-        [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
-    }
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
-    [titleItem setStyle:UIBarButtonItemStylePlain];
-    [barItems addObject:cancelBtn];
-    [barItems addObject:flexSpace];  
-    [barItems addObject:titleItem];
-    [barItems addObject:flexSpace];
-    [barItems addObject:doneBtn];
-    [toolbar setItems:barItems animated:YES];
-    [pickerAS addSubview:toolbar];
-    [pickerAS showInView:self.view];
-    [pickerAS setBounds:CGRectMake(0,0,320, 408)];
-    
 }
-
-
 -(void)dismissActionSheet{
-    
-    [pickerAS dismissWithClickedButtonIndex:0 animated:YES]; 
-    self.cancelBlock();
+    if(pickerAS)
+        [pickerAS dismissWithClickedButtonIndex:0 animated:YES];
+    [CBThemeHelper dismissPicker:pickerView fromUITableView:self.tableView onCompletion:^{
+        self.cancelBlock();
+        pickerAS = nil;
+        pickerView = nil;
+        [self resetNavBarItems];
+    }];
 }
 
 
 -(void)saveActionSheet{
+    if(pickerAS)
+        [pickerAS dismissWithClickedButtonIndex:1 animated:YES];
     
-    [pickerAS dismissWithClickedButtonIndex:1 animated:YES];
-    NSUInteger selectedRow = [pickerView selectedRowInComponent:0];
-    NSArray *list = [NSArray arrayWithArray:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"categoriesArray"]];
-    NSString *selected = [list objectAtIndex:selectedRow];
-    self.closeBlock(selected);
+    [CBThemeHelper dismissPicker:pickerView fromUITableView:self.tableView onCompletion:^{
+        NSUInteger selectedRow = [pickerView selectedRowInComponent:0];
+        NSArray *list = [NSArray arrayWithArray:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"categoriesArray"]];
+        NSString *selected = [list objectAtIndex:selectedRow];
+        self.closeBlock(selected);
+        pickerAS = nil;
+        pickerView = nil;
+        [self resetNavBarItems];
+    }];
+    
 }
 
 #pragma mark Picker DataSource

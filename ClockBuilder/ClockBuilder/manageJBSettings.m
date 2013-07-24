@@ -52,32 +52,10 @@
     
     [self setTitle:@"Lockscreen Settings"];
     
-    UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-    [bg setContentMode:UIViewContentModeTopLeft];
-    [self.tableView setTableFooterView:bg];
+    [CBThemeHelper styleTableView:self.tableView];
     
-    /*
-    UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
-    [self.tableView setBackgroundView:TVbgView];
-    */
-    
-    UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-    [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-    [bg2 setContentMode:UIViewContentModeTop];
-    UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-    [self.tableView setBackgroundView:bgView];
-    [bgView addSubview:bg2];
-    UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-    [bgView setBackgroundColor:tableBGColor];
-    [self.tableView setBackgroundColor:tableBGColor];
-    
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.tableView setSectionFooterHeight:0];
-    
-    if(!kIsIpad){
-        UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Settings" target:self.navigationController action:@selector(popViewControllerAnimated:)];
-        [self.navigationItem setLeftBarButtonItem: backButton];
-    }
+    UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Settings" target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    [self.navigationItem setLeftBarButtonItem: backButton];
     
     
     adjustShadowForStatusBar = [[UISwitch alloc] initWithFrame:CGRectZero];

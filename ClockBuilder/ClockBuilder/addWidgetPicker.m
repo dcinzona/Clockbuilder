@@ -28,6 +28,40 @@
 }
 
 
+-(id)initWithFrame:(CGRect)pickerFrame
+{
+    self = [super init];
+    if(self)
+    {
+        self.pickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
+        self.pickerView.dataSource = self;
+        self.pickerView.delegate = self;
+        [self.pickerView setShowsSelectionIndicator:YES];
+        
+        self.widgetTypesArray = [NSArray arrayWithObjects:@"Date/Time", @"Weather",@"Custom Text", nil];
+        
+        self.dateTimeItems = [NSArray arrayWithObjects:@"Clock",@"AM/PM Symbol",@"Day (Digit)",@"Day (Name)",@"Month",@"Year", nil];
+        self.weatherItems = [NSArray arrayWithObjects:@"Weather Icon",@"Location Name",@"Temperature",@"Conditions", nil];
+        
+        self.selectedTypeItems = self.dateTimeItems;
+        //[self.pickerView selectRow:0 inComponent:0 animated:NO];
+        //[self.pickerView selectRow:0 inComponent:1 animated:NO];
+        
+        self.widgetClass = @"TimeView";
+        self.widgetType = @"dateTime";
+        
+        if(kIsiOS7){
+            [self.pickerView setBackgroundColor:[UIColor whiteColor]];
+            [self.pickerView setFrame:CGRectMake(0,
+                                                 self.pickerView.frame.origin.y-15,
+                                                 self.pickerView.frame.size.width,
+                                                 self.pickerView.frame.size.height
+                                                 )];
+        }
+        
+    }
+    return self;
+}
 -(id)init
 {
     self = [super init];
@@ -52,8 +86,7 @@
         self.widgetType = @"dateTime";
         
         if(kIsiOS7){
-            
-            [self.pickerView setBackgroundColor:[UIColor whiteColor]];            
+            [self.pickerView setBackgroundColor:[UIColor whiteColor]];
             [self.pickerView setFrame:CGRectMake(0,
                                                 self.pickerView.frame.origin.y-15,
                                                 self.pickerView.frame.size.width,
@@ -172,8 +205,10 @@
         
     }    
 }
+
 - (UIView *)pickerView:(UIPickerView *)pv viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
+    
     UILabel *label = (UILabel*) view;
     if (label == nil)
     {
@@ -191,7 +226,9 @@
     
     [label setTextColor:[UIColor blackColor]];
     [label setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
-    
+    if(kIsiOS7){
+        [label setFont:[UIFont systemFontOfSize:16]];
+    }
     
     [label setBackgroundColor:[UIColor clearColor]];
     CGSize rowSize = [pv rowSizeForComponent:component];

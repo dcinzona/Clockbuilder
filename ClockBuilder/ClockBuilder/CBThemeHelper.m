@@ -1358,6 +1358,85 @@
 
 #define kBlueColor [UIColor colorWithRed:0.11f green:0.55f blue:0.84f alpha:1.00f]
 
++ (UIBarButtonItem *)createFontAwesomeBlueBarButtonItemWithIcon:(NSString *)iconCSSClass target:(id)tgt action:(SEL)a
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [[button titleLabel] setFont:[UIFont fontWithName:kFontAwesomeFamilyName size:20]];
+    [[button titleLabel] setText:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass]];
+    
+    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
+    //[button addTarget:tgt action:a forControlEvents:UIControlEventAllTouchEvents];
+    
+    
+    if(!kIsiOS7 && !kIsIpad){
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        // Since the buttons can be any width we use a thin image with a stretchable center point
+        UIImage *buttonImage = [[UIImage imageNamed:@"ButtonBlue30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonBlue30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
+        [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
+        CGRect buttonFrame = [button frame];
+        buttonFrame.size.width = [[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] sizeWithFont:[UIFont fontWithName:kFontAwesomeFamilyName size:16]].width + 5.0;
+        buttonFrame.size.height = buttonImage.size.height;
+        [button setFrame:buttonFrame];
+        
+        
+        [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+        
+        return buttonItem;
+    }
+    else{
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] style:UIBarButtonItemStylePlain target:tgt action:a];
+        [buttonItem setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                             [UIFont fontWithName:kFontAwesomeFamilyName size:20],UITextAttributeFont,kDefaultBlue, UITextAttributeTextColor,nil]forState:UIControlStateNormal];
+        
+        return buttonItem;
+    }
+}
++ (UIBarButtonItem *)createFontAwesomeDarkBarButtonItemWithIcon:(NSString *)iconCSSClass target:(id)tgt action:(SEL)a
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [[button titleLabel] setFont:[UIFont fontWithName:kFontAwesomeFamilyName size:20]];
+    [[button titleLabel] setText:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass]];
+    
+    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
+    
+    if(!kIsiOS7 && !kIsIpad){
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        // Since the buttons can be any width we use a thin image with a stretchable center point
+        UIImage *buttonImage = [[UIImage imageNamed:@"ButtonDarkGrey30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonDarkGrey30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
+        [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
+        CGRect buttonFrame = [button frame];
+        buttonFrame.size.width = [[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] sizeWithFont:[UIFont fontWithName:kFontAwesomeFamilyName size:16]].width + 5.0;
+        buttonFrame.size.height = buttonImage.size.height;
+        [button setFrame:buttonFrame];
+        
+        
+        [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+        
+        return buttonItem;
+    }
+    else{
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] style:UIBarButtonItemStylePlain target:tgt action:a];
+        [buttonItem setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                             [UIFont fontWithName:kFontAwesomeFamilyName size:20],UITextAttributeFont,[UIColor darkGrayColor], UITextAttributeTextColor,nil]forState:UIControlStateNormal];
+        
+        return buttonItem;
+    }
+}
+
 + (UIBarButtonItem *)createBlueButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1404,6 +1483,11 @@
 }
 + (UIBarButtonItem *)createDoneButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
 {
+    if(kIsIpad){
+        UIBarButtonItem *buttonItem =[[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStyleDone target:tgt action:a];
+        [buttonItem setTintColor:kDefaultBlue];
+        return buttonItem;
+    }
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [button setTitle:t forState:UIControlStateNormal];
@@ -1447,7 +1531,9 @@
 }
 + (UIBarButtonItem *)createDarkButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
 {
-    
+    if(kIsIpad){
+        return [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStyleBordered target:tgt action:a];
+    }
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setTitle:t forState:UIControlStateNormal];
     [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
@@ -1589,7 +1675,7 @@
         return buttonItem;
     }
     else{
-        return [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStylePlain target:tgt action:a];
+        return nil;//[[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStylePlain target:tgt action:a];
     }
 }
 
@@ -1726,7 +1812,75 @@
         [toolbar setTintColor:[UIColor blackColor]];
     }
 }
++(void)styleTableView:(UITableView *)tableView{
+    
+    if(!kIsiOS7){
+        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
+        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
+        [bg2 setContentMode:UIViewContentModeTop];
+        UIView *bgView = [[UIView alloc] initWithFrame:tableView.frame];
+        [tableView setBackgroundView:bgView];
+        [bgView addSubview:bg2];
+        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+        [bgView setBackgroundColor:tableBGColor];
+        [tableView setBackgroundColor:tableBGColor];
+        
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
+        [bg setContentMode:UIViewContentModeTopLeft];
+        [tableView setTableFooterView:bg];
+    }
+    
+    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [tableView setSectionFooterHeight:0];
+}
 
 
+
++(void)styleTableView:(UITableView *)tableView withBackgroundImage:(UIImage *)image{
+    
+}
+
++(void)showPicker:(UIPickerView*)pickerView aboveUITableView:(UITableView *)tableView onCompletion:(void(^)(void))callback{
+    
+    [tableView.superview insertSubview:pickerView aboveSubview:tableView];//[tableView.superview.subviews objectAtIndex:0]];
+    [tableView setBackgroundColor:[UIColor whiteColor]];
+    [tableView setBackgroundColor:[UIColor whiteColor]];
+    [tableView.superview setBackgroundColor:[UIColor whiteColor]];
+    
+    [pickerView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, pickerView.frame.size.width, pickerView.frame.size.height)];
+
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options: UIViewAnimationCurveEaseOut
+                     animations:^{
+                         [pickerView setFrame:CGRectMake(0, tableView.frame.size.height - 180, 320, 180)];
+                         [tableView setAlpha:.1];
+                         [tableView setTransform:CGAffineTransformMakeScale(.9, .9)];
+                     }
+                     completion:^(BOOL finished){
+                         tableView.userInteractionEnabled = NO;
+                         callback();
+                     }];
+}
++(void)dismissPicker:(UIPickerView *)pickerView fromUITableView:(UITableView *)tableView onCompletion:(void(^)(void))callback{
+    
+    [UIView animateWithDuration:0.3
+                          delay:0
+                        options: UIViewAnimationCurveEaseOut
+                     animations:^{
+                         [pickerView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, 320, 180)];
+                         [tableView setAlpha:1];
+                         [tableView setTransform:CGAffineTransformMakeScale(1, 1)];
+                         CGRect tvFrame = tableView.frame;
+                         tvFrame.origin.x = 0;
+                         tvFrame.origin.y = 0;
+                         [tableView setFrame:tvFrame];
+                     }
+                     completion:^(BOOL finished){
+                         tableView.userInteractionEnabled = YES;
+                         callback();
+                         
+                     }];
+}
 
 @end

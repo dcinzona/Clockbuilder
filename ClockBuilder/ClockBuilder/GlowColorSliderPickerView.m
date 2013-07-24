@@ -41,6 +41,9 @@
     float slidertop = 230;
     if(kIsIpad){
         slidertop = 240;
+        if(kIsiOS7){
+            slidertop = sliderView.bounds.size.height+55;//toolbar + 16
+        }
     }
     
     if(!kIsIpad)
@@ -166,7 +169,7 @@
         [labelG setText:@"Green"];
         [labelB setText:@"Blue"];
         [labelA setText:@"Alpha"];
-        [labelAmount setText:@"Glow Amount"];
+        [labelAmount setText:@"Glow"];
         UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
         if(!kIsIpad)
             [toolbar sizeToFit];
@@ -178,13 +181,21 @@
         UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];  
         UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
         UILabel *titleLabel = [[UILabel alloc] init];
-        [titleLabel setText:@"Set Color"];
-        [titleLabel setFont:[UIFont boldSystemFontOfSize:16]];
-        [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.8]];
-        [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
+        [titleLabel setText:@"Set Glow Color"];
+        if(!kIsiOS7){
+            [titleLabel setFont:[UIFont boldSystemFontOfSize:16]];
+            [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.8]];
+            [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
+            [titleLabel setTextColor:[UIColor whiteColor]];
+        }
+        else{
+            [titleLabel setTextColor:[UIColor darkGrayColor]];
+            [labelA setTextColor:[UIColor blackColor]];
+            [labelAmount setTextColor:[UIColor blackColor]];
+            [sliderView setBackgroundColor:[UIColor whiteColor]];
+        }
         [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];
         [titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [titleLabel setTextColor:[UIColor whiteColor]];
         [titleLabel setBackgroundColor:[UIColor clearColor]];
         UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
         [titleItem setStyle:UIBarButtonItemStylePlain];
@@ -196,9 +207,14 @@
         [toolbar setItems:barItems animated:YES];
         [sliderView addSubview:toolbar];
         
+        int buttonTop = 40;
+        if(kIsiOS7 && kIsIpad){
+            buttonTop = 10;
+        }
         
-        whiteButton = [[UIButton alloc] initWithFrame:CGRectMake(270, 40, 30, 30)];
-        blackButton = [[UIButton alloc] initWithFrame:CGRectMake(230, 40, 30, 30)];
+        
+        whiteButton = [[UIButton alloc] initWithFrame:CGRectMake(270, buttonTop, 30, 30)];
+        blackButton = [[UIButton alloc] initWithFrame:CGRectMake(230, buttonTop, 30, 30)];
         [whiteButton setShowsTouchWhenHighlighted:YES];
         [whiteButton addTarget:self action:@selector(lightenDimView) forControlEvents:UIControlEventTouchUpInside];
         whiteButton.layer.cornerRadius = 5;

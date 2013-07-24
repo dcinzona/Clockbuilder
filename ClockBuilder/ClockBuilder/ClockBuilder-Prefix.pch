@@ -24,6 +24,8 @@
 #import "ClockBuilderAppDelegate.h"
 #import <SSToolkit/SSToolkit.h>
 #import "UIAlertViewBlock.h"
+#import "NSString+FontAwesome.h"
+#import "FAImageView.h"
 
 #define kCoreDataStoreName @"clockbuilderdb.sqlite"
 #define kCoreDataStoreNameiPad @"clockbuilderdb-ipad.sqlite"

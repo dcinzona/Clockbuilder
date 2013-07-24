@@ -560,6 +560,10 @@
 		76CAA664179EA77900B92D7B /* SNPopupView+UsingPrivateMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 76CAA662179EA77900B92D7B /* SNPopupView+UsingPrivateMethod.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		76CAA667179F228A00B92D7B /* transparentWell.png in Resources */ = {isa = PBXBuildFile; fileRef = 76CAA666179F228A00B92D7B /* transparentWell.png */; };
 		76CAA669179F234E00B92D7B /* semiTransWell.png in Resources */ = {isa = PBXBuildFile; fileRef = 76CAA668179F234E00B92D7B /* semiTransWell.png */; };
+		76D2E56F179FFD4100EC0B70 /* FAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D2E568179FFD4100EC0B70 /* FAImageView.m */; };
+		76D2E570179FFD4100EC0B70 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D2E56A179FFD4100EC0B70 /* NSString+FontAwesome.m */; };
+		76D2E571179FFD4100EC0B70 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76D2E56C179FFD4100EC0B70 /* FontAwesome.ttf */; };
+		76D2E572179FFD4100EC0B70 /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D2E56E179FFD4100EC0B70 /* UIFont+FontAwesome.m */; };
 		76D2FEA613701FE100534EC5 /* slideshow.html in Resources */ = {isa = PBXBuildFile; fileRef = 76D2FEA513701FE100534EC5 /* slideshow.html */; };
 		76D2FEAA13702FAA00534EC5 /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 76D2FEA81370224C00534EC5 /* jquery.min.js */; };
 		76D2FEAC1370318000534EC5 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 76D2FEAB1370318000534EC5 /* empty.png */; };
@@ -1441,6 +1445,13 @@
 		76CAA662179EA77900B92D7B /* SNPopupView+UsingPrivateMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SNPopupView+UsingPrivateMethod.m"; sourceTree = "<group>"; };
 		76CAA666179F228A00B92D7B /* transparentWell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = transparentWell.png; sourceTree = "<group>"; };
 		76CAA668179F234E00B92D7B /* semiTransWell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = semiTransWell.png; sourceTree = "<group>"; };
+		76D2E567179FFD4100EC0B70 /* FAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FAImageView.h; sourceTree = "<group>"; };
+		76D2E568179FFD4100EC0B70 /* FAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FAImageView.m; sourceTree = "<group>"; };
+		76D2E569179FFD4100EC0B70 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		76D2E56A179FFD4100EC0B70 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		76D2E56C179FFD4100EC0B70 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		76D2E56D179FFD4100EC0B70 /* UIFont+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontAwesome.h"; sourceTree = "<group>"; };
+		76D2E56E179FFD4100EC0B70 /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
 		76D2FEA513701FE100534EC5 /* slideshow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = slideshow.html; sourceTree = "<group>"; };
 		76D2FEA81370224C00534EC5 /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
 		76D2FEAB1370318000534EC5 /* empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empty.png; sourceTree = "<group>"; };
@@ -2473,6 +2484,28 @@
 			name = "Popup View";
 			sourceTree = "<group>";
 		};
+		76D2E565179FFD2900EC0B70 /* Font Awesome */ = {
+			isa = PBXGroup;
+			children = (
+				76D2E567179FFD4100EC0B70 /* FAImageView.h */,
+				76D2E568179FFD4100EC0B70 /* FAImageView.m */,
+				76D2E569179FFD4100EC0B70 /* NSString+FontAwesome.h */,
+				76D2E56A179FFD4100EC0B70 /* NSString+FontAwesome.m */,
+				76D2E56B179FFD4100EC0B70 /* Resources */,
+				76D2E56D179FFD4100EC0B70 /* UIFont+FontAwesome.h */,
+				76D2E56E179FFD4100EC0B70 /* UIFont+FontAwesome.m */,
+			);
+			name = "Font Awesome";
+			sourceTree = "<group>";
+		};
+		76D2E56B179FFD4100EC0B70 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				76D2E56C179FFD4100EC0B70 /* FontAwesome.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		76D60538179D52560036A8AF /* MKEntryPanel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2854,6 +2887,7 @@
 		CBBDC1B413285C6B00EE9349 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				76D2E565179FFD2900EC0B70 /* Font Awesome */,
 				76CAA665179EA77D00B92D7B /* Popup View */,
 				76D60644179D55310036A8AF /* GMGridView.xcodeproj */,
 				CBFB257F15D5BD3400DD97AF /* SSToolkit.xcodeproj */,
@@ -3288,6 +3322,7 @@
 				768899E0135C5A5F0047B9B3 /* flat_30d.png in Resources */,
 				768899E1135C5A5F0047B9B3 /* flat_30n.png in Resources */,
 				768899E2135C5A5F0047B9B3 /* flat_31d.png in Resources */,
+				76D2E571179FFD4100EC0B70 /* FontAwesome.ttf in Resources */,
 				768899E3135C5A5F0047B9B3 /* flat_31n.png in Resources */,
 				768899E4135C5A5F0047B9B3 /* flat_32d.png in Resources */,
 				768899E5135C5A5F0047B9B3 /* flat_32n.png in Resources */,
@@ -3818,6 +3853,7 @@
 				CB5BB3F21335771800DF4379 /* addWidgetPicker.m in Sources */,
 				CB5BB3F61335A13B00DF4379 /* temperatureSettingsPicker.m in Sources */,
 				764B1AD61337C2A500AC2D71 /* manageGeneralSettings.m in Sources */,
+				76D2E570179FFD4100EC0B70 /* NSString+FontAwesome.m in Sources */,
 				764B1ADE1337DB9F00AC2D71 /* themeScreenshotView.m in Sources */,
 				CBD0B6C41339842600FD889B /* themeConverter.m in Sources */,
 				76A9227A133CC0EC00637D43 /* instructionsForTheme.m in Sources */,
@@ -3867,6 +3903,7 @@
 				7695BCE715B977180000C893 /* CoreDataController.m in Sources */,
 				7695BCEB15B97AAF0000C893 /* CBModel.xcdatamodeld in Sources */,
 				764C8F4715BED8F9003EE6A8 /* CoreDataController2.m in Sources */,
+				76D2E572179FFD4100EC0B70 /* UIFont+FontAwesome.m in Sources */,
 				768EE21F15CAD637003B31A0 /* CoreTheme.m in Sources */,
 				768EE22215CAD6FE003B31A0 /* CBiPadModel.xcdatamodeld in Sources */,
 				768EE22515CAD746003B31A0 /* CoreThemeiPad.m in Sources */,
@@ -3877,6 +3914,7 @@
 				76A24B82179D4C9400785AE5 /* NSData+MKBase64.m in Sources */,
 				76A24B83179D4C9400785AE5 /* NSDate+RFC1123.m in Sources */,
 				76A24B84179D4C9400785AE5 /* NSDictionary+RequestEncoding.m in Sources */,
+				76D2E56F179FFD4100EC0B70 /* FAImageView.m in Sources */,
 				76A24B85179D4C9400785AE5 /* NSString+MKNetworkKitAdditions.m in Sources */,
 				76A24B86179D4C9400785AE5 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				76A24B87179D4C9400785AE5 /* UIImageView+MKNetworkKitAdditions.m in Sources */,

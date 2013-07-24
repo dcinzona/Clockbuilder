@@ -89,23 +89,7 @@ monitorInBG;
     UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
     [self.tableView setBackgroundView:TVbgView];
      */
-    if(!kIsiOS7){
-        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-        [bg2 setContentMode:UIViewContentModeTop];
-        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-        [self.tableView setBackgroundView:bgView];
-        [bgView addSubview:bg2];
-        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-        [bgView setBackgroundColor:tableBGColor];
-        [self.tableView setBackgroundColor:tableBGColor];
-        
-        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-        [bg setContentMode:UIViewContentModeTopLeft];
-        [self.tableView setTableFooterView:bg];
-        [self.tableView setSectionFooterHeight:0];
-    }
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [CBThemeHelper styleTableView:self.tableView];
     
     self.loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [self.loadingIndicator setFrame:CGRectMake(120, 23, 20, 20)];
@@ -447,6 +431,24 @@ monitorInBG;
 
 #pragma mark Picker Actions
 
+-(void)setNavButtonsForPicker{
+    
+    UIBarButtonItem *cancelBtn = [CBThemeHelper createDarkButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
+    UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Select" target:self action:@selector(saveActionSheet)];
+    self.navigationItem.leftBarButtonItem = cancelBtn;
+    self.navigationItem.rightBarButtonItem = doneBtn;
+}
+-(void)resetNavButtons{
+    
+    if(!kIsIpad){
+        [self.navigationItem setLeftBarButtonItem: [CBThemeHelper createBackButtonItemWithTitle:@"Settings" target:self.navigationController action:@selector(popViewControllerAnimated:)]];
+    }
+    else{
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+    self.navigationItem.rightBarButtonItem = nil;
+    [self setTitle:@"Weather Settings"];
+}
 
 -(void) addToolbarToPicker:(NSString *)title
 {
@@ -495,7 +497,14 @@ monitorInBG;
 }
 -(void)actionSheetCancel:(UIActionSheet *)actionSheet{
     
-    [self.pickerAS dismissWithClickedButtonIndex:0 animated:YES];
+    if(!kIsiOS7){
+        [self.pickerAS dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    else{
+        [CBThemeHelper dismissPicker:self.picker.pickerView fromUITableView:self.tableView onCompletion:^{
+            [self resetNavButtons];
+        }];
+    }
     _pickerVisible = NO;
     self.picker = nil;
     self.pickerAS = nil;
@@ -503,7 +512,14 @@ monitorInBG;
     self.SelectedCell = nil;
 }
 -(void)dismissActionSheet{
-    [self.pickerAS dismissWithClickedButtonIndex:0 animated:YES];
+    if(!kIsiOS7){
+        [self.pickerAS dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    else{
+        [CBThemeHelper dismissPicker:self.picker.pickerView fromUITableView:self.tableView onCompletion:^{
+            [self resetNavButtons];
+        }];
+    }
     _pickerVisible = NO;
     self.picker = nil;
     self.pickerAS = nil;
@@ -511,7 +527,14 @@ monitorInBG;
     self.SelectedCell = nil;
 }
 -(void)saveActionSheet{
-    [self.pickerAS dismissWithClickedButtonIndex:1 animated:YES];
+    if(!kIsiOS7){
+        [self.pickerAS dismissWithClickedButtonIndex:1 animated:YES];
+    }
+    else{
+        [CBThemeHelper dismissPicker:self.picker.pickerView fromUITableView:self.tableView onCompletion:^{
+            [self resetNavButtons];
+        }];
+    }
     _pickerVisible = NO;
     NSUInteger selectedRow = [self.picker.pickerView selectedRowInComponent:0];
     NSLog(@"weather data to be saved: %@", weatherData);
@@ -559,7 +582,6 @@ monitorInBG;
         [weatherData setObject:selected  forKey:@"weatherIconSet"];   
     }
     
-    
     [self.tableView deselectRowAtIndexPath:self.SelectedCell animated:YES];    
     [self.tableView reloadData];
     self.SelectedCell = nil;
@@ -575,8 +597,8 @@ monitorInBG;
         NSString *query = tf.text;
 		[self.textField resignFirstResponder];
         
-        //dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-        //dispatch_async(queue, ^{
+        dispatch_queue_t queue = dispatch_queue_create("com.gmtaz.clockbuilder.WeatherSingleton.queue", NULL);
+        dispatch_async(queue, ^{
             if([tf.text isEqualToString:@""] || [tf.text isEqualToString:@"Current Location"])
             {
                 [[weatherSingleton sharedInstance] setLocation:@"Current Location"];
@@ -586,135 +608,49 @@ monitorInBG;
                 BOOL connected = [[GMTHelper sharedInstance]deviceIsConnectedToInet];
                 if(connected)
                 {
+                    [[weatherSingleton sharedInstance] setViewForPicker:self.view];
                     //NSLog(@"Query: %@", query);
                     [[weatherSingleton sharedInstance] setLocation:query];
-                    //dispatch_sync(dispatch_get_main_queue(), ^{
+                    dispatch_async(dispatch_get_main_queue(), ^{
                         [self.loadingIndicator stopAnimating];
-                    //});
+                    });
                 }
                 else
                 {
-                    //dispatch_sync(dispatch_get_main_queue(), ^(void) {
+                    dispatch_async(dispatch_get_main_queue(), ^(void) {
                         
                         [self.loadingIndicator stopAnimating];
                         if(_valid){
                             [[GMTHelper sharedInstance] alertWithString:@"No internet connection detected. Unable to get location."];
                         }
-                    //});
+                    });
                 }
             }
-        //});
+        });
     }
 	return YES;
 }
 
 #pragma mark Show Pickers
-/*
 
-- (void)getLocationsArray:(NSArray *)locationNames woeidsArray:(NSArray *)woeids
-{
-    //dismiss activity indicator
-    NSLog(@"LocationNames: %@", locationNames);
-        [self.loadingIndicator stopAnimating];
-        if([locationNames count]>1){
-            NSMutableArray *pArray = [[NSMutableArray alloc] init];
-            //NSString *woeid = [woeids objectAtIndex:0];
-            for(int x = 0; x<[woeids count]; x++){
-                //if(![woeid isEqualToString:[woeids objectAtIndex:x]]){
-                if(x<locationNames.count && x<woeids.count){
-                    NSMutableDictionary *place = [[NSMutableDictionary alloc] init];
-                    [place setObject:[locationNames objectAtIndex:x] forKey:@"locationName"];
-                    [place setObject:[woeids objectAtIndex:x] forKey:@"location"];
-                    [pArray addObject:place];
-                }
-                //}
-            }
-            if([pArray count]>0){
-                self.placesArray = nil;
-                self.placesArray = [NSMutableArray arrayWithArray:pArray];
-                [self showLocationPicker:self.placesArray];
-            }
-            else
-            {            
-                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-                if([self.textField.text isEqualToString:@""] || [self.textField.text isEqualToString:@"Current Location"])
-                {
-                    [[cell detailTextLabel]setText:@"Current Location"];
-                    [weatherData setObject:@"Current Location" forKey:@"location"];  
-                    [weatherData setObject:[locationNames objectAtIndex:0] forKey:@"locationName"];  
-                }
-                else
-                {
-                    [[cell detailTextLabel]setText:[woeids objectAtIndex:0]];
-                    [weatherData setObject:[woeids objectAtIndex:0] forKey:@"location"];  
-                    [weatherData setObject:[locationNames objectAtIndex:0] forKey:@"locationName"];  
-                }
-                [self.textField setText:[locationNames objectAtIndex:0]];
-                
-                
-                [self saveWeatherData];
-                
-            }
-        }
-        else
-        {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-            if([self.textField.text isEqualToString:@""] || [self.textField.text isEqualToString:@"Current Location"])
-            {
-                [[cell detailTextLabel]setText:@"Current Location"];
-                
-                NSString *location = [woeids objectAtIndex:0];
-                NSMutableDictionary *wdict = [NSMutableDictionary dictionaryWithDictionary:[getWeather getWeatherForLocation:location]];
-                [weatherData setObject:wdict forKey:@"data"];
-                [weatherData setObject:@"Current Location" forKey:@"location"];  
-                [weatherData setObject:[locationNames objectAtIndex:0] forKey:@"locationName"]; 
-            }
-            else
-            {
-                [[cell detailTextLabel]setText:[woeids objectAtIndex:0]];
-                
-                NSString *location = [woeids objectAtIndex:0];
-                NSMutableDictionary *wdict = [NSMutableDictionary dictionaryWithDictionary:[getWeather getWeatherForLocation:location]];
-                [weatherData setObject:wdict forKey:@"data"];
-                [weatherData setObject:[woeids objectAtIndex:0] forKey:@"location"];  
-                [weatherData setObject:[locationNames objectAtIndex:0] forKey:@"locationName"];  
-            }
-            [self.textField setText:[locationNames objectAtIndex:0]];
-            
-            
-            [self saveWeatherData];
-        }
-}
-- (void) showLocationPicker:(NSArray *)places
-{
-    if(!_pickerVisible){
-        _pickerVisible = YES;
-        NSMutableArray *pickerList = [[NSMutableArray alloc]init];
-        NSLog(@"PLACES: %@", places);
-        for (NSDictionary *place in self.placesArray) {
-            [pickerList addObject:[place objectForKey:@"locationName"]];
-        }
-        self.picker = [[WidgetPickerViewController alloc] initWithPickerItems:pickerList pickerType:@"locations"];
-        NSString *title = @"Select Location";
-        self.picker.pickerItems = [pickerList copy];
-        self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
-        [self addToolbarToPicker:title];
-    }
- }
- */
 - (void) showIntervalPicker
 {
     if(!_pickerVisible){
         _pickerVisible = YES;
     NSArray *pickerList = [NSArray arrayWithObjects:@"1 Minute",@"5 Minutes",@"10 Minutes",@"30 Minutes",@"1 Hour",@"12 Hours", nil];
-    NSString *title = @"Weather Refresh Rate";
+    NSString *title = @"Refresh Rate";
     self.picker = [[WidgetPickerViewController alloc] initWithPickerItems:nil pickerType:@"refreshInteval"];
     self.picker.pickerItems = [pickerList copy];
-        if(!kIsiOS7)
+        if(!kIsiOS7){
             self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
-        else
-            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    [self addToolbarToPicker:title];
+            [self addToolbarToPicker:title];
+        }
+        else{
+            [CBThemeHelper showPicker:self.picker.pickerView aboveUITableView:self.tableView onCompletion:^{
+                [self setNavButtonsForPicker];
+                [self setTitle:title];
+            }];
+        }
     //[pickerList release];    
     }
 }
@@ -723,15 +659,22 @@ monitorInBG;
 {
     if(!_pickerVisible){
         _pickerVisible = YES;
-    NSArray *pickerList = [NSArray arrayWithObjects:@"Fahrenheit",@"Celsius", nil];
-    NSString *title = @"Weather Units";
-    self.picker = [[WidgetPickerViewController alloc] initWithPickerItems:nil pickerType:@"units"];
+        NSArray *pickerList = [NSArray arrayWithObjects:@"Fahrenheit",@"Celsius", nil];
+        NSString *title = @"Weather Units";
+        if(!self.picker){
+            self.picker = [[WidgetPickerViewController alloc] initWithPickerItems:nil pickerType:@"units"];
+        }
         self.picker.pickerItems = [pickerList copy];
-        if(!kIsiOS7)
+        if(!kIsiOS7){
             self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
-        else
-            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    [self addToolbarToPicker:title];
+            [self addToolbarToPicker:title];
+        }
+        else{
+            [CBThemeHelper showPicker:self.picker.pickerView aboveUITableView:self.tableView onCompletion:^{
+                [self setNavButtonsForPicker];
+                [self setTitle:title];
+            }];
+        }
     //[pickerList release];    
     }
 }
@@ -742,12 +685,17 @@ monitorInBG;
         _pickerVisible = YES;
     NSArray *pickerList = [NSArray arrayWithObjects: @"Climacons", @"Flat", @"HTC", @"Stardock", @"Tick",nil];
     self.picker = [[WidgetPickerViewController alloc] initWithPickerItems:pickerList pickerType:@"iconSet"];
-        NSString *title = @"Icon Set:";
-        if(!kIsiOS7)
+        NSString *title = @"Icon Set";
+        if(!kIsiOS7){
             self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
-        else
-            self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    [self addToolbarToPicker:title];
+            [self addToolbarToPicker:title];
+        }
+        else{
+            [CBThemeHelper showPicker:self.picker.pickerView aboveUITableView:self.tableView onCompletion:^{
+                [self setNavButtonsForPicker];
+                [self setTitle:title];
+            }];
+        }
     }
 }
 

@@ -40,37 +40,19 @@
     if (kIsIpad) {
         self.contentSizeForViewInPopover = kPopoverSize;
     }
-    else{
-        UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Lockscreen Settings" target:self.navigationController action:@selector(popViewControllerAnimated:)];
-        [self.navigationItem setLeftBarButtonItem: backButton];
-    }
     
-    
+    UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Lockscreen Settings" target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    [self.navigationItem setLeftBarButtonItem: backButton];
     
     [self setTitle:@"Language Edits"];
     
-    if(!kIsiOS7){
-        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-        [bg setContentMode:UIViewContentModeTopLeft];
-        [self.tableView setTableFooterView:bg];
-        
-        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-        [bg2 setContentMode:UIViewContentModeTop];
-        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-        [self.tableView setBackgroundView:bgView];
-        [bgView addSubview:bg2];
-        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-        [bgView setBackgroundColor:tableBGColor];
-        [self.tableView setBackgroundColor:tableBGColor];
-    }
+    [CBThemeHelper styleTableView:self.tableView];
+    [self.tableView setSectionFooterHeight:0];
+    
     UITapGestureRecognizer *resign = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                              action:@selector(resignKeyboard)];
     [self.tableView.backgroundView addGestureRecognizer:resign];
-    
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.tableView setSectionFooterHeight:0];
-    
+        
     [self.tableView setSeparatorColor:[UIColor colorWithRed:.4 green:.4 blue:.4 alpha:.6]];
     
     //build arrays

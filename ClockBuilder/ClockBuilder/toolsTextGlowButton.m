@@ -118,7 +118,7 @@ fontButtonLabel;
     UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];  
     UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
     UILabel *titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:@"Set Color"];
+    [titleLabel setText:@"Set Glow Color"];
     [titleLabel setShadowColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
     [titleLabel setShadowOffset:CGSizeMake(0, -1.0)];
     [titleLabel setFrame:CGRectMake(0, 0, 150, 22)];

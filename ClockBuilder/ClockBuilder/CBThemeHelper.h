@@ -46,6 +46,8 @@
 +(void)setThemeUbiquity:(BOOL)putIniCloud overwrite:(BOOL)overwrite;
 
 +(void)startDownloadingThemeAtURLString:(NSString *)urlString andSaveAs:(NSString *)saveName;
++ (UIBarButtonItem *)createFontAwesomeBlueBarButtonItemWithIcon:(NSString *)iconCSSClass target:(id)tgt action:(SEL)a;
++ (UIBarButtonItem *)createFontAwesomeDarkBarButtonItemWithIcon:(NSString *)iconCSSClass target:(id)tgt action:(SEL)a;
 + (UIBarButtonItem *)createBlueButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a;
 +(UIBarButtonItem *)createDoneButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a;   
 + (UIBarButtonItem *)createBlueButtonItemWithImage:(UIImage *)image andPressedImage:(UIImage*)imagePressed target:(id)tgt action:(SEL)a;
@@ -58,6 +60,12 @@
 
 +(UIButton *)createBlueUIButtonWithTitle: (NSString *)t target:(id)tgt action:(SEL)a frame:(CGRect)buttonFrame;
 +(UIButton *)createGrayUIButtonWithTitle: (NSString *)t target:(id)tgt action:(SEL)a frame:(CGRect)buttonFrame;
++(void)styleTableView:(UITableView *)tableView;
++(void)styleTableView:(UITableView *)tableView withBackgroundImage:(UIImage *)image;
+
+
++(void)showPicker:(UIPickerView*)pickerView aboveUITableView:(UITableView *)tableView onCompletion:(void(^)(void))callback;
++(void)dismissPicker:(UIPickerView *)pickerView fromUITableView:(UITableView *)tableView onCompletion:(void(^)(void))callback;
 
 
 //Toolbar

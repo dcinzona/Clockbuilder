@@ -73,19 +73,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
-        /*
-         UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-         [bg setImage:[UIImage imageNamed:@"fadedBG.JPG"]];
-         [self.view addSubview:bg];
-         
-         bg.layer.masksToBounds = NO;
-         bg.layer.cornerRadius = 0;
-         [bg.layer setShadowColor:[UIColor blackColor].CGColor];
-         bg.layer.shadowOffset = CGSizeMake(0,0);
-         bg.layer.shadowRadius = 10;
-         bg.layer.shadowOpacity = 1;
-         bg.layer.shadowPath = [UIBezierPath bezierPathWithRect:bg.bounds].CGPath;
-         */
         if(!kIsiOS7){
             UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
             [bg setImage:[UIImage imageNamed:@"tableGradient"]];
@@ -115,26 +102,7 @@
         //_gmGridView.transformDelegate = self;
         _gmGridView.dataSource = self;
         
-        
-        if(kIsIpad){
-            UIBarButtonItem *search = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showThemePicker)];
-            self.navigationItem.rightBarButtonItem = search;
-            self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
-        }
-        else{
-            if(kIsiOS7){
-                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showThemePicker)];
-            }
-            else{
-                UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                         andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                                  target:self action:@selector(showThemePicker)
-                                                 ];
-                self.navigationItem.rightBarButtonItem = searchButton;
-            }
-            UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved" target:self.navigationController action:@selector(popViewControllerAnimated:)];
-            [self.navigationItem setLeftBarButtonItem: backButton];
-        }
+        [self resetNavBarButtons];
         
         _data =[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"onlineThemesArray"]];
         selectedCategory = [[NSUserDefaults standardUserDefaults] objectForKey:@"onlineThemesArrayCategory"];
@@ -266,6 +234,29 @@
     [[SDImageCache sharedImageCache] clearMemory];
     [self getThemesFromOnline];
 }
+-(void)resetNavBarButtons{
+    UIBarButtonItem *searchButton = [CBThemeHelper createFontAwesomeBlueBarButtonItemWithIcon:@"icon-tags" target:self action:@selector(showThemePicker)];
+    self.navigationItem.rightBarButtonItem = searchButton;
+    UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved" target:self.navigationController action:@selector(popViewControllerAnimated:)];
+    [self.navigationItem setLeftBarButtonItem: backButton];
+}
+-(void)setNavBarButtonsForActionView{
+    
+    if(kIsIpad){
+        
+        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStyleBordered target:self action:@selector(donePicking)];
+        self.navigationItem.rightBarButtonItem = doneButton;
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelCategoryPicker)];
+        self.navigationItem.leftBarButtonItem = cancelButton;
+    }
+    else{
+        
+        UIBarButtonItem *doneButton = [CBThemeHelper createBlueButtonItemWithTitle:@"Select" target:self action:@selector(donePicking)];
+        self.navigationItem.rightBarButtonItem = doneButton;
+        UIBarButtonItem *cancelButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Cancel" target:self action:@selector(cancelCategoryPicker)];
+        self.navigationItem.leftBarButtonItem = cancelButton;
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -279,27 +270,8 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     [self.navigationController.navigationBar.topItem setTitle:[selectedCategory stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+    [self resetNavBarButtons];
     
-    if(kIsIpad){
-        UIBarButtonItem *search = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showThemePicker)];
-        self.navigationItem.rightBarButtonItem = search;
-        self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
-    }
-    else{
-        
-        if(kIsiOS7){
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showThemePicker)];
-        }
-        else{
-            UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                     andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                              target:self action:@selector(showThemePicker)
-                                             ];
-            self.navigationItem.rightBarButtonItem = searchButton;
-        }
-        UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved" target:self.navigationController action:@selector(popViewControllerAnimated:)];
-        [self.navigationItem setLeftBarButtonItem: backButton];
-    }
 }
 -(void)viewWillAppear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -429,30 +401,8 @@
 -(BOOL)cancelCategoryPicker{
     if(_pickerVisible){
         //hide picker
-        if(kIsIpad){
-            
-            UIBarButtonItem *search = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showThemePicker)];
-            self.navigationItem.rightBarButtonItem = search;
-            
-            self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
-        }
-        else{
-            
-            if(kIsiOS7){
-                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showThemePicker)];
-            }
-            else{
-                UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                         andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                                  target:self action:@selector(showThemePicker)
-                                                 ];
-                self.navigationItem.rightBarButtonItem = searchButton;
-            }
-            
-            UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved" target:self.navigationController action:@selector(popViewControllerAnimated:)];
-            //[self.navigationItem setBackBarButtonItem:backButton];
-            [self.navigationItem setLeftBarButtonItem: backButton];
-        }
+        
+        [self resetNavBarButtons];
         
         CGRect slidDown = CGRectMake(0, 0, _gmGridView.frame.size.width, _gmGridView.frame.size.height);
         UIView *bottomView = [self.view.subviews objectAtIndex:1];
@@ -462,7 +412,11 @@
                             options: UIViewAnimationCurveEaseOut
                          animations:^{
                              [bottomView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, 320, 180)];
-                             [_gmGridView setFrame:slidDown];
+                             if(!kIsiOS7)
+                                 [_gmGridView setFrame:slidDown];
+                             else{
+                                 [_gmGridView setTransform:CGAffineTransformMakeScale(1, 1)];
+                             }
                              [_gmGridView setAlpha:1];
                          }
                          completion:^(BOOL finished){
@@ -802,29 +756,7 @@
 #define kPickerVertDisplace [UIScreen mainScreen].bounds.size.height - 244
 -(void)donePicking{
     _pickerVisible = NO;
-    
-    if(kIsIpad){
-        UIBarButtonItem *search = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(showThemePicker)];
-        self.navigationItem.rightBarButtonItem = search;
-        self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
-    }
-    else{
-        
-        
-        if(kIsiOS7){
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(showThemePicker)];
-        }
-        else{
-            UIBarButtonItem *searchButton = [CBThemeHelper createButtonItemWithImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                     andPressedImage:[UIImage imageNamed:@"NavigationSearchButton.png"]
-                                                                              target:self action:@selector(showThemePicker)
-                                             ];
-            self.navigationItem.rightBarButtonItem = searchButton;
-        }
-        
-        UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Saved Themes" target:self.navigationController action:@selector(popViewControllerAnimated:)];
-        [self.navigationItem setLeftBarButtonItem: backButton];
-    }
+    [self resetNavBarButtons];
     CGRect slidDown = CGRectMake(0, 0, _gmGridView.frame.size.width, _gmGridView.frame.size.height);
     UIView *pickerView = [self.view.subviews objectAtIndex:1];
     
@@ -833,7 +765,11 @@
                         options: UIViewAnimationCurveEaseOut
                      animations:^{
                          [pickerView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, 320, 180)];
-                         [_gmGridView setFrame:slidDown];
+                         if(!kIsiOS7)
+                             [_gmGridView setFrame:slidDown];
+                         else{
+                             [_gmGridView setTransform:CGAffineTransformMakeScale(1, 1)];
+                         }
                          [_gmGridView setAlpha:1];
                      }
                      completion:^(BOOL finished){
@@ -860,21 +796,7 @@
     catPicker.delegate = self;
     catPicker.showsSelectionIndicator = YES;
     selectedCategory = self.navigationController.navigationBar.topItem.title;
-    
-    if(kIsIpad){
-        
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStyleBordered target:self action:@selector(donePicking)];
-        self.navigationItem.rightBarButtonItem = doneButton;
-        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelCategoryPicker)];
-        self.navigationItem.leftBarButtonItem = cancelButton;
-    }
-    else{
-        
-        UIBarButtonItem *doneButton = [CBThemeHelper createBlueButtonItemWithTitle:@"Select" target:self action:@selector(donePicking)];
-        self.navigationItem.rightBarButtonItem = doneButton;
-        UIBarButtonItem *cancelButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Cancel" target:self action:@selector(cancelCategoryPicker)];
-        self.navigationItem.leftBarButtonItem = cancelButton;
-    }
+    [self setNavBarButtonsForActionView];
     [_gmGridView setAlpha:.3];
     [self.view insertSubview:catPicker aboveSubview:[self.view.subviews objectAtIndex:0]];
     
@@ -893,6 +815,7 @@
                              [_gmGridView setFrame:CGRectMake(0, -180, _gmGridView.frame.size.width, _gmGridView.frame.size.height)];
                          }else{
                              [_gmGridView setAlpha:.2];
+                             [_gmGridView setTransform:CGAffineTransformMakeScale(.9, .9)];
                          }
                      }
                      completion:^(BOOL finished){

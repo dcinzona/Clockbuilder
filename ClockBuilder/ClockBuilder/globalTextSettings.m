@@ -148,27 +148,11 @@ weatherData;
     UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
     [self.tableView setBackgroundView:TVbgView];
      */
-    if(!kIsiOS7){
-        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-        [bg2 setContentMode:UIViewContentModeTop];
-        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-        [self.tableView setBackgroundView:bgView];
-        [bgView addSubview:bg2];
-        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-        [bgView setBackgroundColor:tableBGColor];
-        [self.tableView setBackgroundColor:tableBGColor];
-        
-        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-        [bg setContentMode:UIViewContentModeTopLeft];
-        [self.tableView setTableFooterView:bg];
-    }
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    [CBThemeHelper styleTableView:self.tableView];
     
     self.title = @"Change All Text";
-    
-    if(!kIsIpad)
-        [self.navigationItem setLeftBarButtonItem: [CBThemeHelper createBackButtonItemWithTitle:@"Settings" target:self.navigationController action:@selector(popViewControllerAnimated:)]];
+    [self resetNavbar];
     
     
 }
@@ -443,11 +427,14 @@ weatherData;
 }
 
 -(void)dismissActionSheet{
-    [self.pickerAS dismissWithClickedButtonIndex:0 animated:YES];
-    if([self.pickerASType isEqualToString:@"tempPicker"])
-        self.tempPicker = nil;
-    else
-        self.picker = nil;
+    if(self.pickerAS){
+        [self.pickerAS dismissWithClickedButtonIndex:0 animated:YES];
+    }
+    [CBThemeHelper dismissPicker:self.picker.pickerView fromUITableView:self.tableView onCompletion:^{
+        [self resetNavbar];
+    }];
+    self.tempPicker = nil;
+    self.picker = nil;
     self.pickerAS = nil;
     [[self.tableView cellForRowAtIndexPath:self.SelectedCell] setSelected:NO animated:YES];
     self.SelectedCell = nil;
@@ -456,8 +443,12 @@ weatherData;
 
 
 -(void)saveActionSheet{
-    [self.pickerAS dismissWithClickedButtonIndex:1 animated:YES];
-    
+    if(self.pickerAS){
+        [self.pickerAS dismissWithClickedButtonIndex:1 animated:YES];
+    }
+    [CBThemeHelper dismissPicker:self.picker.pickerView fromUITableView:self.tableView onCompletion:^{
+        [self resetNavbar];
+    }];
     if([self.pickerASType isEqualToString:@"picker"]){
         NSUInteger selectedRow = [self.picker.pickerView selectedRowInComponent:0];
         NSString *selected = [self.picker.pickerItems objectAtIndex:selectedRow];
@@ -470,8 +461,21 @@ weatherData;
     [self.tableView deselectRowAtIndexPath:self.SelectedCell animated:YES];  
     self.SelectedCell = nil;
     self.pickerAS = nil;
+    self.picker = nil;
+    self.tempPicker = nil;
 }
-
+-(void)resetNavbar{
+    self.navigationItem.rightBarButtonItem = nil;
+    [self.navigationItem setLeftBarButtonItem: [CBThemeHelper createBackButtonItemWithTitle:@"Settings" target:self.navigationController action:@selector(popViewControllerAnimated:)]];
+    [self setTitle:@"Change All Text"];
+}
+-(void)setNavBarForPicker{
+    UIBarButtonItem *cancelBtn = [CBThemeHelper createDarkButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
+    UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Select" target:self action:@selector(saveActionSheet)];
+    self.navigationItem.leftBarButtonItem = cancelBtn;
+    self.navigationItem.rightBarButtonItem = doneBtn;
+    [self setTitle:@"Pick Font"];
+}
 #pragma mark Show Pickers
 - (void) showFontPicker
 {
@@ -479,11 +483,15 @@ weatherData;
     self.picker = (WidgetPickerViewController *)[[fontPicker alloc] initWithPickerItems:pickerList pickerType:@"fontFamily"];
     NSString *title = @"Font Family";
     self.pickerASType = @"picker";
-    if(!kIsiOS7)
+    if(!kIsiOS7){
         self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
-    else
-        self.pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-    [self addToolbarToPicker:title];
+        [self addToolbarToPicker:title];
+    }
+    else{
+        [CBThemeHelper showPicker:self.picker.pickerView aboveUITableView:self.tableView onCompletion:^{
+            [self setNavBarForPicker];
+        }];
+    }
 }
 
 #pragma mark - Table view delegate

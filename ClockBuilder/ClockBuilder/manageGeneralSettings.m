@@ -71,49 +71,11 @@
     }
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
-    if(!kIsiOS7){
-        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tvFooterBG.png"]];
-        [bg setContentMode:UIViewContentModeTopLeft];
-        [self.tableView setTableFooterView:bg];
-        [self.tableView setSectionFooterHeight:0];
-        
-        /*
-        UIImageView *TVbgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fadedBG.JPG"]];
-        [self.tableView setBackgroundView:TVbgView];
-        */
-        
-        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-        [bg2 setContentMode:UIViewContentModeTop];
-        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-        [self.tableView setBackgroundView:bgView];
-        [bgView addSubview:bg2];
-        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-        [bgView setBackgroundColor:tableBGColor];
-        [self.tableView setBackgroundColor:tableBGColor];
-    }
-    else{
-        
-    }
+    [CBThemeHelper styleTableView:self.tableView];
     
-    if(kIsIpad){
-        
-        UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(exitModal)];
-        self.navigationItem.leftBarButtonItem = doneButton;
-        
-        UIBarButtonItem *infoButton = [[UIBarButtonItem alloc] initWithTitle:@"Info" style:UIBarButtonItemStyleBordered target:self action:@selector(showInfoView)];
-        self.navigationItem.rightBarButtonItem = infoButton;
-        
-    }
-    else{
-        UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Done" target:self action:@selector(exitModal)];
-        self.navigationItem.leftBarButtonItem = doneButton;
-        
-        
-        self.navigationItem.rightBarButtonItem = [CBThemeHelper createDarkButtonItemWithTitle:@"Info" target:self action:@selector(showInfoView)];
-                                              
-    }
-    
+    UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Done" target:self action:@selector(exitModal)];
+    self.navigationItem.leftBarButtonItem = doneButton;
+    self.navigationItem.rightBarButtonItem = [CBThemeHelper createDarkButtonItemWithTitle:@"Info" target:self action:@selector(showInfoView)];
     
     showStatusBar = [[UISwitch alloc] initWithFrame:CGRectZero];
     [showStatusBar addTarget: self action: @selector(showStatusBar:) forControlEvents: UIControlEventValueChanged];
