@@ -486,7 +486,7 @@
         dn = @"d";
     }
     
-    NSLog(@"code for %@:%@",forecast,code);
+    //NSLog(@"code for %@:%@",forecast,code);
     
     int codeInt = [code intValue];
     

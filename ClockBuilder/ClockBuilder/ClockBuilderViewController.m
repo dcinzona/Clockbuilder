@@ -205,13 +205,13 @@
     //ipad/i5 tools alignment
     if(kIsIpad){
         //NSLog(@"widgetNameView origin y: %f",screenHeight);
-        [widgetNameView setFrame:CGRectMake(widgetNameView.frame.origin.x, screenHeight - 75, widgetNameView.frame.size.width, widgetNameView.frame.size.height)];
+        //[widgetNameView setFrame:CGRectMake(widgetNameView.frame.origin.x, screenHeight - 75, widgetNameView.frame.size.width, widgetNameView.frame.size.height)];
         [ScaleIconImageView setFrame:CGRectMake(170,screenHeight-ScaleIconImageView.frame.size.height+3, ScaleIconImageView.frame.size.width, ScaleIconImageView.frame.size.height)];
         [OpacityIconImageView setFrame:CGRectMake(screenWidth-222,screenHeight-OpacityIconImageView.frame.size.height+3, OpacityIconImageView.frame.size.width, OpacityIconImageView.frame.size.height)];
         
     }
     else{
-        [widgetNameView setFrame:CGRectMake(widgetNameView.frame.origin.x, screenHeight - 75, widgetNameView.frame.size.width, widgetNameView.frame.size.height)];
+        //[widgetNameView setFrame:CGRectMake(widgetNameView.frame.origin.x, screenHeight - 75, widgetNameView.frame.size.width, widgetNameView.frame.size.height)];
         [ScaleIconImageView setFrame:CGRectMake(ScaleIconImageView.frame.origin.x,
                                                 screenHeight-ScaleIconImageView.frame.size.height+3,
                                                 ScaleIconImageView.frame.size.width,
@@ -899,6 +899,13 @@
         [opacitySlider setValue:[[data objectForKey:@"opacity"]floatValue]];
         [CBThemeHelper setTitle:@"Done" forCustomBarButton:self.done];
         [widgetNameView setHidden:NO];
+        if(CGRectIntersectsRect(widgetNameView.frame, self.view.frame)){
+            NSLog(@"widgetNameBiew is visible with rect: %@", NSStringFromCGRect(widgetNameView.frame));
+        }else{
+            NSLog(@"widgetNameBiew not in view");
+            NSLog(@"%@",NSStringFromCGRect(widgetNameView.frame));
+        }
+        
         if(!self.toolbar.hidden){
             [self setEditingWidgetToolbar];
             if(scaleSliderVisible){
