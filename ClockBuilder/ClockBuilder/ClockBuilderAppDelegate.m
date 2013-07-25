@@ -273,7 +273,7 @@
     // Override point for customization after application launch.
     //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]];
     //[TestFlight takeOff:@"17e119d1814f0c72f428260b28493953_MTA4OTMyMDExLTA3LTI3IDA3OjE3OjAzLjE4MzAzNQ"];
-    NSString* appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+    //NSString* appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
     //NSLog(@"appID: %@", appID);
     
     //NSLog(@"UDID: %@", [OpenUDID value]);
@@ -676,21 +676,21 @@
         BOOL uploadsIsDir;
         if([fm fileExistsAtPath:[documentsDirectory stringByAppendingFormat:@"/uploads"] isDirectory:&uploadsIsDir])
         {
-            NSLog(@"uploads found");
+            //NSLog(@"uploads found");
             if (uploadsIsDir) {
                 NSLog(@"uploads is dir");
                 NSError *errorDeleteUploads;
                 if(![fm removeItemAtPath:[documentsDirectory stringByAppendingFormat:@"/uploads"] error:&errorDeleteUploads]){
-                    NSLog(@"error deleting uploads directory: %@", errorDeleteUploads);
+                    //NSLog(@"error deleting uploads directory: %@", errorDeleteUploads);
                 }
                 else {
-                    NSLog(@"uploads deleted");
+                    //NSLog(@"uploads deleted");
                 }
             }
         
         }
         else {
-            NSLog(@"no uploads dir found");
+            //NSLog(@"no uploads dir found");
         }
     }
 

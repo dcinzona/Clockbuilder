@@ -43,21 +43,21 @@
 #endif
 #endif
 
-#ifdef DEBUG
+//#ifdef DEBUG
 #ifndef DLog
-#   define DLog(fmt, ...) {NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);}
+//#   define DLog(fmt, ...) {NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);}
 #endif
 #ifndef ELog
-#   define ELog(err) {if(err) DLog(@"%@", err)}
+//#   define ELog(err) {if(err) DLog(@"%@", err)}
 #endif
-#else
+//#else
 #ifndef DLog
 #   define DLog(...)
 #endif
 #ifndef ELog
 #   define ELog(err)
 #endif
-#endif
+//#endif
 
 // ALog always displays output regardless of the DEBUG setting
 #ifndef ALog

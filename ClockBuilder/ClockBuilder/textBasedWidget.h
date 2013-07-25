@@ -15,6 +15,7 @@
     BOOL shouldUpdate;
     BOOL isWeather;
     BOOL isClimacon;
+    dispatch_queue_t queue;
 }
 
 
@@ -27,15 +28,16 @@
 
 
 - (NSNumber *) getIndexInList;
+-(void) updateFrameForFontSize;
 - (id) initWithFrame:(CGRect)frame widgetData:(NSDictionary *)widgetDataDict indexValue:(NSNumber*)index;
 
 - (void) refreshWithNewWeatherData;
 
 - (UIColor*) getGlowColor;
 - (void) setTimer;
-- (UITextAlignment) setTextAlignment;
+- (NSTextAlignment) setTextAlignment;
 - (NSString *)transformGivenText:(NSString *)str;
 - (void)setTextAlignmentTo:(NSString *)align;
-
+- (BOOL)getIsClimacon;
 
 @end

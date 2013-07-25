@@ -767,7 +767,7 @@ static dispatch_queue_t serialQueue;
     NSString *temp = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]objectForKey:@"weatherData"] objectForKey:@"units"];
     NSString *urlString = [NSString stringWithFormat:@"%@%@%@%@%@",@"http://query.yahooapis.com/v1/public/yql?format=json&diagnostics=true&env=store://datatables.org/alltableswithkeys&q=select%20*%20from%20weather.forecast%20where%20location%20in%20%28%22",WOEID,@"%22%29%20and%20u=%22",temp,@"%22"];
     NSDictionary *data = [self weatherDictDataWithUrl:[NSURL URLWithString:urlString]];
-    NSLog(@"urslString: %@", urlString);
+    //NSLog(@"urslString: %@", urlString);
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     });

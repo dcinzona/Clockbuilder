@@ -65,8 +65,10 @@
     }
     
     [ApplicationDelegate performSelectorInBackground:@selector(setupThemeFiles) withObject:nil];
-
-    if(/*![[NSUserDefaults standardUserDefaults] boolForKey:@"DidShowiCloudAlert"] && */![[NSUserDefaults standardUserDefaults] boolForKey:@"iCloudEnabled"]){
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"iCloudEnabled"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+/*
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"iCloudEnabled"]){
         if(NSClassFromString(@"NSUbiquitousKeyValueStore")) { // is iOS 5?
             
             if([NSUbiquitousKeyValueStore defaultStore]) {  // is iCloud enabled
@@ -90,7 +92,7 @@
         else {
         }
     }
-    
+ */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showWeatherFinder) name:@"cantGeoLocate" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appWillEnterForeground)
@@ -247,7 +249,7 @@
         CGRect coordRect = CGRectMake(kScreenWidth - coorWidth.width - 5,
                                      kScreenHeight - 44 - viewHeight - 5,
                                      coorWidth.width + 5, viewHeight + 5);
-        NSLog(@"coordRect: %@", NSStringFromCGRect(coordRect));
+        //NSLog(@"coordRect: %@", NSStringFromCGRect(coordRect));
         
         _coordinatesView = [[UIView alloc] initWithFrame:coordRect];
         [_coordinatesView setHidden:YES];
@@ -264,7 +266,7 @@
         [_coordinatesViewLabelY setBackgroundColor:[UIColor clearColor]];
         [_coordinatesView addSubview:_coordinatesViewLabelY];
         
-        NSLog(@"coordinates view frame: %@", NSStringFromCGRect(_coordinatesView.frame));
+        //NSLog(@"coordinates view frame: %@", NSStringFromCGRect(_coordinatesView.frame));
         [_coordinatesView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedCoordinatesView:)]];
     }
     
@@ -332,7 +334,7 @@
 -(void)viewDidAppear:(BOOL)animated{
     
     //iCloud Alert
-    NSLog(@"view did appear (root view controller");
+    //NSLog(@"view did appear (root view controller");
     [self resetToolbar];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(drawBackground) name:@"refreshBG" object:nil];
@@ -809,10 +811,10 @@
             BOOL renderClimacons = NO;
             if ([[weatherSingleton sharedInstance] isClimacon]) {
                     renderClimacons = YES;
-                NSLog(@"isClimacon = YES;");
+                //NSLog(@"isClimacon = YES;");
             }
             else{
-                NSLog(@"isClimacon = NO;");
+                //NSLog(@"isClimacon = NO;");
             }
             if(renderClimacons){
                 
@@ -1078,7 +1080,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         
-        NSLog(@"viewcontroller draw background");
+        //NSLog(@"viewcontroller draw background");
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         if([[GMTHelper sharedInstance] parallaxEnabled]){
@@ -1125,7 +1127,7 @@
     });
 }
 - (void) appWillEnterForeground {
-    NSLog(@"back from background");
+    //NSLog(@"back from background");
     
     if([[GMTHelper sharedInstance] parallaxEnabled]){
         [bgWebView stringByEvaluatingJavaScriptFromString:@"addParallax(true);"];
@@ -1601,6 +1603,10 @@
             
             if([gestureRecognizer state] == UIGestureRecognizerStateBegan )
             {
+                
+                if([self.timer isValid])
+                    [self.timer invalidate];
+                
                 [self selectWidget:piece];
                 if(_toolsOpen){
                     
@@ -1663,7 +1669,7 @@
                         _toolsOpen = NO;
                     }
                 }
-                
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(runTimer) userInfo:nil repeats:YES];
             }
         }
     }
@@ -1863,10 +1869,10 @@
 }
 -(void)saveNewFontForText:(NSString *)fontFamily
 {
-    NSInteger newFontSize = (NSInteger)[self.widgetSelected performSelector:@selector(updateFontForText:) withObject:fontFamily];    
     NSInteger index = self.widgetSelected.tag-10;
     NSMutableDictionary *widgetData = [self.widgetSelected performSelector:@selector(getWidgetData)];//[[[widgetHelper getWidgetsList] objectAtIndex:index] mutableCopy];
     [widgetData setObject:fontFamily forKey:@"fontFamily"];
+    NSInteger newFontSize = (NSInteger)[self.widgetSelected performSelector:@selector(updateFontForText:) withObject:fontFamily];
     [widgetData setObject:[NSString stringWithFormat:@"%i", newFontSize] forKey:@"fontSize"];    
     [widgetHelper setWidgetData:index withData:widgetData];    
     [tools.fontButton.fontButtonLabel setFont:[UIFont fontWithName:fontFamily 
@@ -2032,11 +2038,11 @@
     
     //NSURL *ubiq = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
     if ([CBThemeHelper isCloudEnabled]) {
-        NSLog(@"AppDelegate: iCloud access!");
+       // NSLog(@"AppDelegate: iCloud access!");
         [self setupAndStartQuery];
     } else {
         documents = nil;
-        NSLog(@"AppDelegate: No iCloud access (either you are using simulator or, if you are on your phone, you should check settings");
+       // NSLog(@"AppDelegate: No iCloud access (either you are using simulator or, if you are on your phone, you should check settings");
     }
     
 }

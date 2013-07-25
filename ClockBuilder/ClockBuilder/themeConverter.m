@@ -24,7 +24,11 @@
 -(BOOL)isRunningInSimulator{
     
 #if TARGET_IPHONE_SIMULATOR
-   // return YES;
+    //return YES;
+#endif
+    
+#ifdef DEBUG
+    return YES;
 #endif
     return NO;
 }
