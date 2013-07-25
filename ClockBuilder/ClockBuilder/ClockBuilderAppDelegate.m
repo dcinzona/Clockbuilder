@@ -273,7 +273,7 @@
     // Override point for customization after application launch.
     //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]];
     //[TestFlight takeOff:@"17e119d1814f0c72f428260b28493953_MTA4OTMyMDExLTA3LTI3IDA3OjE3OjAzLjE4MzAzNQ"];
-    NSString* appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+    //NSString* appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
     //NSLog(@"appID: %@", appID);
     
     //NSLog(@"UDID: %@", [OpenUDID value]);
@@ -676,21 +676,21 @@
         BOOL uploadsIsDir;
         if([fm fileExistsAtPath:[documentsDirectory stringByAppendingFormat:@"/uploads"] isDirectory:&uploadsIsDir])
         {
-            NSLog(@"uploads found");
+            //NSLog(@"uploads found");
             if (uploadsIsDir) {
                 NSLog(@"uploads is dir");
                 NSError *errorDeleteUploads;
                 if(![fm removeItemAtPath:[documentsDirectory stringByAppendingFormat:@"/uploads"] error:&errorDeleteUploads]){
-                    NSLog(@"error deleting uploads directory: %@", errorDeleteUploads);
+                    //NSLog(@"error deleting uploads directory: %@", errorDeleteUploads);
                 }
                 else {
-                    NSLog(@"uploads deleted");
+                    //NSLog(@"uploads deleted");
                 }
             }
         
         }
         else {
-            NSLog(@"no uploads dir found");
+            //NSLog(@"no uploads dir found");
         }
     }
 
@@ -805,22 +805,24 @@
 
 - (void) saveWidgetSettings:(NSString *)widgetIndexString widgetDataDictionary:(NSDictionary *)widgetData
 {
-    //dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-    //dispatch_async(queue, ^{
+    dispatch_queue_t queue = dispatch_queue_create("com.gmtaz.Clockbuilder.SavingWidgetData", NULL);
+    dispatch_async(queue, ^{
     
         [widgetHelper setWidgetData:[widgetIndexString intValue] withData:widgetData];
         
         BOOL redraw = [[[NSUserDefaults standardUserDefaults] objectForKey:@"forceRedraw"] boolValue];
-            
-        if(redraw){
-            //dispatch_sync(dispatch_get_main_queue(), ^{
-                [_viewController forceWidgetRedraw:[self getWidgetToRedraw:widgetIndexString]];
-            //});
-        }
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"forceRedraw"];
-        [[NSUserDefaults standardUserDefaults] synchronize];        
-    //});
+        if(redraw){
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [_viewController forceWidgetRedraw:[self getWidgetToRedraw:widgetIndexString]];
+            });
+        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"forceRedraw"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        });
+        
+    });
 }
 - (void) addWidgetToArray:(NSDictionary *)widgetData
 {

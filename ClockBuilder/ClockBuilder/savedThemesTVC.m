@@ -217,7 +217,7 @@
 -(BOOL)fetchFromCoreData{
     
     BOOL fetch = YES;
-    NSLog(@"fetchFromCoreDATA");
+    //NSLog(@"fetchFromCoreDATA");
     
     //CHECK IF DEDUPING
     if(fetch){

@@ -504,8 +504,8 @@
     NSString *widgetType = self.picker.widgetType;
     NSString *widgetClass = self.picker.widgetClass;
     
-    NSLog(@"widgetType: %@", widgetType);
-    NSLog(@"widgetClass: %@", widgetClass);
+    //NSLog(@"widgetType: %@", widgetType);
+    //NSLog(@"widgetClass: %@", widgetClass);
     
     NSMutableDictionary *widget = [NSMutableDictionary dictionaryWithDictionary:[[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetClasses"] objectForKey:widgetClass]];
     if([self canAddWidget:widgetClass]){
@@ -562,6 +562,11 @@
         if(widget!=nil){
             //NSLog(@"widget data: %@", widget);
             //NSLog(@"widgetClasses: %@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetClasses"]);
+            CGRect frame = CGRectFromString([widget objectForKey:@"frame"]);
+            frame.origin.x = 20;
+            //Fix for sensitive notification center
+            frame.origin.y = kScreenHeight / 2;
+            [widget setObject:NSStringFromCGRect(frame) forKey:@"frame"];
             [[[UIApplication sharedApplication]delegate]performSelector:@selector(addWidgetToArray:) withObject:widget];
             [self setWidgetObjects];
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[self.widgetsAdded count]-1 inSection:0]] withRowAnimation:YES];
