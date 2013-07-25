@@ -108,7 +108,7 @@
         }
         
 #ifdef DEBUG
-        [self setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:.4]];
+        //[self setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:.4]];
 #endif
         
     }
