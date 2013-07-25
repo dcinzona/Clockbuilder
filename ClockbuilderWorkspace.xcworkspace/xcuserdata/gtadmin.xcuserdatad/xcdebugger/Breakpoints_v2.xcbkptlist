@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396451102.333753"
+            timestampString = "396469707.273836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1854"
-            endingLineNumber = "1854"
+            startingLineNumber = "1803"
+            endingLineNumber = "1803"
             landmarkName = "-setToolsButtons"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396445047.118786"
+            timestampString = "396467874.945623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "950"
-            endingLineNumber = "950"
+            startingLineNumber = "944"
+            endingLineNumber = "944"
             landmarkName = "-setWeatherIconToday"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396445047.118786"
+            timestampString = "396467874.945623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "811"
-            endingLineNumber = "811"
+            startingLineNumber = "813"
+            endingLineNumber = "813"
             landmarkName = "-addWidgetToView:index:"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396445047.118786"
+            timestampString = "396467874.945623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "821"
-            endingLineNumber = "821"
+            startingLineNumber = "823"
+            endingLineNumber = "823"
             landmarkName = "-addWidgetToView:index:"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396450705.767369"
+            timestampString = "396469407.637595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396451102.333753"
+            timestampString = "396469707.273836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1843"
-            endingLineNumber = "1843"
+            startingLineNumber = "1792"
+            endingLineNumber = "1792"
             landmarkName = "-setToolsButtons"
             landmarkType = "5">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396445047.118786"
+            timestampString = "396467874.945623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "772"
-            endingLineNumber = "772"
+            startingLineNumber = "774"
+            endingLineNumber = "774"
             landmarkName = "-initWidget:index:"
             landmarkType = "5">
          </BreakpointContent>
@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396445047.118786"
+            timestampString = "396468831.213853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1018"
-            endingLineNumber = "1018"
+            startingLineNumber = "1016"
+            endingLineNumber = "1016"
             landmarkName = "-toggleTools"
             landmarkType = "5">
          </BreakpointContent>
@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396445047.118786"
+            timestampString = "396469707.273836"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1373"
-            endingLineNumber = "1373"
+            startingLineNumber = "1401"
+            endingLineNumber = "1401"
             landmarkName = "-doneButtonClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -488,11 +488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396449068.329053"
+            timestampString = "396469407.637595"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "-updateFrameForFontSize"
             landmarkType = "5">
          </BreakpointContent>
@@ -504,11 +504,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396450705.767369"
+            timestampString = "396469601.563847"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "712"
-            endingLineNumber = "712"
+            startingLineNumber = "729"
+            endingLineNumber = "729"
             landmarkName = "-updateView"
             landmarkType = "5">
          </BreakpointContent>

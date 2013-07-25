@@ -805,22 +805,24 @@
 
 - (void) saveWidgetSettings:(NSString *)widgetIndexString widgetDataDictionary:(NSDictionary *)widgetData
 {
-    //dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-    //dispatch_async(queue, ^{
+    dispatch_queue_t queue = dispatch_queue_create("com.gmtaz.Clockbuilder.SavingWidgetData", NULL);
+    dispatch_async(queue, ^{
     
         [widgetHelper setWidgetData:[widgetIndexString intValue] withData:widgetData];
         
         BOOL redraw = [[[NSUserDefaults standardUserDefaults] objectForKey:@"forceRedraw"] boolValue];
-            
-        if(redraw){
-            //dispatch_sync(dispatch_get_main_queue(), ^{
-                [_viewController forceWidgetRedraw:[self getWidgetToRedraw:widgetIndexString]];
-            //});
-        }
         
-        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"forceRedraw"];
-        [[NSUserDefaults standardUserDefaults] synchronize];        
-    //});
+        if(redraw){
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [_viewController forceWidgetRedraw:[self getWidgetToRedraw:widgetIndexString]];
+            });
+        }
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"forceRedraw"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        });
+        
+    });
 }
 - (void) addWidgetToArray:(NSDictionary *)widgetData
 {

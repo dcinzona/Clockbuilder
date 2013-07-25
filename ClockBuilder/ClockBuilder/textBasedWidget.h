@@ -39,5 +39,6 @@
 - (NSString *)transformGivenText:(NSString *)str;
 - (void)setTextAlignmentTo:(NSString *)align;
 - (BOOL)getIsClimacon;
-
+- (void) setWidgetFontSize:(NSNumber *)number;
+- (int) getWidgetFontSize;
 @end

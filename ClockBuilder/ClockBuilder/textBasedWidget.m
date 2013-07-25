@@ -45,55 +45,72 @@
         [[[UIApplication sharedApplication] delegate] performSelector:@selector(saveWidgetSettings:widgetDataDictionary:) withObject:index withObject:widget];
     }
 }
-
--(void) updateFrameForFontSize{
-    if(self && self.textLabel && self.textLabel.text){
-        CGRect selfBounds = self.frame;
-        CGRect textLabelBounds = self.textLabel.frame;
-        CGSize origSize = selfBounds.size;
-        isClimacon = ([[weatherSingleton sharedInstance] isClimacon] && [[self.widgetData objectForKey:@"className"] isEqualToString:@"Weather Icon"]);
+- (void) setWidgetFontSize:(NSNumber *)number{
+    if(self.widgetData && number){
+        NSInteger fontSize = [number integerValue];
         if(self.textLabel.text){
             NSString *fontName = [self.widgetData objectForKey:@"fontFamily"];
             if(isClimacon){ fontName = @"Climacons"; }
+            [self.textLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
+        }
+        [self.widgetData setObject:[NSString stringWithFormat:@"%i", fontSize] forKey:@"fontSize"];
+        [self setFontSizeForPiece:[self.indexInList integerValue] fontSize:fontSize];
+    }
+}
+- (int) getWidgetFontSize{
+    int fontSize = 20;
+    if([self.widgetData objectForKey:@"fontSize"]){
+        fontSize = [[self.widgetData objectForKey:@"fontSize"] intValue];
+    }
+    return fontSize;
+}
+
+-(void) updateFrameForFontSize{
+    if(self && self.textLabel && self.textLabel.text){
+        CGRect selfFrame = self.frame;
+        CGRect textLabelFrame = self.textLabel.frame;
+        CGSize origSizeSelf = CGSizeMake(ceil(selfFrame.size.width),ceil(selfFrame.size.height));
+        isClimacon = ([[weatherSingleton sharedInstance] isClimacon] && [[self.widgetData objectForKey:@"className"] isEqualToString:@"Weather Icon"]);
+        if(self.textLabel.text){
+            NSString *fontName = [self.widgetData objectForKey:@"fontFamily"];
             NSInteger fontSize = 20;
+            if(isClimacon){
+                fontName = @"Climacons";
+                fontSize = 100;
+            }
             if([self.widgetData objectForKey:@"fontSize"]){
                 fontSize = [[self.widgetData objectForKey:@"fontSize"] intValue];
             }
             CGSize newSize = [[self transformGivenText:self.textLabel.text] sizeWithFont:[UIFont fontWithName:fontName size:fontSize]];
-            textLabelBounds.size = newSize;
-            selfBounds.size = newSize;
             
             //set anchorpoint
             NSTextAlignment currentAlignment = [self setTextAlignment];
-            CGPoint anchor = CGPointMake(0, 0); //default left
+            int deltaSizeX = ceil(origSizeSelf.width) - ceil(newSize.width);
+            int deltaSizeY = (origSizeSelf.height) - (newSize.height);
+            
+            
             switch (currentAlignment) {
-                case NSTextAlignmentLeft:
-                    //anchor point left
-                    
-                    break;
-                case NSTextAlignmentCenter:
-                    //anchor point center
-                    anchor.x = newSize.width / 2;
-                    break;
                 case NSTextAlignmentRight:
-                    //ancho
-                    anchor.x = newSize.width;
+                    selfFrame.origin.x += deltaSizeX;
+                    selfFrame.size.width -= deltaSizeX;
+                    textLabelFrame.size = selfFrame.size;
                     break;
                 default:
                     //anchor point left
-                    
+                    selfFrame.origin.y += (ceil(round(deltaSizeY)/2));
+                    selfFrame.size.height = ceil(newSize.height);
+                    selfFrame.size.width = ceil(newSize.width);
+                    textLabelFrame.size = selfFrame.size;
                     break;
             }
-            //[self.layer setAnchorPoint:anchor];
-            //[self.textLabel.layer setAnchorPoint:anchor];
+            [self setFrame:selfFrame];
+            [self.textLabel setFrame:textLabelFrame];
         }
-        [self setFrame:selfBounds];
-        //[self setFrame:textLabelBounds];
-        [self.textLabel setFrame:textLabelBounds];
-        NSLog(@"textWidget Text: %@", self.textLabel.text);
-        NSLog(@"textWidget Frame: %@", NSStringFromCGRect(self.textLabel.frame));
-        NSLog(@"textWidget Bounds: %@", NSStringFromCGRect(self.textLabel.bounds));
+        
+#ifdef DEBUG
         [self setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:.4]];
+#endif
+        
     }
 }
 

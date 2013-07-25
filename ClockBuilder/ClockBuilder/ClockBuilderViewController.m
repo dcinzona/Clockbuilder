@@ -571,6 +571,8 @@
     [_coordinatesView setHidden:YES];
     [opacityPopup dismiss];
     [scalePopup dismiss];
+    scaleSliderVisible = NO;
+    opacitySliderVisible = NO;
     if(!kIsiOS7){
         //[self.toolbar setBackgroundColor:[UIColor clearColor]];
         //[self.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
@@ -846,29 +848,13 @@
      }
 }
 
--(void)setOpacityToolbar
+-(void)setEditingWidgetToolbar
 {
     NSArray *toolbarbuttons = [NSArray arrayWithObjects:
                                openTools, 
                                flexibleSpace1,
                                scaleButtonItem,
                                flexibleSpace1,
-                               //opacitySliderContainer,
-                               //flexibleSpace1,
-                               opacityButtonItem,
-                               flexibleSpace1, 
-                               done, nil];
-    [toolbar setItems:toolbarbuttons];
-}
--(void)setScalingToolbar
-{
-    NSArray *toolbarbuttons = [NSArray arrayWithObjects:
-                               openTools, 
-                               flexibleSpace1,
-                               scaleButtonItem,
-                               flexibleSpace1,
-                               //sliderContainer,
-                               //flexibleSpace1,
                                opacityButtonItem,
                                flexibleSpace1, 
                                done, nil];
@@ -895,6 +881,7 @@
         if(_toolsOpen)
             [self toggleTools];
         [self resetToolbar];
+        
     }
     else{    
         _editingWidget = YES;
@@ -913,12 +900,19 @@
         [CBThemeHelper setTitle:@"Done" forCustomBarButton:self.done];
         [widgetNameView setHidden:NO];
         if(!self.toolbar.hidden){
-            [self setScalingToolbar];
+            [self setEditingWidgetToolbar];
+            if(scaleSliderVisible){
+                [self setScaleSliderAttributes];
+            }
+            if(opacitySliderVisible){
+                [self setOpacitySliderAttributes];
+            }
+            
             //dismiss open popup
-            [opacityPopup dismiss];
-            opacitySliderVisible = NO;
-            [scalePopup dismiss];
-            scaleSliderVisible = NO;
+            //[opacityPopup dismiss];
+            //opacitySliderVisible = NO;
+            //[scalePopup dismiss];
+            //scaleSliderVisible = NO;
         }
         //toggle coordinates view
         [_coordinatesView setHidden:NO];
@@ -958,6 +952,10 @@
 
 -(void)showWeatherIconMenuController
 {
+    [scalePopup dismiss];
+    [opacityPopup dismiss];
+    scaleSliderVisible = NO;
+    opacitySliderVisible = NO;
     UIMenuController *menuController = [UIMenuController sharedMenuController];
     UIMenuItem *alignLeft = [[UIMenuItem alloc] initWithTitle:@"Current" action:@selector(setWeatherIconCurrent)];
     UIMenuItem *alignCenter = [[UIMenuItem alloc] initWithTitle:@"Today" action:@selector(setWeatherIconToday)];
@@ -985,7 +983,7 @@
             _toolsOpen = FALSE;
             
             //Open imagetools
-            [self showWeatherIconMenuController];
+            //[self showWeatherIconMenuController];
             //[weatherIconForecastPicker showForecastPicker];
         }
         else            
@@ -1223,10 +1221,47 @@
 }
 
 #pragma mark toolbar button actions
+-(void)setScaleSliderAttributes{
+    [opacityPopup dismiss];
+    //[scaleSlider setFrame:CGRectMake(0, 0, 280, scaleSlider.frame.size.height)];
+    UISlider *sclSlider = [[UISlider alloc]initWithFrame:CGRectMake(0, 0, 280, scaleSlider.frame.size.height)];
+    if(!scalePopup){
+        scalePopup = [[SNPopupView alloc]initWithContentView:sclSlider contentSize:sclSlider.frame.size];
+        [sclSlider addTarget:self action:@selector(SlideToScaleView:) forControlEvents:UIControlEventValueChanged];
+        [sclSlider addTarget:self action:@selector(doneScalingUsingSlider:) forControlEvents:UIControlEventTouchUpInside];
+        [sclSlider addTarget:self action:@selector(doneScalingUsingSlider:) forControlEvents:UIControlEventTouchUpOutside];
+        [sclSlider setCenter:scalePopup.center];
+    }
+    else{
+        sclSlider = (UISlider *)[scalePopup contentView];
+    }
+    //[scaleSlider setHidden:NO];
+    float minVal = scaleSlider.minimumValue;
+    float maxVal = scaleSlider.maximumValue;
+    float sliderVal = scaleSlider.value;
+    if(self.widgetSelected){
+        if([self.widgetSelected isKindOfClass:[textBasedWidget class]]){
+            textBasedWidget *widget = (textBasedWidget *)self.widgetSelected;
+            minVal = 10;
+            maxVal = 600;
+            if([widget getIsClimacon]){
+                minVal = 20;
+                maxVal = 800;
+            }
+            sliderVal = [widget getWidgetFontSize];
+            sclSlider.tag = 2;
+        }
+        else
+            sclSlider.tag = 1;
+    }
+    
+    [sclSlider setMinimumValue:minVal];
+    [sclSlider setMaximumValue:maxVal];
+    [sclSlider setValue:sliderVal animated:YES];
 
+}
 -(IBAction)scaleButtonClicked:(id)sender
 {
-    [self setScalingToolbar];
     
     if(opacitySliderVisible){
         [opacityPopup dismiss];
@@ -1237,27 +1272,31 @@
         scaleSliderVisible = NO;
     }
     else{
-        [opacityPopup dismiss];
-        //[scaleSlider setFrame:CGRectMake(0, 0, 280, scaleSlider.frame.size.height)];
-        UISlider *sclSlider = [[UISlider alloc]initWithFrame:CGRectMake(0, 0, 280, scaleSlider.frame.size.height)];
-        if(!scalePopup){
-            scalePopup = [[SNPopupView alloc]initWithContentView:sclSlider contentSize:sclSlider.frame.size];
-        }
-        //[scaleSlider setHidden:NO];
-        [sclSlider setMinimumValue:scaleSlider.minimumValue];
-        [sclSlider setMaximumValue:scaleSlider.maximumValue];
-        [sclSlider setValue:scaleSlider.value animated:YES];
-        [sclSlider setCenter:scalePopup.center];
-        [sclSlider addTarget:self action:@selector(SlideToScaleView:) forControlEvents:UIControlEventValueChanged];
-        [sclSlider addTarget:self action:@selector(doneScalingUsingSlider:) forControlEvents:UIControlEventTouchUpInside];
-        [sclSlider addTarget:self action:@selector(doneScalingUsingSlider:) forControlEvents:UIControlEventTouchUpOutside];
+        [self setScaleSliderAttributes];
         [scalePopup showFromBarButtonItem:scaleButtonItem inView:self.view];
         scaleSliderVisible = YES;
     }
 }
+-(void)setOpacitySliderAttributes{
+    
+    UISlider *opacSlider = [[UISlider alloc]initWithFrame:CGRectMake(0, 0, 280, opacitySlider.frame.size.height)];
+    //[opacitySlider setFrame:CGRectMake(0, 0, 280, opacitySlider.frame.size.height)];
+    if(!opacityPopup){
+        opacityPopup = [[SNPopupView alloc]initWithContentView:opacSlider contentSize:opacSlider.frame.size];
+        [opacSlider setMinimumValue:opacitySlider.minimumValue];
+        [opacSlider setMaximumValue:opacitySlider.maximumValue];
+        [opacSlider setCenter:opacityPopup.center];
+        [opacSlider addTarget:self action:@selector(SlideToAlphaView:) forControlEvents:UIControlEventValueChanged];
+        [opacSlider addTarget:self action:@selector(doneSettingAlphaUsingSlider:) forControlEvents:UIControlEventTouchUpInside];
+        [opacSlider addTarget:self action:@selector(doneSettingAlphaUsingSlider:) forControlEvents:UIControlEventTouchUpOutside];
+    }else{
+        opacSlider = (UISlider *)[opacityPopup contentView];
+    }
+    [opacSlider setValue:opacitySlider.value animated:YES];
+    
+}
 -(IBAction)opacityButtonClicked:(id)sender
 {
-    [self setOpacityToolbar];
     if(scaleSliderVisible){
         [scalePopup dismiss];
         scaleSliderVisible = NO;
@@ -1267,18 +1306,7 @@
         opacitySliderVisible = NO;
     }
     else{
-        UISlider *opacSlider = [[UISlider alloc]initWithFrame:CGRectMake(0, 0, 280, opacitySlider.frame.size.height)];
-        //[opacitySlider setFrame:CGRectMake(0, 0, 280, opacitySlider.frame.size.height)];
-        if(!opacityPopup){
-            opacityPopup = [[SNPopupView alloc]initWithContentView:opacSlider contentSize:opacSlider.frame.size];
-        }
-        [opacSlider setMinimumValue:opacitySlider.minimumValue];
-        [opacSlider setMaximumValue:opacitySlider.maximumValue];
-        [opacSlider setValue:opacitySlider.value animated:YES];
-        [opacSlider setCenter:opacityPopup.center];
-        [opacSlider addTarget:self action:@selector(SlideToAlphaView:) forControlEvents:UIControlEventValueChanged];
-        [opacSlider addTarget:self action:@selector(doneSettingAlphaUsingSlider:) forControlEvents:UIControlEventTouchUpInside];
-        [opacSlider addTarget:self action:@selector(doneSettingAlphaUsingSlider:) forControlEvents:UIControlEventTouchUpOutside];
+        [self setOpacitySliderAttributes];
         [opacityPopup showFromBarButtonItem:opacityButtonItem inView:self.view];
         opacitySliderVisible = YES;
     }
@@ -1385,40 +1413,6 @@
         _cantFindYouAlertShowing = YES;
         [alert show];
     }
-    /*
-    UIView *view = self.view;
-    if(self.modalViewController){
-        view = self.modalViewController.view;
-    }*/
-    /*
-    UIView *view = self.view;
-    //@"Enter your city or Postal Code"
-    NSString *message =  @"Sorry, we can't find you.  Enter your location";
-    [MKEntryPanel showPanelWithTitle:message inView:view onTextEntered:^(NSString *inputString) {
-        
-        [weatherFinder getLocationFromString:inputString showPickerInView:view onCancel:^{
-                
-        } onPicked:^(NSDictionary *locationDict) {
-            NSLog(@"locationDict:%@", locationDict);
-            NSMutableDictionary *settings = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] mutableCopy];
-            NSMutableDictionary *data = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"weatherData"] mutableCopy] ;        
-            if(data == nil)
-                data = [NSMutableDictionary new];
-            [data setObject:[locationDict objectForKey:@"locID"] forKey:@"location"];
-            [data setObject:[locationDict objectForKey:@"locName"] forKey:@"locationName"];
-            [settings setObject:data forKey:@"weatherData"];
-            [[NSUserDefaults standardUserDefaults] setObject:settings forKey:@"settings"];
-            if([[NSUserDefaults standardUserDefaults] synchronize]){
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"startGettingWeather" object:nil];
-            }
-
-            
-        }];
-        
-    } onCancel:^{
-        
-    }];
-     */
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     /*
@@ -1462,18 +1456,6 @@
 
 - (void)addGestureRecognizersToPiece:(UIView *)piece
 {
-    /*
-    UIRotationGestureRecognizer *rotationGesture = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotatePiece:)];
-    [piece addGestureRecognizer:rotationGesture];
-    [rotationGesture release];
-    
-    
-    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scalePiece:)];
-    [pinchGesture setDelegate:self];
-    [piece addGestureRecognizer:pinchGesture];
-    [pinchGesture release];
-     */
-    
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panPiece:)];
     [panGesture setMaximumNumberOfTouches:2];
     [panGesture setDelegate:self];
@@ -1516,8 +1498,13 @@
             [self selectWidget:[gestureRecognizer view]];
             if(_toolsOpen)
                 [self performSelector:@selector(toggleToolsType)];
-            else
-                [self toggleTools];
+            else{
+                NSString *selectedWidgetClass = (NSString*)[widgetHelper getWidgetDataFromIndex:[self.widgetSelected tag]-10 FromKey:@"type"];
+                if(![selectedWidgetClass isEqualToString:@"imageWidget"] || [[weatherSingleton sharedInstance] isClimacon])
+                {
+                    [self toggleTools];
+                }
+            }
         }
     }
 }
@@ -1600,7 +1587,7 @@
             UIView *piece = [gestureRecognizer view];
             [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
             //  
-            
+            CGPoint locationInSuperView;
             if([gestureRecognizer state] == UIGestureRecognizerStateBegan )
             {
                 
@@ -1613,31 +1600,48 @@
                     [tools closeTextTools];
                     
                 }
-                //set anchorpoint
-                CGPoint locationInView = [gestureRecognizer locationInView:piece];
-                piece.layer.anchorPoint = CGPointMake(locationInView.x / piece.frame.size.width, locationInView.y / piece.frame.size.height);
+                //set starting location in superview
+                locationInSuperView = [gestureRecognizer locationInView:piece.superview];
+                //[piece setCenter:locationInSuperView];
+                //piece.layer.anchorPoint = CGPointMake(locationInView.x / piece.frame.size.width, locationInView.y / piece.frame.size.height);
             }
             
             if ([gestureRecognizer state] == UIGestureRecognizerStateChanged) {
                 
                 CGPoint translation = [gestureRecognizer translationInView:[piece superview]];
+                CGPoint pieceOldCenter = CGPointMake(piece.center.x, piece.center.y);
                 CGPoint newcenter = CGPointMake([piece center].x + translation.x, [piece center].y + translation.y);
+                
+                int gridCubeWidth  = 5;
+                int gridCubeHeight = 5;
+                if([[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"]){
+                    gridCubeWidth =[[[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"] intValue];
+                    gridCubeHeight = gridCubeWidth;
+                }
+                BOOL isWithinGrid = ((locationInSuperView.x + abs(translation.x)) < ([gestureRecognizer locationInView:piece.superview].x + abs(gridCubeWidth)) || (locationInSuperView.y + abs(translation.y)) < ([gestureRecognizer locationInView:piece.superview].y + abs(gridCubeHeight)));
+                
                 if([[[NSUserDefaults standardUserDefaults] objectForKey:@"snapToGrid"] boolValue]){
-                    
-                    //SNAP TO GRID
-                    int gridCubeWidth  = 5;
-                    int gridCubeHeight = 5;
-                    if([[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"]){
-                        gridCubeWidth =[[[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"] intValue];
-                        gridCubeHeight = gridCubeWidth;
+                    if(isWithinGrid){
+                        
+                        newcenter = [gestureRecognizer locationInView:piece.superview];
+                        //SNAP TO GRID
+                        newcenter.x = round(newcenter.x / gridCubeWidth)  * gridCubeWidth;
+                        newcenter.y = round(newcenter.y / gridCubeHeight)  * gridCubeHeight;
+                        
+                        [piece setCenter:newcenter];
+                        locationInSuperView = [gestureRecognizer locationInView:piece.superview];
+                        
                     }
-                    newcenter.x = round(newcenter.x / gridCubeWidth)  * gridCubeWidth;
-                    newcenter.y = round(newcenter.y / gridCubeHeight)  * gridCubeHeight;
+                }
+                else{
+                    [piece setCenter:[gestureRecognizer locationInView:piece.superview]];
                 }
                 
+                if(piece.center.x != pieceOldCenter.x)
+                    [gestureRecognizer setTranslation:CGPointMake(0, translation.y) inView:[piece superview]];
+                if(piece.center.y != pieceOldCenter.y)
+                    [gestureRecognizer setTranslation:CGPointMake(translation.x, 0) inView:[piece superview]];
                 
-                [piece setCenter:newcenter];
-                [gestureRecognizer setTranslation:CGPointZero inView:[piece superview]];
                 [self showWidgetCoordinates:piece];
                 
             }
@@ -1653,7 +1657,6 @@
                 CGRect frame = CGRectMake((int)left, (int)top, (int)newWidth, (int)newHeight);
                 [self setFrameForView:frame widgetView:piece forceRedraw:NO];
                 
-                NSLog(@"widget frame: %@", NSStringFromCGRect(frame));
                 [self showWidgetCoordinates:piece];
                 
                 if(_toolsOpen){
@@ -1680,10 +1683,14 @@
     UISlider *slider = (UISlider*)sender;
     if(slider.state == UIControlEventTouchDown){
         [self.widgetSelected setBackgroundColor:[UIColor redColor]];
-        if(slider.value < .1){
-            slider.value = .1;
+        if(slider.tag == 2){
+            if([self.widgetSelected respondsToSelector:@selector(setWidgetFontSize:)]){
+                [self.widgetSelected performSelectorOnMainThread:@selector(setWidgetFontSize:) withObject:[NSNumber numberWithFloat:slider.value] waitUntilDone:NO];
+            }
         }
-        self.widgetSelected.transform = CGAffineTransformMakeScale(slider.value, slider.value);
+        else{ //must be an image widget
+            self.widgetSelected.transform = CGAffineTransformMakeScale(slider.value, slider.value);
+        }
         [self showWidgetCoordinates:self.widgetSelected];
     }
 }
@@ -1694,12 +1701,12 @@
     int sw = self.widgetSelected.frame.size.width;
     int sh = self.widgetSelected.frame.size.height;
     CGRect frame = CGRectMake( (int)left , (int)top, (int)sw, (int)sh);
-    
     NSLog(@"widget frame: %@", NSStringFromCGRect(frame));
-    
-    [self setFrameForView:frame widgetView:self.widgetSelected forceRedraw:YES];
-    [self showWidgetCoordinates:self.widgetSelected];
-    [slider setValue:1];
+    if(slider.tag == 1){
+        [self setFrameForView:frame widgetView:self.widgetSelected forceRedraw:YES];
+        [self showWidgetCoordinates:self.widgetSelected];
+        [slider setValue:1];
+    }
 }
 
 
@@ -1719,7 +1726,7 @@
     if(slider.state != UIControlEventTouchDown){
         NSInteger index = self.widgetSelected.tag-10;
         NSMutableDictionary *widgetData = [self.widgetSelected performSelector:@selector(getWidgetData)];//[NSMutableDictionary dictionaryWithDictionary:[widgetsAdded objectAtIndex:index]];
-        NSString *opS = [NSString stringWithFormat:@"%f", opacitySlider.value];
+        NSString *opS = [NSString stringWithFormat:@"%f", slider.value];
         if(slider.value <.1){
             opS = @"0.1";
         }
@@ -1732,64 +1739,6 @@
     
 }
 
-// rotate the piece by the current rotation
-// reset the gesture recognizer's rotation to 0 after applying so the next callback is a delta from the current rotation
-- (void)rotatePiece:(UIRotationGestureRecognizer *)gestureRecognizer
-{
-    // VARIABLES: 
-    //didRotate (NSSTRING) YES/NO
-    //rotateAmount (NSNUMBER) Degrees
-    
-    //Rotate the RSSglowlabel if widget is rotated.
-    
-    [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
-    
-    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan || [gestureRecognizer state] == UIGestureRecognizerStateChanged) {
-        [gestureRecognizer view].transform = CGAffineTransformRotate([[gestureRecognizer view] transform], [gestureRecognizer rotation]);
-        [gestureRecognizer setRotation:0];
-        NSLog(@"rotation frame: %i", (int)([[gestureRecognizer.view.layer valueForKeyPath:@"transform.rotation.z"] floatValue]*57.2957795));
-        
-        
-    }
-    if([gestureRecognizer state] == UIGestureRecognizerStateEnded)
-    {
-        //set widget values
-        
-        NSInteger index = self.widgetSelected.tag-10;
-        NSMutableDictionary *widgetData = [self.widgetSelected performSelector:@selector(getWidgetData)];//[[widgetsAdded objectAtIndex:index] mutableCopy];
-        [widgetData setObject:@"YES" forKey:@"didRotate"];
-        [widgetData setObject:[NSNumber numberWithFloat:[[gestureRecognizer.view.layer valueForKeyPath:@"transform.rotation.z"] floatValue]] forKey:@"rotateAmount"];
-        [widgetHelper setWidgetData:index withData:widgetData];
-        
-        NSLog(@"rotation: %f",[[gestureRecognizer.view.layer valueForKeyPath:@"transform.rotation.z"] floatValue]);//[gestureRecognizer rotation]);
-    }
-}
-
-// scale the piece by the current scale
-// reset the gesture recognizer's rotation to 0 after applying so the next callback is a delta from the current scale
-- (void)scalePiece:(UIPinchGestureRecognizer *)gestureRecognizer
-{
-    if(showToolbar.hidden==YES){     
-        if([gestureRecognizer state] == UIGestureRecognizerStateBegan )
-        {
-            [self selectWidget:[gestureRecognizer view]];  
-            [self adjustAnchorPointForGestureRecognizer:gestureRecognizer];
-        }        
-        if ([gestureRecognizer state] == UIGestureRecognizerStateChanged) {
-            [gestureRecognizer view].transform = CGAffineTransformScale([[gestureRecognizer view] transform], [gestureRecognizer scale], [gestureRecognizer scale]);
-            [gestureRecognizer setScale:1];
-        }
-        if([gestureRecognizer state]==UIGestureRecognizerStateEnded){
-            //[self selectWidget:[gestureRecognizer view]];
-            float newWidth = gestureRecognizer.view.frame.size.width;
-            float newHeight = gestureRecognizer.view.frame.size.height;
-            float top = gestureRecognizer.view.frame.origin.y;
-            float left = gestureRecognizer.view.frame.origin.x;
-            CGRect frame = CGRectMake((int)left, (int)top, (int)newWidth, (int)newHeight);
-            [self setFrameForView:frame widgetView:self.widgetSelected forceRedraw:YES];
-        }
-    }
-}
 
 #pragma mark Toolbar Button Actions
 
