@@ -56,22 +56,9 @@
     if (self) {
         self.managedObjectContext = ApplicationDelegate.managedObjectContext;//ApplicationDelegate.coreDataController.mainThreadContext;
         th = [themeConverter new];
-        if(!kIsiOS7){
-            UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-            [bg setImage:[UIImage imageNamed:@"tableGradient"]];
-            [bg setContentMode:UIViewContentModeTop];
-            UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-            [self.tableView setBackgroundView:bgView];
-            [bgView addSubview:bg];
-            UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-            [bgView setBackgroundColor:tableBGColor];
-            [self.tableView setBackgroundColor:tableBGColor];
-        }
-        //[self.tableView setBackgroundColor:[UIColor clearColor]];
         
+        [CBThemeHelper styleTableView:self.tableView];
         
-        [self.tableView setSeparatorColor:[UIColor clearColor]];
-        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];        
         [self.tableView setPagingEnabled:NO];//[[[NSUserDefaults standardUserDefaults] objectForKey:@"pagingEnabled"] boolValue]];
         [self.tableView setBounces:YES];
         
@@ -342,19 +329,7 @@
     [super didReceiveMemoryWarning];
     
     NSLog(@"did receive memory warning (SAVED THEMES)");
-    if(!kIsiOS7){
-        UIImageView *bg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, [UIScreen mainScreen].bounds.size.height)];
-        [bg setImage:[UIImage imageNamed:@"tableGradient"]];
-        [bg setContentMode:UIViewContentModeTop];
-        UIView *bgView = [[UIView alloc] initWithFrame:self.view.frame];
-        [self.tableView setBackgroundView:bgView];
-        [bgView addSubview:bg];
-        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-        [bgView setBackgroundColor:tableBGColor];
-        [self.tableView setBackgroundColor:tableBGColor];
-    }
-    [self.tableView setSeparatorColor:[UIColor clearColor]];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [CBThemeHelper styleTableView:self.tableView];
     // Release any cached data, images, etc that aren't in use.
     [[SDImageCache sharedImageCache] clearMemory];
 }
@@ -511,11 +486,11 @@
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
             
         case NSFetchedResultsChangeUpdate:
@@ -523,8 +498,8 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
     }
 }

@@ -1835,6 +1835,10 @@
         [bg setContentMode:UIViewContentModeTopLeft];
         [tableView setTableFooterView:bg];
     }
+    else{
+        [tableView setBackgroundColor:[UIColor whiteColor]];
+        [tableView.superview setBackgroundColor:[UIColor whiteColor]];
+    }
     
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [tableView setSectionFooterHeight:0];

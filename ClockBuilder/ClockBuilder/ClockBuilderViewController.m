@@ -319,7 +319,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     if(kIsiOS7){
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+        [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         [self setNeedsStatusBarAppearanceUpdate];
     }
     CGRect coordRect = _coordinatesView.frame;
@@ -1693,7 +1695,6 @@
 - (IBAction)SlideToScaleView: (id)sender {
     UISlider *slider = (UISlider*)sender;
     if(slider.state == UIControlEventTouchDown){
-        [self.widgetSelected setBackgroundColor:[UIColor redColor]];
         if(slider.tag == 2){
             if([self.widgetSelected respondsToSelector:@selector(setWidgetFontSize:)]){
                 [self.widgetSelected performSelectorOnMainThread:@selector(setWidgetFontSize:) withObject:[NSNumber numberWithFloat:slider.value] waitUntilDone:NO];
