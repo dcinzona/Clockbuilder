@@ -356,6 +356,16 @@
     
     return cell;
 }
+-(UIImage *)createSliderImage:(UIColor *)color{
+    CGRect rect = CGRectMake(0, 0,  480, 140);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 
 -(void)toggleSliderBG:(id)sender{
     UISwitch *swtch = (UISwitch *)sender;
@@ -366,14 +376,18 @@
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(queue, ^{
         UIImage *image;
+        
         if(swtch.on){
             NSLog(@"using semi trans");
-            image = [UIImage imageNamed:@"semiTransWell"];
+            //image = [UIImage imageNamed:@"semiTransWell"];
+            image = [self createSliderImage:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
         }
         else{
             NSLog(@"using trans");
-            image = [UIImage imageNamed:@"transparentWell"];
+            image = [self createSliderImage:[UIColor clearColor]];
+            //image = [UIImage imageNamed:@"transparentWell"];
         }
+        
         NSString *tempDir = NSTemporaryDirectory();
         NSLog(@"%@",tempDir);
         NSData *data = UIImagePNGRepresentation(image);
