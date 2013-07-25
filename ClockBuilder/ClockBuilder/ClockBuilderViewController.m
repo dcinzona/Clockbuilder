@@ -1590,6 +1590,10 @@
             CGPoint locationInSuperView;
             if([gestureRecognizer state] == UIGestureRecognizerStateBegan )
             {
+                [scalePopup dismiss];
+                [opacityPopup dismiss];
+                scaleSliderVisible = NO;
+                opacitySliderVisible = NO;
                 
                 if([self.timer isValid])
                     [self.timer invalidate];
