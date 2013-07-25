@@ -111,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "717"
             endingLineNumber = "717"
-            landmarkName = "-getWeatherForLocation:"
+            landmarkName = "-shouldListLocation:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -127,7 +127,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "725"
             endingLineNumber = "725"
-            landmarkName = "-getWeatherForLocation:"
+            landmarkName = "-shouldListLocation:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -143,7 +143,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "722"
             endingLineNumber = "722"
-            landmarkName = "-getWeatherForLocation:"
+            landmarkName = "-shouldListLocation:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -154,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderAppDelegate.m"
-            timestampString = "395715494.63299"
+            timestampString = "396403262.690478"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "890"
@@ -191,7 +191,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "601"
             endingLineNumber = "601"
-            landmarkName = "-getSingleArrayOfPlaces"
+            landmarkName = "-parserDidEndDocument:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -207,7 +207,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "602"
             endingLineNumber = "602"
-            landmarkName = "-getSingleArrayOfPlaces"
+            landmarkName = "-parserDidEndDocument:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -223,7 +223,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "681"
             endingLineNumber = "681"
-            landmarkName = "-shouldListLocation:"
+            landmarkName = "-stringWithUrl:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -239,7 +239,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "704"
             endingLineNumber = "704"
-            landmarkName = "-getWeatherForLocation:"
+            landmarkName = "-weatherDictDataWithUrl:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

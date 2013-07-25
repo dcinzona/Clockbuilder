@@ -1846,6 +1846,7 @@
     [tableView setBackgroundColor:[UIColor whiteColor]];
     [tableView setBackgroundColor:[UIColor whiteColor]];
     [tableView.superview setBackgroundColor:[UIColor whiteColor]];
+    [pickerView setBackgroundColor:[UIColor whiteColor]];
     
     [pickerView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, pickerView.frame.size.width, pickerView.frame.size.height)];
 
@@ -1853,6 +1854,7 @@
                           delay:0
                         options: UIViewAnimationCurveEaseOut
                      animations:^{
+                         //[tableView.superview setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:.7]];
                          [pickerView setFrame:CGRectMake(0, tableView.frame.size.height - 180, 320, 180)];
                          [tableView setAlpha:.1];
                          [tableView setTransform:CGAffineTransformMakeScale(.9, .9)];
@@ -1868,6 +1870,7 @@
                           delay:0
                         options: UIViewAnimationCurveEaseOut
                      animations:^{
+                         //[tableView.superview setBackgroundColor:[UIColor whiteColor]];
                          [pickerView setFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, 320, 180)];
                          [tableView setAlpha:1];
                          [tableView setTransform:CGAffineTransformMakeScale(1, 1)];

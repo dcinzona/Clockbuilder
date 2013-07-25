@@ -47,20 +47,19 @@
     
     if (kIsIpad) {
         self.contentSizeForViewInPopover = kPopoverSize;
-        [self.view setFrame:CGRectMake(0, 0,
-                                       self.view.frame.size.width,
-                                       kPopoverSize.height)];
+        [self.view setFrame:CGRectMake(0, 0,self.view.frame.size.width,self.view.frame.size.height)];
         frameSize = self.view.frame;
     }
-    
-    UIImageView *bg2 = [[UIImageView alloc] initWithFrame:frameSize];
-    [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
-    UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
-    [bg2 setContentMode:UIViewContentModeTop];
-    UIView *bgViewMain = [[UIView alloc] initWithFrame:bg2.frame];
-    [bgViewMain addSubview:bg2];
-    [bgViewMain setBackgroundColor:tableBGColor];
-    [self.view insertSubview:bgViewMain aboveSubview:_bgView];
+    if(!kIsiOS7){
+        UIImageView *bg2 = [[UIImageView alloc] initWithFrame:frameSize];
+        [bg2 setImage:[UIImage imageNamed:@"tableGradient"]];
+        UIColor *tableBGColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"office"]];
+        [bg2 setContentMode:UIViewContentModeTop];
+        UIView *bgViewMain = [[UIView alloc] initWithFrame:bg2.frame];
+        [bgViewMain addSubview:bg2];
+        [bgViewMain setBackgroundColor:tableBGColor];
+        [self.view insertSubview:bgViewMain aboveSubview:_bgView];
+    }
     
     // Do any additional setup after loading the view from its nib.
     self.title = @"Clock Builder";
@@ -234,6 +233,17 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    if(kIsiOS7){
+        [self.navigationController.navigationBar setBarStyle:UIStatusBarStyleDefault];
+    }
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    if(kIsiOS7){
+        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

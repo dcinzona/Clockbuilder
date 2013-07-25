@@ -56,7 +56,9 @@
     [label setText:[[pickerItems objectAtIndex:row] capitalizedString]];
     [label setShadowColor:[UIColor whiteColor]];
     [label setShadowOffset:CGSizeMake(1, 1)];
-    
+    if(kIsiOS7){
+        [label setFont:[UIFont systemFontOfSize:16]];
+    }
     // This part just colorizes everything, since you asked about that.
     [label setTextColor:[UIColor blackColor]];
     [label setTextAlignment:NSTextAlignmentCenter];

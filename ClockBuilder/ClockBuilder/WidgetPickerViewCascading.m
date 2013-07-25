@@ -92,10 +92,18 @@
     {
         label = [[UILabel alloc] init];
     }
-    if(component==0)
+    [label setTextAlignment:NSTextAlignmentCenter];
+    if(component==0){
         [label setText:[[self.pickerItems objectAtIndex:component] objectAtIndex:row]];
-    else
+        [label setTextAlignment:NSTextAlignmentRight];
+    }
+    else{
         [label setText:[self.pickerComponentItems objectAtIndex:row]];
+        [label setTextAlignment:NSTextAlignmentLeft];
+    }
+    if(kIsiOS7){
+        [label setFont:[UIFont systemFontOfSize:16]];
+    }
     [label setShadowColor:[UIColor whiteColor]];
     [label setShadowOffset:CGSizeMake(1, 1)];
     

@@ -174,12 +174,13 @@
         showToolbar.hidden = NO;
     }
     [CBThemeHelper setBackgroundImage:nil forToolbar:self.toolbar];
-    self.addItem = [CBThemeHelper createDarkButtonItemWithTitle:@"Edit" target:self action:@selector(addButtonClick:)];
     if(!kIsiOS7){
-        self.done = [CBThemeHelper createBlueButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];
+        self.done = [CBThemeHelper createDoneButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];
+        self.addItem = [CBThemeHelper createDoneButtonItemWithTitle:@"Edit" target:self action:@selector(addButtonClick:)];
     }
     else{
-        self.done = [CBThemeHelper createBlueButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];
+        self.done = [CBThemeHelper createDoneButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];
+        self.addItem = [CBThemeHelper createDoneButtonItemWithTitle:@"Edit" target:self action:@selector(addButtonClick:)];
     }
     
     [self performSelector:@selector(resetToolbar)];
@@ -311,6 +312,10 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    if(kIsiOS7){
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+        [self setNeedsStatusBarAppearanceUpdate];
+    }
     //NSLog(@"VIEWCONTROLLER - view will APPEAR");
     if([self.timer isValid])
         [self.timer invalidate];
@@ -561,11 +566,21 @@
         //[self.toolbar setBackgroundImage:nil forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
         [self.toolbar setFrame:CGRectMake(0, self.view.frame.size.height-44, kScreenWidth, 44)];
     }
+    
+    UIBarButtonItem *browseButton;
+    UIBarButtonItem *settingsButton;
+    
     UIBarButtonItem *saveActionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActionSheet)];//showAlertWithEditField
-    UIBarButtonItem *browseButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"themeBrowser.png"] style:UIBarButtonItemStylePlain target:self action:@selector(browseButtonClick:)];
+    if(kIsiOS7){
+        browseButton = [CBThemeHelper createFontAwesomeDarkBarButtonItemWithIcon:@"icon-tablet" target:self action:@selector(browseButtonClick:)];
+        
+        settingsButton = [CBThemeHelper createFontAwesomeDarkBarButtonItemWithIcon:@"icon-cogs" target:self action:@selector(settingsButtonClick:)];
+    }else{
+        settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gears.png"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonClick:)];
+        browseButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"themeBrowser.png"] style:UIBarButtonItemStylePlain target:self action:@selector(browseButtonClick:)];
+    }
     UIBarButtonItem *flex1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     UIBarButtonItem *flex2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gears.png"] style:UIBarButtonItemStylePlain target:self action:@selector(settingsButtonClick:)];
     
     _editing = YES;
     

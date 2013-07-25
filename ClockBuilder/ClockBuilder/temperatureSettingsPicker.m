@@ -119,7 +119,9 @@
     
     [label setTextColor:[UIColor blackColor]];
     [label setFont:[UIFont fontWithName:@"HelveticaNeue" size:14.0]];
-    
+    if(kIsiOS7){
+        [label setFont:[UIFont systemFontOfSize:16]];
+    }
     
     [label setBackgroundColor:[UIColor clearColor]];
     if(kIsiOS7){

@@ -118,6 +118,9 @@
     }
     [label setText:[[pickerItems objectAtIndex:row] capitalizedString]];
     [label setFont:[UIFont fontWithName:[pickerItems objectAtIndex:row] size:14]];
+    if(kIsiOS7){
+        [label setFont:[UIFont fontWithName:[pickerItems objectAtIndex:row] size:16]];
+    }
     [label setShadowColor:[UIColor whiteColor]];
     [label setShadowOffset:CGSizeMake(1, 1)];
     

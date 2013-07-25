@@ -348,6 +348,16 @@
             view.layer.shadowOpacity = 1;
             view.layer.shadowPath = [UIBezierPath bezierPathWithRect:view.bounds].CGPath;
         }
+        else{
+            view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.1];
+            /*
+            [view.layer setShadowColor:[UIColor blackColor].CGColor];
+            view.layer.shadowOffset = CGSizeMake(0,3);
+            view.layer.shadowRadius = 5;
+            view.layer.shadowOpacity = .4;
+            view.layer.shadowPath = [UIBezierPath bezierPathWithRect:view.bounds].CGPath;
+             */
+        }
         cell.contentView = view;
         
         CGRect frame = CGRectMake(0, 0, kiPhoneThumbSizeWidth, kiPhoneThumbSizeHeight);
@@ -814,6 +824,7 @@
                          if(!kIsiOS7){
                              [_gmGridView setFrame:CGRectMake(0, -180, _gmGridView.frame.size.width, _gmGridView.frame.size.height)];
                          }else{
+                             //[_gmGridView.superview setBackgroundColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:.7]];
                              [_gmGridView setAlpha:.2];
                              [_gmGridView setTransform:CGAffineTransformMakeScale(.9, .9)];
                          }
@@ -856,6 +867,35 @@
     NSString *title;
     title = [[self getCategoriesArray] objectAtIndex:row];
     return title;
+}
+
+- (UIView *)pickerView:(UIPickerView *)pv viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    UILabel *label = (UILabel*) view;
+    if (label == nil)
+    {
+        label = [[UILabel alloc] init];
+    }
+    
+    [label setText:(NSString *)[[self getCategoriesArray] objectAtIndex:row]];
+    [label setShadowColor:[UIColor whiteColor]];
+    [label setShadowOffset:CGSizeMake(1, 1)];
+    
+    // This part just colorizes everything, since you asked about that.
+    [label setTextColor:[UIColor blackColor]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    if(kIsiOS7){
+        [label setFont:[UIFont systemFontOfSize:16]];
+    }
+    //if([pickerType isEqualToString:@"locations"] && row == 0)
+    //   [label setTextColor:[UIColor colorWithRed:.3 green:.3 blue:1.0 alpha:1.0]];
+    
+    [label setBackgroundColor:[UIColor clearColor]];
+    CGSize rowSize = [pv rowSizeForComponent:component];
+    CGRect labelRect = CGRectMake (10, 0, rowSize.width-20, rowSize.height);
+    [label setFrame:labelRect];
+    
+    return label;
 }
 
 // tell the picker the width of each row for a given component

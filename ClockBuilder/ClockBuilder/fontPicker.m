@@ -116,6 +116,10 @@
     }
     [label setText:[[self.pickerItems objectAtIndex:row] capitalizedString]];
     [label setFont:[UIFont fontWithName:[self.pickerItems objectAtIndex:row] size:14]];
+    if(kIsiOS7){
+        [label setFont:[UIFont fontWithName:[self.pickerItems objectAtIndex:row] size:16]];
+    }
+    
     [label setShadowColor:[UIColor whiteColor]];
     [label setShadowOffset:CGSizeMake(1, 1)];
     
@@ -124,7 +128,7 @@
     
     //if([pickerType isEqualToString:@"locations"] && row == 0)
     //   [label setTextColor:[UIColor colorWithRed:.3 green:.3 blue:1.0 alpha:1.0]];
-    
+    [label setTextAlignment:NSTextAlignmentCenter];
     [label setBackgroundColor:[UIColor clearColor]];
     CGSize rowSize = [pv rowSizeForComponent:component];
     CGRect labelRect = CGRectMake (10, 0, rowSize.width-20, rowSize.height);

@@ -214,12 +214,20 @@
     {
         label = [[UILabel alloc] init];
     }
+    CGSize rowSize = [pv rowSizeForComponent:component];
+    CGRect labelRect = CGRectMake (10, 0, rowSize.width-10, rowSize.height);
     if(component==0){
         [label setText:[self.widgetTypesArray objectAtIndex:row]];
+        [label setTextAlignment:NSTextAlignmentRight];
+        labelRect.origin.x = 20;
     }
-    else
+    else{
         [label setText:[self.selectedTypeItems objectAtIndex:row]];
+        [label setTextAlignment:NSTextAlignmentLeft];
+    }
+    [label setFrame:labelRect];
     
+    [label setTextAlignment:NSTextAlignmentLeft];
     
     [label setShadowColor:[UIColor whiteColor]];
     [label setShadowOffset:CGSizeMake(1, 1)];
@@ -231,9 +239,6 @@
     }
     
     [label setBackgroundColor:[UIColor clearColor]];
-    CGSize rowSize = [pv rowSizeForComponent:component];
-    CGRect labelRect = CGRectMake (10, 0, rowSize.width-10, rowSize.height);
-    [label setFrame:labelRect];
     
     return label;
 }

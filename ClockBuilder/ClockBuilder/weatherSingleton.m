@@ -1058,9 +1058,11 @@ static dispatch_queue_t serialQueue;
     
     // This part just colorizes everything, since you asked about that.
     [label setTextColor:[UIColor blackColor]];
+    if(kIsiOS7){
+        [label setFont:[UIFont systemFontOfSize:16]];
+    }
     
-    //if([pickerType isEqualToString:@"locations"] && row == 0)
-    //   [label setTextColor:[UIColor colorWithRed:.3 green:.3 blue:1.0 alpha:1.0]];
+    [label setTextAlignment:NSTextAlignmentCenter];
     
     [label setBackgroundColor:[UIColor clearColor]];
     CGSize rowSize = [pv rowSizeForComponent:component];
