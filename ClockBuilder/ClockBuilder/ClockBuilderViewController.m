@@ -202,7 +202,7 @@
     
     //ipad/i5 tools alignment
     if(kIsIpad){
-        NSLog(@"widgetNameView origin y: %f",screenHeight);
+        //NSLog(@"widgetNameView origin y: %f",screenHeight);
         [widgetNameView setFrame:CGRectMake(widgetNameView.frame.origin.x, screenHeight - 75, widgetNameView.frame.size.width, widgetNameView.frame.size.height)];
         [ScaleIconImageView setFrame:CGRectMake(170,screenHeight-ScaleIconImageView.frame.size.height+3, ScaleIconImageView.frame.size.width, ScaleIconImageView.frame.size.height)];
         [OpacityIconImageView setFrame:CGRectMake(screenWidth-222,screenHeight-OpacityIconImageView.frame.size.height+3, OpacityIconImageView.frame.size.width, OpacityIconImageView.frame.size.height)];
@@ -228,8 +228,8 @@
             NSString *installedGMTSync = [themeSync getGMTSyncVersion];
             NSError *err;
             NSString *latestGMTSync = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://clockbuilder.gmtaz.com/gmtSyncVersion.php"] encoding:NSUTF8StringEncoding error:&err];
-            NSLog(@"installedGMTSync: %@",installedGMTSync);
-            NSLog(@"latestGMTSync: %@",latestGMTSync);
+            //NSLog(@"installedGMTSync: %@",installedGMTSync);
+            //NSLog(@"latestGMTSync: %@",latestGMTSync);
             if(latestGMTSync && ![installedGMTSync isEqualToString:latestGMTSync]){
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[GMTHelper sharedInstance] alertWithString:@"GMTSync is out of date.  Please update it using Cydia."];
@@ -247,6 +247,8 @@
         CGRect coordRect = CGRectMake(kScreenWidth - coorWidth.width - 5,
                                      kScreenHeight - 44 - viewHeight - 5,
                                      coorWidth.width + 5, viewHeight + 5);
+        NSLog(@"coordRect: %@", NSStringFromCGRect(coordRect));
+        
         _coordinatesView = [[UIView alloc] initWithFrame:coordRect];
         [_coordinatesView setHidden:YES];
         [_coordinatesView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.6]];
@@ -254,12 +256,14 @@
         _coordinatesViewLabelX = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, coorWidth.width, coorWidth.height)];
         [_coordinatesViewLabelX setFont:[UIFont systemFontOfSize:12]];
         [_coordinatesViewLabelX setTextColor:[UIColor whiteColor]];
-        
+        [_coordinatesViewLabelX setBackgroundColor:[UIColor clearColor]];
         [_coordinatesView addSubview:_coordinatesViewLabelX];
         _coordinatesViewLabelY = [[UILabel alloc] initWithFrame:CGRectMake(5, coorWidth.height + 5, coorWidth.width, coorWidth.height)];
         [_coordinatesViewLabelY setFont:[UIFont systemFontOfSize:12]];
         [_coordinatesViewLabelY setTextColor:[UIColor whiteColor]];
+        [_coordinatesViewLabelY setBackgroundColor:[UIColor clearColor]];
         [_coordinatesView addSubview:_coordinatesViewLabelY];
+        
         NSLog(@"coordinates view frame: %@", NSStringFromCGRect(_coordinatesView.frame));
         [_coordinatesView addGestureRecognizer:[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedCoordinatesView:)]];
     }
@@ -316,6 +320,10 @@
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
         [self setNeedsStatusBarAppearanceUpdate];
     }
+    CGRect coordRect = _coordinatesView.frame;
+    coordRect.origin.y = self.view.frame.size.height - 44 - _coordinatesView.bounds.size.height;
+    [_coordinatesView setFrame:coordRect];
+    
     //NSLog(@"VIEWCONTROLLER - view will APPEAR");
     if([self.timer isValid])
         [self.timer invalidate];

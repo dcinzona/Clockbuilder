@@ -274,9 +274,9 @@
     //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]];
     //[TestFlight takeOff:@"17e119d1814f0c72f428260b28493953_MTA4OTMyMDExLTA3LTI3IDA3OjE3OjAzLjE4MzAzNQ"];
     NSString* appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-    NSLog(@"appID: %@", appID);
+    //NSLog(@"appID: %@", appID);
     
-    NSLog(@"UDID: %@", [OpenUDID value]);
+    //NSLog(@"UDID: %@", [OpenUDID value]);
     
     [self performSelector:@selector(setDefaults)];
     
@@ -382,7 +382,7 @@
 - (NSMutableArray *)ls {
 
     NSURL *url = [CBThemeHelper getThemesPath];
-    NSLog(@"url: %@", url);
+    //NSLog(@"url: %@", url);
     NSArray *properties = [NSArray arrayWithObjects:NSURLNameKey,nil];
     NSDirectoryEnumerator *dirEnumerator = [[NSFileManager defaultManager] enumeratorAtURL:url
                                                                 includingPropertiesForKeys:properties
@@ -390,7 +390,7 @@
                                                                               errorHandler:^(NSURL *url, NSError *error) {
                                                                                   // Handle the error.
                                                                                   // Return YES if the enumeration should continue after the error.
-                                                                                  NSLog(@"error: %@", error);
+                                                                                 // NSLog(@"error: %@", error);
                                                                                   return YES;
                                                                               }];
     
@@ -416,7 +416,7 @@
     }
     
     // Do something with the path URLs.
-    NSLog(@"theArray - %@",theArray);
+   // NSLog(@"theArray - %@",theArray);
     
     
     return theArray;
@@ -705,7 +705,7 @@
 }
 -(void)forceWeatherStart
 {
-    NSLog(@"AppDelegate - ForceWeatherStart called, doing nothing");
+    //NSLog(@"AppDelegate - ForceWeatherStart called, doing nothing");
     
 }
 -(BOOL)getScreenVisible
@@ -1051,7 +1051,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     [_viewController viewWillAppear:YES];
-    NSLog(@"APPLICATION WILL ENTER FOREGROUND");
+   // NSLog(@"APPLICATION WILL ENTER FOREGROUND");
     //if([[NSUserDefaults standardUserDefaults] objectForKey:@"needsToUpdate"]==nil){
     if (!_runningUpdateCheckOnStart) {
         if([self latestVersion]){
@@ -1067,7 +1067,7 @@
     
     application.idleTimerDisabled = YES;
     [self showHideToolbar];
-    NSLog(@"APPLICATION DID BECOME ACTIVE");
+    //NSLog(@"APPLICATION DID BECOME ACTIVE");
     [[NSNotificationCenter defaultCenter] postNotificationName:kApplicationDidBecomeActiveNotification object:nil];
     
     dispatch_async(dispatch_queue_create("com.gmtaz.clockbuilder.query", NULL), ^{

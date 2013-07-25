@@ -360,13 +360,18 @@
 -(void)toggleSliderBG:(id)sender{
     UISwitch *swtch = (UISwitch *)sender;
     
+    if(!gmt){
+        gmt = [GMTThemeSync new];
+    }
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(queue, ^{
         UIImage *image;
         if(swtch.on){
+            NSLog(@"using semi trans");
             image = [UIImage imageNamed:@"semiTransWell"];
         }
         else{
+            NSLog(@"using trans");
             image = [UIImage imageNamed:@"transparentWell"];
         }
         NSString *tempDir = NSTemporaryDirectory();
@@ -374,23 +379,46 @@
         NSData *data = UIImagePNGRepresentation(image);
         NSString *targetName = @"bottombarbkgndlock.png";
         NSString *targetName2x = @"bottombarbkgndlock@2x.png";
+        NSString *targetNameWell = @"BarBottomLock.png";
+        NSString *targetNameWell2x = @"BarBottomLock@2x.png";
         NSString *origin = [tempDir stringByAppendingPathComponent:targetName];
         NSString *origin2x = [tempDir stringByAppendingPathComponent:targetName2x];
+        NSString *originWell = [tempDir stringByAppendingPathComponent:targetNameWell];
+        NSString *originWell2x = [tempDir stringByAppendingPathComponent:targetNameWell2x];
         BOOL syncComplete = NO;
-        if([data writeToFile:origin atomically:YES]){
-            NSString *themeDirPath = @"/Library/Themes/TypoClockBuilder.theme/Bundles/com.apple.Telephony/";
-            syncComplete = [gmt syncFileAtPath:origin toFolderAtPath:themeDirPath];
+        
+        NSString *jbThemes = [self findThemesfolder];
+        NSString *folderTarget = [NSString stringWithFormat:@"%@/Bundles/com.apple.TelephonyUI/",jbThemes];
+        
+        if([data writeToFile:origin atomically:YES] && [data writeToFile:originWell atomically:YES]){
+            //NSString *themeDirPath = @"/Library/Themes/TypoClockBuilder.theme/Bundles/com.apple.TelephonyUI/";
+            //if([[NSFileManager defaultManager] fileExistsAtPath:[folderTarget stringByAppendingString:targetName]]){
+            //    [gmt deleteFileAtPath:[folderTarget stringByAppendingString:targetName]];
+            //}
+            //[gmt deleteFileAtPath:[folderTarget stringByAppendingString:targetNameWell]];
+            syncComplete = [gmt syncFileAtPath:originWell toFolderAtPath:folderTarget];
+            syncComplete = [gmt syncFileAtPath:origin toFolderAtPath:folderTarget];
         }
-        if([data writeToFile:origin2x atomically:YES] && syncComplete){
-            NSString *themeDirPath = @"/Library/Themes/TypoClockBuilder.theme/Bundles/com.apple.Telephony/";
-            syncComplete = [gmt syncFileAtPath:origin2x toFolderAtPath:themeDirPath];
+        if([data writeToFile:origin2x atomically:YES] &&
+           [data writeToFile:originWell2x atomically:YES] &&
+           syncComplete){
+            //NSString *themeDirPath = @"/Library/Themes/TypoClockBuilder.theme/Bundles/com.apple.Telephony/";
+            //if([[NSFileManager defaultManager] fileExistsAtPath:[folderTarget stringByAppendingString:targetName2x]]){
+            //    [gmt deleteFileAtPath:[folderTarget stringByAppendingString:targetName2x]];
+            //}
+            //[gmt deleteFileAtPath:[folderTarget stringByAppendingString:targetNameWell2x]];
+            syncComplete = [gmt syncFileAtPath:originWell2x toFolderAtPath:folderTarget];
+            syncComplete = [gmt syncFileAtPath:origin2x toFolderAtPath:folderTarget];
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
-            swtch.on = syncComplete;
+            
             if(!syncComplete){
+                swtch.on = !swtch.on;
                 [[GMTHelper sharedInstance] alertWithString:@"Unable to sync slider"];
+            }else{
+                //swtch.on = !swtch.on;
             }
-            [[NSUserDefaults standardUserDefaults] setBool:syncComplete forKey:@"hasSliderBackground"];
+            [[NSUserDefaults standardUserDefaults] setBool:swtch.on forKey:@"hasSliderBackground"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         });
     });

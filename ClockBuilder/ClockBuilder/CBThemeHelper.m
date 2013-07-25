@@ -1380,8 +1380,11 @@
         [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
         [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
         CGRect buttonFrame = [button frame];
-        buttonFrame.size.width = [[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] sizeWithFont:[UIFont fontWithName:kFontAwesomeFamilyName size:16]].width + 5.0;
+        buttonFrame.size.width = [[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] sizeWithFont:[UIFont fontWithName:kFontAwesomeFamilyName size:20]].width + 10.0;
         buttonFrame.size.height = buttonImage.size.height;
+        //buttonFrame.size.width = 35;
+        [button setTitle:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass]
+                forState:UIControlStateNormal];
         [button setFrame:buttonFrame];
         
         
@@ -1418,10 +1421,13 @@
         [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
         [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
         CGRect buttonFrame = [button frame];
-        buttonFrame.size.width = [[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] sizeWithFont:[UIFont fontWithName:kFontAwesomeFamilyName size:16]].width + 5.0;
+        buttonFrame.size.width = [[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] sizeWithFont:[UIFont fontWithName:kFontAwesomeFamilyName size:20]].width + 5.0;
         buttonFrame.size.height = buttonImage.size.height;
         [button setFrame:buttonFrame];
         
+        buttonFrame.size.width = 35;
+        [button setTitle:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass]
+                forState:UIControlStateNormal];
         
         [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
         [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
@@ -1498,8 +1504,8 @@
     
     if(!kIsiOS7){
         // Since the buttons can be any width we use a thin image with a stretchable center point
-        UIImage *buttonImage = [[UIImage imageNamed:@"ButtonDarkGrey30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
-        UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonDarkGrey30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        UIImage *buttonImage = [[UIImage imageNamed:@"ButtonBlue30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonBlue30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
         
         [[button titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
