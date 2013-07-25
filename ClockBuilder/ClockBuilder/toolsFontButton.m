@@ -14,8 +14,7 @@
 @synthesize pickerItems, pickerType, pickerView,pickerAS;
 
 
--(void)fontButtonClick:(id)sender
-{
+-(void)showFontPicker{
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     toolbar.barStyle = UIBarStyleDefault;
     if(!kIsIpad){
@@ -24,7 +23,7 @@
     [CBThemeHelper setBackgroundImage:nil forToolbar:toolbar];
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
     UIBarButtonItem *cancelBtn = [CBThemeHelper createDarkButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
-    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];  
+    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setText:@"Select Font"];
@@ -37,12 +36,12 @@
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
     [titleItem setStyle:UIBarButtonItemStylePlain];
     [barItems addObject:cancelBtn];
-    [barItems addObject:flexSpace];  
+    [barItems addObject:flexSpace];
     [barItems addObject:titleItem];
     [barItems addObject:flexSpace];
     [barItems addObject:doneBtn];
     [toolbar setItems:barItems animated:YES];
-    [pickerAS addSubview:toolbar];    
+    [pickerAS addSubview:toolbar];
     [pickerAS setBounds:CGRectMake(0,0,320, 408)];
     if(kIsiOS7){
         [titleLabel setCenter:toolbar.center];
@@ -69,6 +68,34 @@
     else{
         [pickerAS showInView:self.window.rootViewController.view];
     }
+
+}
+-(void)showSetFontSize{
+    ClockBuilderViewController * rvc = (ClockBuilderViewController *)self.window.rootViewController;
+    int currentFontSize = [rvc.widgetSelected performSelector:@selector(getWidgetFontSize) withObject:nil];
+    [MKEntryPanel showPanelWithTitle:@"Set Font Size" inView:self.window.rootViewController.view withText:[NSString stringWithFormat:@"%i",currentFontSize] numericOnly:YES onTextEntered:^(NSString *inputString) {
+        [rvc.widgetSelected performSelector:@selector(setWidgetFontSize:) withObject:[NSNumber numberWithInt:[inputString intValue]]];
+    } onCancel:^{
+        
+    }];
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+-(void)fontButtonClick:(id)sender
+{
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    UIMenuItem *setFontSize = [[UIMenuItem alloc] initWithTitle:@"Set Size" action:@selector(showSetFontSize)];
+    UIMenuItem *changeFont = [[UIMenuItem alloc] initWithTitle:@"Change Font" action:@selector(showFontPicker)];
+    
+    [self becomeFirstResponder];
+    [menuController setMenuItems:[NSArray arrayWithObjects:changeFont, setFontSize,nil]];
+    [menuController setTargetRect:CGRectMake(40, 20, 0, 0) inView:self];
+    [menuController setArrowDirection:UIMenuControllerArrowDefault];
+    [menuController setMenuVisible:YES animated:YES];
+
 }
 
 -(void)dismissActionSheet{

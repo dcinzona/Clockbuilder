@@ -360,7 +360,7 @@ monitorInBG;
 
 - (NSString *)getFriendlyIntervalName
 {
-    NSLog(@"weather Interval: %@",[weatherData objectForKey:@"interval"]);
+    //NSLog(@"weather Interval: %@",[weatherData objectForKey:@"interval"]);
     switch ([[weatherData objectForKey:@"interval"] intValue]) {
         case 60:
             return @"1 Minute";
@@ -399,7 +399,7 @@ monitorInBG;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.SelectedCell = indexPath;
-    NSLog(@"isTyping: %i", isTyping);
+    //NSLog(@"isTyping: %i", isTyping);
     if(indexPath.row==0){
         [self.textField becomeFirstResponder];
         [self.tableView deselectRowAtIndexPath:self.SelectedCell animated:YES];        
@@ -537,7 +537,7 @@ monitorInBG;
     }
     _pickerVisible = NO;
     NSUInteger selectedRow = [self.picker.pickerView selectedRowInComponent:0];
-    NSLog(@"weather data to be saved: %@", weatherData);
+    //NSLog(@"weather data to be saved: %@", weatherData);
     if([self.picker.pickerType isEqualToString:@"refreshInteval"]){
         switch (selectedRow) {
             case 0:

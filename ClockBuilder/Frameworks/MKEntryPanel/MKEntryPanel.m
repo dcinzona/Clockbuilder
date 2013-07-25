@@ -202,7 +202,7 @@
     for(int i=0; i<[tempWindow.subviews count]; i++) {
         keyboard = [tempWindow.subviews objectAtIndex:i];
         // keyboard view found; add the custom button to it
-        NSLog(@"Keyboard description : %@", [keyboard description]);
+        //NSLog(@"Keyboard description : %@", [keyboard description]);
         keyboard = [tempWindow.subviews objectAtIndex:i];
         // keyboard view found; add the custom button to it
         if([[keyboard description] hasPrefix:@"UIKeyboard"] == YES || [[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES)

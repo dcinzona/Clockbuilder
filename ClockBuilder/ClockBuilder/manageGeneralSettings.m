@@ -61,7 +61,7 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"Settings table did load");
+    //NSLog(@"Settings table did load");
     [super viewDidLoad];
     
     [self setTitle:@"Settings"];

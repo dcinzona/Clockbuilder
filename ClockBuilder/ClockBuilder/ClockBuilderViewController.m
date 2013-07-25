@@ -902,10 +902,10 @@
         [CBThemeHelper setTitle:@"Done" forCustomBarButton:self.done];
         [widgetNameView setHidden:NO];
         if(CGRectIntersectsRect(widgetNameView.frame, self.view.frame)){
-            NSLog(@"widgetNameBiew is visible with rect: %@", NSStringFromCGRect(widgetNameView.frame));
+            //NSLog(@"widgetNameBiew is visible with rect: %@", NSStringFromCGRect(widgetNameView.frame));
         }else{
-            NSLog(@"widgetNameBiew not in view");
-            NSLog(@"%@",NSStringFromCGRect(widgetNameView.frame));
+            //NSLog(@"widgetNameBiew not in view");
+            //NSLog(@"%@",NSStringFromCGRect(widgetNameView.frame));
         }
         
         if(!self.toolbar.hidden){
@@ -1071,15 +1071,17 @@
     if(kIsIpad){
         width = [UIScreen mainScreen].bounds.size.height;
     }
-    NSLog(@"device width: %i", width);
+    //NSLog(@"device width: %i", width);
     return [NSString stringWithFormat:@"%ipx",width];
     
 }
 -(NSString *)heightForCSSWithPX{
     
     int height = [UIScreen mainScreen].bounds.size.height - 20;//status bar in app
-    NSLog(@"device height: %i", height);
-    
+    //NSLog(@"device height: %i", height);
+    if(kIsiOS7){
+        height += 20; //status bar is in screen on ios 7
+    }
     return [NSString stringWithFormat:@"%ipx",height];
     
 }
@@ -1713,7 +1715,7 @@
     int sw = self.widgetSelected.frame.size.width;
     int sh = self.widgetSelected.frame.size.height;
     CGRect frame = CGRectMake( (int)left , (int)top, (int)sw, (int)sh);
-    NSLog(@"widget frame: %@", NSStringFromCGRect(frame));
+    //NSLog(@"widget frame: %@", NSStringFromCGRect(frame));
     if(slider.tag == 1){
         [self setFrameForView:frame widgetView:self.widgetSelected forceRedraw:YES];
         [self showWidgetCoordinates:self.widgetSelected];
@@ -1808,7 +1810,7 @@
         [tools.weatherButton setHidden:NO];
         [tools.weatherButton setWidgetData:widgetData];
         if([[widgetData objectForKey:@"class"] isEqualToString:@"weatherIconView"] && [[weatherSingleton sharedInstance] isClimacon]){
-            NSLog(@"tapped on climacon");
+            //NSLog(@"tapped on climacon");
             [tools.fontButton setHidden:YES];
             [tools.transformButton setHidden:YES];
             [tools.alignmentButton setHidden:YES];
