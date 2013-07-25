@@ -654,6 +654,9 @@
 		CB3D7939154BC1A3005BE664 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB3D7938154BC1A3005BE664 /* AudioToolbox.framework */; };
 		CB3D793B154BC1CD005BE664 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB3D793A154BC1CD005BE664 /* libz.1.1.3.dylib */; };
 		CB3D95A015CF097A00F6998F /* iTunesArtwork_Glossy_Icon_icon1024.png in Resources */ = {isa = PBXBuildFile; fileRef = CB3D959F15CF097A00F6998F /* iTunesArtwork_Glossy_Icon_icon1024.png */; };
+		CB42D85C17A1E6DF00561D17 /* icon60.png in Resources */ = {isa = PBXBuildFile; fileRef = CB42D85A17A1E6DF00561D17 /* icon60.png */; };
+		CB42D85D17A1E6DF00561D17 /* icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = CB42D85B17A1E6DF00561D17 /* icon120.png */; };
+		CB42D86017A1E74300561D17 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB42D85F17A1E74300561D17 /* Images.xcassets */; };
 		CB5653DA1359DBDA002B3364 /* clockOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = CB5653D61359DBDA002B3364 /* clockOverlay.png */; };
 		CB5653DC1359DBDA002B3364 /* snowflakeOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = CB5653D81359DBDA002B3364 /* snowflakeOverlay.png */; };
 		CB5653E31359E54F002B3364 /* infoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5653E11359E54F002B3364 /* infoViewController.m */; };
@@ -1574,6 +1577,9 @@
 		CB3D7938154BC1A3005BE664 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		CB3D793A154BC1CD005BE664 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		CB3D959F15CF097A00F6998F /* iTunesArtwork_Glossy_Icon_icon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork_Glossy_Icon_icon1024.png; sourceTree = "<group>"; };
+		CB42D85A17A1E6DF00561D17 /* icon60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon60.png; sourceTree = "<group>"; };
+		CB42D85B17A1E6DF00561D17 /* icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon120.png; sourceTree = "<group>"; };
+		CB42D85F17A1E74300561D17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CB5653D61359DBDA002B3364 /* clockOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockOverlay.png; sourceTree = "<group>"; };
 		CB5653D81359DBDA002B3364 /* snowflakeOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snowflakeOverlay.png; sourceTree = "<group>"; };
 		CB5653E01359E54F002B3364 /* infoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = infoViewController.h; sourceTree = "<group>"; };
@@ -2705,6 +2711,8 @@
 		CB2F084E15CD6BED003C5C5A /* App Icons */ = {
 			isa = PBXGroup;
 			children = (
+				CB42D85A17A1E6DF00561D17 /* icon60.png */,
+				CB42D85B17A1E6DF00561D17 /* icon120.png */,
 				76752A0F15D3E161007127F1 /* icon.png */,
 				76752A1015D3E161007127F1 /* icon@2x.png */,
 				76752A0515D3DCA0007127F1 /* iPad_Icon_icon1024.png */,
@@ -2951,6 +2959,7 @@
 				CBBDC1CB13285C6B00EE9349 /* ClockBuilderViewController.m */,
 				CBBDC1CD13285C6B00EE9349 /* ClockBuilderViewController.xib */,
 				76A4362515121562006F9BDB /* ClockBuilder.entitlements */,
+				CB42D85F17A1E74300561D17 /* Images.xcassets */,
 			);
 			path = ClockBuilder;
 			sourceTree = "<group>";
@@ -3393,6 +3402,7 @@
 				76889A25135C5A5F0047B9B3 /* htc_17n.png in Resources */,
 				76889A26135C5A5F0047B9B3 /* htc_18d.png in Resources */,
 				76889A27135C5A5F0047B9B3 /* htc_18n.png in Resources */,
+				CB42D85D17A1E6DF00561D17 /* icon120.png in Resources */,
 				76889A28135C5A5F0047B9B3 /* htc_19d.png in Resources */,
 				76889A29135C5A5F0047B9B3 /* htc_19n.png in Resources */,
 				76889A2A135C5A5F0047B9B3 /* htc_1d.png in Resources */,
@@ -3769,6 +3779,7 @@
 				CBB6409515CCC170009721A5 /* iPadRetina_Glossy_Icon_icon1024.png in Resources */,
 				CB2F085115CD6C6A003C5C5A /* Default-Landscape~ipad.png in Resources */,
 				CB2F085215CD6C88003C5C5A /* Default.png in Resources */,
+				CB42D85C17A1E6DF00561D17 /* icon60.png in Resources */,
 				CB3D95A015CF097A00F6998F /* iTunesArtwork_Glossy_Icon_icon1024.png in Resources */,
 				76752A0915D3DCA0007127F1 /* iPad_Icon_icon1024.png in Resources */,
 				76752A0A15D3DCA0007127F1 /* iPadRetina_Icon_icon1024.png in Resources */,
@@ -3787,6 +3798,7 @@
 				CBFB25A015D5D7E000DD97AF /* dark_wall@2X.png in Resources */,
 				CBFB25A315D5D7F700DD97AF /* px.png in Resources */,
 				CBFB25A415D5D7F700DD97AF /* px@2X.png in Resources */,
+				CB42D86017A1E74300561D17 /* Images.xcassets in Resources */,
 				76DC643615E3AB7600AEBF86 /* climacons.png in Resources */,
 				76DC643715E3AB7600AEBF86 /* climacons@2x.png in Resources */,
 				76DC643815E3AB7600AEBF86 /* flat.png in Resources */,
@@ -4033,6 +4045,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUILD_STYLE = Release;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -4155,6 +4169,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUILD_STYLE = Debug;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Gustavo Tandeciarz (X5VE9NGGP6)";
@@ -4208,6 +4224,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUILD_STYLE = Release;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Gustavo Tandeciarz";
