@@ -61,27 +61,34 @@ indexInList;
         
         NSString *imageName = [NSString stringWithFormat:@"%@_%@%@",[self.widgetIconSet lowercaseString],self.iconID,dn];
         UIImage *iconImage = [UIImage imageNamed:imageName];
-        //iconImage = [iconImage imageByTrimmingTransparentPixels];
+        CGSize originalImageSize = iconImage.size;
+        UIImage *iconImageCropped = [iconImage imageByTrimmingTransparentPixels];
+        CGSize croppedSize = iconImageCropped.size;
+        
+        float difx = originalImageSize.width - croppedSize.width;
+        float dify = originalImageSize.height - croppedSize.height;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:.4]];
             [self.icon setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:.4]];
-            [self.icon setImage:iconImage];
+            [self.icon setImage:iconImageCropped];
             CGRect frame = self.icon.frame;
             frame.size = iconImage.size;
             //[self.icon setFrame:frame];
-            //CGRect selfFrame = self.frame;
+            CGRect selfFrame = self.frame;
             //selfFrame.size = frame.size;
             //[self setFrame:selfFrame];
             //scale by scale value
-            /*
+            
             if([self.widgetData objectForKey:kIconScaleKey]){
-                [self.layer setAnchorPoint:CGPointMake(0.5, 0.5)];
-                //[self.icon.layer setAnchorPoint:CGPointMake(0, 0)];
-                float scale = [[self.widgetData objectForKey:kIconScaleKey] floatValue];
-                self.transform = CGAffineTransformScale(self.transform, scale, scale);
+                //[self.layer setAnchorPoint:CGPointMake(0.5, 0.5)];
+                [self.icon.layer setAnchorPoint:CGPointMake(0.5, 0.5)];
+                if(!CGSizeEqualToSize(self.frame.size, self.icon.frame.size)){
+                    float scale = [[self.widgetData objectForKey:kIconScaleKey] floatValue];
+                    self.icon.transform = CGAffineTransformScale(self.icon.transform, scale, scale);
+                }
             }
-             */
+            
             [self setNeedsDisplay];
         });
 
