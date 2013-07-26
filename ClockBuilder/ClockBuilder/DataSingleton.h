@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DataSingleton : NSObject
+@interface DataSingleton : NSObject {
+    
+}
 
 @property (nonatomic,strong) NSMutableDictionary *settings;
 
 +(DataSingleton*)sharedInstance;
-
+-(void) updateSettings:(NSMutableDictionary *)sets;
 -(void) saveSettingsToDefaults;
 -(NSMutableArray *)getWidgetsListFromSettings;
 -(void)saveWidgetsListToSettings:(NSMutableArray *)list;

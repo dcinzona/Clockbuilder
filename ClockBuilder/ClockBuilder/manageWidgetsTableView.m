@@ -533,6 +533,8 @@
                     default:
                         break;
                 }
+                //set initial scale for widget:
+                [widget setObject:@"1.0" forKey:kIconScaleKey];
             }
             else
             {

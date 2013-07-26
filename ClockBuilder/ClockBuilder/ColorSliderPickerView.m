@@ -276,7 +276,7 @@
     if(_shouldUpdate)
     {
         [settings setObject:a forKey:@"widgetsList"];
-        [kDataSingleton setSettings:settings];
+        [kDataSingleton updateSettings:settings];
         if(kIsIpad)
             [AppDelegate.viewController performSelector:@selector(refreshViews)];
         

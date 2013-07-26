@@ -683,7 +683,7 @@ monitorInBG;
 {
     if(!_pickerVisible){
         _pickerVisible = YES;
-    NSArray *pickerList = [NSArray arrayWithObjects: @"Climacons", @"Flat", @"HTC", @"Stardock", @"Tick",nil];
+    NSArray *pickerList = kWeatherIconAllSetsArray;
     self.picker = [[WidgetPickerViewController alloc] initWithPickerItems:pickerList pickerType:@"iconSet"];
         NSString *title = @"Icon Set";
         if(!kIsiOS7){

@@ -227,7 +227,7 @@ static dispatch_queue_t serialQueue;
         [weatherData setObject:weatherDataDictionary forKey:@"data"];
     NSMutableDictionary *sets = [[kDataSingleton getSettings] mutableCopy];
     [sets setObject:weatherData forKey:@"weatherData"];
-    [kDataSingleton setSettings:sets];
+    [kDataSingleton updateSettings:sets];
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"weatherConfigurationSaved"
                                                             object:nil
@@ -300,7 +300,7 @@ static dispatch_queue_t serialQueue;
     
     NSMutableDictionary *sets = [kDataSingleton getSettings];
     [sets setObject:weatherData forKey:@"weatherData"];
-    [kDataSingleton setSettings:sets];
+    [kDataSingleton updateSettings:sets];
     sets = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"weatherDataChanged"

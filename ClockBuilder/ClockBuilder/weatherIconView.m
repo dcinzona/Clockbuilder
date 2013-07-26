@@ -8,6 +8,7 @@
 
 #import "weatherIconView.h"
 #import "UIImageView+WebCache.h"
+#import "UIImage+Trim.h"
 #import "SDImageCache.h"
 
 
@@ -28,14 +29,14 @@ indexInList;
 
 - (void) refreshWithNewWeatherData
 {
-    @autoreleasepool {
+    dispatch_async(dispatch_queue_create("com.gmtaz.clockbuilder.GetWeatherIcon", NULL), ^{
         self.weatherData = [[kDataSingleton getSettings] objectForKey:@"weatherData"];
-        self.widgetIconSet = [self.weatherData objectForKey:@"weatherIconSet"];        
+        self.widgetIconSet = [self.weatherData objectForKey:@"weatherIconSet"];
         if(self.widgetIconSet == nil || [self.widgetIconSet isEqualToString:@""])
         {
             self.widgetIconSet = @"Tick";
         }
-        NSDictionary *forecastData = [[self.weatherData objectForKey:@"data"] objectForKey:@"item"];    
+        NSDictionary *forecastData = [[self.weatherData objectForKey:@"data"] objectForKey:@"item"];
         NSDictionary *item = nil;
         NSString *forecast = [[self.widgetData objectForKey:@"forecast"] lowercaseString];
         //set forecastData based on forecast value
@@ -44,27 +45,47 @@ indexInList;
         {
             item = [forecastData objectForKey:@"condition"];
             self.iconID = [item objectForKey:@"code"];
-        }    
+        }
         if([forecast isEqualToString:@"today"])
         {
-            item = [[forecastData objectForKey:@"forecast"] objectAtIndex:0];   
-            self.iconID = [item objectForKey:@"code"];    
+            item = [[forecastData objectForKey:@"forecast"] objectAtIndex:0];
+            self.iconID = [item objectForKey:@"code"];
             dn = @"d";
-        }   
+        }
         if([forecast isEqualToString:@"tomorrow"])
         {
-            item = [[forecastData objectForKey:@"forecast"] objectAtIndex:1];  
-            self.iconID = [item objectForKey:@"code"];     
-            dn = @"d";   
+            item = [[forecastData objectForKey:@"forecast"] objectAtIndex:1];
+            self.iconID = [item objectForKey:@"code"];
+            dn = @"d";
         }
         
+        NSString *imageName = [NSString stringWithFormat:@"%@_%@%@",[self.widgetIconSet lowercaseString],self.iconID,dn];
+        UIImage *iconImage = [UIImage imageNamed:imageName];
+        //iconImage = [iconImage imageByTrimmingTransparentPixels];
         
-        NSString *URL;
-        NSString *rackspace = [[[kDataSingleton getSettings] objectForKey:@"cloud"] objectForKey:@"icons"];
-        URL = [NSString stringWithFormat:@"%@/%@/%@%@.png",rackspace,[self.widgetIconSet lowercaseString], self.iconID, dn];
-        [self.icon setImageWithURL:[NSURL URLWithString: URL]];
-        [self setNeedsDisplay];
-    }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:.4]];
+            [self.icon setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:.4]];
+            [self.icon setImage:iconImage];
+            CGRect frame = self.icon.frame;
+            frame.size = iconImage.size;
+            //[self.icon setFrame:frame];
+            //CGRect selfFrame = self.frame;
+            //selfFrame.size = frame.size;
+            //[self setFrame:selfFrame];
+            //scale by scale value
+            /*
+            if([self.widgetData objectForKey:kIconScaleKey]){
+                [self.layer setAnchorPoint:CGPointMake(0.5, 0.5)];
+                //[self.icon.layer setAnchorPoint:CGPointMake(0, 0)];
+                float scale = [[self.widgetData objectForKey:kIconScaleKey] floatValue];
+                self.transform = CGAffineTransformScale(self.transform, scale, scale);
+            }
+             */
+            [self setNeedsDisplay];
+        });
+
+    });
 }
 
 -(NSString *)isDayOrNight{
@@ -106,12 +127,6 @@ indexInList;
 -(UIImage *)getIconImage
 {
     UIImage *image;
-    /*
-    NSString *URL = [NSString stringWithFormat:@"http://static.gmtaz.com/weather/%@/%@%@.png",[self.widgetIconSet lowercaseString], self.iconID, [self isDayOrNight]];
-    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:URL]];
-    
-    image = [UIImage imageWithData:imageData];
-    */
     image = [UIImage imageNamed:[NSString stringWithFormat:@"%@_%@%@.png",[self.widgetIconSet lowercaseString],self.iconID, [self isDayOrNight]]];
     return image;
 }

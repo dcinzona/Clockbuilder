@@ -1703,6 +1703,7 @@
             }
         }
         else{ //must be an image widget
+            [self.widgetSelected.layer setAnchorPoint:CGPointMake(0.5, 0.5)];
             self.widgetSelected.transform = CGAffineTransformMakeScale(slider.value, slider.value);
         }
         [self showWidgetCoordinates:self.widgetSelected];
@@ -1715,14 +1716,19 @@
     int sw = self.widgetSelected.frame.size.width;
     int sh = self.widgetSelected.frame.size.height;
     CGRect frame = CGRectMake( (int)left , (int)top, (int)sw, (int)sh);
+    NSMutableDictionary * widgetData = [(textBasedWidget *)(self.widgetSelected) widgetData];
     //NSLog(@"widget frame: %@", NSStringFromCGRect(frame));
     if(slider.tag == 1){
+        float savedScale = 1.0;
+        if([widgetData objectForKey:kIconScaleKey]){
+            savedScale += [[widgetData objectForKey:kIconScaleKey] floatValue];
+        }
+        [widgetData setObject:[NSString stringWithFormat:@"%f", savedScale] forKey:kIconScaleKey];
         [self setFrameForView:frame widgetView:self.widgetSelected forceRedraw:YES];
         [self showWidgetCoordinates:self.widgetSelected];
         [slider setValue:1];
     }
-    
-    [kDataSingleton setWidgetData:[[self.widgetSelected performSelector:@selector(getIndexInList) withObject:nil] intValue] withData:[(textBasedWidget *)(self.widgetSelected) widgetData]];
+    [kDataSingleton setWidgetData:[[self.widgetSelected performSelector:@selector(getIndexInList) withObject:nil] intValue] withData:widgetData];
 }
 
 

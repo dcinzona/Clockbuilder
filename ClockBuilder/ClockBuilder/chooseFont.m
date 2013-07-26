@@ -74,7 +74,7 @@
 
 - (void) refreshData
 {
-    settings = [kDataSingleton settings];
+    settings = [kDataSingleton getSettings];
     widgetList = [kDataSingleton getWidgetsListFromSettings];
 }
 

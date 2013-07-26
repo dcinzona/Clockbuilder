@@ -24,17 +24,7 @@
 }
 
 - (void) setFontSizeForPiece:(NSInteger)i fontSize:(NSInteger)fontSize{
-    
-    //[self updateFrameForFontSize];
-    //if(i<[[kDataSingleton getWidgetsListFromSettings]count]){
-        
-        //NSMutableDictionary *widget = self.widgetData;
-        
-        //NSString *index = [NSString stringWithFormat:@"%i",i];
-        
-        [self updateFrameForFontSize];
-        //[[[UIApplication sharedApplication] delegate] performSelector:@selector(saveWidgetSettings:widgetDataDictionary:) withObject:index withObject:widget];
-    //}
+    [self updateFrameForFontSize];
 }
 - (void) setWidgetFontSize:(NSNumber *)number{
     if(self.widgetData && number){
@@ -62,41 +52,43 @@
         CGRect textLabelFrame = self.textLabel.frame;
         CGSize origSizeSelf = CGSizeMake(ceil(selfFrame.size.width),ceil(selfFrame.size.height));
         isClimacon = ([[weatherSingleton sharedInstance] isClimacon] && [[self.widgetData objectForKey:@"className"] isEqualToString:@"Weather Icon"]);
-        if(self.textLabel.text){
-            NSString *fontName = [self.widgetData objectForKey:@"fontFamily"];
-            NSInteger fontSize = 20;
-            if(isClimacon){
-                fontName = @"Climacons";
-                fontSize = 100;
-            }
-            if([self.widgetData objectForKey:@"fontSize"]){
-                fontSize = [[self.widgetData objectForKey:@"fontSize"] intValue];
-            }
-            CGSize newSize = [[self transformGivenText:self.textLabel.text] sizeWithFont:[UIFont fontWithName:fontName size:fontSize]];
-            
-            //set anchorpoint
-            NSTextAlignment currentAlignment = [self setTextAlignment];
-            int deltaSizeX = ceil(origSizeSelf.width) - ceil(newSize.width);
-            int deltaSizeY = (origSizeSelf.height) - (newSize.height);
-            
-            
-            switch (currentAlignment) {
-                case NSTextAlignmentRight:
-                    selfFrame.origin.x += deltaSizeX;
-                    selfFrame.size.width -= deltaSizeX;
-                    textLabelFrame.size = selfFrame.size;
-                    break;
-                default:
-                    //anchor point left
-                    selfFrame.origin.y += (ceil(round(deltaSizeY)/2));
-                    selfFrame.size.height = ceil(newSize.height);
-                    selfFrame.size.width = ceil(newSize.width);
-                    textLabelFrame.size = selfFrame.size;
-                    break;
-            }
-            [self setFrame:selfFrame];
-            [self.textLabel setFrame:textLabelFrame];
+
+        NSString *fontName = [self.widgetData objectForKey:@"fontFamily"];
+        NSInteger fontSize = 20;
+        if(isClimacon){
+            fontName = @"Climacons";
+            fontSize = 100;
         }
+        if([self.widgetData objectForKey:@"fontSize"]){
+            fontSize = [[self.widgetData objectForKey:@"fontSize"] intValue];
+        }
+        CGSize newSize = [[self transformGivenText:self.textLabel.text] sizeWithFont:[UIFont fontWithName:fontName size:fontSize]];
+        
+        //set anchorpoint
+        NSTextAlignment currentAlignment = [self setTextAlignment];
+        int deltaSizeX = ceil(origSizeSelf.width) - ceil(newSize.width);
+        int deltaSizeY = (origSizeSelf.height) - (newSize.height);
+        
+        
+        switch (currentAlignment) {
+            case NSTextAlignmentRight:
+                selfFrame.origin.y += (ceil(round(deltaSizeY)/2));
+                selfFrame.size.height = ceil(newSize.height);
+                selfFrame.origin.x += deltaSizeX;
+                selfFrame.size.width -= deltaSizeX;
+                textLabelFrame.size = selfFrame.size;
+                break;
+            default:
+                //anchor point left
+                selfFrame.origin.y += (ceil(round(deltaSizeY)/2));
+                selfFrame.size.height = ceil(newSize.height);
+                selfFrame.size.width = ceil(newSize.width);
+                textLabelFrame.size = selfFrame.size;
+                break;
+        }
+        [self setFrame:selfFrame];
+        [self.textLabel setFrame:textLabelFrame];
+
         
 #ifdef DEBUG
         //[self setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:.4]];
@@ -137,21 +129,15 @@
         isClimacon = ([[weatherSingleton sharedInstance] isClimacon] && [[self.widgetData objectForKey:@"className"] isEqualToString:@"Weather Icon"]);
         if(isClimacon){
             digitsFont = @"Climacons";
-            //digitFont = self.frame.size.height*.8;
             [self.widgetData setObject:digitsFont forKey:@"fontFamily"];
         }
         
     }
     
-    //set these based on frame
-    //NSLog(@"widget Frame: %@", NSStringFromCGRect(frame));
-    
     [self.textLabel setMinimumScaleFactor:3];
     self.textLabel = [[RRSGlowLabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     [self.textLabel setTextColor:fontColor];    
     [self.textLabel setFont:[UIFont fontWithName:digitsFont size:digitFont]];
-    //[self.textLabel setAdjustsFontSizeToFitWidth:YES];
-    
     [self.textLabel setBackgroundColor:[UIColor clearColor]];
     [self.textLabel setGlowColor:[self getGlowColor]];
     [self.textLabel setGlowOffset:CGSizeMake(0, 0)];
@@ -174,14 +160,13 @@
     }
     if([[self.widgetData objectForKey:@"subClass"]isEqualToString:@"text"])
     {
-        [NSThread detachNewThreadSelector:@selector(setText:) toTarget:self.textLabel withObject:[self transformGivenText:[self.widgetData objectForKey:@"text"]]];
-        //[self.textLabel setText:[self.widgetData objectForKey:@"text"]];
-        [self setFontSizeForPiece:[self.indexInList integerValue] fontSize:self.textLabel.font.pointSize];
+        [self.textLabel setText:[self transformGivenText:[self.widgetData objectForKey:@"text"]]];
     }
     if([[self.widgetData objectForKey:@"subClass"]isEqualToString:@"weather"])
     {
         isWeather = YES;
-        [self updateViewWeather];
+        if(!self.weatherData || self.textLabel.text.length == 0)
+            [self updateViewWeather];
     }
     
     //[self.textLabel release];
@@ -189,15 +174,11 @@
         [self performSelector:@selector(rotateInnerContent)];
     
     if(isClimacon){
-        [[[UIApplication sharedApplication] delegate] performSelector:@selector(saveWidgetSettings:widgetDataDictionary:) withObject:index withObject:self.widgetData];
-    }
-    //NSLog(@"index integervalue: %i", [index integerValue]);
-    if(isWeather){
-        //[self updateFrameForFontSize];
+        [kDataSingleton setWidgetData:index withData:self.widgetData];
     }
     
-    [self setFontSizeForPiece:[index integerValue] fontSize:self.textLabel.font.pointSize];
-    //[self updateFrameForFontSize];
+    [self updateFrameForFontSize];
+    
 	return self;
 }
 
@@ -552,12 +533,15 @@
         degree = @"";
     if([textItemType isEqualToString:@"Location"])
     {
-        if([[self.widgetData objectForKey:@"text"]isEqualToString:@""])
+        if([[self.widgetData objectForKey:@"text"]isEqualToString:@""] || ![widgetData objectForKey:@"text"]){
             //[self.textLabel setText:[weatherData objectForKey:@"locationName"]];
+            //NSLog(@"%@", widgetData);
             string = [weatherData objectForKey:@"locationName"];
-        else
-            //[self.textLabel setText:[self.widgetData objectForKey:@"text"]];
-            string  = [weatherData objectForKey:@"text"];
+        }
+        else{
+            //NSLog(@"%@", weatherData);
+            string  = [widgetData objectForKey:@"text"];
+        }
     }
     else
     {
@@ -624,15 +608,16 @@
         }
         
     }
-    [NSThread detachNewThreadSelector:@selector(setText:) toTarget:self.textLabel withObject:[self transformGivenText:string]];
-    [self setFontSizeForPiece:[self.indexInList integerValue] fontSize:self.textLabel.font.pointSize];
+    [self.textLabel setText:[self transformGivenText:string]];
+    [self updateFrameForFontSize];
+    //[self setFontSizeForPiece:[self.indexInList integerValue] fontSize:self.textLabel.font.pointSize];
 }
 
 - (void) refreshWithNewWeatherData
 {
     @autoreleasepool {
-        self.weatherData = [[kDataSingleton getSettings] objectForKey:@"weatherData"];
     }
+    self.weatherData = [[kDataSingleton getSettings] objectForKey:@"weatherData"];
     //NSLog(@"refresh with new weather data");
     [self updateViewWeather];
 }
@@ -688,7 +673,7 @@
 -(void)updateAlpha:(NSString *)alphaVal
 {
     [self setAlpha:[alphaVal floatValue]];
-    [self setFontSizeForPiece:[self.indexInList integerValue] fontSize:self.textLabel.font.pointSize];
+    //[self setFontSizeForPiece:[self.indexInList integerValue] fontSize:self.textLabel.font.pointSize];
 }
 - (void)setOpacity
 {
@@ -801,6 +786,13 @@
 -(void)setNewGlowColor:(UIColor *)newColor intensity:(NSString *)intensity
 {
     [self.textLabel setGlowColor:newColor];
+    
+    const CGFloat* components = CGColorGetComponents(newColor.CGColor);
+   // NSLog(@"Red: %f", components[0]);
+   // NSLog(@"Green: %f", components[1]);
+   // NSLog(@"Blue: %f", components[2]);
+   // NSLog(@"Alpha: %f", CGColorGetAlpha(newColor.CGColor));
+    
     [self.textLabel setGlowAmount:[intensity floatValue]];
     [self.textLabel setNeedsDisplay];
 }

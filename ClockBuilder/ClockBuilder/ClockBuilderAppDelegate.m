@@ -10,246 +10,16 @@
 #import "ClockBuilderViewController.h"
 #import "ManageWidgetsNavigationController.h"
 #import "manageWidgetsTableView.h"
-//#import "getWeatherData.h"
 #import "textBasedWidget.h"
-//#import "JSON.h"
 #import <SystemConfiguration/SCNetworkReachability.h>
 #include <netinet/in.h>
 #include "CBThemeHelper.h"
 #include "manageGeneralSettings.h"
-//#import "SHKFacebook.h"
-//#import "SHKConfiguration.h"
 #import "UIDevice+IdentifierAddition.h"
 #import "OpenUDID.h"
-//#import "TICoreDataSync.h"
-//#import <DropboxSDK/DropboxSDK.h>
-//#import "DropboxSettings.h"
 
-
-/*
-@interface ClockBuilderAppDelegate ()<DBSessionDelegate, TICDSApplicationSyncManagerDelegate, TICDSDocumentSyncManagerDelegate>
-- (void)registerSyncManager;
-- (void)showHUDFromNotification:(NSNotification*)note;
-@end
-*/
 
 @implementation ClockBuilderAppDelegate
-
-/*
-#pragma mark -
-#pragma mark Initial Sync Registration
-- (void)registerSyncManager
-{
-    //    [TICDSLog setVerbosity:TICDSLogVerbosityEveryStep];
-    
-    TICDSDropboxSDKBasedApplicationSyncManager *manager = [TICDSDropboxSDKBasedApplicationSyncManager defaultApplicationSyncManager];
-    
-    NSString *clientUuid = [[NSUserDefaults standardUserDefaults] stringForKey:@"iOSClockbuilderAppSyncClientUUID"];
-    
-    if( !clientUuid ) {
-        clientUuid = [TICDSUtilities uuidString];
-        [[NSUserDefaults standardUserDefaults] setValue:clientUuid forKey:@"iOSClockbuilderAppSyncClientUUID"];
-    }
-    
-    NSString *deviceDescription = [[UIDevice currentDevice] name];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activityDidIncrease:) name:TICDSApplicationSyncManagerDidIncreaseActivityNotification object:manager];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activityDidDecrease:) name:TICDSApplicationSyncManagerDidDecreaseActivityNotification object:manager];
-    
-    [manager registerWithDelegate:self
-              globalAppIdentifier:kGlobalAppIdentifier
-           uniqueClientIdentifier:clientUuid
-                      description:deviceDescription
-                         userInfo:nil];
-}
-
-#pragma mark -
-#pragma mark Synchronization
-- (IBAction)beginSynchronizing:(id)sender
-{
-    [[self documentSyncManager] initiateSynchronization];
-}
-
-- (void)activityDidIncrease:(NSNotification *)aNotification
-{
-    _activity++;
-    NSLog(@"Activity increased to: %i", _activity);
-    
-    if( _activity > 0 ) {
-        [[UIApplication sharedApplication]
-         setNetworkActivityIndicatorVisible:YES];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DBSyncActivityChanged" object:nil];
-}
-
-- (void)activityDidDecrease:(NSNotification *)aNotification
-{
-    if( _activity > 0) {
-        _activity--;
-    }
-    NSLog(@"Activity decreased to: %i", _activity);
-    
-    if( _activity < 1 ) {
-        [[UIApplication sharedApplication]
-         setNetworkActivityIndicatorVisible:NO];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"activityDecreasedToZero" object:nil];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DBSyncActivityChanged" object:nil];
-}
-
-#pragma mark -
-#pragma mark Application Sync Manager Delegate
-- (void)applicationSyncManagerDidPauseRegistrationToAskWhetherToUseEncryptionForFirstTimeRegistration:(TICDSApplicationSyncManager *)aSyncManager
-{
-    [aSyncManager continueRegisteringWithEncryptionPassword:@"password"];
-}
-
-- (void)applicationSyncManagerDidPauseRegistrationToRequestPasswordForEncryptedApplicationSyncData:(TICDSApplicationSyncManager *)aSyncManager
-{
-    [aSyncManager continueRegisteringWithEncryptionPassword:@"password"];
-}
-
-- (TICDSDocumentSyncManager *)applicationSyncManager:(TICDSApplicationSyncManager *)aSyncManager preConfiguredDocumentSyncManagerForDownloadedDocumentWithIdentifier:(NSString *)anIdentifier atURL:(NSURL *)aFileURL
-{
-    
-    return nil;
-}
-
-- (void)applicationSyncManagerDidFinishRegistering:(TICDSApplicationSyncManager *)aSyncManager
-{
-    TICDSDropboxSDKBasedDocumentSyncManager *docSyncManager = [[TICDSDropboxSDKBasedDocumentSyncManager alloc] init];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activityDidIncrease:) name:TICDSDocumentSyncManagerDidIncreaseActivityNotification object:docSyncManager];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activityDidDecrease:) name:TICDSDocumentSyncManagerDidDecreaseActivityNotification object:docSyncManager];
-    NSString *folder = @"Clockbuilder Data";
-    if (kIsIpad) {
-        folder = @"Clockbuilder iPad Data";
-    }
-    [docSyncManager registerWithDelegate:self
-                          appSyncManager:aSyncManager
-                    managedObjectContext:(TICDSSynchronizedManagedObjectContext *)[self managedObjectContext]
-                      documentIdentifier:folder
-                             description:@"Application's data"
-                                userInfo:nil];
-
-    [self setDocumentSyncManager:docSyncManager];
-}
-
-
-#pragma mark -
-#pragma mark Document Sync Manager Delegate
-
--(BOOL)documentSyncManager:(TICDSDocumentSyncManager *)aSyncManager shouldBeginSynchronizingAfterManagedObjectContextDidSave:(TICDSSynchronizedManagedObjectContext *)aMoc{
-    return YES;
-}
-
-- (void)documentSyncManager:(TICDSDocumentSyncManager *)aSyncManager didPauseSynchronizationAwaitingResolutionOfSyncConflict:(id)aConflict
-{
-    [aSyncManager continueSynchronizationByResolvingConflictWithResolutionType:TICDSSyncConflictResolutionTypeLocalWins];
-}
-
-- (NSURL *)documentSyncManager:(TICDSDocumentSyncManager *)aSyncManager URLForWholeStoreToUploadForDocumentWithIdentifier:(NSString *)anIdentifier description:(NSString *)aDescription userInfo:(NSDictionary *)userInfo
-{
-    NSString *storename = kCoreDataStoreName;
-    if (kIsIpad) {
-        storename = kCoreDataStoreNameiPad;
-    }
-    
-    return [[self applicationDocumentsDirectory] URLByAppendingPathComponent:storename];
-}
-
-- (void)documentSyncManager:(TICDSDocumentSyncManager *)aSyncManager didPauseRegistrationAsRemoteFileStructureDoesNotExistForDocumentWithIdentifier:(NSString *)anIdentifier description:(NSString *)aDescription userInfo:(NSDictionary *)userInfo
-{
-    [self setDownloadStoreAfterRegistering:NO];
-    [aSyncManager continueRegistrationByCreatingRemoteFileStructure:YES];
-}
-
-- (void)documentSyncManager:(TICDSDocumentSyncManager *)aSyncManager didPauseRegistrationAsRemoteFileStructureWasDeletedForDocumentWithIdentifier:(NSString *)anIdentifier description:(NSString *)aDescription userInfo:(NSDictionary *)userInfo
-{
-    [self setDownloadStoreAfterRegistering:NO];
-    [aSyncManager continueRegistrationByCreatingRemoteFileStructure:YES];
-}
-
-- (void)documentSyncManagerDidDetermineThatClientHadPreviouslyBeenDeletedFromSynchronizingWithDocument:(TICDSDocumentSyncManager *)aSyncManager
-{
-    NSLog(@"DOC WAS DELETED");
-    [self setDownloadStoreAfterRegistering:YES];
-}
-
-- (void)documentSyncManagerDidFinishRegistering:(TICDSDocumentSyncManager *)aSyncManager
-{
-    if( [self shouldDownloadStoreAfterRegistering] ) {
-        [[self documentSyncManager] initiateDownloadOfWholeStore];
-    }
-    
-    //[self performSelector:@selector(removeAllRemoteSyncData) withObject:nil afterDelay:8.0];
-    //[self performSelector:@selector(getPreviouslySynchronizedClients) withObject:nil afterDelay:8.0];
-    //[self performSelector:@selector(deleteClient) withObject:nil afterDelay:8.0];
-}
-
-- (void)removeAllRemoteSyncData
-{
-    [[[self documentSyncManager] applicationSyncManager] removeAllSyncDataFromRemote];
-}
-
-- (void)getPreviouslySynchronizedClients
-{
-    [[[self documentSyncManager] applicationSyncManager] requestListOfSynchronizedClientsIncludingDocuments:YES];
-}
-
-- (void)deleteClient
-{
-    [[self documentSyncManager] deleteDocumentSynchronizationDataForClientWithIdentifier:@"B29A21AB-529A-4CBB-A603-332CAD8F2D33-715-000001314CB7EE5B"];
-}
-
-- (void)applicationSyncManager:(TICDSApplicationSyncManager *)aSyncManager didFinishFetchingInformationForAllRegisteredDevices:(NSDictionary *)information
-{
-    NSLog(@"App client info: %@", information);
-}
-
-- (BOOL)documentSyncManagerShouldUploadWholeStoreAfterDocumentRegistration:(TICDSDocumentSyncManager *)aSyncManager
-{
-    return [self shouldDownloadStoreAfterRegistering];
-}
-
-- (void)documentSyncManager:(TICDSDocumentSyncManager *)aSyncManager willReplaceStoreWithDownloadedStoreAtURL:(NSURL *)aStoreURL
-{
-    NSError *anyError = nil;
-    BOOL success = [[self persistentStoreCoordinator] removePersistentStore:[[self persistentStoreCoordinator] persistentStoreForURL:aStoreURL] error:&anyError];
-    
-    if( !success ) {
-        NSLog(@"Failed to remove persistent store at %@: %@",
-              aStoreURL, anyError);
-    }
-}
-
-- (void)documentSyncManager:(TICDSDocumentSyncManager *)aSyncManager didReplaceStoreWithDownloadedStoreAtURL:(NSURL *)aStoreURL
-{
-    NSError *anyError = nil;
-    id store = [[self persistentStoreCoordinator] addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:aStoreURL options:nil error:&anyError];
-    
-    if( !store ) {
-        NSLog(@"Failed to add persistent store at %@: %@", aStoreURL, anyError);
-    }
-}
-
-- (void)documentSyncManager:(TICDSDocumentSyncManager *)aSyncManager didMakeChangesToObjectsInBackgroundContextAndSaveWithNotification:(NSNotification *)aNotification
-{
-    [[self managedObjectContext] mergeChangesFromContextDidSaveNotification:aNotification];
-}
-
-- (void)documentSyncManager:(TICDSDocumentSyncManager *)aSyncManager didFailToSynchronizeWithError:(NSError *)anError
-{
-    if( [anError code] != TICDSErrorCodeSynchronizationFailedBecauseIntegrityKeysDoNotMatch ) {
-        NSLog(@"error synchronizing: %@",anError);
-        //return;
-    }
-    
-    [aSyncManager initiateDownloadOfWholeStore];
-}
-*/
 
 
 @synthesize window=_window;
@@ -263,8 +33,6 @@
 @synthesize managedObjectContext=__managedObjectContext;
 @synthesize managedObjectModel=__managedObjectModel;
 @synthesize persistentStoreCoordinator=__persistentStoreCoordinator;
-//@synthesize documentSyncManager = _documentSyncManager;
-//@synthesize downloadStoreAfterRegistering = _downloadStoreAfterRegistering;
 
 @synthesize globalHUD;
 
@@ -319,12 +87,9 @@
 
 -(void)processOnlineOnStartASYNC{
     
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    self.engine = [[ThemeUploader alloc] initWithHostName:@"clockbuilder.gmtaz.com"];
+    dispatch_queue_t queue = dispatch_queue_create("com.gmtaz.clockbuilder.AppStart", NULL);
     dispatch_async(queue, ^{
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.engine = [[ThemeUploader alloc] initWithHostName:@"clockbuilder.gmtaz.com"];
-        });
         
         BOOL deviceIsConnected = [[GMTHelper sharedInstance] deviceIsConnectedToInet];
         if(!deviceIsConnected){
@@ -333,6 +98,7 @@
                 [[GMTHelper sharedInstance] alertWithString:@"This application requires an internet connection.  Running it without will lead to unexpected results."];
             });
         }
+        /*
         if(deviceIsConnected){
             
             NSString *cbfixMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://static.gmtaz.com/apps.php?type=cbfix"] encoding:NSUTF8StringEncoding error:nil];
@@ -343,8 +109,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:lsync forKey:@"lssyncurl"];
             [[NSUserDefaults standardUserDefaults]synchronize];
         }
-        
-        
+         */
         if([th checkIfJB] && [self latestVersion]){
             [th createSymLinks];
         }
@@ -723,7 +488,7 @@
     //dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     //dispatch_async(queue, ^{
         
-        NSMutableDictionary *sets = [kDataSingleton settings];
+        NSMutableDictionary *sets = [kDataSingleton getSettings];
         [sets setObject:weatherData forKey:@"weatherData"];
         
     //});
@@ -831,6 +596,8 @@
 - (void) goBackToRootView
 {
     [self setScreenVisible:@"YES"];
+    
+    [kDataSingleton saveSettingsToDefaults];
     
     if(kIsIpad){
         [_viewController.pop dismissPopoverAnimated:YES];

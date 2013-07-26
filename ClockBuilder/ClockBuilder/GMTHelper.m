@@ -355,6 +355,7 @@ static dispatch_queue_t serialQueue;
         if([title isEqualToString:@"Ok"]){
             
         }
+        /*
         else if([title isEqualToString:@"Get it"]){
             NSString *url = [[NSUserDefaults standardUserDefaults] objectForKey:@"lssyncurl"];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
@@ -363,7 +364,7 @@ static dispatch_queue_t serialQueue;
             [[NSUserDefaults standardUserDefaults] setObject:@"no" forKey:@"showTetheredFixAlert"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
-        else{}
+        else{}*/
     }
     if(alertType == 1){
         if([title isEqualToString:@"Save"])

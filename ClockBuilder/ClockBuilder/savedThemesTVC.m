@@ -571,7 +571,7 @@ UIImage * resizeImage(UIImage * img, CGSize newSize){
             [[GMTHelper sharedInstance] notifyToShowGlobalHudWithSpinner:@"Activating Theme" andHide:YES withDelay:15 andDim:NO];
             //[[GMTHelper sharedInstance] notifyToShowGlobalHudWithSpinner:@"Activating Theme" andHide:YES withDelay:15 andDim:NO];
         }
-        dispatch_queue_t queue = dispatch_queue_create("com.gmtaz.clockbuilder.sync", 0ul);//dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_queue_t queue = dispatch_queue_create("com.gmtaz.clockbuilder.ActivateThemeThread", 0ul);//dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
         dispatch_async(queue, ^{
             NSString *objID = managedObject.recordUUID;//[[[managedObject objectID] URIRepresentation] absoluteString];
             //NSLog(@"objectID: %@",objID);
@@ -586,7 +586,7 @@ UIImage * resizeImage(UIImage * img, CGSize newSize){
             NSMutableDictionary *sets = [kDataSingleton getSettings];
             
             [sets setObject:widgetsList forKey:@"widgetsList"];
-            [kDataSingleton setSettings:sets];
+            [kDataSingleton updateSettings:sets];
             
             //background image
             NSData *background = [themeDict objectForKey:@"LockBackground.png"];

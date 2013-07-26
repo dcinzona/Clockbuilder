@@ -286,6 +286,7 @@
     if(_shouldUpdate)
     {
         [settings setObject:a forKey:@"widgetsList"];
+        [kDataSingleton updateSettings:settings];
         if(kIsIpad)
             [AppDelegate.viewController performSelector:@selector(refreshViews)];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateGlobalTextSettingsTable" object:nil];

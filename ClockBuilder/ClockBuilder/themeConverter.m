@@ -427,6 +427,12 @@
     if(![[GMTHelper sharedInstance] rotateWallpaper])
         buildJS = [buildJS stringByReplacingOccurrencesOfString:@"var allowWallpaperRotation = true;" withString:@"var allowWallpaperRotation = false;"];
     
+    if(kUpdatedWeatherIconsBOOL){
+        //change build to look for new icon location
+        @"weatherDataSettings.weatherIconSet.toLowerCase()+ '/'+weather.code+weather.dayNight+'.png'";
+    }
+    
+    
     //BG Image
     NSData *bgImage;
     if(self.bgImageData){
@@ -532,14 +538,52 @@
 }
 
 - (void) saveData:(NSString *)data weatherDataJS:(NSString *)weatherDataJS weatherOnly:(NSString *)weatherOnly
-{    
-    [self updateHTMLandCSS:data weatherData:weatherDataJS weatherOnly:weatherOnly];
-    if(![weatherOnly boolValue])
-    {
-        [[GMTHelper sharedInstance] showOverlay:@"Theme Files Set" iconImage:nil];
-        if([themeConverter checkIfIOS5]){
+{
+    
+    //check if weather icons exist and have been updated.
+    if(!kUpdatedWeatherIconsBOOL || YES){
+        dispatch_queue_t queue = dispatch_queue_create("com.gmtaz.clockbuilder.weatherIconUpdate", NULL);
+        dispatch_async(queue, ^{
+            BOOL updateSuccessful = NO;
+            
+            NSArray *iconSets = kWeatherIconImagesSetsArrayLowercase;
+            //update icons
+            NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
+            NSString *weatherIconsFolderPath = resourcePath;//[resourcePath stringByAppendingPathComponent:@"ClockBuilder/weatherIcons"];
+            
+            NSError * error;
+            NSArray * directoryContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:weatherIconsFolderPath error:&error];
+            if(error){
+                NSLog(@"folderPath: %@", weatherIconsFolderPath);
+                NSLog(@"error: %@", error.localizedDescription);
+            }
+            NSLog(@"path for icons in app: %@", directoryContents);
+            
+            
+            [[NSUserDefaults standardUserDefaults] setBool:updateSuccessful forKey:@"updatedLocalIcons"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self updateHTMLandCSS:data weatherData:weatherDataJS weatherOnly:weatherOnly];
+                if(![weatherOnly boolValue])
+                {
+                    [[GMTHelper sharedInstance] showOverlay:@"Theme Files Set" iconImage:nil];
+                    if([themeConverter checkIfIOS5]){
+                    }
+                    
+                }
+            });
+        });
+    }
+    else{
+        [self updateHTMLandCSS:data weatherData:weatherDataJS weatherOnly:weatherOnly];
+        if(![weatherOnly boolValue])
+        {
+            [[GMTHelper sharedInstance] showOverlay:@"Theme Files Set" iconImage:nil];
+            if([themeConverter checkIfIOS5]){
+            }
+            
         }
-        
     }
 }
 
@@ -624,13 +668,6 @@
             {
                 [fm removeItemAtPath:[documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"/lockscreen/%@",imageName]] error:nil];
             }  
-            /*
-            NSError *slideSymError;
-            if(![fm createSymbolicLinkAtPath:[documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"/lockscreen/%@",imageName]] withDestinationPath:[NSString stringWithFormat:@"%@/slides/%@",[self findThemesfolder],imageName] error:&slideSymError])
-                NSLog(@"error creating symlink:%@",slideSymError.localizedDescription);
-            else
-            {}//NSLog(@"symlink created for: %@", imageName);
-             */
             
         }
         

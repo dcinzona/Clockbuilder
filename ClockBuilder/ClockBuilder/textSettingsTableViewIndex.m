@@ -429,6 +429,10 @@ weatherData;
     return ret;
 }
 
+-(void)updateCellDetailsFromSlider:(UISlider *)sender{
+    self.SelectedCell = [NSIndexPath indexPathForRow:3 inSection:0];
+    [[[self.tableView cellForRowAtIndexPath:self.SelectedCell] detailTextLabel] setText:[NSString stringWithFormat:@"Opacity: %f",[sender value]]];
+}
 
 - (void)setOpacitySlider:(UISlider*)sender
 {

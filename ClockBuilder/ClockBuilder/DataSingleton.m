@@ -12,6 +12,7 @@
 
 static DataSingleton *sharedInstance = nil;
 static dispatch_queue_t serialQueue;
+static NSLock *theLock;
 
 + (id)allocWithZone:(NSZone *)zone {
     static dispatch_once_t onceQueue;
@@ -42,6 +43,7 @@ static dispatch_queue_t serialQueue;
         obj = [super init];
         if (obj) {
             self.settings = [self getSettings];
+            theLock = [NSLock new];
         }
     });
     self = obj;
@@ -49,41 +51,66 @@ static dispatch_queue_t serialQueue;
 }
 -(void) saveSettingsToDefaults{
     dispatch_async(serialQueue, ^{
-        @synchronized([DataSingleton sharedInstance]){
-            [[NSUserDefaults standardUserDefaults] setObject:self.settings forKey:@"settings"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-        }
+        //@synchronized(self.settings){
+            [theLock lock];
+                [[NSUserDefaults standardUserDefaults] setObject:self.settings forKey:@"settings"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            [theLock unlock];
+        //}
     });
 }
+-(void) updateSettings:(NSMutableDictionary *)sets{
+    //@synchronized(self.settings){
+        [theLock lock];
+        self.settings = [NSMutableDictionary dictionaryWithDictionary:sets];
+        [theLock unlock];
+    //}
+}
 -(void)saveWidgetsListToSettings:(NSMutableArray *)list{
-    if(self && self.settings){
-        [self.settings setObject:list forKey:@"widgetsList"];
-    }
+    [theLock lock];
+    //@synchronized(kDataSingleton){
+        if(self && self.settings){
+            [self.settings setObject:list forKey:@"widgetsList"];
+            [self saveSettingsToDefaults];
+        }
+    //}
+    [theLock unlock];
 }
 -(NSMutableArray *)getWidgetsListFromSettings{
-    if([self.settings objectForKey:@"widgetsList"]){
-        return [NSMutableArray arrayWithArray:[self.settings objectForKey:@"widgetsList"]];
-    }
-    else{
-        NSMutableArray *newArray = [NSMutableArray new];
-        [self.settings setObject:newArray forKey:@"widgetsList"];
-        return newArray;
-    }
+    //@synchronized(kDataSingleton){
+        if([self.settings objectForKey:@"widgetsList"]){
+            return [NSMutableArray arrayWithArray:[self.settings objectForKey:@"widgetsList"]];
+        }
+        else{
+            NSMutableArray *newArray = [NSMutableArray new];
+            [self.settings setObject:newArray forKey:@"widgetsList"];
+            return newArray;
+        }
+    //}
 }
 -(NSMutableDictionary *)getSettings{
-    if(self.settings)
-        return self.settings;
-    [self setSettingsFromDefaults];
-    return self.settings;
+    //@synchronized(kDataSingleton){
+    //[theLock lock];
+        if(self.settings){
+            return self.settings;
+        }
+        else{
+            [self setSettingsFromDefaults];
+            return self.settings;
+        }
+    //[theLock unlock];
+    //}
 }
 -(void) setSettingsFromDefaults{
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]){
-        self.settings = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] mutableCopy];
-    }
-    else{
-        NSString *settingsPath = [[NSBundle mainBundle] pathForResource:@"settings" ofType:@"plist"];
-        self.settings = [NSMutableDictionary dictionaryWithContentsOfFile:settingsPath];
-    }
+    //@synchronized(kDataSingleton){
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]){
+            self.settings = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] mutableCopy];
+        }
+        else{
+            NSString *settingsPath = [[NSBundle mainBundle] pathForResource:@"settings" ofType:@"plist"];
+            self.settings = [NSMutableDictionary dictionaryWithContentsOfFile:settingsPath];
+        }
+    //}
 }
 
 //pulling from widgetHelper

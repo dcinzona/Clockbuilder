@@ -92,7 +92,7 @@ weatherData;
 {
     self.settings = [kDataSingleton getSettings];
     self.widgetsList = [kDataSingleton getWidgetsListFromSettings];
-    self.widgetData = [kDataSingleton getWidgetDataFromIndex:[self.widgetsList objectAtIndex:[self firstTextWidget]]];
+    self.widgetData = [kDataSingleton getWidgetDataFromIndex:[self firstTextWidget]];
     self.weatherData = [self.settings objectForKey:@"weatherData"];
     [self.tableView reloadData];
 }
@@ -119,7 +119,7 @@ weatherData;
     if(_shouldUpdate)
     {
         [self.settings setObject:a forKey:@"widgetsList"];
-        [kDataSingleton setSettings:self.settings];
+        [kDataSingleton updateSettings:self.settings];
         if(kIsIpad)
             [AppDelegate.viewController performSelector:@selector(refreshViews)];
         [self initVariables];
@@ -139,6 +139,7 @@ weatherData;
     
   //[self.navigationController.navigationBar setBarStyle:UIBarStyleBlackOpaque];
     self.slider = [[UISlider alloc] initWithFrame:CGRectMake(170, 10, 125, 50)];
+    [self.slider addTarget:self action:@selector(updateCellDetailsFromSlider:) forControlEvents:UIControlEventValueChanged];
     [self.slider addTarget:self action:@selector(setOpacitySlider:) forControlEvents:UIControlEventTouchUpInside];
     [self.slider setMinimumValue:.01];
     [self.slider setMaximumValue:1];
@@ -242,14 +243,16 @@ weatherData;
         [[cell detailTextLabel] setText:[self.widgetData objectForKey:@"fontFamily"]];//Set to text font for widget
         
         [self addCellAccessory:cell];
+        return cell;
     }
     if(indexPath.row==1)
     {
         [[cell textLabel] setText:@"Select Color"];
         
         UIColor *color = (UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:[self.widgetData objectForKey:@"fontColor"]];
-        if(!color)
+        if(!color){
             color = [UIColor whiteColor];
+        }
         NSString *desc = [NSString stringWithFormat:@"Color: %@",[[[NSString stringWithFormat:@"%@",color] stringByReplacingOccurrencesOfString:@"UIDeviceRGBColorSpace " withString:@""] stringByReplacingOccurrencesOfString:@"UIDeviceWhiteColorSpace" withString:@"1 1"] ];
         
         [[cell detailTextLabel] setTextColor:color];
@@ -259,8 +262,16 @@ weatherData;
             desc = @"Transparent";
             [[cell detailTextLabel] setTextColor:[UIColor whiteColor]];
         }
-        [[cell detailTextLabel] setText:desc]; 
+        
+        [[cell detailTextLabel] setText:desc];
+        
+        if(kIsiOS7 && [cell detailTextLabel].textColor == [UIColor whiteColor]){
+            [[cell detailTextLabel] setTextColor:nil];
+            cell.detailTextLabel.text = @"Color: White";
+        }
+        
         [self addCellAccessory:cell];
+        return cell;
     }
     if(indexPath.row==2)
     {
@@ -278,34 +289,42 @@ weatherData;
             desc = @"Transparent";
             [[cell detailTextLabel] setTextColor:[UIColor whiteColor]];
         }
-        [[cell detailTextLabel] setText:desc]; 
+        [[cell detailTextLabel] setText:desc];
+        
+        if(kIsiOS7 && [cell detailTextLabel].textColor == [UIColor whiteColor]){
+            [[cell detailTextLabel] setTextColor:nil];
+            cell.detailTextLabel.text = @"Glow Color: White";
+        }
+        
         [self addCellAccessory:cell];
+        return cell;
     }
     if(indexPath.row==3)
     {
-        [[cell textLabel] setText:@"Set Opacity"];
-        
+        static NSString *CellIdentifier = @"sliderCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         NSString *opacity = [self.widgetData objectForKey:@"opacity"];
+        if (cell == nil) {
+            cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            
+            if([[cell subviews] indexOfObject:self.slider]==NSNotFound)
+            {
+                [self.slider setValue:[opacity floatValue]];
+                [cell setAccessoryView:self.slider];
+            }
+        }
+        [[cell textLabel] setText:@"Set Opacity"];
         if([opacity isEqualToString:@""])
             opacity=@"1.0";
         [[cell detailTextLabel] setText:[NSString stringWithFormat:@"Opacity: %@",opacity]];
-        if([[cell subviews] indexOfObject:self.slider]==NSNotFound)
-        {            
-            [self.slider setValue:[opacity floatValue]];
-            [cell addSubview:self.slider];
-        }
+        return cell;
     }
     if(indexPath.row==4)
-    {   
-        
-        BOOL addSeg = YES;
-        for (UIView *v in cell.subviews) {
-            if(v.tag==300){
-                addSeg = NO;
-                break;
-            }
-        }
-        if(addSeg){
+    {
+        static NSString *CellIdentifier = @"alignCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             NSString *alignment = [self.widgetData objectForKey:@"textalignment"];
             NSArray * alignments= [NSArray arrayWithObjects: @"left", @"center", @"right", nil];
             NSArray * segs = [NSArray arrayWithObjects: @"left", @"center", @"right", nil];
@@ -317,36 +336,33 @@ weatherData;
             segmentedControl.frame  = CGRectMake(150, 16, 140, 30);
             segmentedControl.tintColor= [UIColor grayColor];
             segmentedControl.tag = 300;
-            [cell addSubview:segmentedControl];
+            [cell setAccessoryView:segmentedControl];
         }
         [[cell textLabel]setText:@"Text Align"];
+        return cell;
     }
     if(indexPath.row==5)
     {   
         NSString *tt = [self.widgetData objectForKey:@"textTransform"];
         if(tt == nil)
             tt = @"default";
-        
-        BOOL addSeg = YES;
-        for (UIView *v in cell.subviews) {
-            if(v.tag==301){
-                addSeg = NO;
-                break;
-            }
-        }
-        if(addSeg){        
+        static NSString *CellIdentifier = @"textTransformCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[PrettyCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
             NSArray * transformations= [NSArray arrayWithObjects: @"uppercase", @"lowercase", @"default", nil];
             NSArray * segs = [NSArray arrayWithObjects: @"uppercase", @"lowercase", @"default", nil];
             UISegmentedControl *segmentedControl= [[UISegmentedControl alloc] initWithItems: segs];
             segmentedControl.segmentedControlStyle= UISegmentedControlStyleBar;
             segmentedControl.selectedSegmentIndex= [transformations indexOfObject:tt];
-            
             [segmentedControl addTarget: self action: @selector(setTextTransform:) forControlEvents: UIControlEventValueChanged];
             segmentedControl.frame  = CGRectMake(20, 16, 280, 30);
             segmentedControl.tintColor= [UIColor grayColor];
             segmentedControl.tag = 301;
+            [segmentedControl setCenter:cell.contentView.center];
             [cell addSubview:segmentedControl];
         }
+        return cell;
     }
     
     return cell;
@@ -367,6 +383,12 @@ weatherData;
     [self updateAllWidgets:[alignments objectAtIndex:clickedSegment] forKey:@"textTransform"];
     
 }
+
+-(void)updateCellDetailsFromSlider:(UISlider *)sender{
+    self.SelectedCell = [NSIndexPath indexPathForRow:3 inSection:0];
+    [[[self.tableView cellForRowAtIndexPath:self.SelectedCell] detailTextLabel] setText:[NSString stringWithFormat:@"Opacity: %f",[sender value]]];
+}
+
 - (void)setOpacitySlider:(UISlider*)sender
 {
     self.SelectedCell = [NSIndexPath indexPathForRow:3 inSection:0];

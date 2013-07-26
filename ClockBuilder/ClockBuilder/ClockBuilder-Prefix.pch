@@ -45,6 +45,10 @@
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kJpegifierURL @"/var/mobile/Library/SpringBoard/LockBackground.jpg"
 #define kJpegifierURLLegacy @"/var/mobile/Library/SpringBoard/Converted-LockBackground.jpg"
+#define kUpdatedWeatherIconsBOOL [[NSUserDefaults standardUserDefaults] boolForKey:@"updatedLocalIcons"]
+#define kWeatherIconImagesSetsArrayLowercase [NSArray arrayWithObjects: @"flat", @"htc", @"stardock", @"tick",nil]
+#define kWeatherIconAllSetsArray [NSArray arrayWithObjects: @"Climacons", @"Flat", @"HTC", @"Stardock", @"Tick",nil]
+#define kIconScaleKey @"iconScale"
 
 //QUEUES
 #define kDataSingleton [DataSingleton sharedInstance]

@@ -1132,7 +1132,7 @@
     NSDictionary *themeDict = [self getThemeDictFromDoc:[self getThemePathForName:themeName]];
     //NSLog(@"themeDict: %@",themeDict);
     NSMutableArray *list = [self getWidgetsListFromFile:themeName];
-    NSMutableDictionary *sets = [kDataSingleton settings];
+    NSMutableDictionary *sets = [kDataSingleton getSettings];
     [sets setObject:list forKey:@"widgetsList"];
     [kDataSingleton saveWidgetsListToSettings:list];
     
