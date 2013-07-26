@@ -257,14 +257,12 @@
 -(void)updateAllWidgets:(id)object forKey:(NSString *)key
 {
     //itterate through all widgets and set the data to the data.
-    
-    NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] ];
-    NSMutableArray * widgetsList = [NSMutableArray arrayWithArray:[settings  objectForKey:@"widgetsList"] ] ;
-    
+    NSMutableDictionary *settings = [kDataSingleton getSettings];
+    NSMutableArray * widgetsList = [kDataSingleton getWidgetsListFromSettings];
     NSInteger x = 0;
     BOOL _shouldUpdate = NO;
-    NSMutableArray *a = [NSMutableArray arrayWithArray:widgetsList];
-    for(NSDictionary *w in widgetsList)
+    NSMutableArray *a = [widgetsList mutableCopy];
+    for(NSMutableDictionary *w in widgetsList)
     {
         if([[w objectForKey:@"class"]isEqualToString:@"textBasedWidget"])
         {
@@ -278,8 +276,7 @@
     if(_shouldUpdate)
     {
         [settings setObject:a forKey:@"widgetsList"];
-        [[NSUserDefaults standardUserDefaults] setObject:settings forKey:@"settings"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [kDataSingleton setSettings:settings];
         if(kIsIpad)
             [AppDelegate.viewController performSelector:@selector(refreshViews)];
         

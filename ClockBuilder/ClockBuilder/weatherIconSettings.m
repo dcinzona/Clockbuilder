@@ -80,9 +80,10 @@ picker;
 - (void) initVariables
 {
     
-    self.settings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]];
-    self.widgetsList = [NSMutableArray arrayWithArray:[self.settings  objectForKey:@"widgetsList"]];
-    self.widgetData = [NSMutableDictionary dictionaryWithDictionary:[self.widgetsList objectAtIndex:[[[NSUserDefaults standardUserDefaults] objectForKey:@"widgetIndex"] integerValue] ]] ;
+    self.settings = [kDataSingleton getSettings];
+    self.widgetsList = [kDataSingleton getWidgetsListFromSettings];
+    
+    self.widgetData = [kDataSingleton getWidgetDataFromIndex:[[[NSUserDefaults standardUserDefaults] objectForKey:@"widgetIndex"] integerValue]] ;
     
     UIColor *ret = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
     

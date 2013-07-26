@@ -594,7 +594,7 @@
 -(NSInteger)firstTextWidget
 {
     NSInteger x = 0;
-    for(NSDictionary *dic in [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"])
+    for(NSMutableDictionary *dic in [kDataSingleton getWidgetsListFromSettings])
     {
         if([[dic objectForKey:@"class"]isEqualToString:@"textBasedWidget"])
             return x;

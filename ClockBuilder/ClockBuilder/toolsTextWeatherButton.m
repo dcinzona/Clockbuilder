@@ -96,7 +96,7 @@
     [resultsLabel setFont:[UIFont fontWithName:[wd objectForKey:@"fontFamily"] size:resultsLabel.frame.size.height*.8]];
     if([[wd objectForKey:@"text"] isEqualToString:@""])
     {
-        [resultsLabel setText:[[[[NSUserDefaults standardUserDefaults]objectForKey:@"settings"]objectForKey:@"weatherData"]objectForKey:@"locationName"]];
+        [resultsLabel setText:[[[kDataSingleton getSettings]objectForKey:@"weatherData"]objectForKey:@"locationName"]];
     }
     else
         [resultsLabel setText:[wd objectForKey:@"text"]];

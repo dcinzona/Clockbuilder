@@ -112,9 +112,9 @@
     return colorAsString;
 }
 
--(NSArray *)processWidgetsList:(NSArray *)widgetsList{
+-(NSMutableArray *)processWidgetsList:(NSMutableArray *)widgetsList{
     NSMutableArray *array = [NSMutableArray arrayWithArray:0];
-    for(NSDictionary* widget in widgetsList)
+    for(NSMutableDictionary* widget in widgetsList)
     {
         NSMutableDictionary *data = [widget mutableCopy];
         if(![[widget objectForKey:@"type"]isEqualToString:@"imageWidget"]||[[weatherSingleton sharedInstance] isClimacon]){
@@ -156,12 +156,12 @@
     //NSLog(@"loaded array: %@", widgetsList);
     //NSLog(@"lockscreen data array: %@", array);
     NSArray *returnedArray = [NSArray arrayWithArray:array];
-    return returnedArray;
+    return [returnedArray mutableCopy];
 }
 
 - (NSArray *)getWidgetList
 {
-    NSArray *widgetsList = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"];
+    NSMutableArray *widgetsList = [kDataSingleton getWidgetsListFromSettings];
 
     if(themeName!=nil && ![themeName isEqualToString:@""])
     {
@@ -590,7 +590,7 @@
     if(![fm createDirectoryAtPath:lockscreenFolder withIntermediateDirectories:YES attributes:nil error:&error]){
         //[TestFlight passCheckpoint:[NSString stringWithFormat:@"cannot create LS dir: %@", error]];
     }
-    NSArray *fileLinks = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"fileLinks"];
+    NSArray *fileLinks = [[kDataSingleton getSettings] objectForKey:@"fileLinks"];
     
         for(NSString *file in fileLinks)
         {
@@ -646,7 +646,7 @@
             NSString *j1 = [wlist JSONRepresentation];//[jsonWriter stringWithObject:wlist];
             NSString *json = [j1 stringByReplacingOccurrencesOfString:@"\"class\"" withString:@"\"widgetClass\""];
             NSString *data = [NSString stringWithFormat:@"var data = %@;",json];
-            NSDictionary *weatherData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"weatherData"];
+            NSDictionary *weatherData = [[kDataSingleton getSettings] objectForKey:@"weatherData"];
             
             NSString *loc = [weatherData objectForKey:@"location"];    
             if([loc isEqualToString:@"Current Location"])
@@ -683,15 +683,15 @@
         if(_appUpdated || YES){
             
             
-            NSArray *wlist = [NSArray arrayWithArray:0];
+            NSMutableArray *wlist = [NSMutableArray arrayWithArray:0];
             
             if(themeDict!=nil && themeDict.count>2)
             {
-                wlist = [NSArray arrayWithArray:[themeDict objectForKey:@"widgetsList"]];
+                wlist = [[themeDict objectForKey:@"widgetsList"] mutableCopy];
                 self.bgImageData = [themeDict objectForKey:@"LockBackground.png"];
             }
             else{
-                wlist = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"];
+                wlist = [kDataSingleton getWidgetsListFromSettings];
                 self.bgImageData = nil;
             }
             
@@ -705,7 +705,7 @@
             NSString *json = [j1 stringByReplacingOccurrencesOfString:@"\"class\"" withString:@"\"widgetClass\""];
             NSString *data = [NSString stringWithFormat:@"var data = %@;",json];
             
-            NSDictionary *weatherData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"weatherData"];
+            NSDictionary *weatherData = [[kDataSingleton getSettings] objectForKey:@"weatherData"];
             
             NSString *loc = [weatherData objectForKey:@"location"];    
             if([loc isEqualToString:@"Current Location"])

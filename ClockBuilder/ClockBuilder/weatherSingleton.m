@@ -125,7 +125,7 @@ static dispatch_queue_t serialQueue;
         obj = [super init];
         if (obj) {
             //Set variables here
-            weatherData = [NSMutableDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"weatherData"] ];
+            weatherData = [[[kDataSingleton getSettings] objectForKey:@"weatherData"] mutableCopy];
             locationString = [weatherData objectForKey:@"location"];
             currentLocationName = [weatherData objectForKey:@"locationName"];
             locationManager = [[CLLocationManager alloc] init];
@@ -225,10 +225,9 @@ static dispatch_queue_t serialQueue;
     [weatherData setObject:currentLocationName forKey:@"locationName"];
     if(weatherDataDictionary)
         [weatherData setObject:weatherDataDictionary forKey:@"data"];
-    NSMutableDictionary *sets = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] mutableCopy];
+    NSMutableDictionary *sets = [[kDataSingleton getSettings] mutableCopy];
     [sets setObject:weatherData forKey:@"weatherData"];
-    [[NSUserDefaults standardUserDefaults] setObject:sets forKey:@"settings"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [kDataSingleton setSettings:sets];
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"weatherConfigurationSaved"
                                                             object:nil
@@ -248,7 +247,7 @@ static dispatch_queue_t serialQueue;
 
 -(BOOL)isThereAWeatherWidget
 {
-    NSArray *widgetsList = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"];
+    NSMutableArray *widgetsList = [kDataSingleton getWidgetsListFromSettings];
     for(NSDictionary* widget in widgetsList)
     {
         if([[widget objectForKey:@"subClass"]isEqualToString:@"weather"])
@@ -281,7 +280,7 @@ static dispatch_queue_t serialQueue;
         if(timer){
             [timer invalidate];
         }
-        NSDictionary *intDict = [NSDictionary dictionaryWithDictionary:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"weatherData"] ];
+        NSDictionary *intDict = [NSDictionary dictionaryWithDictionary:[[kDataSingleton getSettings] objectForKey:@"weatherData"] ];
         int interval = [[intDict objectForKey:@"interval"] intValue];
         if(interval >= 60){
             timer = [NSTimer scheduledTimerWithTimeInterval:interval target:[weatherSingleton sharedInstance] selector:@selector(updateWeatherData) userInfo:nil repeats:NO];
@@ -299,10 +298,9 @@ static dispatch_queue_t serialQueue;
     [weatherData setObject:currentLocationName forKey:@"locationName"];
     [weatherData setObject:weatherDataDictionary forKey:@"data"];
     
-    NSMutableDictionary *sets = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] mutableCopy];
+    NSMutableDictionary *sets = [kDataSingleton getSettings];
     [sets setObject:weatherData forKey:@"weatherData"];
-    [[NSUserDefaults standardUserDefaults] setObject:sets forKey:@"settings"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [kDataSingleton setSettings:sets];
     sets = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"weatherDataChanged"
@@ -764,7 +762,7 @@ static dispatch_queue_t serialQueue;
     NSDictionary /*__block*/ *retDict;
     
     //dispatch_sync(serialQueue, ^{
-    NSString *temp = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]objectForKey:@"weatherData"] objectForKey:@"units"];
+    NSString *temp = [[[kDataSingleton getSettings]objectForKey:@"weatherData"] objectForKey:@"units"];
     NSString *urlString = [NSString stringWithFormat:@"%@%@%@%@%@",@"http://query.yahooapis.com/v1/public/yql?format=json&diagnostics=true&env=store://datatables.org/alltableswithkeys&q=select%20*%20from%20weather.forecast%20where%20location%20in%20%28%22",WOEID,@"%22%29%20and%20u=%22",temp,@"%22"];
     NSDictionary *data = [self weatherDictDataWithUrl:[NSURL URLWithString:urlString]];
     //NSLog(@"urslString: %@", urlString);

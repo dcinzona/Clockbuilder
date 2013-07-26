@@ -33,7 +33,7 @@
 }
 - (void)setWidgetObjects
 {
-    self.widgetsAdded = [NSMutableArray arrayWithArray:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"]];
+    self.widgetsAdded = [kDataSingleton getWidgetsListFromSettings];
 }
 - (void)dealloc
 {
@@ -83,7 +83,7 @@
     }
     
     [self setWidgetObjects];
-    self.widgetClasses = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]objectForKey:@"widgetClasses"];
+    self.widgetClasses = [[kDataSingleton getSettings] objectForKey:@"widgetClasses"];
     tv = self.tableView;
     [CBThemeHelper styleTableView:self.tableView];
     
@@ -191,7 +191,7 @@
                 }
             }
             if([widgetName isEqualToString:@"Location"]){
-                NSDictionary* weatherData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"weatherData"];
+                NSDictionary* weatherData = [[kDataSingleton getSettings]                                            objectForKey:@"weatherData"];
                 [cell.detailTextLabel setText:[weatherData objectForKey:@"locationName"]];
             }
             if([widgetName isEqualToString:@"Weather Icon"]){
@@ -285,8 +285,7 @@
         [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"widgetIndex"];
         [[NSUserDefaults standardUserDefaults]synchronize];
         
-        widgetHelperClass *wh = [widgetHelperClass new];
-        [wh removeWidgetAtIndex:indexPath.row];
+        [kDataSingleton removeWidgetAtIndex:indexPath.row];
         
         [self setWidgetObjects];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -308,12 +307,6 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
-    if(indexPath.section==0){
-        [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%d", indexPath.row] forKey:@"widgetIndex"];
-        [[NSUserDefaults standardUserDefaults]synchronize];
-        [self editWidget:indexPath.row];
-    }*/
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];  
 }
 
@@ -325,9 +318,8 @@
      {
          NSDictionary *wdata = [[self.widgetsAdded objectAtIndex:fromIndexPath.row] copy];
          [self.widgetsAdded removeObjectAtIndex:fromIndexPath.row];
-         [self.widgetsAdded insertObject:wdata atIndex:toIndexPath.row];         
-         widgetHelperClass *wh = [widgetHelperClass new];
-         [wh setWidgetsListArray:self.widgetsAdded];
+         [self.widgetsAdded insertObject:wdata atIndex:toIndexPath.row];
+         [kDataSingleton setWidgetsListArray:self.widgetsAdded];
      }
      
  }
@@ -507,7 +499,7 @@
     //NSLog(@"widgetType: %@", widgetType);
     //NSLog(@"widgetClass: %@", widgetClass);
     
-    NSMutableDictionary *widget = [NSMutableDictionary dictionaryWithDictionary:[[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetClasses"] objectForKey:widgetClass]];
+    NSMutableDictionary *widget = [NSMutableDictionary dictionaryWithDictionary:[[[kDataSingleton getSettings] objectForKey:@"widgetClasses"] objectForKey:widgetClass]];
     if([self canAddWidget:widgetClass]){
         if(selectedTypeRow == 1)
         {//Configure weather widget
@@ -560,8 +552,7 @@
             
         }
         if(widget!=nil){
-            //NSLog(@"widget data: %@", widget);
-            //NSLog(@"widgetClasses: %@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetClasses"]);
+            
             CGRect frame = CGRectFromString([widget objectForKey:@"frame"]);
             frame.origin.x = 20;
             //Fix for sensitive notification center
@@ -573,7 +564,7 @@
         }
         else {
             NSLog(@"something went wrong");
-            NSLog(@"widgetClasses: %@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetClasses"]);
+            NSLog(@"widgetClasses: %@",[[kDataSingleton getSettings] objectForKey:@"widgetClasses"]);
         }
     }
     if(kIsiOS7){

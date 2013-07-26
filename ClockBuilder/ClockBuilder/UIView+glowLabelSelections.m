@@ -13,9 +13,10 @@
 
 - (UIColor*) getGlowColor
 {
-    if([[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]  objectForKey:@"widgetsList"] count]>0){
-        if([[[NSUserDefaults standardUserDefaults] objectForKey:@"widgetIndex"]integerValue]<[[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]  objectForKey:@"widgetsList"] count]){
-            NSDictionary *widgetData = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]  objectForKey:@"widgetsList"] objectAtIndex:[[[NSUserDefaults standardUserDefaults] objectForKey:@"widgetIndex"]integerValue]];
+    if([[kDataSingleton getSettings] count]>0){
+        if([[[NSUserDefaults standardUserDefaults] objectForKey:@"widgetIndex"]integerValue]<[[kDataSingleton getSettings] count]){
+            NSInteger index =[[[NSUserDefaults standardUserDefaults] objectForKey:@"widgetIndex"]integerValue];
+            NSDictionary *widgetData = [kDataSingleton getWidgetDataFromIndex:index];
             NSData *colorData =[widgetData objectForKey:@"glowColor"];
             if(colorData != nil)
             {

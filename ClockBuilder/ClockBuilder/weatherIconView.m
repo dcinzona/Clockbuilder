@@ -29,7 +29,7 @@ indexInList;
 - (void) refreshWithNewWeatherData
 {
     @autoreleasepool {
-        self.weatherData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"weatherData"];
+        self.weatherData = [[kDataSingleton getSettings] objectForKey:@"weatherData"];
         self.widgetIconSet = [self.weatherData objectForKey:@"weatherIconSet"];        
         if(self.widgetIconSet == nil || [self.widgetIconSet isEqualToString:@""])
         {
@@ -60,7 +60,7 @@ indexInList;
         
         
         NSString *URL;
-        NSString *rackspace = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"cloud"] objectForKey:@"icons"];
+        NSString *rackspace = [[[kDataSingleton getSettings] objectForKey:@"cloud"] objectForKey:@"icons"];
         URL = [NSString stringWithFormat:@"%@/%@/%@%@.png",rackspace,[self.widgetIconSet lowercaseString], self.iconID, dn];
         [self.icon setImageWithURL:[NSURL URLWithString: URL]];
         [self setNeedsDisplay];
@@ -126,8 +126,8 @@ indexInList;
         [self setClearsContextBeforeDrawing:YES];
         //[self setOpaque:YES];
         self.indexInList = index;
-        self.widgetData = [NSMutableDictionary dictionaryWithDictionary:widgetDataDict];
-        self.weatherData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"weatherData"];
+        self.widgetData = [widgetDataDict mutableCopy];
+        self.weatherData = [[kDataSingleton getSettings] objectForKey:@"weatherData"];
         float opacity = [[self.widgetData objectForKey:@"opacity"]floatValue];
         self.icon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         if([self.weatherData objectForKey:@"data"]!=nil)

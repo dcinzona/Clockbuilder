@@ -12,7 +12,7 @@
 @interface widgetHelperClass : NSObject {
     
 }
-
+/*
 -(void)setWidgetData:(NSInteger)index withData:(NSDictionary *)widgetData;
 -(void)addWidgetToList:(NSDictionary *)dict;
 -(void)removeWidgetAtIndex:(NSInteger) index;
@@ -20,7 +20,7 @@
 -(NSArray *)getWidgetsList;
 -(NSObject *)getWidgetDataFromIndex:(NSInteger)index FromKey:(NSString *)keyName;
 -(NSDictionary *)getWidgetDataFromIndex:(NSInteger)index;
-
+*/
 
 
 @end

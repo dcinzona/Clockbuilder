@@ -74,8 +74,8 @@
 
 - (void) refreshData
 {
-    settings = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] mutableCopy];
-    widgetList = [settings objectForKey:@"widgetsList"];
+    settings = [kDataSingleton settings];
+    widgetList = [kDataSingleton getWidgetsListFromSettings];
 }
 
 - (void)viewDidUnload
@@ -171,19 +171,16 @@
     selectedFont = indexPath;
     [tableView cellForRowAtIndexPath:selectedFont].accessoryView = accessory;  
     NSString *font = [[[tableView cellForRowAtIndexPath:indexPath] textLabel]text];
-    NSMutableDictionary *widgetData = [[[[[NSUserDefaults standardUserDefaults] 
-                                         objectForKey:@"settings"] 
-                                        objectForKey:@"widgetsList"] 
-                                         objectAtIndex:[[[NSUserDefaults standardUserDefaults] 
-                                                         objectForKey:@"widgetIndex"] integerValue]
-                                         ]mutableCopy
-                                        ];
-
+    NSMutableDictionary *widgetData = [kDataSingleton getWidgetDataFromIndex:
+                                       [[[NSUserDefaults standardUserDefaults]
+                                         objectForKey:@"widgetIndex"] integerValue]];
+    
     [widgetData setObject:font forKey:@"fontFamily"];
     NSString *index = [[NSUserDefaults standardUserDefaults] objectForKey:@"widgetIndex"];
     
-    [[NSUserDefaults standardUserDefaults]setObject:@"YES" forKey:@"forceRedraw"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"forceRedraw"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [[[UIApplication sharedApplication] delegate] performSelector:@selector(saveWidgetSettings:widgetDataDictionary:) withObject:index withObject:widgetData];
     [self refreshData];
     [self.tableView reloadData];

@@ -34,7 +34,7 @@
 +(void)asyncSaveCurrentActiveThemeToCoreDatawithDict:(NSMutableDictionary *)themeDict andObjectID:(NSString *)objectID;
 
 
-+(NSArray *)getWidgetsListFromFile:(NSString *)themeName;
++(NSMutableArray *)getWidgetsListFromFile:(NSString *)themeName;
 +(BOOL)openTheme:(NSString *)themeName;
 +(NSDictionary *)getThemeDictFromDoc:(NSURL *)fileURL;
 +(UIImage *)getThumbnailFromFile:(NSString *)filePath;

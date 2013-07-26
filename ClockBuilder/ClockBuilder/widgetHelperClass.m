@@ -21,10 +21,7 @@
 
 -(void)saveList:(NSMutableArray *)list
 {
-    NSMutableDictionary *sets = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]];
-    [sets setObject:list forKey:@"widgetsList"];
-    [[NSUserDefaults standardUserDefaults] setObject:sets forKey:@"settings"];    
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[DataSingleton sharedInstance] saveWidgetsListToSettings:list];
 }
 -(void)setWidgetsListArray:(NSArray *)List
 {    
@@ -54,7 +51,7 @@
 }
 -(NSArray *)getWidgetsList
 {
-    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"];//[NSArray arrayWithArray:widgetsList];
+    return [kDataSingleton getWidgetsListFromSettings];//[NSArray arrayWithArray:widgetsList];
 }
 -(NSObject *)getWidgetDataFromIndex:(NSInteger)index FromKey:(NSString *)keyName
 {

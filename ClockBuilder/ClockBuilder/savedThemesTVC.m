@@ -582,14 +582,11 @@ UIImage * resizeImage(UIImage * img, CGSize newSize){
             
             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
             NSString *documentsDirectory = [paths objectAtIndex:0];
-            NSArray *widgetsList = [themeDict objectForKey:@"widgetsList"];
-            NSMutableDictionary *sets = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] mutableCopy]; 
-            if(!sets)
-                sets = [NSMutableDictionary new];
+            NSMutableArray *widgetsList = [themeDict objectForKey:@"widgetsList"];
+            NSMutableDictionary *sets = [kDataSingleton getSettings];
             
             [sets setObject:widgetsList forKey:@"widgetsList"];
-            [[NSUserDefaults standardUserDefaults] setObject:sets forKey:@"settings"];    
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [kDataSingleton setSettings:sets];
             
             //background image
             NSData *background = [themeDict objectForKey:@"LockBackground.png"];
@@ -819,7 +816,7 @@ replacementString:(NSString *)string
         if(![[NSUserDefaults standardUserDefaults] boolForKey:@"blocked"]){
             [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
 
-            NSArray *categoriesArray = [NSArray arrayWithArray:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"categoriesArray"]];
+            NSArray *categoriesArray = [NSArray arrayWithArray:[[kDataSingleton getSettings] objectForKey:@"categoriesArray"]];
             if(categoriesArray!=nil && categoriesArray.count > 0){
                 _pickerVisible = YES;
                 [self showCategoriesPickerWithCloseBlock:^(NSString *inputString) {
@@ -1013,7 +1010,7 @@ replacementString:(NSString *)string
     
     [CBThemeHelper dismissPicker:pickerView fromUITableView:self.tableView onCompletion:^{
         NSUInteger selectedRow = [pickerView selectedRowInComponent:0];
-        NSArray *list = [NSArray arrayWithArray:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"categoriesArray"]];
+        NSArray *list = [NSArray arrayWithArray:[[kDataSingleton getSettings] objectForKey:@"categoriesArray"]];
         NSString *selected = [list objectAtIndex:selectedRow];
         self.closeBlock(selected);
         pickerAS = nil;
@@ -1031,12 +1028,12 @@ replacementString:(NSString *)string
 }
 
 - (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component {
-    return [[NSArray arrayWithArray:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"categoriesArray"]] count];
+    return [[NSArray arrayWithArray:[[kDataSingleton getSettings] objectForKey:@"categoriesArray"]] count];
 }
 
 - (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     
-    NSArray *list = [NSArray arrayWithArray:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"categoriesArray"]];
+    NSArray *list = [NSArray arrayWithArray:[[kDataSingleton getSettings] objectForKey:@"categoriesArray"]];
     return [[list objectAtIndex:row] capitalizedString];
 }
 
@@ -1047,7 +1044,7 @@ replacementString:(NSString *)string
     {
         label = [[UILabel alloc] init];
     }
-    NSArray *list = [NSArray arrayWithArray:[[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"categoriesArray"]];
+    NSArray *list = [NSArray arrayWithArray:[[kDataSingleton getSettings] objectForKey:@"categoriesArray"]];
     [label setText:[[list objectAtIndex:row] capitalizedString]];
     [label setShadowColor:[UIColor whiteColor]];
     [label setShadowOffset:CGSizeMake(1, 1)];

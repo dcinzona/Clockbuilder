@@ -78,7 +78,7 @@ weatherData;
 -(NSInteger)firstTextWidget
 {
     NSInteger x = 0;
-    for(NSDictionary *dic in [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"])
+    for(NSMutableDictionary *dic in [kDataSingleton getWidgetsListFromSettings])
     {
         if([[dic objectForKey:@"class"]isEqualToString:@"textBasedWidget"])
             return x;
@@ -90,9 +90,9 @@ weatherData;
 
 - (void) initVariables
 {
-    self.settings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] ];
-    self.widgetsList = [NSMutableArray arrayWithArray:[self.settings  objectForKey:@"widgetsList"] ] ;
-    self.widgetData = [NSMutableDictionary dictionaryWithDictionary:[self.widgetsList objectAtIndex:[self firstTextWidget]]];
+    self.settings = [kDataSingleton getSettings];
+    self.widgetsList = [kDataSingleton getWidgetsListFromSettings];
+    self.widgetData = [kDataSingleton getWidgetDataFromIndex:[self.widgetsList objectAtIndex:[self firstTextWidget]]];
     self.weatherData = [self.settings objectForKey:@"weatherData"];
     [self.tableView reloadData];
 }
@@ -119,8 +119,7 @@ weatherData;
     if(_shouldUpdate)
     {
         [self.settings setObject:a forKey:@"widgetsList"];
-        [[NSUserDefaults standardUserDefaults] setObject:self.settings forKey:@"settings"];
-        [[NSUserDefaults standardUserDefaults]synchronize];
+        [kDataSingleton setSettings:self.settings];
         if(kIsIpad)
             [AppDelegate.viewController performSelector:@selector(refreshViews)];
         [self initVariables];

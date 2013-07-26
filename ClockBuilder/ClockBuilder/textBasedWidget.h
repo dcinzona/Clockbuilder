@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSDictionary *weatherData;
 @property (strong, nonatomic) NSNumber *indexInList;
 @property (strong,nonatomic) NSTimer *timer;
+@property (strong, nonatomic) NSMutableArray *widgetsList;
 
 
 - (NSNumber *) getIndexInList;

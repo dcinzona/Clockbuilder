@@ -26,6 +26,7 @@
 #import "UIAlertViewBlock.h"
 #import "NSString+FontAwesome.h"
 #import "FAImageView.h"
+#import "DataSingleton.h"
 
 #define kCoreDataStoreName @"clockbuilderdb.sqlite"
 #define kCoreDataStoreNameiPad @"clockbuilderdb-ipad.sqlite"
@@ -44,5 +45,10 @@
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kJpegifierURL @"/var/mobile/Library/SpringBoard/LockBackground.jpg"
 #define kJpegifierURLLegacy @"/var/mobile/Library/SpringBoard/Converted-LockBackground.jpg"
+
+//QUEUES
+#define kDataSingleton [DataSingleton sharedInstance]
+#define kSaveSettingsQueue "com.gmtaz.clockbuilder.saveSettings"
+
 
 #endif

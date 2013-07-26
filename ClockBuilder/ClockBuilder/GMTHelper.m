@@ -662,8 +662,7 @@ static dispatch_queue_t serialQueue;
     }
     else {
         //[self alertNotConnected];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSMutableDictionary * settingsD = [[defaults objectForKey:@"settings"] mutableCopy];
+        NSMutableDictionary * settingsD = [kDataSingleton getSettings];
         catArray = [NSMutableSet setWithArray:[NSArray arrayWithArray:[settingsD objectForKey:@"categoriesArray"]]];
     }
 #ifdef DEBUG
@@ -671,21 +670,14 @@ static dispatch_queue_t serialQueue;
 #endif
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
     NSArray *sortedArray = [catArray sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary * settingsD = [[defaults objectForKey:@"settings"] mutableCopy];
+    NSMutableDictionary * settingsD = [kDataSingleton getSettings];
     [settingsD setObject:sortedArray forKey:@"categoriesArray"];
-    [defaults setObject:settingsD forKey:@"settings"];
-    [defaults synchronize];
-    
-    
     return sortedArray;
 }
 -(NSArray *)getCategoriesArray{
     
     NSMutableSet *catArray;
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary * settingsD = [[defaults objectForKey:@"settings"] mutableCopy];
+    NSMutableDictionary * settingsD = [kDataSingleton getSettings];
     catArray = [NSMutableSet setWithArray:[NSArray arrayWithArray:[settingsD objectForKey:@"categoriesArray"]]];
     if(catArray==nil || catArray.count <6){
         return [self updateCategoriesArrayFromOnline];

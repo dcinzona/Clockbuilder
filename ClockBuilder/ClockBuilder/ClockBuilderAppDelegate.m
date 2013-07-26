@@ -270,33 +270,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    //[TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueGlobalDeviceIdentifier]];
-    //[TestFlight takeOff:@"17e119d1814f0c72f428260b28493953_MTA4OTMyMDExLTA3LTI3IDA3OjE3OjAzLjE4MzAzNQ"];
-    //NSString* appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-    //NSLog(@"appID: %@", appID);
-    
-    //NSLog(@"UDID: %@", [OpenUDID value]);
     
     [self performSelector:@selector(setDefaults)];
-    
+    kDataSingleton;
     [GMTHelper sharedInstance];
-    /*
-    [Parse setApplicationId:@"UWwoyManEfwJlNCoL5sngfkiFdxzpt8Mwj8ZhFCe" 
-                  clientKey:@"RZLlT8odSR9QGMSZLz7pmlVHJGGalBrUyUuUrJLG"];
-     */
     
     th = [themeConverter new];
-    /*
-    DBSession *session = [[DBSession alloc] initWithAppKey:kTICDDropboxSyncKey appSecret:kTICDDropboxSyncSecret root:kDBRootAppFolder];
-	[session setDelegate:self];
-	[DBSession setSharedSession:session];
-    if( [session isLinked] ) {
-        //[self registerSyncManager];
-        [session unlinkAll];
-    } 
-     */
-    //[TICDSLog setVerbosity:TICDSLogVerbosityEveryStep];
     
     BOOL statusBarPref = YES;
     
@@ -310,12 +289,6 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"forceRedraw"];    
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self setScreenVisible:@"YES"];
-    
-    
-    
-    
-    //DefaultSHKConfigurator *configurator = [[SHKClockbuilderConfiguration alloc] init];
-    //[SHKConfiguration sharedInstanceWithConfigurator:configurator];
     
     
     self.window.rootViewController = self.viewController;
@@ -724,10 +697,10 @@
 -(void)runTimer
 {
     //if(ScreenVisible){
-        NSArray *widgetsList = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"];        
+        NSMutableArray *widgetsList = [kDataSingleton getWidgetsListFromSettings];
         if([widgetsList count]>0 ){
-            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-            dispatch_async(queue, ^{
+            //dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+            //dispatch_async(queue, ^{
                 if (_viewController.view !=nil) {
                     NSArray *subv = [NSArray arrayWithArray:[_viewController.view subviews]];
                     
@@ -738,7 +711,7 @@
                         }
                     }
                 }
-            });
+            //});
         }
     //}
 }
@@ -747,15 +720,13 @@
 - (void) saveWeatherSettings:(NSDictionary *)weatherData
 {
     
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-    dispatch_async(queue, ^{
+    //dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
+    //dispatch_async(queue, ^{
         
-        NSMutableDictionary *sets = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] mutableCopy];
+        NSMutableDictionary *sets = [kDataSingleton settings];
         [sets setObject:weatherData forKey:@"weatherData"];
-        [[NSUserDefaults standardUserDefaults] setObject:sets forKey:@"settings"];    
-        [[NSUserDefaults standardUserDefaults] synchronize];
         
-    });
+    //});
 }
 
 - (UIView *)getWidgetToRedraw:(NSString *)widgetIndexString
@@ -769,8 +740,8 @@
 
 -(void) activateTheme:(NSArray *)widgetsArray
 {
-    NSArray *tempArray = [NSArray arrayWithArray:widgetsArray];
-    [widgetHelper setWidgetsListArray:tempArray];
+    NSMutableArray *tempArray = [widgetsArray mutableCopy];
+    [kDataSingleton setWidgetsListArray:tempArray];
     for(NSDictionary* widget in tempArray)
     {
         if([[widget objectForKey:@"subClass"]isEqualToString:@"weather"]){  
@@ -805,10 +776,11 @@
 
 - (void) saveWidgetSettings:(NSString *)widgetIndexString widgetDataDictionary:(NSDictionary *)widgetData
 {
-    dispatch_queue_t queue = dispatch_queue_create("com.gmtaz.Clockbuilder.SavingWidgetData", NULL);
+    dispatch_queue_t queue = dispatch_queue_create(kSaveSettingsQueue, NULL);
     dispatch_async(queue, ^{
-    
-        [widgetHelper setWidgetData:[widgetIndexString intValue] withData:widgetData];
+        
+        [kDataSingleton setWidgetData:[widgetIndexString intValue]
+                                             withData:[widgetData mutableCopy]];
         
         BOOL redraw = [[[NSUserDefaults standardUserDefaults] objectForKey:@"forceRedraw"] boolValue];
         
@@ -826,7 +798,7 @@
 }
 - (void) addWidgetToArray:(NSDictionary *)widgetData
 {
-    [widgetHelper addWidgetToList:widgetData];
+    [[DataSingleton sharedInstance] addWidgetToList:[widgetData mutableCopy]];
 }
 
 - (void) refreshBG
@@ -836,9 +808,9 @@
 
 - (void) resetTheme{
     
-    NSMutableArray *ar = [[widgetHelper getWidgetsList] mutableCopy];
+    NSMutableArray *ar = [[[DataSingleton sharedInstance] getWidgetsListFromSettings] mutableCopy];
     [ar removeAllObjects];
-    [widgetHelper setWidgetsListArray:[NSArray arrayWithArray:ar]];
+    [[DataSingleton sharedInstance] setWidgetsListArray:ar];
     
     for(UIView *v in _viewController.view.subviews)
     {
@@ -851,7 +823,7 @@
 #pragma mark generic methods
 - (void)showHideToolbar
 {
-    if([[[[NSUserDefaults standardUserDefaults]objectForKey:@"settings"] objectForKey:@"widgetsList"] count]==0){
+    if([[kDataSingleton getWidgetsListFromSettings] count]==0){
         [_viewController.showToolbar setHidden:YES];
         [_viewController.toolbar setHidden:NO];
     }
@@ -887,29 +859,21 @@
     if([[NSUserDefaults standardUserDefaults] objectForKey:@"rotateWallpaper"]==nil)
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"rotateWallpaper"];
     
-    NSString *settingsPath = [[NSBundle mainBundle] pathForResource:@"settings" ofType:@"plist"];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary *sets = [NSMutableDictionary dictionaryWithDictionary:[defaults objectForKey:@"settings"]];
-    //NSLog(@"setttings.count: %i", sets.count);
-    if(!sets || sets.count < 1){
-        sets = [NSMutableDictionary dictionaryWithContentsOfFile:settingsPath];
-    }
-    else{
-        NSDictionary *replacementDict = [NSDictionary dictionaryWithContentsOfFile:settingsPath];
-        NSArray *updates = [replacementDict objectForKey:@"updatedConstants"];
-        for(NSString *str in updates)
-        {
-            [sets setObject:[replacementDict objectForKey:str] forKey:str];
-        }
-        if([sets objectForKey:@"slidesArray"]==nil)
-            [sets setObject:[replacementDict objectForKey:@"slidesArray"] forKey:@"slidesArray"];
-        
-    }   
-    //NSLog(@"sets: %@", sets);
+    NSMutableDictionary *sets = [kDataSingleton getSettings];
     
-    [defaults setObject:sets forKey:@"settings"];   
-    if([defaults synchronize])
-        [weatherSingleton sharedInstance];
+    NSString *settingsPath = [[NSBundle mainBundle] pathForResource:@"settings" ofType:@"plist"];
+    NSDictionary *replacementDict = [NSDictionary dictionaryWithContentsOfFile:settingsPath];
+    NSArray *updates = [replacementDict objectForKey:@"updatedConstants"];
+    for(NSString *str in updates)
+    {
+        [sets setObject:[replacementDict objectForKey:str] forKey:str];
+    }
+    if([sets objectForKey:@"slidesArray"]==nil)
+        [sets setObject:[replacementDict objectForKey:@"slidesArray"] forKey:@"slidesArray"];
+
+    
+    //NSLog(@"sets: %@", sets);
+    [weatherSingleton sharedInstance];
     [self getCategoriesArray];
     [self showHideToolbar];
 }
@@ -936,11 +900,10 @@
                 if([widget tag]>9)
                 {
                     NSInteger index = widget.tag - 10;
-                    NSArray *widgetsList = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"];
+                    NSMutableArray *widgetsList = [kDataSingleton getWidgetsListFromSettings];
                     if(index<widgetsList.count){
                         NSString *cls = [[widgetsList objectAtIndex:index] objectForKey:@"subClass"];
                         if([cls isEqualToString:@"weather"]){
-                            //[widget performSelectorInBackground:@selector(refreshWithNewWeatherData) withObject:nil];
                             [widget performSelector:@selector(refreshWithNewWeatherData)];
                             if([widget respondsToSelector:@selector(updateViewWeather)])
                                 [widget performSelector:@selector(updateViewWeather)];
@@ -957,8 +920,8 @@
 
 -(BOOL)isThereAWeatherWidget
 {
-    NSArray *widgetsList = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"];
-    for(NSDictionary* widget in widgetsList)
+    NSMutableArray *widgetsList = [kDataSingleton getWidgetsListFromSettings];
+    for(NSMutableDictionary* widget in widgetsList)
     {
         if([[widget objectForKey:@"subClass"]isEqualToString:@"weather"])
             return true;
@@ -1043,8 +1006,9 @@
         [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"screenWasVisible"];
     else
         [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"screenWasVisible"];
-        
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [kDataSingleton saveSettingsToDefaults];
+    
     
     //[getWeather stop]; 
 }
@@ -1096,6 +1060,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     
+    [kDataSingleton saveSettingsToDefaults];
     [_viewController viewWillDisappear:YES];
     
 }
@@ -1107,6 +1072,7 @@
      See also applicationDidEnterBackground:.
      */ 
     [self saveContext];
+    [kDataSingleton saveSettingsToDefaults];
     application.idleTimerDisabled = NO;
     //[getWeather stop];
 }

@@ -79,8 +79,8 @@
 
 - (void) refreshData
 {
-    settings = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]];
-    widgetList = [settings objectForKey:@"widgetsList"];
+    settings = [kDataSingleton settings];
+    widgetList = [kDataSingleton getWidgetsListFromSettings];
 }
 
 - (void)viewDidUnload
@@ -190,13 +190,8 @@
         [tableView cellForRowAtIndexPath:selectedFont].accessoryType = UITableViewCellAccessoryCheckmark;
     }
     NSString *font = [[[tableView cellForRowAtIndexPath:indexPath] textLabel]text];
-    NSMutableDictionary *widgetData = [[[[[NSUserDefaults standardUserDefaults] 
-                                          objectForKey:@"settings"] 
-                                         objectForKey:@"widgetsList"] 
-                                        objectAtIndex:[[[NSUserDefaults standardUserDefaults] 
-                                                        objectForKey:@"widgetIndex"] integerValue]
-                                        ]mutableCopy
-                                       ];
+    NSMutableDictionary *widgetData = [kDataSingleton getWidgetDataFromIndex:[[[NSUserDefaults standardUserDefaults]
+                                                                               objectForKey:@"widgetIndex"] integerValue]];
     
     [widgetData setObject:font forKey:@"fontFamily"];
     NSString *index = [[NSUserDefaults standardUserDefaults] objectForKey:@"widgetIndex"];

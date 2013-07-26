@@ -75,12 +75,12 @@ weatherData;
 
 - (void) initVariables
 {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
-    self.settings = [NSMutableDictionary dictionaryWithDictionary:[prefs objectForKey:@"settings"] ];
-    self.widgetsList = [NSMutableArray arrayWithArray:[self.settings  objectForKey:@"widgetsList"] ] ;
+    self.settings = [kDataSingleton getSettings];
+    self.widgetsList = [kDataSingleton getWidgetsListFromSettings];
     self.widgetData = [NSMutableDictionary dictionaryWithDictionary:
-                       [self.widgetsList objectAtIndex:[[prefs objectForKey:@"widgetIndex"] integerValue]]];
+                       [kDataSingleton getWidgetDataFromIndex: [[[NSUserDefaults standardUserDefaults] objectForKey:@"widgetIndex"] integerValue]]];
+    
     self.weatherData = [self.settings objectForKey:@"weatherData"];
 }
 

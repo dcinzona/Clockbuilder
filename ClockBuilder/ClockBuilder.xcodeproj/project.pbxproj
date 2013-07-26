@@ -758,6 +758,7 @@
 		CBFB25A015D5D7E000DD97AF /* dark_wall@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = CBFB259E15D5D7E000DD97AF /* dark_wall@2X.png */; };
 		CBFB25A315D5D7F700DD97AF /* px.png in Resources */ = {isa = PBXBuildFile; fileRef = CBFB25A115D5D7F700DD97AF /* px.png */; };
 		CBFB25A415D5D7F700DD97AF /* px@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = CBFB25A215D5D7F700DD97AF /* px@2X.png */; };
+		CBFE921817A204930069B308 /* DataSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFE921717A204930069B308 /* DataSingleton.m */; };
 		CBFEAA401328726600368917 /* RRSGlowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFEAA3F1328726500368917 /* RRSGlowLabel.m */; };
 /* End PBXBuildFile section */
 
@@ -1686,6 +1687,8 @@
 		CBFB259E15D5D7E000DD97AF /* dark_wall@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dark_wall@2X.png"; sourceTree = "<group>"; };
 		CBFB25A115D5D7F700DD97AF /* px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = px.png; sourceTree = "<group>"; };
 		CBFB25A215D5D7F700DD97AF /* px@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "px@2X.png"; sourceTree = "<group>"; };
+		CBFE921617A204930069B308 /* DataSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSingleton.h; sourceTree = "<group>"; };
+		CBFE921717A204930069B308 /* DataSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSingleton.m; sourceTree = "<group>"; };
 		CBFEAA3E1328726500368917 /* RRSGlowLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRSGlowLabel.h; sourceTree = "<group>"; };
 		CBFEAA3F1328726500368917 /* RRSGlowLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRSGlowLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2764,6 +2767,8 @@
 				766EC2111510F12D00BEDD2E /* CBThemeHelper.m */,
 				CB34C2151788A00700795165 /* UIAlertViewBlock.h */,
 				CB34C2161788A00700795165 /* UIAlertViewBlock.m */,
+				CBFE921617A204930069B308 /* DataSingleton.h */,
+				CBFE921717A204930069B308 /* DataSingleton.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -3808,6 +3813,7 @@
 				CB3D54471363CB0F002659E0 /* widgetTools.m in Sources */,
 				CB3D544B1363DAEE002659E0 /* toolsFontButton.m in Sources */,
 				CBCCD9EB1364D42B00311725 /* toolsTextAlignButton.m in Sources */,
+				CBFE921817A204930069B308 /* DataSingleton.m in Sources */,
 				CBCCD9EE1364F34F00311725 /* toolsTextTransformButton.m in Sources */,
 				CBCCD9F11364FF5D00311725 /* toolsTextColorButton.m in Sources */,
 				764291B71365A3830020F415 /* toolsTextGlowButton.m in Sources */,

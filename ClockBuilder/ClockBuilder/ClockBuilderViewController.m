@@ -380,8 +380,8 @@
 
 
 - (void) initWidgetsArray
-{    
-    self.widgetsAdded = [widgetHelper getWidgetsList];
+{
+    self.widgetsAdded = [kDataSingleton getWidgetsListFromSettings];
 }
 
 -(void) runTimer 
@@ -766,9 +766,9 @@
 - (void)initWidget:(UIView *)v index:(NSInteger)i{
     if([self.widgetsAdded count] > 0){
         
-        NSDictionary *wd = [[widgetHelper getWidgetsList] objectAtIndex:i];
+        NSMutableDictionary *wd = [[kDataSingleton getWidgetsListFromSettings] objectAtIndex:i];
         if([[wd objectForKey:@"didRotate"] boolValue]){
-            NSString *rotationAmount = [[[widgetHelper getWidgetsList] objectAtIndex:i] objectForKey:@"rotateAmount"];
+            NSString *rotationAmount = [[[kDataSingleton getWidgetsListFromSettings] objectAtIndex:i] objectForKey:@"rotateAmount"];
             NSLog(@"rotate amount: %@",rotationAmount);
             
             float rotation = [rotationAmount floatValue];
@@ -806,8 +806,8 @@
 - (void) addWidgetToView:(NSString *)cls index:(NSInteger)i
 {
     //NSLog(@"adding widget: %d",i);
-    if([widgetHelper getWidgetsList] > 0){
-        CGRect frame = CGRectFromString([[[widgetHelper getWidgetsList] objectAtIndex:i] objectForKey:@"frame"]);
+    if([kDataSingleton getWidgetsListFromSettings] > 0){
+        CGRect frame = CGRectFromString([[[kDataSingleton getWidgetsListFromSettings] objectAtIndex:i] objectForKey:@"frame"]);
 
         if([cls isEqualToString:@"weatherIconView"])
         {
@@ -822,18 +822,18 @@
             }
             if(renderClimacons){
                 
-                textBasedWidget *v = [[textBasedWidget alloc] initWithFrame:frame widgetData:[[widgetHelper getWidgetsList] objectAtIndex:i] indexValue:[NSNumber numberWithInt:i]];
+                textBasedWidget *v = [[textBasedWidget alloc] initWithFrame:frame widgetData:[[kDataSingleton getWidgetsListFromSettings] objectAtIndex:i] indexValue:[NSNumber numberWithInt:i]];
                 [self initWidget:v index:i];
                 [v setClipsToBounds:NO];
                 
             }
             else{
-                weatherIconView *v = [[weatherIconView alloc] initWithFrame:frame widgetData:[[widgetHelper getWidgetsList] objectAtIndex:i] indexValue:[NSNumber numberWithInt:i]];
+                weatherIconView *v = [[weatherIconView alloc] initWithFrame:frame widgetData:[[kDataSingleton getWidgetsListFromSettings] objectAtIndex:i] indexValue:[NSNumber numberWithInt:i]];
                 [self initWidget:v index:i];
             }
         }
         if ([cls isEqualToString:@"textBasedWidget"]) {
-            textBasedWidget *v = [[textBasedWidget alloc] initWithFrame:frame widgetData:[[widgetHelper getWidgetsList] objectAtIndex:i] indexValue:[NSNumber numberWithInt:i]];
+            textBasedWidget *v = [[textBasedWidget alloc] initWithFrame:frame widgetData:[[kDataSingleton getWidgetsListFromSettings] objectAtIndex:i] indexValue:[NSNumber numberWithInt:i]];
             [self initWidget:v index:i];
             [v setClipsToBounds:NO];
         }
@@ -890,7 +890,7 @@
         NSInteger index = [self getIndexFromView:widget];
         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",index] forKey:@"widgetIndex"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        NSArray *widgetList = [widgetHelper getWidgetsList];
+        NSArray *widgetList = [kDataSingleton getWidgetsListFromSettings];
         NSDictionary *data = [widgetList objectAtIndex:index];        
         data = [self.widgetSelected performSelector:@selector(getWidgetData)];//[[[widgetHelper getWidgetsList] objectAtIndex:index] mutableCopy];
         tools.widgetData = data;
@@ -939,21 +939,21 @@
 
 -(void)setWeatherIconCurrent
 {
-    NSMutableDictionary *widgetData = [[widgetHelper getWidgetDataFromIndex:self.widgetSelected.tag-10 ]
+    NSMutableDictionary *widgetData = [[kDataSingleton getWidgetDataFromIndex:self.widgetSelected.tag-10 ]
                                        mutableCopy];
     [widgetData setObject:@"current" forKey:@"forecast"];        
     [self performSelector:@selector(saveWeatherIconWidgetData:) withObject:widgetData];    
 }
 -(void)setWeatherIconToday
 {
-    NSMutableDictionary *widgetData = [[widgetHelper getWidgetDataFromIndex:self.widgetSelected.tag-10 ]
+    NSMutableDictionary *widgetData = [[kDataSingleton getWidgetDataFromIndex:self.widgetSelected.tag-10 ]
                                        mutableCopy];
     [widgetData setObject:@"today" forKey:@"forecast"];        
     [self performSelector:@selector(saveWeatherIconWidgetData:) withObject:widgetData];    
 }
 -(void)setWeatherIconTomorrow
 {
-    NSMutableDictionary *widgetData = [[widgetHelper getWidgetDataFromIndex:self.widgetSelected.tag-10 ]
+    NSMutableDictionary *widgetData = [[kDataSingleton getWidgetDataFromIndex:self.widgetSelected.tag-10 ]
                                        mutableCopy];
     [widgetData setObject:@"tomorrow" forKey:@"forecast"];        
     [self performSelector:@selector(saveWeatherIconWidgetData:) withObject:widgetData];    
@@ -981,7 +981,7 @@
 
 -(void)toggleToolsType
 {
-    NSString *selectedWidgetClass = (NSString*)[widgetHelper getWidgetDataFromIndex:[self.widgetSelected tag]-10 FromKey:@"type"];
+    NSString *selectedWidgetClass = (NSString*)[kDataSingleton getWidgetDataFromIndex:[self.widgetSelected tag]-10 FromKey:@"type"];
 
     if(_textToolsVisible)
     {
@@ -1025,7 +1025,7 @@
     {
         _toolsOpen = TRUE;
         
-        NSString *selectedWidgetClass = (NSString*)[widgetHelper getWidgetDataFromIndex:[self.widgetSelected tag]-10 FromKey:@"type"];
+        NSString *selectedWidgetClass = (NSString*)[kDataSingleton getWidgetDataFromIndex:[self.widgetSelected tag]-10 FromKey:@"type"];
         if(![selectedWidgetClass isEqualToString:@"imageWidget"] || [[weatherSingleton sharedInstance] isClimacon])
         {
             [tools openTextTools];
@@ -1215,11 +1215,11 @@
     //[[[UIApplication sharedApplication] delegate] performSelector:@selector(setScreenVisible:) withObject:@"NO"];
     
     [self setOriginalWidgetIndex:piece];
-    NSArray *widgetList = [widgetHelper getWidgetsList];
+    NSMutableArray *widgetList = [kDataSingleton getWidgetsListFromSettings];
     NSInteger index = [self getIndexFromView:piece];
     NSMutableDictionary *widget = [[widgetList objectAtIndex:index] mutableCopy];
     [widget setObject:NSStringFromCGRect(frame) forKey:@"frame"];
-    [widgetHelper setWidgetData:index withData:widget];        
+    [kDataSingleton setWidgetData:index withData:widget];
     [self addWidgetToView:[widget objectForKey:@"class"] index:index];    
     [piece removeFromSuperview];
     
@@ -1510,7 +1510,7 @@
             if(_toolsOpen)
                 [self performSelector:@selector(toggleToolsType)];
             else{
-                NSString *selectedWidgetClass = (NSString*)[widgetHelper getWidgetDataFromIndex:[self.widgetSelected tag]-10 FromKey:@"type"];
+                NSString *selectedWidgetClass = (NSString*)[kDataSingleton getWidgetDataFromIndex:[self.widgetSelected tag]-10 FromKey:@"type"];
                 if(![selectedWidgetClass isEqualToString:@"imageWidget"] || [[weatherSingleton sharedInstance] isClimacon])
                 {
                     [self toggleTools];
@@ -1553,7 +1553,7 @@
 {
     [self initWidgetsArray];
     
-    for( NSInteger y = 0; y<[[widgetHelper getWidgetsList] count]; y++ )
+    for( NSInteger y = 0; y<[[kDataSingleton getWidgetsListFromSettings] count]; y++ )
     {        
         UIView *v = [self.view.subviews objectAtIndex:y+2];
         [v setTag:y+10];
@@ -1565,7 +1565,7 @@
 - (void)removePiece:(UIMenuController *)controller
 {
     [self resignFirstResponder];    
-    [widgetHelper removeWidgetAtIndex:[self getIndexFromView:pieceForReset]];
+    [kDataSingleton removeWidgetAtIndex:[self getIndexFromView:pieceForReset]];
     [self selectWidget:nil];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(queue, ^{
@@ -1676,7 +1676,7 @@
                 
                 if(_toolsOpen){
                     //check if widget being dragged was not imageWidget                    
-                    NSString *selectedWidgetClass = (NSString*)[widgetHelper getWidgetDataFromIndex:[self.widgetSelected tag]-10 FromKey:@"type"];
+                    NSString *selectedWidgetClass = (NSString*)[kDataSingleton getWidgetDataFromIndex:[self.widgetSelected tag]-10 FromKey:@"type"];
                     
                     if( ![selectedWidgetClass isEqualToString:@"imageWidget"] || [[weatherSingleton sharedInstance] isClimacon])
                     {
@@ -1721,6 +1721,8 @@
         [self showWidgetCoordinates:self.widgetSelected];
         [slider setValue:1];
     }
+    
+    [kDataSingleton setWidgetData:[[self.widgetSelected performSelector:@selector(getIndexInList) withObject:nil] intValue] withData:[(textBasedWidget *)(self.widgetSelected) widgetData]];
 }
 
 
@@ -1746,7 +1748,7 @@
         }
         
         [widgetData setObject:opS forKey:@"opacity"];
-        [widgetHelper setWidgetData:index withData:widgetData];
+        [kDataSingleton setWidgetData:index withData:widgetData];
     }
 }
 -(void)showCoordinates{
@@ -1837,7 +1839,7 @@
     [widgetData setObject:fontFamily forKey:@"fontFamily"];
     NSInteger newFontSize = (NSInteger)[self.widgetSelected performSelector:@selector(updateFontForText:) withObject:fontFamily];
     [widgetData setObject:[NSString stringWithFormat:@"%i", newFontSize] forKey:@"fontSize"];    
-    [widgetHelper setWidgetData:index withData:widgetData];    
+    [kDataSingleton setWidgetData:index withData:widgetData];
     [tools.fontButton.fontButtonLabel setFont:[UIFont fontWithName:fontFamily 
                                                               size:tools.fontButton.fontButtonLabel.frame.size.height *.8]];
 }
@@ -1847,7 +1849,7 @@
     NSInteger index = self.widgetSelected.tag-10;
     NSMutableDictionary *widgetData = [self.widgetSelected performSelector:@selector(getWidgetData)];//[[[widgetHelper getWidgetsList] objectAtIndex:index] mutableCopy];
     [widgetData setObject:alignment forKey:@"textalignment"];    
-    [widgetHelper setWidgetData:index withData:widgetData]; 
+    [kDataSingleton setWidgetData:index withData:widgetData];
     [self.widgetSelected performSelector:@selector(setTextAlignmentTo:) withObject:alignment];
 }
 
@@ -1857,7 +1859,7 @@
     NSInteger index = self.widgetSelected.tag-10;
     NSMutableDictionary *widgetData = [self.widgetSelected performSelector:@selector(getWidgetData)];//[[[widgetHelper getWidgetsList] objectAtIndex:index] mutableCopy];
     [widgetData setObject:trans forKey:@"textTransform"];    
-    [widgetHelper setWidgetData:index withData:widgetData];        
+    [kDataSingleton setWidgetData:index withData:widgetData];
     [self.widgetSelected performSelector:@selector(setTextTransformTo:) withObject:trans];
 }
 
@@ -1874,7 +1876,7 @@
     NSMutableDictionary *widgetData = [self.widgetSelected performSelector:@selector(getWidgetData)];//[[[widgetHelper getWidgetsList] objectAtIndex:index] mutableCopy];
     NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:newColor]; 
     [widgetData setObject:colorData forKey:@"fontColor"];    
-    [widgetHelper setWidgetData:index withData:widgetData];        
+    [kDataSingleton setWidgetData:index withData:widgetData];
     [tools.colorButton updateBorderColor:newColor];
 }
 
@@ -1889,7 +1891,7 @@
     NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:newColor]; 
     [widgetData setObject:colorData forKey:@"glowColor"];    
     [widgetData setObject:intensity forKey:@"glowAmount"];
-    [widgetHelper setWidgetData:index withData:widgetData];        
+    [kDataSingleton setWidgetData:index withData:widgetData];
     [tools.glowButton updateGlow:newColor intensity:[intensity floatValue]];
 }
 
@@ -1899,7 +1901,7 @@
     NSInteger index = self.widgetSelected.tag-10;
     NSMutableDictionary *widgetData = [self.widgetSelected performSelector:@selector(getWidgetData)];//[[[widgetHelper getWidgetsList] objectAtIndex:index] mutableCopy];
     [widgetData setObject:dt forKey:@"dateFormatOverride"];    
-    [widgetHelper setWidgetData:index withData:widgetData]; 
+    [kDataSingleton setWidgetData:index withData:widgetData];
     NSDictionary *wd = [NSDictionary dictionaryWithDictionary:widgetData];
     [self.widgetSelected performSelector:@selector(setNewWidgetData:) withObject:wd];
 }
@@ -1907,12 +1909,12 @@
 
 -(void)saveTextWeatherWidgetData:(NSDictionary *)data
 {
-    [widgetHelper setWidgetData:self.widgetSelected.tag-10 withData:data];
+    [kDataSingleton setWidgetData:self.widgetSelected.tag-10 withData:[data mutableCopy]];
     [self.widgetSelected performSelector:@selector(setNewWidgetData:) withObject:data];
 }
 -(void)saveWeatherIconWidgetData:(NSDictionary *)data
 {
-    [widgetHelper setWidgetData:self.widgetSelected.tag-10 withData:data];
+    [kDataSingleton setWidgetData:self.widgetSelected.tag-10 withData:[data mutableCopy]];
     [self.widgetSelected performSelector:@selector(setNewWidgetData:) withObject:data];
 }
 

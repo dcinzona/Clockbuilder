@@ -347,9 +347,9 @@
         NSData *thumbnail = UIImageJPEGRepresentation(imageThumb, 70);
         NSData *background = UIImagePNGRepresentation(bgImage);
         NSData *backgroundThumb = UIImagePNGRepresentation(bgImageThumb);
-        NSDictionary *widgetsList = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"];
+        NSMutableArray *widgetsList = [kDataSingleton getWidgetsListFromSettings];
         
-        NSMutableDictionary *themeDict = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *themeDict = [NSMutableDictionary new];
         if(thumbnail!=nil)
         [themeDict setObject:thumbnail forKey:@"themeScreenshot.jpg"];
         if(background!=nil)
@@ -755,7 +755,7 @@
             NSData *thumbnail = UIImageJPEGRepresentation(imageThumb, 70);
             NSData *background = UIImagePNGRepresentation(bgImage);
             NSData *backgroundThumb = UIImagePNGRepresentation(bgImageThumb);
-            NSDictionary *widgetsList = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"];
+            NSMutableArray *widgetsList = [kDataSingleton getWidgetsListFromSettings];
             
             NSMutableDictionary *themeDict = [[NSMutableDictionary alloc] init];
             if(widgetsList!=nil)
@@ -807,7 +807,7 @@
             NSData *thumbnail = UIImageJPEGRepresentation(imageThumb, 70);
             NSData *background = UIImagePNGRepresentation(bgImage);
             NSData *backgroundThumb = UIImagePNGRepresentation(bgImageThumb);
-            NSDictionary *widgetsList = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] objectForKey:@"widgetsList"];
+            NSMutableArray *widgetsList = [kDataSingleton getWidgetsListFromSettings];
             
             NSMutableDictionary *themeDict = [[NSMutableDictionary alloc] init];
             if(widgetsList!=nil)
@@ -943,7 +943,7 @@
         NSData *thumbnail = [themeDict objectForKey:@"themeScreenshot.jpg"];
         NSData *background = UIImagePNGRepresentation(bgImage);
         NSData *backgroundThumb = UIImagePNGRepresentation(bgImageThumb);
-        NSDictionary *widgetsList = [themeDict objectForKey:@"widgetsList"];
+        NSMutableArray * widgetsList = [themeDict objectForKey:@"widgetsList"];
         [themeDictMutable setObject:backgroundThumb forKey:@"LockBackgroundThumb.png"];
         
         //CHECK IF IOS 5
@@ -1131,13 +1131,11 @@
     
     NSDictionary *themeDict = [self getThemeDictFromDoc:[self getThemePathForName:themeName]];
     //NSLog(@"themeDict: %@",themeDict);
-    NSArray *list = [self getWidgetsListFromFile:themeName];
-    NSMutableDictionary *sets = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]mutableCopy]; 
-    if(!sets)
-        sets = [NSMutableDictionary new];
+    NSMutableArray *list = [self getWidgetsListFromFile:themeName];
+    NSMutableDictionary *sets = [kDataSingleton settings];
     [sets setObject:list forKey:@"widgetsList"];
-    [[NSUserDefaults standardUserDefaults] setObject:sets forKey:@"settings"];    
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [kDataSingleton saveWidgetsListToSettings:list];
+    
     
     //background image
     NSData *background = [themeDict objectForKey:@"LockBackground.png"];
@@ -1159,12 +1157,12 @@
 }
 
 
-+(NSArray *)getWidgetsListFromFile:(NSString *)themeName{
++(NSMutableArray *)getWidgetsListFromFile:(NSString *)themeName{
     
     NSURL *url = [CBThemeHelper getThemePathForName:themeName];
     NSDictionary *themeDict = [CBThemeHelper getThemeDictFromDoc:url];
     //NSLog(@"themeDict: %@",themeDict);
-    NSArray *widgetsList = [themeDict objectForKey:@"widgetsList"];
+    NSMutableArray *widgetsList = [[themeDict objectForKey:@"widgetsList"] mutableCopy];
     return widgetsList;
 }
 +(UIImage *)getThumbnailFromFile:(NSString *)themeName{

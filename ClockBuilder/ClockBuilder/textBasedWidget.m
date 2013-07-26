@@ -26,24 +26,15 @@
 - (void) setFontSizeForPiece:(NSInteger)i fontSize:(NSInteger)fontSize{
     
     //[self updateFrameForFontSize];
-    if(i<[[[[NSUserDefaults standardUserDefaults]objectForKey:@"settings"]objectForKey:@"widgetsList"]count]){
-        //NSArray *list = [[[NSUserDefaults standardUserDefaults]objectForKey:@"settings"] objectForKey:@"widgetsList"] ;
-        NSMutableDictionary *widget = self.widgetData;//[[list objectAtIndex:i] mutableCopy];
+    //if(i<[[kDataSingleton getWidgetsListFromSettings]count]){
         
-        //NSInteger origFontSize = [[widget objectForKey:@"fontSize"] intValue];
-        NSString *index = [NSString stringWithFormat:@"%i",i];
-        //[widget setObject:[NSString stringWithFormat:@"%i", fontSize] forKey:@"fontSize"];
+        //NSMutableDictionary *widget = self.widgetData;
         
-        //if(origFontSize != fontSize)
-        //{
-        //    [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"forceRedraw"];
-        //    [[NSUserDefaults standardUserDefaults] synchronize];
-            
-        //}
-        //NSLog(@"widget data being saved: %@",widget);
+        //NSString *index = [NSString stringWithFormat:@"%i",i];
+        
         [self updateFrameForFontSize];
-        [[[UIApplication sharedApplication] delegate] performSelector:@selector(saveWidgetSettings:widgetDataDictionary:) withObject:index withObject:widget];
-    }
+        //[[[UIApplication sharedApplication] delegate] performSelector:@selector(saveWidgetSettings:widgetDataDictionary:) withObject:index withObject:widget];
+    //}
 }
 - (void) setWidgetFontSize:(NSNumber *)number{
     if(self.widgetData && number){
@@ -118,7 +109,7 @@
 	self = [super initWithFrame:frame];
     
 	//self.dateFormatter = [[NSDateFormatter alloc] init];    
-    self.weatherData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]objectForKey:@"weatherData"];
+    self.weatherData = [[kDataSingleton getSettings] objectForKey:@"weatherData"];
     self.indexInList = index;
     [self setClipsToBounds:NO];
     [self.layer setMasksToBounds:NO];
@@ -640,7 +631,7 @@
 - (void) refreshWithNewWeatherData
 {
     @autoreleasepool {
-        self.weatherData = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]objectForKey:@"weatherData"];    
+        self.weatherData = [[kDataSingleton getSettings] objectForKey:@"weatherData"];
     }
     //NSLog(@"refresh with new weather data");
     [self updateViewWeather];
@@ -798,8 +789,8 @@
         else
             [self updateView];
     }
-    widgetHelperClass *wh = [widgetHelperClass new];
-    self.widgetData = [NSMutableDictionary dictionaryWithDictionary:[[wh getWidgetsList] objectAtIndex:[self.indexInList intValue]]];
+    
+    self.widgetData = [kDataSingleton getWidgetDataFromIndex:[self.indexInList intValue]];
     [self updateFrameForFontSize];
 }
 
