@@ -57,7 +57,6 @@
     CGRect selfFrame = self.frame;
     CGSize selfSize = CGSizeFromString([self.widgetData objectForKey:kIconFrameKey]);
     
-    //[self.textLabel setHidden:YES];
     selfFrame.size = selfSize;
     
     if(![self.textLabel isScaling]){
@@ -75,44 +74,10 @@
     [self.textLabel setFrame:textLabelFrame];
     [self.textLabel setFont:thefont];
     [self setNeedsDisplay];
-    /*
+    
     if([self.textLabel isScaling]){
+        [self.widgetData setObject:NSStringFromCGRect(self.frame) forKey:@"frame"];
     }
-    else{
-        [self setBackgroundColor:[UIColor clearColor]];
-        [self.textLabel setHidden:NO];
-        CGRect textLabelFrame = self.textLabel.frame;
-        CGSize origSizeSelf = CGSizeMake(ceil(selfFrame.size.width),ceil(selfFrame.size.height));
-        NSString *text = self.textLabel.text;
-        CGSize newSize = [text sizeWithFont:thefont];
-    
-    
-        [self.textLabel setFont:thefont];
-    
-    //set anchorpoint
-        newSize.height = newSize.width + 20;
-        
-        //selfFrame.origin.y += (round(deltaSizeY)/2);
-    //selfFrame.origin.y = (int)selfFrame.origin.y;
-    
-    //    selfFrame.origin.x += (round(deltaSizeX)/2);
-    //selfFrame.origin.x = (int)selfFrame.origin.x;
-    //selfFrame.origin = origin;
-        selfFrame.size.height = ceil( newSize.height);
-        selfFrame.size.width = ceil( newSize.width);
-        textLabelFrame.size = selfFrame.size;
-        textLabelFrame.origin = CGPointMake(0, 0);
-        //dispatch_sync(dispatch_get_main_queue(), ^{
-    [self setFrame:selfFrame];
-    NSLog(@"climacon frame: %@", NSStringFromCGRect(self.frame));
-    [self.textLabel setFrame:textLabelFrame];
-    NSLog(@"textlabel frame: %@", NSStringFromCGRect(self.textLabel.frame));
-    [self setNeedsDisplay];
-    [self.textLabel setNeedsDisplay];
-    }
-        //});
-    //});
-    */
     
 }
 

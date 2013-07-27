@@ -1733,9 +1733,7 @@ float previousVal = 1;
             scale = 1;
         }
         [widgetData setObject:[NSString stringWithFormat:@"%f",scale] forKey:kIconScaleKey];
-        //stored for when icons change
         [widgetData setObject:[NSString stringWithFormat:@"%@",NSStringFromCGSize(frame.size)] forKey:kIconFrameKey];
-        //NSLog(@"widgetIcon layer position: %@", NSStringFromCGRect(frame));
         [kDataSingleton setWidgetData:[[self.widgetSelected performSelector:@selector(getIndexInList) withObject:nil] intValue] withData:widgetData];
         [self setFrameForView:frame widgetView:self.widgetSelected forceRedraw:YES];
         [self showWidgetCoordinates:self.widgetSelected];

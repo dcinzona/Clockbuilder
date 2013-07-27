@@ -888,11 +888,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595084.197531"
+            timestampString = "396595318.837813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -904,11 +904,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595084.197531"
+            timestampString = "396595318.837813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -920,11 +920,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595084.197531"
+            timestampString = "396595318.837813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -936,11 +936,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595084.197531"
+            timestampString = "396595318.837813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -952,11 +952,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595084.197531"
+            timestampString = "396595318.837813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
+            startingLineNumber = "264"
+            endingLineNumber = "264"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -968,11 +968,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595084.197531"
+            timestampString = "396595318.837813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -984,11 +984,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595084.197531"
+            timestampString = "396595318.837813"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
             landmarkName = "-updateFrameForFontSize"
             landmarkType = "5">
          </BreakpointContent>
