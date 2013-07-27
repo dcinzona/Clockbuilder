@@ -269,6 +269,7 @@
         CGRect frame = self.widgetSelected.frame;
         frame.origin.x = [inputString intValue];
         [self.widgetSelected setFrame:frame];
+        [self setFrameForView:frame widgetView:self.widgetSelected forceRedraw:NO];
         [self showWidgetCoordinates:self.widgetSelected];
     } onCancel:^{
         [self showWidgetCoordinates:self.widgetSelected];
@@ -280,6 +281,7 @@
         CGRect frame = self.widgetSelected.frame;
         frame.origin.y = [inputString intValue];
         [self.widgetSelected setFrame:frame];
+        [self setFrameForView:frame widgetView:self.widgetSelected forceRedraw:NO];
         [self showWidgetCoordinates:self.widgetSelected];
     } onCancel:^{
         [self showWidgetCoordinates:self.widgetSelected];

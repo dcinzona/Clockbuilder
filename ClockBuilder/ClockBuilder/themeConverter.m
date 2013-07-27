@@ -429,7 +429,7 @@
     
     if(kUpdatedWeatherIconsBOOL){
         //change build to look for new icon location
-        @"weatherDataSettings.weatherIconSet.toLowerCase()+ '/'+weather.code+weather.dayNight+'.png'";
+        //@"weatherDataSettings.weatherIconSet.toLowerCase()+ '/'+weather.code+weather.dayNight+'.png'";
     }
     
     

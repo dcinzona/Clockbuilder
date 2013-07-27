@@ -183,71 +183,99 @@ function buildTheme(){
                var subClass = d.subClass;
                var w = $('<div class="widget"></div>');
                var cssObj = {
-               'background-color' : 'transparent',
-               'font-weight' : '',
-               'top':getframe(frame,'top'),
-               'left':getframe(frame,'left'),
-               'width':getframe(frame,'width'),
-               'height':getframe(frame,'height'),
-               'position':'absolute',
-               'display':'block',
-               'opacity':d.opacity,
-               'font-family':d.fontFamily,
-               'font-size':d.fontSize
-               }
+                   'background-color' : 'transparent',
+                   'font-weight' : '',
+                   'top':getframe(frame,'top'),
+                   'left':getframe(frame,'left'),
+                   'width':getframe(frame,'width'),
+                   'height':getframe(frame,'height'),
+                   'position':'absolute',
+                   'display':'block',
+                   'opacity':d.opacity,
+                   'font-family':d.fontFamily,
+                   'font-size':d.fontSize,
+                   'line-height':getframe(frame,'height')+'px'
+                   }
                if(d.fontFamily == 'STHeitiJ-Light')
                {
-               w.css('padding-top',parseInt(d.fontSize)*.1+'px');
+                   w.css('padding-top',parseInt(d.fontSize)*.1+'px');
                }
-               if(d.widgetClass == 'textBasedWidget' || weatherDataSettings.weatherIconSet.toLowerCase() == 'climacons'){
-               var fontColor = d.fontColor;
-               if(fontColor)
-                var r = getColor(fontColor,'');
-               var g = getColor(d.glowColor,'');
-               w.css('color','rgba('+r[0]+','+r[1]+','+r[2]+',' + r[3] + ')');
-               //w.css('text-shadow','rgba('+g[0]+','+g[1]+','+g[2]+', '+g[3]+') 0px 0px 12px');
-               if(d.glowAmount){
-                w.css('text-shadow','rgba('+g[0]+','+g[1]+','+g[2]+', '+g[3]+') 0px 0px '+d.glowAmount+'px');
+               if(d.widgetClass == 'textBasedWidget' || weatherDataSettings.weatherIconSet.toLowerCase() == 'climacons')
+               {
+                   var fontColor = d.fontColor;
+                   
+                   if(fontColor){
+                        var r = getColor(fontColor,'');
+                   }
+                   
+                   var g = getColor(d.glowColor,'');
+                   w.css('color','rgba('+r[0]+','+r[1]+','+r[2]+',' + r[3] + ')');
+                   
+                   if(d.glowAmount){
+                        w.css('text-shadow','rgba('+g[0]+','+g[1]+','+g[2]+', '+g[3]+') 0px 0px '+d.glowAmount+'px');
+                   }
+                   else
+                   {
+                        w.css('text-shadow','rgba('+g[0]+','+g[1]+','+g[2]+', '+g[3]+') 0px 0px 12px');
+                   }
+                   if(d.type == 'imageWidget')
+                   {
+                        w.css('text-align',d.textalignment);
+                   }
+                   
+                   if(subClass == "datetime")
+                   {
+                       var df = d.dateFormatOverride;
+                       w.attr('data',df.replace('a','TT'));
+                       w.attr('data',df.replace('EEEE','dddd'));
+                   }
+                   if(d.textTransform == 'uppercase' || d.textTransform == 'lowercase')
+                   {
+                       if(d.widgetClass == 'textBasedWidget'){
+                           w.css('text-transform',d.textTransform);
+                       }
+                   }
+                   if(d.widgetClass == 'textBasedWidget'){
+                        w.css('text-align',d.textalignment);
+                       if(d.type != 'imageWidget'){
+                           if(d.textalignment == 'right'){
+                               var oldWidth = getframe(frame,'width');
+                               var oldPosLeft = getframe(frame,'left');
+                               var newWidth = d.fontSize * 100;
+                               var diffWidth = newWidth - oldWidth;
+                               cssObj.left = oldPosLeft - diffWidth;
+                               cssObj.width = newWidth;
+                           }
+                            if(d.textalignment == 'center'){
+                               var oldWidth = getframe(frame,'width');
+                               var oldPosLeft = getframe(frame,'left');
+                               var newWidth = d.fontSize * 100;
+                               var diffWidth = newWidth - oldWidth;
+                               cssObj.left = oldPosLeft - (diffWidth /2);
+                               cssObj.width = newWidth; //+ (oldPosLeft /2);
+                           }
+                           if(d.textalignment == 'left'){
+                               var newWidth = d.fontSize * 100;
+                               cssObj.width = newWidth;
+                           }
+                       }
+                   }
+                   if(d.subClass=='weather')
+                   {
+                       w.addClass('hidden');
+                       w.data(d);
+                   }
+                   if(d.className == 'Custom Text'){
+                       w.text(d.text);
+                   }
+                   w.css(cssObj);
                }
                else
                {
-                w.css('text-shadow','rgba('+g[0]+','+g[1]+','+g[2]+', '+g[3]+') 0px 0px 12px');
-               }
-               if(d.type == 'imageWidget'){
-               w.css('text-align',d.textalignment);
-               }
-               
-               if(subClass == "datetime"){
-               var df = d.dateFormatOverride;
-               w.attr('data',df.replace('a','TT'));
-               w.attr('data',df.replace('EEEE','dddd'));
-               
-               }
-               if(d.textTransform == 'uppercase' || d.textTransform == 'lowercase')
-               {
-               if(d.widgetClass == 'textBasedWidget'){
-               w.css('text-transform',d.textTransform);
-               }
-               }
-               if(d.widgetClass == 'textBasedWidget'){
-               w.css('text-align',d.textalignment);
-               }
-               if(d.subClass=='weather')
-               {
-               w.addClass('hidden');
-               w.data(d);
-               }
-               if(d.className == 'Custom Text')
-               w.text(d.text);
-               
-               w.css(cssObj);
-               }
-               else
-               {
-               w = $('<img class="widget hidden" />');
-               w.addClass('imageWidget');
-               w.data(d);
-               w.css(cssObj);
+                   w = $('<img class="widget hidden" />');
+                   w.addClass('imageWidget');
+                   w.data(d);
+                   w.css(cssObj);
                }
                w.addClass(subClass);
                //w.attr('id',id);
@@ -710,50 +738,50 @@ function setWeatherTextContent(widget, data)
 function updateWeather(){
 	var iconsURL = 'icons/';
 	$('.weather').each(function(){
-                       var t = $(this);
-                       var d = t.data();
-                       if(d.forecast.toLowerCase()  == 'current')
-                       {
-                       if(t.hasClass('imageWidget')){
-                       var imgURL = iconsURL+
-                       weatherDataSettings.weatherIconSet.toLowerCase()+ '/'+weather.code+weather.dayNight+'.png';
-                       t.attr('src',imgURL);
-                       t.removeClass('hidden');
-                       }
-                       else
-                       {
-                       setWeatherTextContent(t, d);
-                       }
-                       }
-                       if(d.forecast.toLowerCase() == 'today')
-                       {
-                       var f = weather.today;
-                       if(t.hasClass('imageWidget')){
-                       var imgURL = iconsURL+
-                       weatherDataSettings.weatherIconSet.toLowerCase()+'/'+f.code+'d.png';
-                       t.attr('src',imgURL);
-                       t.removeClass('hidden');
-                       }
-                       else
-                       {
-                       setWeatherTextContent(t, d);
-                       }
-                       }
-                       if(d.forecast.toLowerCase() == 'tomorrow')
-                       {
-                       var f = weather.tomorrow;
-                       if(t.hasClass('imageWidget')){
-                       var imgURL = iconsURL+
-                       weatherDataSettings.weatherIconSet.toLowerCase()+'/'+f.code+'d.png';
-                       t.attr('src',imgURL);
-                       t.removeClass('hidden');
-                       }
-                       else
-                       {
-                       setWeatherTextContent(t, d);
-                       }
-                       }
-                       });
+       var t = $(this);
+       var d = t.data();
+       if(d.forecast.toLowerCase()  == 'current')
+       {
+           if(t.hasClass('imageWidget')){
+               var imgURL = iconsURL+
+               weatherDataSettings.weatherIconSet.toLowerCase()+ '/'+weather.code+weather.dayNight+'.png';
+               t.attr('src',imgURL);
+               t.removeClass('hidden');
+           }
+           else
+           {
+               setWeatherTextContent(t, d);
+           }
+       }
+       if(d.forecast.toLowerCase() == 'today')
+       {
+           var f = weather.today;
+           if(t.hasClass('imageWidget')){
+               var imgURL = iconsURL+
+               weatherDataSettings.weatherIconSet.toLowerCase()+'/'+f.code+'d.png';
+               t.attr('src',imgURL);
+               t.removeClass('hidden');
+           }
+           else
+           {
+               setWeatherTextContent(t, d);
+           }
+       }
+       if(d.forecast.toLowerCase() == 'tomorrow')
+       {
+           var f = weather.tomorrow;
+           if(t.hasClass('imageWidget')){
+               var imgURL = iconsURL+
+               weatherDataSettings.weatherIconSet.toLowerCase()+'/'+f.code+'d.png';
+               t.attr('src',imgURL);
+               t.removeClass('hidden');
+           }
+           else
+           {
+               setWeatherTextContent(t, d);
+           }
+       }
+   });
     
 	
 }
@@ -767,23 +795,23 @@ var dateTimeFontFixed = false;
 function updateDateTime()
 {
 	$('.datetime').each(function(){
-                        var t = $(this);
-                        var format = t.attr('data').replace('aa','TT');
-                        format = format.replace('a','TT');
-                        format = format.replace('AA','TT');
-                        format = format.replace('A','TT');
-                        if(militaryTime){
-                        format = format.replace('hh','HH');
-                        format = format.replace('h','H');
-                        format = format.replace('TT','');
-                        }
-                        else{
-                        format = format.replace('HH','hh');
-                        format = format.replace('H','h');
-                        }
-                        
-                        t.text(dateFormat(new Date(), format));
-                        });
+        var t = $(this);
+        var format = t.attr('data').replace('aa','TT');
+        format = format.replace('a','TT');
+        format = format.replace('AA','TT');
+        format = format.replace('A','TT');
+        if(militaryTime){
+            format = format.replace('hh','HH');
+            format = format.replace('h','H');
+            format = format.replace('TT','');
+        }
+        else{
+            format = format.replace('HH','hh');
+            format = format.replace('H','h');
+        }
+        
+        t.text(dateFormat(new Date(), format));
+    });
 	setTimeout(function(){updateDateTime();},1000);
 }
 
@@ -870,17 +898,17 @@ var dateFormat = function () {
 // Some common format strings
 dateFormat.masks = {
 	"default":      "",
-shortDate:      "m/d/yy",
-mediumDate:     "mmm d, yyyy",
-longDate:       "mmmm d, yyyy",
-fullDate:       "dddd, mmmm d, yyyy",
-shortTime:      "h:MM TT",
-mediumTime:     "h:MM:ss TT",
-longTime:       "h:MM:ss TT Z",
-isoDate:        "yyyy-mm-dd",
-isoTime:        "HH:MM:ss",
-isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
-isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
+    shortDate:      "m/d/yy",
+    mediumDate:     "mmm d, yyyy",
+    longDate:       "mmmm d, yyyy",
+    fullDate:       "dddd, mmmm d, yyyy",
+    shortTime:      "h:MM TT",
+    mediumTime:     "h:MM:ss TT",
+    longTime:       "h:MM:ss TT Z",
+    isoDate:        "yyyy-mm-dd",
+    isoTime:        "HH:MM:ss",
+    isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
+    isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
 };
 
 // Internationalization strings

@@ -1000,11 +1000,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396634718.745897"
+            timestampString = "396639784.783699"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1706"
-            endingLineNumber = "1706"
+            startingLineNumber = "1708"
+            endingLineNumber = "1708"
             landmarkName = "-SlideToScaleView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1016,11 +1016,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396634718.745897"
+            timestampString = "396639784.783699"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1690"
-            endingLineNumber = "1690"
+            startingLineNumber = "1692"
+            endingLineNumber = "1692"
             landmarkName = "-SlideToScaleView:"
             landmarkType = "5">
          </BreakpointContent>

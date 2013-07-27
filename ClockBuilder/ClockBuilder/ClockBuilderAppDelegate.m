@@ -830,6 +830,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     
+    application.idleTimerDisabled = NO;
     [kDataSingleton saveSettingsToDefaults];
     [_viewController viewWillDisappear:YES];
     
@@ -840,10 +841,10 @@
      Called when the application is about to terminate.
      Save data if appropriate.
      See also applicationDidEnterBackground:.
-     */ 
+     */
+    application.idleTimerDisabled = NO;
     [self saveContext];
     [kDataSingleton saveSettingsToDefaults];
-    application.idleTimerDisabled = NO;
     //[getWeather stop];
 }
 #pragma mark Custom File Handling
