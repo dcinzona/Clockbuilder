@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderAppDelegate.m"
-            timestampString = "370110877.288201"
+            timestampString = "396634718.745897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
-            landmarkName = "@implementation ClockBuilderAppDelegate"
-            landmarkType = "3">
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "-ls"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -808,13 +808,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderAppDelegate.m"
-            timestampString = "396501383.506702"
+            timestampString = "396634718.745897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "782"
-            endingLineNumber = "782"
-            landmarkName = "-saveWidgetSettings:widgetDataDictionary:"
-            landmarkType = "5">
+            startingLineNumber = "785"
+            endingLineNumber = "785"
+            landmarkName = "@implementation ClockBuilderAppDelegate"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -824,12 +824,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderAppDelegate.m"
-            timestampString = "396501434.489235"
+            timestampString = "396634718.745897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "779"
-            endingLineNumber = "779"
-            landmarkName = "-saveWidgetSettings:widgetDataDictionary:"
+            startingLineNumber = "782"
+            endingLineNumber = "782"
+            landmarkName = "-applicationDidEnterBackground:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1000,11 +1000,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396630559.797173"
+            timestampString = "396634718.745897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1704"
-            endingLineNumber = "1704"
+            startingLineNumber = "1706"
+            endingLineNumber = "1706"
             landmarkName = "-SlideToScaleView:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1016,11 +1016,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderViewController.m"
-            timestampString = "396630559.797173"
+            timestampString = "396634718.745897"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1688"
-            endingLineNumber = "1688"
+            startingLineNumber = "1690"
+            endingLineNumber = "1690"
             landmarkName = "-SlideToScaleView:"
             landmarkType = "5">
          </BreakpointContent>

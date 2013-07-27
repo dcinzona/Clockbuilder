@@ -49,7 +49,10 @@
     
     if([[[NSUserDefaults standardUserDefaults] objectForKey:@"showStatusBar"] boolValue]==NO)
         statusBarPref = NO;
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    
+    if(!kIsiOS7){
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    }
     
     widgetHelper = [widgetHelperClass new];
     application.idleTimerDisabled = YES;
