@@ -26,15 +26,29 @@
     }
     return self;
 }
-
+-(void) setIsScalingTo:(BOOL)yesNo{
+    scaling = yesNo;
+}
+-(BOOL) isScaling{
+    return (BOOL)scaling;
+}
 - (void)drawTextInRect:(CGRect)rect {
     
     
     if(kIsiOS7){
-        self.layer.shadowColor = self.glowColor.CGColor;
-        self.layer.shadowRadius = self.glowAmount;
-        self.layer.shadowOffset =self.glowOffset;
-        self.layer.shadowOpacity = 1;
+        if(!scaling){
+            self.layer.shadowColor = self.glowColor.CGColor;
+            self.layer.shadowRadius = self.glowAmount;
+            self.layer.shadowOffset =self.glowOffset;
+            self.layer.shadowOpacity = 1;
+        }
+        else{
+            self.opaque = YES;
+            self.layer.shadowColor = nil;
+            self.layer.shadowRadius = 0;
+            self.layer.shadowOffset = CGSizeZero;
+            self.layer.shadowOpacity = 0;
+        }
         @try {
             [super drawTextInRect:rect];
         }

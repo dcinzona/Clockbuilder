@@ -8,7 +8,6 @@
 
 #import "weatherIconView.h"
 #import "UIImageView+WebCache.h"
-#import "UIImage+Trim.h"
 #import "SDImageCache.h"
 
 

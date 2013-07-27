@@ -27,6 +27,7 @@
 #import "NSString+FontAwesome.h"
 #import "FAImageView.h"
 #import "DataSingleton.h"
+#import "UIImage+Trim.h"
 
 #define kCoreDataStoreName @"clockbuilderdb.sqlite"
 #define kCoreDataStoreNameiPad @"clockbuilderdb-ipad.sqlite"

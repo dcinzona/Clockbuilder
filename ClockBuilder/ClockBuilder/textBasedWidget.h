@@ -29,6 +29,7 @@
 
 
 - (NSNumber *) getIndexInList;
+-(void) setWidgetFontSizeForClimaconWithFloat:(float)number;
 -(void) updateFrameForFontSize;
 - (id) initWithFrame:(CGRect)frame widgetData:(NSDictionary *)widgetDataDict indexValue:(NSNumber*)index;
 
@@ -37,9 +38,9 @@
 - (UIColor*) getGlowColor;
 - (void) setTimer;
 - (NSTextAlignment) setTextAlignment;
-- (NSString *)transformGivenText:(NSString *)str;
+- (NSString *) transformGivenText:(NSString *)str;
 - (void)setTextAlignmentTo:(NSString *)align;
-- (BOOL)getIsClimacon;
+- (BOOL) getIsClimacon;
 - (void) setWidgetFontSize:(NSNumber *)number;
 - (int) getWidgetFontSize;
 @end

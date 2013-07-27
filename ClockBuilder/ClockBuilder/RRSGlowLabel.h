@@ -14,8 +14,10 @@
     CGSize glowOffset;
     UIColor *glowColor;
     CGFloat glowAmount;
+    BOOL scaling;
 }
-
+-(void) setIsScalingTo:(BOOL)yesNo;
+-(BOOL) isScaling;
 @property (nonatomic, assign) CGSize glowOffset;
 @property (nonatomic, assign) CGFloat glowAmount;
 @property (nonatomic, strong) UIColor *glowColor;
