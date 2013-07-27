@@ -1392,7 +1392,7 @@
         return buttonItem;
     }
     else{
-        if (kIsIpad) {
+        if (kIsIpad && !kIsiOS7) {
             
             UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] style:UIBarButtonItemStylePlain target:tgt action:a];
             [buttonItem setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
@@ -1443,7 +1443,7 @@
         return buttonItem;
     }
     else{
-        if (kIsIpad) {
+        if (kIsIpad && !kIsiOS7) {
             
             return [CBThemeHelper createFontAwesomeBlueBarButtonItemWithIcon:iconCSSClass target:tgt action:a];
             
