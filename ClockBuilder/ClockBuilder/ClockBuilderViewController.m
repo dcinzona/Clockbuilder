@@ -1680,11 +1680,9 @@ float previousVal = 1;
         if(slider.tag == 2){
             if([self.widgetSelected respondsToSelector:@selector(setWidgetFontSize:)]){
                 textBasedWidget * widget = (textBasedWidget *) self.widgetSelected;
+                [widget setClearsContextBeforeDrawing:YES];
+                [widget.textLabel setIsScalingTo:YES];
                 if([widget getIsClimacon]){
-                    //[widget setWidgetFontSizeForClimaconWithFloat:slider.value];
-                    [widget setClearsContextBeforeDrawing:YES];
-                    //[widget setOpaque:YES];
-                    [widget.textLabel setIsScalingTo:YES];
                     [widget setWidgetFontSizeForClimaconWithFloat:slider.value];
                 }
                 else{
@@ -1712,9 +1710,13 @@ float previousVal = 1;
 - (IBAction)doneScalingUsingSlider: (id)sender {
     UISlider *slider = (UISlider*)sender;
     if([self.widgetSelected respondsToSelector:@selector(setWidgetFontSize:)]){
+        
         textBasedWidget * widget = (textBasedWidget *) self.widgetSelected;
         [widget.textLabel setIsScalingTo:NO];
-        [widget setWidgetFontSizeForClimaconWithFloat:slider.value];
+        if ([widget getIsClimacon]) {
+            [widget setWidgetFontSizeForClimaconWithFloat:slider.value];
+            [widget setWidgetFontSize:[NSNumber numberWithFloat:slider.value]];
+        }
     }
     int top = self.widgetSelected.frame.origin.y;
     int left = self.widgetSelected.frame.origin.x;
