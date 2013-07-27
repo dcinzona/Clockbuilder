@@ -55,6 +55,7 @@
 + (UIBarButtonItem *)createBackButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a;
 + (UIBarButtonItem *)createBorderlessButtonItemWithImage:(UIImage *)image andPressedImage:(UIImage*)imagePressed target:(id)tgt action:(SEL)a;
 + (UIBarButtonItem *)createDarkButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a;
++ (UIBarButtonItem *)createDarkButtonItemForStyledToolbarWithTitle:(NSString *)t target:(id)tgt action:(SEL)a;
 +(void)setTitle:(NSString *)title forCustomBarButton:(UIBarButtonItem*)button;
 +(NSString*)getTitleCustBarButton:(UIBarButtonItem*)button;
 

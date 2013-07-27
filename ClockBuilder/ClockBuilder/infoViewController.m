@@ -49,6 +49,9 @@
         self.contentSizeForViewInPopover = kPopoverSize;
         [self.view setFrame:CGRectMake(0, 0,self.view.frame.size.width,self.view.frame.size.height)];
         frameSize = self.view.frame;
+        if(!kIsiOS7){
+            frameSize.size = kPopoverSize;
+        }
     }
     if(!kIsiOS7){
         UIImageView *bg2 = [[UIImageView alloc] initWithFrame:frameSize];
@@ -67,7 +70,7 @@
     //[iconView setImage:[UIImage imageNamed:@"clockbuilder-Icon.png"]];
     
     if(kIsIpad){
-        UIBarButtonItem *supportButton = [[UIBarButtonItem alloc] initWithTitle:@"Support" style:UIBarButtonItemStyleBordered target:self action:@selector(emailMe)];
+        UIBarButtonItem *supportButton = [CBThemeHelper createFontAwesomeBlueBarButtonItemWithIcon:@"icon-envelope" target:self action:@selector(emailMe)];//[[UIBarButtonItem alloc] initWithTitle:@"Support" style:UIBarButtonItemStyleBordered target:self action:@selector(emailMe)];
         self.navigationItem.rightBarButtonItem = supportButton;
     }
     else{
@@ -75,8 +78,8 @@
         //[self.navigationItem setBackBarButtonItem:backButton];
         [self.navigationItem setLeftBarButtonItem: backButton];
         
-        UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Support" target:self action:@selector(emailMe)];
-        self.navigationItem.rightBarButtonItem = doneButton;
+        //UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Support" target:self action:@selector(emailMe)];
+        self.navigationItem.rightBarButtonItem = [CBThemeHelper createFontAwesomeBlueBarButtonItemWithIcon:@"icon-envelope" target:self action:@selector(emailMe)];
     }
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

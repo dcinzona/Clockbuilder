@@ -112,7 +112,7 @@
     }
     [CBThemeHelper setBackgroundImage:nil forToolbar:toolbar];
     NSMutableArray *barItems = [[NSMutableArray alloc] init];
-    UIBarButtonItem *cancelBtn = [CBThemeHelper createDarkButtonItemWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
+    UIBarButtonItem *cancelBtn = [CBThemeHelper createDarkButtonItemForStyledToolbarWithTitle:@"Cancel" target:self action:@selector(dismissActionSheet)];
     UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];  
     UIBarButtonItem *doneBtn = [CBThemeHelper createBlueButtonItemWithTitle:@"Done" target:self action:@selector(saveActionSheet)];
     UILabel *titleLabel = [[UILabel alloc] init];

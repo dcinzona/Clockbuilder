@@ -359,7 +359,9 @@ weatherData;
             segmentedControl.frame  = CGRectMake(20, 16, 280, 30);
             segmentedControl.tintColor= [UIColor grayColor];
             segmentedControl.tag = 301;
-            [segmentedControl setCenter:cell.contentView.center];
+            if(!kIsIpad && !kIsiOS7){
+                [segmentedControl setCenter:cell.contentView.center];
+            }
             [cell addSubview:segmentedControl];
         }
         return cell;
@@ -451,9 +453,11 @@ weatherData;
     if(self.pickerAS){
         [self.pickerAS dismissWithClickedButtonIndex:0 animated:YES];
     }
-    [CBThemeHelper dismissPicker:self.picker.pickerView fromUITableView:self.tableView onCompletion:^{
-        [self resetNavbar];
-    }];
+    if(kIsiOS7){
+        [CBThemeHelper dismissPicker:self.picker.pickerView fromUITableView:self.tableView onCompletion:^{
+            [self resetNavbar];
+        }];
+    }
     self.tempPicker = nil;
     self.picker = nil;
     self.pickerAS = nil;
@@ -467,9 +471,11 @@ weatherData;
     if(self.pickerAS){
         [self.pickerAS dismissWithClickedButtonIndex:1 animated:YES];
     }
-    [CBThemeHelper dismissPicker:self.picker.pickerView fromUITableView:self.tableView onCompletion:^{
-        [self resetNavbar];
-    }];
+    if(kIsiOS7){
+        [CBThemeHelper dismissPicker:self.picker.pickerView fromUITableView:self.tableView onCompletion:^{
+            [self resetNavbar];
+        }];
+    }
     if([self.pickerASType isEqualToString:@"picker"]){
         NSUInteger selectedRow = [self.picker.pickerView selectedRowInComponent:0];
         NSString *selected = [self.picker.pickerItems objectAtIndex:selectedRow];

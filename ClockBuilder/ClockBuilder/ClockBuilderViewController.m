@@ -152,8 +152,13 @@
     }
     [CBThemeHelper setBackgroundImage:nil forToolbar:self.toolbar];
     if(!kIsiOS7){
-        self.done = [CBThemeHelper createDoneButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];
-        self.addItem = [CBThemeHelper createDoneButtonItemWithTitle:@"Edit" target:self action:@selector(addButtonClick:)];
+        if(!kIsIpad){
+            self.done = [CBThemeHelper createDoneButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];
+            self.addItem = [CBThemeHelper createDoneButtonItemWithTitle:@"Edit" target:self action:@selector(addButtonClick:)];
+        }else{
+            self.done = [CBThemeHelper createBlueButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];
+            self.addItem = [CBThemeHelper createBlueButtonItemWithTitle:@"Edit" target:self action:@selector(addButtonClick:)];
+        }
     }
     else{
         self.done = [CBThemeHelper createDoneButtonItemWithTitle:@"Close" target:self action:@selector(doneButtonClick:)];

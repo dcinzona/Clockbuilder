@@ -1392,6 +1392,16 @@
         return buttonItem;
     }
     else{
+        if (kIsIpad) {
+            
+            UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] style:UIBarButtonItemStylePlain target:tgt action:a];
+            [buttonItem setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                 [UIFont fontWithName:kFontAwesomeFamilyName size:20],UITextAttributeFont,[UIColor whiteColor], UITextAttributeTextColor,nil]forState:UIControlStateNormal];
+            
+            return buttonItem;
+            
+        }
+        
         UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] style:UIBarButtonItemStylePlain target:tgt action:a];
         [buttonItem setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                              [UIFont fontWithName:kFontAwesomeFamilyName size:20],UITextAttributeFont,kDefaultBlue, UITextAttributeTextColor,nil]forState:UIControlStateNormal];
@@ -1433,6 +1443,11 @@
         return buttonItem;
     }
     else{
+        if (kIsIpad) {
+            
+            return [CBThemeHelper createFontAwesomeBlueBarButtonItemWithIcon:iconCSSClass target:tgt action:a];
+            
+        }
         UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] style:UIBarButtonItemStylePlain target:tgt action:a];
         [buttonItem setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                              [UIFont fontWithName:kFontAwesomeFamilyName size:20],UITextAttributeFont,[UIColor darkGrayColor], UITextAttributeTextColor,nil]forState:UIControlStateNormal];
@@ -1443,6 +1458,11 @@
 
 + (UIBarButtonItem *)createBlueButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
 {
+    if(kIsIpad && kIsiOS7){
+        UIBarButtonItem *buttonItem =[[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStyleDone target:tgt action:a];
+        [buttonItem setTintColor:kDefaultBlue];
+        return buttonItem;
+    }
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [button setTitle:t forState:UIControlStateNormal];
@@ -1487,9 +1507,14 @@
 }
 + (UIBarButtonItem *)createDoneButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
 {
-    if(kIsIpad){
+    if(kIsIpad && kIsiOS7){
         UIBarButtonItem *buttonItem =[[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStyleDone target:tgt action:a];
         [buttonItem setTintColor:kDefaultBlue];
+        return buttonItem;
+    }
+    else if(kIsIpad){
+        UIBarButtonItem *buttonItem =[[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStyleDone target:tgt action:a];
+        //[buttonItem setTintColor:kDefaultBlue];
         return buttonItem;
     }
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1533,9 +1558,49 @@
         return buttonItem;
     }
 }
++ (UIBarButtonItem *)createDarkButtonItemForStyledToolbarWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
+{
+    if(kIsIpad && kIsiOS7){
+        return [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStyleBordered target:tgt action:a];
+    }
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitle:t forState:UIControlStateNormal];
+    [button addTarget:tgt action:a forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    
+    if(!kIsiOS7){
+        // Since the buttons can be any width we use a thin image with a stretchable center point
+        UIImage *buttonImage = [[UIImage imageNamed:@"ButtonDarkGrey30px.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        UIImage *buttonPressedImage = [[UIImage imageNamed:@"ButtonDarkGrey30pxSelected.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        
+        [[button titleLabel] setFont:[UIFont boldSystemFontOfSize:12.0]];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateNormal];
+        [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
+        [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
+        
+        CGRect buttonFrame = [button frame];
+        buttonFrame.size.width = [t sizeWithFont:[UIFont boldSystemFontOfSize:14.0]].width + 20.0;
+        buttonFrame.size.height = buttonImage.size.height;
+        [button setFrame:buttonFrame];
+        
+        [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+        
+        
+        return buttonItem;
+    }
+    else{
+        
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStylePlain target:tgt action:a];
+        [buttonItem setTintColor:[UIColor blackColor]];
+        return buttonItem;
+    }
+}
 + (UIBarButtonItem *)createDarkButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
 {
-    if(kIsIpad){
+    if(kIsIpad && kIsiOS7){
         return [[UIBarButtonItem alloc] initWithTitle:t style:UIBarButtonItemStyleBordered target:tgt action:a];
     }
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1640,6 +1705,9 @@
 }
 + (UIBarButtonItem *)createBackButtonItemWithTitle:(NSString *)t target:(id)tgt action:(SEL)a
 {
+    if(kIsIpad){
+        return nil;
+    }
     if(!kIsiOS7){
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         // Since the buttons can be any width we use a thin image with a stretchable center point

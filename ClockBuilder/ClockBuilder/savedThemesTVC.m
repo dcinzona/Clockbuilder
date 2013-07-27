@@ -951,6 +951,9 @@ replacementString:(NSString *)string
     }
     else{
         CGRect pickerFrame = CGRectMake(0, 0, 320, 400);
+        if(kIsIpad){
+            pickerFrame.origin.y = 44;
+        }
         if(!pickerView){
             pickerView = [[UIPickerView alloc] initWithFrame:pickerFrame];
             pickerView.dataSource = self;

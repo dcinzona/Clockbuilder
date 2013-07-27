@@ -75,7 +75,7 @@
     
     UIBarButtonItem *doneButton = [CBThemeHelper createDoneButtonItemWithTitle:@"Done" target:self action:@selector(exitModal)];
     self.navigationItem.leftBarButtonItem = doneButton;
-    self.navigationItem.rightBarButtonItem = [CBThemeHelper createDarkButtonItemWithTitle:@"Info" target:self action:@selector(showInfoView)];
+    self.navigationItem.rightBarButtonItem = [CBThemeHelper createFontAwesomeDarkBarButtonItemWithIcon:@"icon-question-sign" target:self action:@selector(showInfoView)];//[CBThemeHelper createDarkButtonItemWithTitle:@"Info" target:self action:@selector(showInfoView)];
     
     showStatusBar = [[UISwitch alloc] initWithFrame:CGRectZero];
     [showStatusBar addTarget: self action: @selector(showStatusBar:) forControlEvents: UIControlEventValueChanged];
