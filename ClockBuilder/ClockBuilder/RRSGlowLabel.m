@@ -28,27 +28,47 @@
 }
 
 - (void)drawTextInRect:(CGRect)rect {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSaveGState(context);
     
-    CGContextSetShadow(context, self.glowOffset, self.glowAmount);
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     
-    CGColorRef color = CGColorCreate(colorSpace, CGColorGetComponents(self.glowColor.CGColor));
-    CGContextSetShadowWithColor(context, self.glowOffset, self.glowAmount, color);
-    @try {
-        [super drawTextInRect:rect];
+    if(kIsiOS7){
+        self.layer.shadowColor = self.glowColor.CGColor;
+        self.layer.shadowRadius = self.glowAmount;
+        self.layer.shadowOffset =self.glowOffset;
+        self.layer.shadowOpacity = 1;
+        @try {
+            [super drawTextInRect:rect];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"RSSGlowLabel failed drawinrect");
+        }
+        @finally {
+            
+        }
     }
-    @catch (NSException *exception) {
-        NSLog(@"RSSGlowLabel failed drawinrect");
-    }
-    @finally {
+    else{
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSaveGState(context);
         
+        CGContextSetShadow(context, self.glowOffset, self.glowAmount);
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        
+        CGColorRef color = CGColorCreate(colorSpace, CGColorGetComponents(self.glowColor.CGColor));
+        CGContextSetShadowWithColor(context, self.glowOffset, self.glowAmount, color);
+        
+        @try {
+            [super drawTextInRect:rect];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"RSSGlowLabel failed drawinrect");
+        }
+        @finally {
+            
+        }
+        
+        CGColorRelease(color);
+        CGColorSpaceRelease(colorSpace);
+        CGContextRestoreGState(context);
     }
-    
-    CGColorRelease(color);
-    CGColorSpaceRelease(colorSpace);
-    CGContextRestoreGState(context);
 }
 
 

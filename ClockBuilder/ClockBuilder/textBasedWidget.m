@@ -62,7 +62,8 @@
         if([self.widgetData objectForKey:@"fontSize"]){
             fontSize = [[self.widgetData objectForKey:@"fontSize"] intValue];
         }
-        CGSize newSize = [[self transformGivenText:self.textLabel.text] sizeWithFont:[UIFont fontWithName:fontName size:fontSize]];
+        NSString *text = self.textLabel.text;
+        CGSize newSize = [[self transformGivenText:text] sizeWithFont:[UIFont fontWithName:fontName size:fontSize]];
         
         //set anchorpoint
         NSTextAlignment currentAlignment = [self setTextAlignment];
@@ -71,6 +72,12 @@
         
         
         switch (currentAlignment) {
+            case NSTextAlignmentCenter:
+                selfFrame.origin.y += (ceil(round(deltaSizeY)/2));
+                selfFrame.size.height = ceil(newSize.height);
+                selfFrame.size.width = ceil(newSize.width);
+                textLabelFrame.size = selfFrame.size;
+            break;
             case NSTextAlignmentRight:
                 selfFrame.origin.y += (ceil(round(deltaSizeY)/2));
                 selfFrame.size.height = ceil(newSize.height);
@@ -87,8 +94,9 @@
                 break;
         }
         [self setFrame:selfFrame];
+        [self setNeedsDisplay];
         [self.textLabel setFrame:textLabelFrame];
-
+        [self.textLabel setNeedsDisplay];
         
 #ifdef DEBUG
         //[self setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:.4]];

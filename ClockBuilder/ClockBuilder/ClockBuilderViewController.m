@@ -1630,12 +1630,12 @@
                 int gridCubeWidth  = 5;
                 int gridCubeHeight = 5;
                 if([[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"]){
-                    gridCubeWidth =[[[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"] intValue];
+                    gridCubeWidth = kGridSizeInt;
                     gridCubeHeight = gridCubeWidth;
                 }
                 BOOL isWithinGrid = ((locationInSuperView.x + abs(translation.x)) < ([gestureRecognizer locationInView:piece.superview].x + abs(gridCubeWidth)) || (locationInSuperView.y + abs(translation.y)) < ([gestureRecognizer locationInView:piece.superview].y + abs(gridCubeHeight)));
                 
-                if([[[NSUserDefaults standardUserDefaults] objectForKey:@"snapToGrid"] boolValue]){
+                if(kSnapToGridEnabled){
                     if(isWithinGrid){
                         
                         newcenter = [gestureRecognizer locationInView:piece.superview];
@@ -1693,7 +1693,7 @@
     }
     
 }
-
+float previousVal = 1;
 - (IBAction)SlideToScaleView: (id)sender {
     UISlider *slider = (UISlider*)sender;
     if(slider.state == UIControlEventTouchDown){
@@ -1703,8 +1703,53 @@
             }
         }
         else{ //must be an image widget
-            [self.widgetSelected.layer setAnchorPoint:CGPointMake(0.5, 0.5)];
-            self.widgetSelected.transform = CGAffineTransformMakeScale(slider.value, slider.value);
+            weatherIconView *widgetIcon = (weatherIconView*)self.widgetSelected;
+            //[widgetIcon.layer setAnchorPoint:CGPointMake(0, 0)];
+            //[widgetIcon.icon.layer setAnchorPoint:CGPointMake(0, 0)];
+            //widgetIcon.transform = CGAffineTransformMakeScale(slider.value, slider.value);
+            
+            CGRect frame = widgetIcon.frame;
+            CGPoint topCenter = CGPointMake(CGRectGetMinX(frame), CGRectGetMinY(frame));
+            [widgetIcon.layer setAnchorPoint:CGPointMake(0, 0)];
+            
+            /*
+            
+            if(kSnapToGridEnabled){
+                CGAffineTransform transform = CGAffineTransformMakeScale(slider.value, slider.value);
+                
+                if(CGRectIsNull(tempRect)){
+                    tempRect = widgetIcon.frame;
+                }
+                
+                //UIView *tempView = [[UIView alloc] initWithFrame:tempRect];
+                CGAffineTransform iTransform = CGAffineTransformInvert([widgetIcon transform]);
+                CGRect rawFrame = CGRectApplyAffineTransform([widgetIcon frame], iTransform);
+                CGRect nextFrame = CGRectApplyAffineTransform(rawFrame, transform);
+                
+                
+                
+                int gridSize = kGridSizeInt;
+                float a = abs(nextFrame.size.width - rawFrame.size.width);
+                if(a < gridSize){
+                    NSLog(@"frame.size.width: %f",nextFrame.size.width);
+                    NSLog(@"a: %f",a);
+                    tempRect = nextFrame;
+                }
+                else{
+                    NSLog(@"a: %f",a);
+                    previousVal = slider.value;
+                }
+            }
+            else {
+                previousVal = slider.value;
+            }
+             */
+            previousVal = slider.value;
+            
+            widgetIcon.transform =  CGAffineTransformMakeScale(previousVal, previousVal);
+            widgetIcon.layer.position = topCenter;
+            
+            
         }
         [self showWidgetCoordinates:self.widgetSelected];
     }
@@ -1719,16 +1764,25 @@
     NSMutableDictionary * widgetData = [(textBasedWidget *)(self.widgetSelected) widgetData];
     //NSLog(@"widget frame: %@", NSStringFromCGRect(frame));
     if(slider.tag == 1){
-        float savedScale = 1.0;
+        
+        float scale = previousVal;//slider.value;
         if([widgetData objectForKey:kIconScaleKey]){
-            savedScale += [[widgetData objectForKey:kIconScaleKey] floatValue];
+            scale *= [[widgetData objectForKey:kIconScaleKey] floatValue];
         }
-        [widgetData setObject:[NSString stringWithFormat:@"%f", savedScale] forKey:kIconScaleKey];
+        else{
+            scale = 1;
+        }
+        [widgetData setObject:[NSString stringWithFormat:@"%f",scale] forKey:kIconScaleKey];
+        //stored for when icons change
+        [widgetData setObject:[NSString stringWithFormat:@"%@",NSStringFromCGSize(frame.size)] forKey:kIconFrameKey];
+        //NSLog(@"widgetIcon layer position: %@", NSStringFromCGRect(frame));
+        [kDataSingleton setWidgetData:[[self.widgetSelected performSelector:@selector(getIndexInList) withObject:nil] intValue] withData:widgetData];
         [self setFrameForView:frame widgetView:self.widgetSelected forceRedraw:YES];
         [self showWidgetCoordinates:self.widgetSelected];
         [slider setValue:1];
     }
-    [kDataSingleton setWidgetData:[[self.widgetSelected performSelector:@selector(getIndexInList) withObject:nil] intValue] withData:widgetData];
+    else
+        [kDataSingleton setWidgetData:[[self.widgetSelected performSelector:@selector(getIndexInList) withObject:nil] intValue] withData:widgetData];
 }
 
 

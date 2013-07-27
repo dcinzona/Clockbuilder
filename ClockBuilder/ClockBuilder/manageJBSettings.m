@@ -463,6 +463,7 @@
         [self launchWallpaperPicker];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 -(void)launchWallpaperPicker{
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:kBackgroundCell inSection:0];

@@ -606,6 +606,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.row == kBackgroundCell ){
         if(!imagepicker){
             imagepicker = [[ImagePickerView alloc] init];
@@ -684,6 +685,7 @@
     if(indexPath.row == kClearBackgroundCell){
         [self selectBlackBG];
     }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

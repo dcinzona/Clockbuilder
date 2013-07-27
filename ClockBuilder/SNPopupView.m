@@ -636,15 +636,18 @@
 	CGContextSaveGState(context);
 	[self makePathCircleCornerRect:popupRect radius:10 popPoint:pointToBeShown];
 	CGContextClip(context);
-	if (direction & SNPopupViewUp) {
-		CGContextDrawLinearGradient(context, gradient, CGPointMake(0, popupRect.origin.y), CGPointMake(0, popupRect.origin.y + (int)(popupRect.size.height-POPUP_ROOT_SIZE.height)/2), 0);
-		CGContextDrawLinearGradient(context, gradient2, CGPointMake(0, popupRect.origin.y + (int)(popupRect.size.height-POPUP_ROOT_SIZE.height)/2), CGPointMake(0, popupRect.origin.y + popupRect.size.height-POPUP_ROOT_SIZE.height), 0);
-	}
-	else {
-		int h = (int)(popupRect.size.height - POPUP_ROOT_SIZE.height);
-		CGContextDrawLinearGradient(context, gradient, CGPointMake(0, popupRect.origin.y + POPUP_ROOT_SIZE.height), CGPointMake(0, popupRect.origin.y + h/2 + POPUP_ROOT_SIZE.height), 0);
-		CGContextDrawLinearGradient(context, gradient2, CGPointMake(0, popupRect.origin.y + h/2 + POPUP_ROOT_SIZE.height), CGPointMake(0, popupRect.origin.y + popupRect.size.height), 0);
-	}
+    //Dont use gradient on iOS 7 +
+    if(!kIsiOS7){
+        if (direction & SNPopupViewUp) {
+            CGContextDrawLinearGradient(context, gradient, CGPointMake(0, popupRect.origin.y), CGPointMake(0, popupRect.origin.y + (int)(popupRect.size.height-POPUP_ROOT_SIZE.height)/2), 0);
+            CGContextDrawLinearGradient(context, gradient2, CGPointMake(0, popupRect.origin.y + (int)(popupRect.size.height-POPUP_ROOT_SIZE.height)/2), CGPointMake(0, popupRect.origin.y + popupRect.size.height-POPUP_ROOT_SIZE.height), 0);
+        }
+        else {
+            int h = (int)(popupRect.size.height - POPUP_ROOT_SIZE.height);
+            CGContextDrawLinearGradient(context, gradient, CGPointMake(0, popupRect.origin.y + POPUP_ROOT_SIZE.height), CGPointMake(0, popupRect.origin.y + h/2 + POPUP_ROOT_SIZE.height), 0);
+            CGContextDrawLinearGradient(context, gradient2, CGPointMake(0, popupRect.origin.y + h/2 + POPUP_ROOT_SIZE.height), CGPointMake(0, popupRect.origin.y + popupRect.size.height), 0);
+        }
+    }
 	CGContextRestoreGState(context);
 	
 	// draw content

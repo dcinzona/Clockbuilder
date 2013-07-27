@@ -549,6 +549,7 @@ weatherData;
     if(indexPath.row==4 || indexPath.row == 5){
         [self.tableView deselectRowAtIndexPath:self.SelectedCell animated:YES];  
     }
+    [self.tableView deselectRowAtIndexPath:self.SelectedCell animated:YES];
     
 }
 - (void)colorPickerViewController:(ColorPickerViewController *)colorPicker didSelectColor:(UIColor *)color;

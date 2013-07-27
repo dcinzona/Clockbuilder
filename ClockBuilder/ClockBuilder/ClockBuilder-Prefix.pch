@@ -49,6 +49,9 @@
 #define kWeatherIconImagesSetsArrayLowercase [NSArray arrayWithObjects: @"flat", @"htc", @"stardock", @"tick",nil]
 #define kWeatherIconAllSetsArray [NSArray arrayWithObjects: @"Climacons", @"Flat", @"HTC", @"Stardock", @"Tick",nil]
 #define kIconScaleKey @"iconScale"
+#define kIconFrameKey @"iconFrameKey"
+#define kSnapToGridEnabled [[[NSUserDefaults standardUserDefaults] objectForKey:@"snapToGrid"] boolValue]
+#define kGridSizeInt [[[NSUserDefaults standardUserDefaults] objectForKey:@"gridSize"] intValue]
 
 //QUEUES
 #define kDataSingleton [DataSingleton sharedInstance]

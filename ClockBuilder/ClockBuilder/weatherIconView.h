@@ -26,5 +26,7 @@
 @property (strong, nonatomic) NSString *widgetIconSet;
 @property (strong, nonatomic) UIImageView *icon;
 @property (strong, nonatomic) NSNumber *indexInList;
+@property (nonatomic, assign) CGSize originalSize;
+
 
 @end

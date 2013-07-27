@@ -61,34 +61,64 @@ indexInList;
         
         NSString *imageName = [NSString stringWithFormat:@"%@_%@%@",[self.widgetIconSet lowercaseString],self.iconID,dn];
         UIImage *iconImage = [UIImage imageNamed:imageName];
-        CGSize originalImageSize = iconImage.size;
-        UIImage *iconImageCropped = [iconImage imageByTrimmingTransparentPixels];
-        CGSize croppedSize = iconImageCropped.size;
         
-        float difx = originalImageSize.width - croppedSize.width;
-        float dify = originalImageSize.height - croppedSize.height;
+        UIImage *iconImageCropped = [iconImage imageByTrimmingTransparentPixels];
+        
+        CGSize preScaleSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
+        
+        float ratioWidth = iconImageCropped.size.width / iconImage.size.width;
+        float ratioHeight = iconImageCropped.size.height / iconImage.size.height;
+        
+        float scale = 1;
+        
+        if([self.widgetData objectForKey:kIconScaleKey]){
+            scale = [[self.widgetData objectForKey:kIconScaleKey] floatValue];
+        }
+        else{
+            //calculate scale from frame (compared to self.originalSize) - legacy scaling method
+            if(!CGSizeEqualToSize(preScaleSize, self.originalSize)){
+                //always going to be a square since scaling is 1:1
+                scale = preScaleSize.width / self.originalSize.width;
+            }
+        }
+        
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:.4]];
-            [self.icon setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:.4]];
+            //[self setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:.4]];
+            //[self.icon setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:.4]];
             [self.icon setImage:iconImageCropped];
-            CGRect frame = self.icon.frame;
-            frame.size = iconImage.size;
-            //[self.icon setFrame:frame];
+            
+            CGRect iconframe = self.icon.frame;
+            iconframe.size = iconImageCropped.size;
             CGRect selfFrame = self.frame;
-            //selfFrame.size = frame.size;
+            selfFrame.size = iconframe.size;
+        
+            //float smallestRatio = (ratioWidth < ratioHeight) ? ratioWidth : ratioHeight;
+            
+            CGSize transformedSize = CGSizeApplyAffineTransform(iconImageCropped.size, CGAffineTransformMakeScale(ratioWidth*scale, ratioHeight*scale));
+            iconframe.size.width = (int)transformedSize.width;
+            iconframe.size.height = (int)transformedSize.height;
+            selfFrame.size = iconframe.size;
+            
+            [self.icon setFrame:iconframe];
+            [self setFrame:selfFrame];
+            
+            //self.originalSize = selfFrame.size;
+            /*
+            CGRect frame = self.frame;
+            transformedSize = CGSizeApplyAffineTransform(frame.size, CGAffineTransformMakeScale(scale, scale));
+            iconframe.size = transformedSize;
+            selfFrame.size = transformedSize;
+            //[self.icon setFrame:iconframe];
             //[self setFrame:selfFrame];
-            //scale by scale value
+             */
             
-            if([self.widgetData objectForKey:kIconScaleKey]){
-                //[self.layer setAnchorPoint:CGPointMake(0.5, 0.5)];
-                [self.icon.layer setAnchorPoint:CGPointMake(0.5, 0.5)];
-                if(!CGSizeEqualToSize(self.frame.size, self.icon.frame.size)){
-                    float scale = [[self.widgetData objectForKey:kIconScaleKey] floatValue];
-                    self.icon.transform = CGAffineTransformScale(self.icon.transform, scale, scale);
-                }
-            }
-            
+            /*
+            CGPoint topCenter = CGPointMake(CGRectGetMinX(frame), CGRectGetMinY(frame));
+            [self.layer setAnchorPoint:CGPointMake(0, 0)];
+            self.transform = CGAffineTransformScale(self.transform, scale, scale);
+            self.layer.position = topCenter;
+            */
             [self setNeedsDisplay];
         });
 
@@ -148,6 +178,8 @@ indexInList;
         [self setClearsContextBeforeDrawing:YES];
         //[self setOpaque:YES];
         self.indexInList = index;
+        self.originalSize = CGSizeMake(128, 128);
+        
         self.widgetData = [widgetDataDict mutableCopy];
         self.weatherData = [[kDataSingleton getSettings] objectForKey:@"weatherData"];
         float opacity = [[self.widgetData objectForKey:@"opacity"]floatValue];
