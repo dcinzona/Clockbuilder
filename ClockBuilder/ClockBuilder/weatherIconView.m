@@ -79,6 +79,9 @@ indexInList;
             if(!CGSizeEqualToSize(preScaleSize, self.originalSize)){
                 //always going to be a square since scaling is 1:1
                 scale = preScaleSize.width / self.originalSize.width;
+                //then set it to 1 so that it doesnt rescale unless the user scales it.
+                [self.widgetData setObject:[NSNumber numberWithFloat:scale] forKey:kIconScaleKey];
+                [kDataSingleton setWidgetData:[self.indexInList intValue]  withData:self.widgetData];
             }
         }
         

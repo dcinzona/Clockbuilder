@@ -58,6 +58,12 @@
         if(isClimacon){
             fontName = @"Climacons";
             fontSize = 100;
+            UIFont *theFont = [UIFont fontWithName:fontName size:1000];
+            CGRect iconFrame = CGRectFromString([self.widgetData objectForKey:@"frame"]);
+            CGFloat maxFontSize;
+            [self.textLabel.text sizeWithFont:theFont minFontSize:0 actualFontSize:&maxFontSize forWidth:iconFrame.size.width lineBreakMode: NSLineBreakByClipping];
+            fontSize = round(maxFontSize);
+            [self.textLabel setFont:[UIFont fontWithName:fontName size:fontSize]];
         }
         if([self.widgetData objectForKey:@"fontSize"]){
             fontSize = [[self.widgetData objectForKey:@"fontSize"] intValue];
@@ -73,6 +79,7 @@
         
         switch (currentAlignment) {
             case NSTextAlignmentCenter:
+                selfFrame.origin.x += ceil(round(deltaSizeX)/2);
                 selfFrame.origin.y += (ceil(round(deltaSizeY)/2));
                 selfFrame.size.height = ceil(newSize.height);
                 selfFrame.size.width = ceil(newSize.width);
@@ -138,6 +145,7 @@
         if(isClimacon){
             digitsFont = @"Climacons";
             [self.widgetData setObject:digitsFont forKey:@"fontFamily"];
+            
         }
         
     }
@@ -182,7 +190,7 @@
         [self performSelector:@selector(rotateInnerContent)];
     
     if(isClimacon){
-        [kDataSingleton setWidgetData:index withData:self.widgetData];
+        [kDataSingleton setWidgetData:[index intValue] withData:self.widgetData];
     }
     
     [self updateFrameForFontSize];
@@ -657,6 +665,9 @@
 
 -(NSTextAlignment)setTextAlignment
 {
+    if (isClimacon) {
+        return NSTextAlignmentCenter;
+    }
     if([self.widgetData objectForKey:@"textalignment"]!=nil)
     {
         NSString *align = [self.widgetData objectForKey:@"textalignment"];
@@ -671,9 +682,6 @@
         }
     }
     else{
-    }
-    if (isClimacon) {
-        return NSTextAlignmentCenter;
     }
     return NSTextAlignmentLeft;
 }
@@ -795,7 +803,7 @@
 {
     [self.textLabel setGlowColor:newColor];
     
-    const CGFloat* components = CGColorGetComponents(newColor.CGColor);
+    //const CGFloat* components = CGColorGetComponents(newColor.CGColor);
    // NSLog(@"Red: %f", components[0]);
    // NSLog(@"Green: %f", components[1]);
    // NSLog(@"Blue: %f", components[2]);

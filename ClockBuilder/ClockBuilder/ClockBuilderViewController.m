@@ -67,32 +67,7 @@
     [ApplicationDelegate performSelectorInBackground:@selector(setupThemeFiles) withObject:nil];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"iCloudEnabled"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-/*
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"iCloudEnabled"]){
-        if(NSClassFromString(@"NSUbiquitousKeyValueStore")) { // is iOS 5?
-            
-            if([NSUbiquitousKeyValueStore defaultStore]) {  // is iCloud enabled
-                
-                NSURL *ubiq = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil];
-                if (ubiq) {
-                    //[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DidShowiCloudAlert"];
-                    
-                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"iCloudEnabled"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    //[CBThemeHelper setThemeUbiquity:[[NSUserDefaults standardUserDefaults] boolForKey:@"iCloudEnabled"] overwrite:NO];
-                    //[self setupAndStartQuery];
-                    
-                    
-                } else {
-                }
-                
-            } else {
-            }
-        }
-        else {
-        }
-    }
- */
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showWeatherFinder) name:@"cantGeoLocate" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appWillEnterForeground)
@@ -1215,14 +1190,16 @@
     //[[[UIApplication sharedApplication] delegate] performSelector:@selector(setScreenVisible:) withObject:@"NO"];
     
     [self setOriginalWidgetIndex:piece];
-    NSMutableArray *widgetList = [kDataSingleton getWidgetsListFromSettings];
+    
+    //NSMutableArray *widgetList = [kDataSingleton getWidgetsListFromSettings];
     NSInteger index = [self getIndexFromView:piece];
-    NSMutableDictionary *widget = [[widgetList objectAtIndex:index] mutableCopy];
+    NSMutableDictionary *widget = [(textBasedWidget *)piece widgetData]; //[[widgetList objectAtIndex:index] mutableCopy];
     [widget setObject:NSStringFromCGRect(frame) forKey:@"frame"];
     [kDataSingleton setWidgetData:index withData:widget];
-    [self addWidgetToView:[widget objectForKey:@"class"] index:index];    
-    [piece removeFromSuperview];
-    
+    if(redraw){
+        [self addWidgetToView:[widget objectForKey:@"class"] index:index];
+        [piece removeFromSuperview];
+    }
     //[[[UIApplication sharedApplication] delegate] performSelector:@selector(setScreenVisible:) withObject:@"YES"];
 }
 
@@ -1704,46 +1681,11 @@ float previousVal = 1;
         }
         else{ //must be an image widget
             weatherIconView *widgetIcon = (weatherIconView*)self.widgetSelected;
-            //[widgetIcon.layer setAnchorPoint:CGPointMake(0, 0)];
-            //[widgetIcon.icon.layer setAnchorPoint:CGPointMake(0, 0)];
-            //widgetIcon.transform = CGAffineTransformMakeScale(slider.value, slider.value);
             
             CGRect frame = widgetIcon.frame;
             CGPoint topCenter = CGPointMake(CGRectGetMinX(frame), CGRectGetMinY(frame));
             [widgetIcon.layer setAnchorPoint:CGPointMake(0, 0)];
             
-            /*
-            
-            if(kSnapToGridEnabled){
-                CGAffineTransform transform = CGAffineTransformMakeScale(slider.value, slider.value);
-                
-                if(CGRectIsNull(tempRect)){
-                    tempRect = widgetIcon.frame;
-                }
-                
-                //UIView *tempView = [[UIView alloc] initWithFrame:tempRect];
-                CGAffineTransform iTransform = CGAffineTransformInvert([widgetIcon transform]);
-                CGRect rawFrame = CGRectApplyAffineTransform([widgetIcon frame], iTransform);
-                CGRect nextFrame = CGRectApplyAffineTransform(rawFrame, transform);
-                
-                
-                
-                int gridSize = kGridSizeInt;
-                float a = abs(nextFrame.size.width - rawFrame.size.width);
-                if(a < gridSize){
-                    NSLog(@"frame.size.width: %f",nextFrame.size.width);
-                    NSLog(@"a: %f",a);
-                    tempRect = nextFrame;
-                }
-                else{
-                    NSLog(@"a: %f",a);
-                    previousVal = slider.value;
-                }
-            }
-            else {
-                previousVal = slider.value;
-            }
-             */
             previousVal = slider.value;
             
             widgetIcon.transform =  CGAffineTransformMakeScale(previousVal, previousVal);
