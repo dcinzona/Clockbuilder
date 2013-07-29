@@ -53,7 +53,7 @@
 -(void) updateClimaconFrameForFontSize:(NSInteger )fontSize{
     
     UIFont *thefont = [UIFont fontWithName:@"Climacons" size:fontSize];
-    CGPoint origin = self.frame.origin;
+    //CGPoint origin = self.frame.origin;
     CGRect selfFrame = self.frame;
     CGSize selfSize = CGSizeFromString([self.widgetData objectForKey:kIconFrameKey]);
     
@@ -788,7 +788,12 @@
             {
                 //NSLog(@"1234567");
                 NSDateFormatter *dateFormat = [NSDateFormatter new];
-                [dateFormat setDateFormat:[self.widgetData objectForKey:@"dateFormatOverride"]];
+                if([[GMTHelper sharedInstance] prefers24Hour]){
+                    [dateFormat setDateFormat:[(NSString*)[self.widgetData objectForKey:@"dateFormatOverride"] stringByReplacingOccurrencesOfString:@"h" withString:@"H"]];
+                }
+                else{
+                    [dateFormat setDateFormat:[(NSString*)[self.widgetData objectForKey:@"dateFormatOverride"] stringByReplacingOccurrencesOfString:@"H" withString:@"h"]];
+                }
                 //[NSThread detachNewThreadSelector:@selector(setText:) toTarget:self.textLabel withObject:[self transformGivenText:[dateFormat stringFromDate:[NSDate date]]]];
                 [self.textLabel setText:[self transformGivenText:[dateFormat stringFromDate:[NSDate date]]]];
                 [self updateFrameForFontSize];
@@ -873,13 +878,6 @@
 -(void)setNewGlowColor:(UIColor *)newColor intensity:(NSString *)intensity
 {
     [self.textLabel setGlowColor:newColor];
-    
-    //const CGFloat* components = CGColorGetComponents(newColor.CGColor);
-   // NSLog(@"Red: %f", components[0]);
-   // NSLog(@"Green: %f", components[1]);
-   // NSLog(@"Blue: %f", components[2]);
-   // NSLog(@"Alpha: %f", CGColorGetAlpha(newColor.CGColor));
-    
     [self.textLabel setGlowAmount:[intensity floatValue]];
     [self.textLabel setNeedsDisplay];
 }

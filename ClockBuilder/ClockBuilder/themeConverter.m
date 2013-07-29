@@ -546,7 +546,7 @@
         dispatch_async(queue, ^{
             BOOL updateSuccessful = NO;
             
-            NSArray *iconSets = kWeatherIconImagesSetsArrayLowercase;
+            //NSArray *iconSets = kWeatherIconImagesSetsArrayLowercase;
             //update icons
             NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
             NSString *weatherIconsFolderPath = resourcePath;//[resourcePath stringByAppendingPathComponent:@"ClockBuilder/weatherIcons"];
