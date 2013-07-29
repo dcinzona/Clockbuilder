@@ -360,7 +360,7 @@ weatherData;
             segmentedControl.tintColor= [UIColor grayColor];
             segmentedControl.tag = 301;
             if(!kIsIpad && !kIsiOS7){
-                [segmentedControl setCenter:cell.contentView.center];
+                //[segmentedControl setCenter:cell.contentView.center];
             }
             [cell addSubview:segmentedControl];
         }

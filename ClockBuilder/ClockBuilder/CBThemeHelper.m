@@ -1378,9 +1378,9 @@
         [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
         [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
         CGRect buttonFrame = [button frame];
-        buttonFrame.size.width = [[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] sizeWithFont:[UIFont fontWithName:kFontAwesomeFamilyName size:20]].width + 10.0;
+        buttonFrame.size.width = [[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] sizeWithFont:[UIFont fontWithName:kFontAwesomeFamilyName size:20]].width + 20.0;
         buttonFrame.size.height = buttonImage.size.height;
-        //buttonFrame.size.width = 35;
+        [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [button setTitle:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass]
                 forState:UIControlStateNormal];
         [button setFrame:buttonFrame];
@@ -1429,11 +1429,10 @@
         [button setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.7] forState:UIControlStateHighlighted];
         [[button titleLabel] setShadowOffset:CGSizeMake(0.0, -1.0)];
         CGRect buttonFrame = [button frame];
-        buttonFrame.size.width = [[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] sizeWithFont:[UIFont fontWithName:kFontAwesomeFamilyName size:20]].width + 5.0;
+        buttonFrame.size.width = [[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass] sizeWithFont:[UIFont fontWithName:kFontAwesomeFamilyName size:20]].width + 20.0;
         buttonFrame.size.height = buttonImage.size.height;
         [button setFrame:buttonFrame];
-        
-        buttonFrame.size.width = 35;
+        [button.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [button setTitle:[NSString fontAwesomeIconStringForIconIdentifier:iconCSSClass]
                 forState:UIControlStateNormal];
         
