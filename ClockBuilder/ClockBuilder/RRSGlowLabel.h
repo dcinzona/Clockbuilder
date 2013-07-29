@@ -21,5 +21,6 @@
 @property (nonatomic, assign) CGSize glowOffset;
 @property (nonatomic, assign) CGFloat glowAmount;
 @property (nonatomic, strong) UIColor *glowColor;
+@property (nonatomic, strong) NSShadow *shadow;
 
 @end

@@ -170,14 +170,15 @@
             selfFrame.size.width = ceil(newSize.width);
             textLabelFrame.size = selfFrame.size;
         }
-        
         [self setFrame:selfFrame];
+        [self.textLabel sizeThatFits:self.frame.size];
         [self setNeedsDisplay];
         [self.textLabel setFrame:textLabelFrame];
         [self.textLabel setNeedsDisplay];
         
 #ifdef DEBUG
         //[self setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:.4]];
+        //[self.textLabel setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:1 alpha:.4]];
 #endif
         
     }

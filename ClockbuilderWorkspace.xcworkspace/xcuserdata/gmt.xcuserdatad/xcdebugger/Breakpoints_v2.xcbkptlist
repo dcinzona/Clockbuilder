@@ -888,23 +888,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595318.837813"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "-initWithFrame:widgetData:indexValue:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595318.837813"
+            timestampString = "396830324.424594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "190"
@@ -920,11 +904,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595318.837813"
+            timestampString = "396830324.424594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -936,11 +920,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595318.837813"
+            timestampString = "396830324.424594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -952,11 +936,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595318.837813"
+            timestampString = "396830324.424594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -968,11 +952,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
-            timestampString = "396595318.837813"
+            timestampString = "396830324.424594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "-initWithFrame:widgetData:indexValue:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClockBuilder/ClockBuilder/textBasedWidget.m"
+            timestampString = "396830324.424594"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "-initWithFrame:widgetData:indexValue:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1032,13 +1032,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/RRSGlowLabel.m"
-            timestampString = "396594323.923542"
+            timestampString = "396834380.881223"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "-drawTextInRect:"
-            landmarkType = "5">
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "@implementation RRSGlowLabel"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

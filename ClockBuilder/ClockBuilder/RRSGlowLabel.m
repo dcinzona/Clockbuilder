@@ -21,6 +21,10 @@
         self.glowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
         self.backgroundColor = [UIColor clearColor];
         self.textColor = [UIColor whiteColor];
+        self.shadow = [[NSShadow alloc] init];
+        [self.shadow setShadowColor:self.glowColor];
+        [self.shadow setShadowBlurRadius:self.glowAmount];
+        [self.shadow setShadowOffset:self.glowOffset];
         [self setClipsToBounds:NO];
         [self.layer setMasksToBounds:NO];
     }
@@ -32,6 +36,23 @@
 -(BOOL) isScaling{
     return (BOOL)scaling;
 }
+-(void)drawTextInRect:(CGRect)rect{
+    
+    if(self.text){
+        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:self.text];
+        [self.shadow setShadowColor:self.glowColor];
+        [self.shadow setShadowBlurRadius:self.glowAmount];
+        [self.shadow setShadowOffset:self.glowOffset];
+        [attrStr addAttribute:NSFontAttributeName value:self.font range:NSMakeRange(0, self.text.length)];
+        [attrStr addAttribute:NSShadowAttributeName value:self.shadow range:NSMakeRange(0, self.text.length)];
+        [self setAttributedText:attrStr];
+        attrStr = nil;
+    }
+    
+    
+    [super drawTextInRect:rect];
+}
+/*
 - (void)drawTextInRect:(CGRect)rect {
     
     
@@ -84,7 +105,7 @@
         CGContextRestoreGState(context);
     }
 }
-
+*/
 
 
 
