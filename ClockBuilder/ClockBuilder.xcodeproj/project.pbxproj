@@ -746,6 +746,7 @@
 		CB3D793B154BC1CD005BE664 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB3D793A154BC1CD005BE664 /* libz.1.1.3.dylib */; };
 		CB3D95A015CF097A00F6998F /* iTunesArtwork_Glossy_Icon_icon1024.png in Resources */ = {isa = PBXBuildFile; fileRef = CB3D959F15CF097A00F6998F /* iTunesArtwork_Glossy_Icon_icon1024.png */; };
 		CB42D86017A1E74300561D17 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB42D85F17A1E74300561D17 /* Images.xcassets */; };
+		CB4B569A17A742FA00938350 /* LSColorSliderPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4B569917A742FA00938350 /* LSColorSliderPickerView.m */; };
 		CB5653DA1359DBDA002B3364 /* clockOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = CB5653D61359DBDA002B3364 /* clockOverlay.png */; };
 		CB5653DC1359DBDA002B3364 /* snowflakeOverlay.png in Resources */ = {isa = PBXBuildFile; fileRef = CB5653D81359DBDA002B3364 /* snowflakeOverlay.png */; };
 		CB5653E31359E54F002B3364 /* infoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CB5653E11359E54F002B3364 /* infoViewController.m */; };
@@ -1753,6 +1754,8 @@
 		CB3D793A154BC1CD005BE664 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
 		CB3D959F15CF097A00F6998F /* iTunesArtwork_Glossy_Icon_icon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork_Glossy_Icon_icon1024.png; sourceTree = "<group>"; };
 		CB42D85F17A1E74300561D17 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ClockBuilder/Images.xcassets; sourceTree = "<group>"; };
+		CB4B569817A742FA00938350 /* LSColorSliderPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSColorSliderPickerView.h; sourceTree = "<group>"; };
+		CB4B569917A742FA00938350 /* LSColorSliderPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSColorSliderPickerView.m; sourceTree = "<group>"; };
 		CB5653D61359DBDA002B3364 /* clockOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clockOverlay.png; sourceTree = "<group>"; };
 		CB5653D81359DBDA002B3364 /* snowflakeOverlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snowflakeOverlay.png; sourceTree = "<group>"; };
 		CB5653E01359E54F002B3364 /* infoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = infoViewController.h; sourceTree = "<group>"; };
@@ -3115,6 +3118,8 @@
 		CB775CFA1547838100041D97 /* ColorPickerActionsheet */ = {
 			isa = PBXGroup;
 			children = (
+				CB4B569817A742FA00938350 /* LSColorSliderPickerView.h */,
+				CB4B569917A742FA00938350 /* LSColorSliderPickerView.m */,
 				CB775CFB154785BB00041D97 /* ColorSliderPickerView.h */,
 				CB775CFC154785BB00041D97 /* ColorSliderPickerView.m */,
 				CB775CFE1547870900041D97 /* GlowColorSliderPickerView.h */,
@@ -4269,6 +4274,7 @@
 				76D2E56F179FFD4100EC0B70 /* FAImageView.m in Sources */,
 				76A24B85179D4C9400785AE5 /* NSString+MKNetworkKitAdditions.m in Sources */,
 				76A24B86179D4C9400785AE5 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
+				CB4B569A17A742FA00938350 /* LSColorSliderPickerView.m in Sources */,
 				76A24B87179D4C9400785AE5 /* UIImageView+MKNetworkKitAdditions.m in Sources */,
 				76A24B88179D4C9400785AE5 /* MKNetworkEngine.m in Sources */,
 				76A24B89179D4C9400785AE5 /* MKNetworkOperation.m in Sources */,

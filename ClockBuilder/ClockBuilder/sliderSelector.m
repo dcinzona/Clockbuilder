@@ -120,6 +120,7 @@
     
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setSectionFooterHeight:0];
+    [self.tableView setTableFooterView:nil];
     if(!kIsIpad){
         UIBarButtonItem *backButton = [CBThemeHelper createBackButtonItemWithTitle:@"Lockscreen Settings" target:self.navigationController action:@selector(popViewControllerAnimated:)];
         [self.navigationItem setLeftBarButtonItem: backButton];
@@ -182,7 +183,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 64;//self.view.window.screen.scale * 64;
+    return 104;//self.view.window.screen.scale * 64;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -199,6 +200,7 @@
         if(kIsiOS7){
             [cell setBackgroundColor:[UIColor clearColor]];
         }
+        
     }
     // Configure the cell...
     if(themesArray!=nil && [themesArray count]>0)

@@ -12,6 +12,7 @@
 #import "themeConverter.h"
 #import "sliderSelector.h"
 #import "LanguageEditors/LanguageEditorTVC.h"
+#import "LSColorSliderPickerView.h"
 
 #define kBackgroundCell 3
 
@@ -188,12 +189,17 @@
     [fm createSymbolicLinkAtPath:[documentsDirectory stringByAppendingPathComponent:@"/lockscreen/slider@2x.png"] withDestinationPath:sliderTarget2x error:nil];
     
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lsBGColorFinishedPickingWithNote:) name:@"saveLSSliderColor" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(completedSyncingSliderBG:) name:@"SyncCompleted" object:nil];
+    
     [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"saveLSSliderColor" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SyncCompleted" object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -219,10 +225,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    //if(kIsIpad)
-    //    return 6;
-    //else
+    if(kIsIpad)
         return 5;
+    else
+        return 6;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -337,6 +343,19 @@
         swtch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasSliderBackground"];
         return cell;
     }
+    if(!kIsIpad && indexPath.row==kBackgroundCell+2 ){
+        static NSString *CellIdentifier = @"bgSliderCell";
+        BGImageCell *cell = (BGImageCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[BGImageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            UIButton *pickSliderColor = [CBThemeHelper createBlueUIButtonWithTitle:@"Pick Color" target:self action:@selector(pickSliderColor) frame:CGRectMake(0, 0, 100, 32)];
+            [cell setAccessoryView:pickSliderColor];
+            
+        }
+        [[cell textLabel] setText:@"Slider Background"];
+        cell = [self setLSBackgroundColorForCell:cell];
+        return cell;
+    }
     if(kIsIpad && indexPath.row==kBackgroundCell+1 ){
         static NSString *CellIdentifier = @"switchCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -356,8 +375,70 @@
     
     return cell;
 }
+
+-(void)lsBGColorFinishedPickingWithNote:(NSNotification *)note{
+    
+    UIColor *color = [UIColor colorWithRed:0 green:0 blue:0 alpha:.5];
+    if(note){
+        NSData *colorData = [NSKeyedArchiver archivedDataWithRootObject:[[note userInfo] objectForKey:@"color"]];
+        [[NSUserDefaults standardUserDefaults] setObject:colorData forKey:@"sliderBGColor"];
+        color =[NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+        UISwitch *st = (UISwitch *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:kBackgroundCell+1 inSection:0]].accessoryView;
+        [st setOn:YES animated:YES];
+        if([[NSUserDefaults standardUserDefaults] synchronize]){
+            [self saveSliderBG];
+        }
+    }
+    else{
+        return;
+    }
+    
+}
+
+-(BGImageCell *)setLSBackgroundColorForCell:(BGImageCell *)cell{
+    NSString *jbThemes = [self findThemesfolder];
+    NSString *folderTarget = [NSString stringWithFormat:@"%@/Bundles/com.apple.TelephonyUI/",jbThemes];
+    
+    NSData *data = [NSData dataWithContentsOfFile:[folderTarget stringByAppendingString:@"bottombarbkgndlock@2x.png"]];
+    
+    if(data){
+        UIImage *image = [UIImage imageWithData:data];
+        CGRect cropRect = CGRectMake(0, 0, 50,50);
+        CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], cropRect);
+        [cell.imageView setImage:[UIImage imageWithCGImage:imageRef]];
+        CGImageRelease(imageRef);
+    }
+    return cell;
+}
+-(void)completedSyncingSliderBG:(NSNotification *)note{
+    if(note){
+        NSNumber *n = [note object];
+        BOOL b = [n boolValue];
+        if(b){
+            [[GMTHelper sharedInstance] showOverlay:@"Slider Background Updated" iconImage:nil];
+        }
+        else{
+            [[GMTHelper sharedInstance] showOverlay:@"Failed to update slider" iconImage:[UIImage imageNamed:@"errorX"]];
+        }
+        [self.tableView reloadData];
+    }
+}
+-(void)pickSliderColor{
+    
+    LSColorSliderPickerView *colorpicker = [[LSColorSliderPickerView alloc] initWithFrame:CGRectMake(0, 0, 320, 360)];
+    
+    UIColor *color = [UIColor colorWithRed:0 green:0 blue:0 alpha:.5];
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"sliderBGColor"]){
+        color = (UIColor *)[NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"sliderBGColor"]];
+    }
+    
+    NSLog(@"selected color: %@", color);
+    
+    [colorpicker activateInView:self.view withColor:color];
+}
+
 -(UIImage *)createSliderImage:(UIColor *)color{
-    CGRect rect = CGRectMake(0, 0,  480, 140);
+    CGRect rect = CGRectMake(0, 0,  320, 94);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, [color CGColor]);
@@ -366,31 +447,39 @@
     UIGraphicsEndImageContext();
     return image;
 }
-
--(void)toggleSliderBG:(id)sender{
-    UISwitch *swtch = (UISwitch *)sender;
+-(UIImage *)createSliderImage2x:(UIColor *)color{
+    CGRect rect = CGRectMake(0, 0,  640, 94*2);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+-(void)saveSliderBG{
     
     if(!gmt){
         gmt = [GMTThemeSync new];
     }
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(queue, ^{
+        UIColor *color = [UIColor colorWithRed:0 green:0 blue:0 alpha:.5];
         UIImage *image;
-        
-        if(swtch.on){
-            NSLog(@"using semi trans");
-            //image = [UIImage imageNamed:@"semiTransWell"];
-            image = [self createSliderImage:[UIColor colorWithRed:0 green:0 blue:0 alpha:.5]];
+        UIImage *image2x;
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"hasSliderBackground"] && [[NSUserDefaults standardUserDefaults] objectForKey:@"sliderBGColor"]){
+            
+            NSData *colorData = [[NSUserDefaults standardUserDefaults] objectForKey:@"sliderBGColor"];
+            color = [NSKeyedUnarchiver unarchiveObjectWithData:colorData];
+            
         }
-        else{
-            NSLog(@"using trans");
-            image = [self createSliderImage:[UIColor clearColor]];
-            //image = [UIImage imageNamed:@"transparentWell"];
-        }
+        image = [self createSliderImage:color];
+        image2x = [self createSliderImage2x:color];
         
         NSString *tempDir = NSTemporaryDirectory();
         NSLog(@"%@",tempDir);
         NSData *data = UIImagePNGRepresentation(image);
+        NSData *data2x = UIImagePNGRepresentation(image2x);
         NSString *targetName = @"bottombarbkgndlock.png";
         NSString *targetName2x = @"bottombarbkgndlock@2x.png";
         NSString *targetNameWell = @"BarBottomLock.png";
@@ -404,39 +493,30 @@
         NSString *jbThemes = [self findThemesfolder];
         NSString *folderTarget = [NSString stringWithFormat:@"%@/Bundles/com.apple.TelephonyUI/",jbThemes];
         
-        if([data writeToFile:origin atomically:YES] && [data writeToFile:originWell atomically:YES]){
-            //NSString *themeDirPath = @"/Library/Themes/TypoClockBuilder.theme/Bundles/com.apple.TelephonyUI/";
-            //if([[NSFileManager defaultManager] fileExistsAtPath:[folderTarget stringByAppendingString:targetName]]){
-            //    [gmt deleteFileAtPath:[folderTarget stringByAppendingString:targetName]];
-            //}
-            //[gmt deleteFileAtPath:[folderTarget stringByAppendingString:targetNameWell]];
+        if([data writeToFile:origin atomically:YES] &&
+           [data writeToFile:originWell atomically:YES]){
             syncComplete = [gmt syncFileAtPath:originWell toFolderAtPath:folderTarget];
             syncComplete = [gmt syncFileAtPath:origin toFolderAtPath:folderTarget];
         }
-        if([data writeToFile:origin2x atomically:YES] &&
-           [data writeToFile:originWell2x atomically:YES] &&
+        if([data2x writeToFile:origin2x atomically:YES] &&
+           [data2x writeToFile:originWell2x atomically:YES] &&
            syncComplete){
-            //NSString *themeDirPath = @"/Library/Themes/TypoClockBuilder.theme/Bundles/com.apple.Telephony/";
-            //if([[NSFileManager defaultManager] fileExistsAtPath:[folderTarget stringByAppendingString:targetName2x]]){
-            //    [gmt deleteFileAtPath:[folderTarget stringByAppendingString:targetName2x]];
-            //}
-            //[gmt deleteFileAtPath:[folderTarget stringByAppendingString:targetNameWell2x]];
             syncComplete = [gmt syncFileAtPath:originWell2x toFolderAtPath:folderTarget];
             syncComplete = [gmt syncFileAtPath:origin2x toFolderAtPath:folderTarget];
         }
         dispatch_sync(dispatch_get_main_queue(), ^{
-            
-            if(!syncComplete){
-                swtch.on = !swtch.on;
-                [[GMTHelper sharedInstance] alertWithString:@"Unable to sync slider"];
-            }else{
-                //swtch.on = !swtch.on;
-            }
-            [[NSUserDefaults standardUserDefaults] setBool:swtch.on forKey:@"hasSliderBackground"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SyncCompleted" object:[NSNumber numberWithBool:syncComplete]];
         });
     });
+
+}
+-(void)toggleSliderBG:(id)sender{
+    UISwitch *swtch = (UISwitch *)sender;
     
+    [[NSUserDefaults standardUserDefaults] setBool:swtch.on forKey:@"hasSliderBackground"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self saveSliderBG];
 }
 
 
@@ -462,6 +542,9 @@
     {
         [self launchWallpaperPicker];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    if(!kIsIpad && indexPath.row == kBackgroundCell + 2){
+        [self pickSliderColor];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

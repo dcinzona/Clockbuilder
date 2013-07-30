@@ -20,8 +20,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        sliderImage = [[UIImageView alloc] initWithFrame:CGRectMake(105, 12, 110, 39)];
-        [sliderImage setContentMode:UIViewContentModeScaleAspectFit];
+        sliderImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 5, 110, 39)];
+        [sliderImage setContentMode:UIViewContentModeCenter];
         [self addSubview:sliderImage];
         if (!kIsiOS7 && NO) {
             UIImageView *bg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"tvCellBG.png"]];
@@ -32,7 +32,8 @@
         }
         else{
             [sliderImage setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:.4]];
-            [sliderImage setFrame:CGRectMake(0, sliderImage.frame.origin.y, self.frame.size.width, sliderImage.frame.size.height)];
+            [sliderImage setFrame:CGRectMake(0, sliderImage.frame.origin.y, self.frame.size.width, 94)];
+            
         }
     }
     return self;

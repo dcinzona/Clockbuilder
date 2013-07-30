@@ -791,22 +791,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ClockBuilder/ClockBuilder/manageJBSettings.m"
-            timestampString = "396409299.110944"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "390"
-            endingLineNumber = "390"
-            landmarkName = "-toggleSliderBG:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ClockBuilder/ClockBuilder/ClockBuilderAppDelegate.m"
             timestampString = "396634718.745897"
             startingColumnNumber = "9223372036854775807"
@@ -1086,6 +1070,22 @@
             startingLineNumber = "465"
             endingLineNumber = "465"
             landmarkName = "-dismissActionSheet"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ClockBuilder/ClockBuilder/manageJBSettings.m"
+            timestampString = "396843107.078571"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
+            landmarkName = "-setLSBackgroundColorForCell:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

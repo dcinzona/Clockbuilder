@@ -10,6 +10,7 @@
 #import "ImagePickerView.h"
 #import "themeConverter.h"
 #import "GMTThemeSync.h"
+#import "ColorPickerViewController.h"
 
 @interface manageJBSettings : UITableViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     
