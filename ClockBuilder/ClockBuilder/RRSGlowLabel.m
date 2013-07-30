@@ -44,7 +44,9 @@
         [self.shadow setShadowBlurRadius:self.glowAmount];
         [self.shadow setShadowOffset:self.glowOffset];
         [attrStr addAttribute:NSFontAttributeName value:self.font range:NSMakeRange(0, self.text.length)];
-        [attrStr addAttribute:NSShadowAttributeName value:self.shadow range:NSMakeRange(0, self.text.length)];
+        if(![self isScaling]){
+            [attrStr addAttribute:NSShadowAttributeName value:self.shadow range:NSMakeRange(0, self.text.length)];
+        }
         [self setAttributedText:attrStr];
         attrStr = nil;
     }

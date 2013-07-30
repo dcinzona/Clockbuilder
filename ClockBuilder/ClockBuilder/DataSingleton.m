@@ -28,53 +28,54 @@ static NSLock *theLock;
 }
 + (DataSingleton*)sharedInstance;
 {
-    static dispatch_once_t onceQueue;
+    //static dispatch_once_t onceQueue;
+    static DataSingleton * _instance;
+    //dispatch_once(&onceQueue, ^{
+    //    sharedInstance = [[DataSingleton alloc] init];
+    //});
+    @synchronized(self){
+        if(!_instance){
+            _instance = [[DataSingleton alloc] init];
+        }
+        return _instance;
+    }
     
-    dispatch_once(&onceQueue, ^{
-        sharedInstance = [[DataSingleton alloc] init];
-    });
     
-    return sharedInstance;
+    //return sharedInstance;
 }
 - (id)init {
-    id __block obj;
-    
-    dispatch_sync(serialQueue, ^{
-        obj = [super init];
-        if (obj) {
-            self.settings = [self getSettings];
-            theLock = [NSLock new];
-        }
-    });
-    self = obj;
+    if(self == [super init]){
+        _settings = [self getSettings];
+        theLock = [NSLock new];
+    }
     return self;
 }
 -(void) saveSettingsToDefaults{
-    dispatch_async(serialQueue, ^{
+    //dispatch_async(serialQueue, ^{
         //@synchronized(self.settings){
-            [theLock lock];
+            //[theLock lock];
                 [[NSUserDefaults standardUserDefaults] setObject:self.settings forKey:@"settings"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-            [theLock unlock];
+            //[theLock unlock];
         //}
-    });
+    //});
 }
 -(void) updateSettings:(NSMutableDictionary *)sets{
     //@synchronized(self.settings){
-        [theLock lock];
+      //  [theLock lock];
         self.settings = [NSMutableDictionary dictionaryWithDictionary:sets];
-        [theLock unlock];
+      //  [theLock unlock];
     //}
 }
 -(void)saveWidgetsListToSettings:(NSMutableArray *)list{
-    [theLock lock];
+    //[theLock lock];
     //@synchronized(kDataSingleton){
         if(self && self.settings){
             [self.settings setObject:list forKey:@"widgetsList"];
             [self saveSettingsToDefaults];
         }
     //}
-    [theLock unlock];
+    //[theLock unlock];
 }
 -(NSMutableArray *)getWidgetsListFromSettings{
     //@synchronized(kDataSingleton){
@@ -91,12 +92,12 @@ static NSLock *theLock;
 -(NSMutableDictionary *)getSettings{
     //@synchronized(kDataSingleton){
     //[theLock lock];
-        if(self.settings){
-            return self.settings;
+        if(_settings){
+            return _settings;
         }
         else{
             [self setSettingsFromDefaults];
-            return self.settings;
+            return _settings;
         }
     //[theLock unlock];
     //}
@@ -104,11 +105,11 @@ static NSLock *theLock;
 -(void) setSettingsFromDefaults{
     //@synchronized(kDataSingleton){
         if([[NSUserDefaults standardUserDefaults] objectForKey:@"settings"]){
-            self.settings = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] mutableCopy];
+            _settings = [[[NSUserDefaults standardUserDefaults] objectForKey:@"settings"] mutableCopy];
         }
         else{
             NSString *settingsPath = [[NSBundle mainBundle] pathForResource:@"settings" ofType:@"plist"];
-            self.settings = [NSMutableDictionary dictionaryWithContentsOfFile:settingsPath];
+            _settings = [NSMutableDictionary dictionaryWithContentsOfFile:settingsPath];
         }
     //}
 }
