@@ -154,6 +154,7 @@
     NSURL *cbThemeURL;
     BOOL overwrite;
     BOOL _alertToSaveShowing;
+    NSString *hostIP;
     
 }
 - (void)processThemeFile;
@@ -197,7 +198,7 @@ static dispatch_queue_t serialQueue;
         obj = [super init];
         if (obj) {
             //Set variables here
-            
+            [self getHostIPForClockBuilder];
         }
     });
     
@@ -246,11 +247,14 @@ static dispatch_queue_t serialQueue;
 //////////////////////////////////////////////////////////////////////////////////////
 #pragma mark inet methods
 //////////////////////////////////////////////////////////////////////////////////////
+
+#define khost @"www.google.com"
+
 -(BOOL)deviceIsConnectedToInet
 {
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSString *hostName = @"clockbuilder.gmtaz.com";
+    NSString *hostName = khost;
     
     NSURLResponse *response;
     NSError *error;
@@ -293,7 +297,7 @@ static dispatch_queue_t serialQueue;
 -(BOOL)isConnectionWifi
 {    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSString *hostName = @"clockbuilder.gmtaz.com";
+    NSString *hostName = khost;
     
     NSURLResponse *response;
     NSError *error;
@@ -356,12 +360,12 @@ static dispatch_queue_t serialQueue;
             
         }
         else if([title isEqualToString:@"Get it"]){
-            NSString *url = [[NSUserDefaults standardUserDefaults] objectForKey:@"lssyncurl"];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
+            //NSString *url = [[NSUserDefaults standardUserDefaults] objectForKey:@"lssyncurl"];
+            //[[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
         }
         else if([title isEqualToString:@"Got it"]){
-            [[NSUserDefaults standardUserDefaults] setObject:@"no" forKey:@"showTetheredFixAlert"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            //[[NSUserDefaults standardUserDefaults] setObject:@"no" forKey:@"showTetheredFixAlert"];
+            //[[NSUserDefaults standardUserDefaults] synchronize];
         }
         else{}
     }
@@ -413,6 +417,7 @@ static dispatch_queue_t serialQueue;
 //////////////////////////////////////////////////////////////////////////////////////
 -(BOOL)checkAppVersionNoAlert
 {
+    /*
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
     NSString *versionCheck = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/versioncheck.php?v=%@", version]; 
@@ -433,9 +438,12 @@ static dispatch_queue_t serialQueue;
     {
         return NO;
     }
+     */
+    return YES;
 }
 -(BOOL)checkAppVersion
 {
+    /*
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString*)kCFBundleVersionKey];
     NSString *versionCheck = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/versioncheck.php?v=%@", version]; 
     NSURL *vurl = [NSURL URLWithString:versionCheck];
@@ -451,6 +459,8 @@ static dispatch_queue_t serialQueue;
         //});
         return NO;
     }
+     */
+    return YES;
 }
 
 
@@ -654,7 +664,7 @@ static dispatch_queue_t serialQueue;
     NSMutableSet *catArray;
     if ([self deviceIsConnectedToInet]) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        NSString *catURL = @"http://clockbuilder.gmtaz.com/getCategories.php?api=SDFB52f4vw9230V45gdfg"; 
+        NSString *catURL = [NSString stringWithFormat:@"http://%@/getCategories.php?api=SDFB52f4vw9230V45gdfg", [[GMTHelper sharedInstance] getHostIPForClockBuilder]];
         catArray = [NSMutableSet setWithArray:[NSArray arrayWithArray:[self objectWithUrl:[NSURL URLWithString:catURL]]]];
 
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -741,7 +751,7 @@ static dispatch_queue_t serialQueue;
 
 -(void)downloadThemeNamed:(NSString *)themeNameToDownload withName:(NSString *)inputString{
         
-    NSString *themeURLString = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/resources/themes/%@/",themeNameToDownload];
+    NSString *themeURLString = [NSString stringWithFormat:@"http://%@/resources/themes/%@/", [[GMTHelper sharedInstance] getHostIPForClockBuilder] ,themeNameToDownload];
     NSString *saveAsName = inputString;
     //FILES: LockBackground.png - themeScreenshot.jpg - widgetsList.plist
     dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -1222,6 +1232,17 @@ UIImage * resizeImageTo1xHelper(UIImage * img, CGSize newSize){
 }
 
 
-
+-(NSString *)getHostIPForClockBuilder{
+    @synchronized(hostIP){
+        if(!hostIP){
+            struct hostent *host_entry = gethostbyname("clockbuilder.gmtaz.com");
+            char *buff;
+            buff = inet_ntoa(*((struct in_addr *)host_entry->h_addr_list[0]));
+            hostIP = [NSString stringWithCString:buff encoding:NSUTF8StringEncoding];
+            NSLog(@"initiating HOST IP: %@", hostIP);
+        }
+        return @"clockbuilder.gmtaz.com";//hostIP;
+    }
+}
 
 @end

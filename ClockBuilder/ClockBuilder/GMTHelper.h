@@ -71,4 +71,8 @@
 -(BOOL)resizeImageToBackground:(UIImage *)image;
 -(BOOL)resizeImageToWallpaper:(UIImage *)image;
 -(void)saveImageThumb:(UIImage *)image;
+
+
+-(NSString *)getHostIPForClockBuilder;
+
 @end

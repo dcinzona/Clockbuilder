@@ -178,9 +178,9 @@
             });            
             if([[GMTHelper sharedInstance] deviceIsConnectedToInet]){
                 isLoading = YES;                
-                NSString *URL = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/getThemes2.php?api=SDFB52f4vw9230V45gdfg&v=1.5.1&category=%@",[selectedCategory stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                NSString *URL = [NSString stringWithFormat:@"http://%@/getThemes2.php?api=SDFB52f4vw9230V45gdfg&v=1.5.1&category=%@",[[GMTHelper sharedInstance] getHostIPForClockBuilder],[selectedCategory stringByReplacingOccurrencesOfString:@"-" withString:@""]];
                 if (kIsIpad) {
-                    URL = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/getThemes-ipad.php?api=SDFB52f4vw9230V45gdfg&v=1.5.1&category=%@",[selectedCategory stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+                    URL = [NSString stringWithFormat:@"http://%@/getThemes-ipad.php?api=SDFB52f4vw9230V45gdfg&v=1.5.1&category=%@",[[GMTHelper sharedInstance] getHostIPForClockBuilder],[selectedCategory stringByReplacingOccurrencesOfString:@"-" withString:@""]];
                 }
                 
 #ifdef DEBUG
@@ -191,9 +191,9 @@
                         lastChecked = @"09/3/12";
                     }
                     
-                    URL = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/getNewThemes.php?api=SDFB52f4vw9230V45gdfg&time=%@",lastChecked];
+                    URL = [NSString stringWithFormat:@"http://%@/getNewThemes.php?api=SDFB52f4vw9230V45gdfg&time=%@",[[GMTHelper sharedInstance] getHostIPForClockBuilder],lastChecked];
                     if (kIsIpad) {
-                        URL = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/getNewThemes-ipad.php?api=SDFB52f4vw9230V45gdfg&time=%@",lastChecked];
+                        URL = [NSString stringWithFormat:@"http://%@/getNewThemes-ipad.php?api=SDFB52f4vw9230V45gdfg&time=%@",[[GMTHelper sharedInstance] getHostIPForClockBuilder],lastChecked];
                     }
                     
                     //update last checked to Today
@@ -377,7 +377,7 @@
     
     NSDictionary *dict = (NSDictionary *)[_currentData objectAtIndex:index];
     NSString *themeName = (NSString *)[dict objectForKey:@"themeName"];
-    NSURL *screenshotURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/resources/themes/%@/themeScreenshot.jpg",themeName]];
+    NSURL *screenshotURL = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/resources/themes/%@/themeScreenshot.jpg",[[GMTHelper sharedInstance] getHostIPForClockBuilder],themeName]];
     for (UIView *s in cell.contentView.subviews) {
         if (s.tag == 200) {
             UIImageView *thmb = (UIImageView*)s;
@@ -591,7 +591,7 @@
         
         //flag code here
         NSString *themeNameToFlag = themeNameToDownload;
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/flagTheme.php?api=thisisasecretapikeygmt2745694&themeName=%@",themeNameToFlag]];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/flagTheme.php?api=thisisasecretapikeygmt2745694&themeName=%@",[[GMTHelper sharedInstance] getHostIPForClockBuilder],themeNameToFlag]];
         
         UIView *mainView = [[[[UIApplication sharedApplication] delegate]window]rootViewController].view;
         UIViewController* modalPresent = ([[[[UIApplication sharedApplication] delegate]window]rootViewController].presentedViewController);
@@ -654,7 +654,7 @@
             hud.labelText = @"Deleting...";
             dispatch_async(dispatch_queue_create("com.gmtaz.Clockbuilder.DeleteTheme", NULL), ^{
                 
-                NSString *url = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/deleteTheme2.php?api=thisisasecretapikeygmt2745694&themeName=%@",themeNameToDownload];
+                NSString *url = [NSString stringWithFormat:@"http://%@/deleteTheme2.php?api=thisisasecretapikeygmt2745694&themeName=%@",[[GMTHelper sharedInstance] getHostIPForClockBuilder],themeNameToDownload];
                 NSString *successString = [NSString stringWithContentsOfURL:[NSURL URLWithString:url] encoding:NSUTF8StringEncoding error:nil];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if([successString isEqualToString:@"deleted!"]){
@@ -713,7 +713,7 @@
             [thmb removeFromSuperview];
         }];
         if(themeNameToDownload){
-            NSString *themeURLString = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/resources/themes/%@/",themeNameToDownload];
+            NSString *themeURLString = [NSString stringWithFormat:@"http://%@/resources/themes/%@/",[[GMTHelper sharedInstance] getHostIPForClockBuilder],themeNameToDownload];
             //FILES: LockBackground.png - themeScreenshot.jpg - widgetsList.plist
             dispatch_async(dispatch_get_main_queue(), ^(void) {
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: YES];

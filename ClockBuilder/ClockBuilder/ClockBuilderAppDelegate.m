@@ -348,9 +348,9 @@
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(queue, ^{
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.engine = [[ThemeUploader alloc] initWithHostName:@"clockbuilder.gmtaz.com"];
+            self.engine = [[ThemeUploader alloc] initWithHostName:[[GMTHelper sharedInstance] getHostIPForClockBuilder]];
         });
         
         BOOL deviceIsConnected = [[GMTHelper sharedInstance] deviceIsConnectedToInet];
@@ -360,15 +360,15 @@
                 [[GMTHelper sharedInstance] alertWithString:@"This application requires an internet connection.  Running it without will lead to unexpected results."];
             });
         }
-        if(deviceIsConnected){
+        else{
             
-            NSString *cbfixMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://static.gmtaz.com/apps.php?type=cbfix"] encoding:NSUTF8StringEncoding error:nil];
-            if(cbfixMessage)
-                [[NSUserDefaults standardUserDefaults] setObject:cbfixMessage forKey:@"cbfixmsg"];
-            NSString *lsync = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://static.gmtaz.com/apps.php?type=lssyncurl"] encoding:NSUTF8StringEncoding error:nil];
-            if(lsync)
-                [[NSUserDefaults standardUserDefaults] setObject:lsync forKey:@"lssyncurl"];
-            [[NSUserDefaults standardUserDefaults]synchronize];
+            //NSString *cbfixMessage = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://static.gmtaz.com/apps.php?type=cbfix"] encoding:NSUTF8StringEncoding error:nil];
+            //if(cbfixMessage)
+            //    [[NSUserDefaults standardUserDefaults] setObject:cbfixMessage forKey:@"cbfixmsg"];
+            //NSString *lsync = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://static.gmtaz.com/apps.php?type=lssyncurl"] encoding:NSUTF8StringEncoding error:nil];
+            //if(lsync)
+            //    [[NSUserDefaults standardUserDefaults] setObject:lsync forKey:@"lssyncurl"];
+            //[[NSUserDefaults standardUserDefaults]synchronize];
         }
         
         
@@ -998,7 +998,7 @@
 }
 
 - (BOOL)latestVersion{
-    
+    /* *
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
     dispatch_async(queue, ^{
     if([[GMTHelper sharedInstance] deviceIsConnectedToInet]){
@@ -1021,14 +1021,17 @@
                 });                
             }
             else{         
-                [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"needsToUpdate"];   
-                [[NSUserDefaults standardUserDefaults] synchronize]; 
             }
+         
+        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"needsToUpdate"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else
         _runningUpdateCheckOnStart = NO;
     });
-    return [[[NSUserDefaults standardUserDefaults] objectForKey:@"needsToUpdate"] boolValue];
+    * */
+    _runningUpdateCheckOnStart = NO;
+    return NO;//[[[NSUserDefaults standardUserDefaults] objectForKey:@"needsToUpdate"] boolValue];
 }
 
 
@@ -1069,9 +1072,9 @@
     [self showHideToolbar];
     NSLog(@"APPLICATION DID BECOME ACTIVE");
     [[NSNotificationCenter defaultCenter] postNotificationName:kApplicationDidBecomeActiveNotification object:nil];
-    
+    /* */
     dispatch_async(dispatch_queue_create("com.gmtaz.clockbuilder.query", NULL), ^{
-        NSString *urlstr = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/blockList.php?udid=%@",[OpenUDID value]];
+        NSString *urlstr = [NSString stringWithFormat:@"http://%@/blockList.php?udid=%@", [[GMTHelper sharedInstance] getHostIPForClockBuilder],[OpenUDID value]];
         NSURL *url = [NSURL URLWithString:urlstr];
         NSString *blocked =  [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
         [[NSUserDefaults standardUserDefaults] setBool:[blocked boolValue] forKey:@"blocked"];
@@ -1082,8 +1085,9 @@
             NSLog(@"not blocked");
         }
     });
-    
-    
+    /* */
+    //[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"blocked"];
+
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"convertedAllThemes"])
         [CBThemeHelper convertThemesToDocuments];
     

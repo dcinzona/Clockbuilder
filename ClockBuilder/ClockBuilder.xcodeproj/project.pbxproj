@@ -515,6 +515,7 @@
 		768EE21F15CAD637003B31A0 /* CoreTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 768EE21E15CAD637003B31A0 /* CoreTheme.m */; };
 		768EE22215CAD6FE003B31A0 /* CBiPadModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 768EE22015CAD6FE003B31A0 /* CBiPadModel.xcdatamodeld */; };
 		768EE22515CAD746003B31A0 /* CoreThemeiPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 768EE22415CAD746003B31A0 /* CoreThemeiPad.m */; };
+		7693D87E17B18E1C0052AF38 /* libGMGridView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7693D87B17B18DD40052AF38 /* libGMGridView.a */; };
 		7695BCE715B977180000C893 /* CoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7695BCE615B977180000C893 /* CoreDataController.m */; };
 		7695BCEB15B97AAF0000C893 /* CBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7695BCE915B97AAF0000C893 /* CBModel.xcdatamodeld */; };
 		769C21D0132EA4540005FAF2 /* tvCellAccessoryCheck.png in Resources */ = {isa = PBXBuildFile; fileRef = 769C21CE132EA4540005FAF2 /* tvCellAccessoryCheck.png */; };
@@ -572,7 +573,6 @@
 		76D605D1179D52D90036A8AF /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D6059C179D52D80036A8AF /* SDWebImagePrefetcher.m */; };
 		76D605D2179D52D90036A8AF /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D6059E179D52D80036A8AF /* UIButton+WebCache.m */; };
 		76D605D3179D52D90036A8AF /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 76D605A0179D52D80036A8AF /* UIImageView+WebCache.m */; };
-		76D6064C179D562E0036A8AF /* libGMGridView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76D60649179D55320036A8AF /* libGMGridView.a */; };
 		76D6EE25133D0C48007BE0FA /* LockBackground.html in Resources */ = {isa = PBXBuildFile; fileRef = 76D6EE24133D0C48007BE0FA /* LockBackground.html */; };
 		76DC643615E3AB7600AEBF86 /* climacons.png in Resources */ = {isa = PBXBuildFile; fileRef = 76DC642A15E3AB7600AEBF86 /* climacons.png */; };
 		76DC643715E3AB7600AEBF86 /* climacons@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76DC642B15E3AB7600AEBF86 /* climacons@2x.png */; };
@@ -768,16 +768,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		76D60648179D55320036A8AF /* PBXContainerItemProxy */ = {
+		7693D87A17B18DD40052AF38 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 76D60644179D55310036A8AF /* GMGridView.xcodeproj */;
+			containerPortal = 7693D87617B18DD40052AF38 /* GMGridView.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 78509312149FAC2E000787E4;
 			remoteInfo = GMGridView;
 		};
-		76D6064A179D561C0036A8AF /* PBXContainerItemProxy */ = {
+		7693D87C17B18E120052AF38 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 76D60644179D55310036A8AF /* GMGridView.xcodeproj */;
+			containerPortal = 7693D87617B18DD40052AF38 /* GMGridView.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 78509311149FAC2E000787E4;
 			remoteInfo = GMGridView;
@@ -1359,6 +1359,7 @@
 		768EE22115CAD6FE003B31A0 /* CBiPadModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CBiPadModel.xcdatamodel; sourceTree = "<group>"; };
 		768EE22315CAD746003B31A0 /* CoreThemeiPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreThemeiPad.h; path = CoreData/CoreThemeiPad.h; sourceTree = "<group>"; };
 		768EE22415CAD746003B31A0 /* CoreThemeiPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreThemeiPad.m; path = CoreData/CoreThemeiPad.m; sourceTree = "<group>"; };
+		7693D87617B18DD40052AF38 /* GMGridView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GMGridView.xcodeproj; path = ClockBuilder/GMGridView/GMGridView.xcodeproj; sourceTree = "<group>"; };
 		7695BCE515B977180000C893 /* CoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataController.h; sourceTree = "<group>"; };
 		7695BCE615B977180000C893 /* CoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataController.m; sourceTree = "<group>"; };
 		7695BCEA15B97AAF0000C893 /* CBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CBModel.xcdatamodel; sourceTree = "<group>"; };
@@ -1460,7 +1461,6 @@
 		76D6059E179D52D80036A8AF /* UIButton+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WebCache.m"; sourceTree = "<group>"; };
 		76D6059F179D52D80036A8AF /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
 		76D605A0179D52D80036A8AF /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
-		76D60644179D55310036A8AF /* GMGridView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = GMGridView.xcodeproj; sourceTree = "<group>"; };
 		76D6EE24133D0C48007BE0FA /* LockBackground.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = LockBackground.html; sourceTree = "<group>"; };
 		76D764A2134392DA0058C5E7 /* build.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = build.js; sourceTree = "<group>"; };
 		76DC642A15E3AB7600AEBF86 /* climacons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = climacons.png; sourceTree = "<group>"; };
@@ -1702,7 +1702,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76D6064C179D562E0036A8AF /* libGMGridView.a in Frameworks */,
+				7693D87E17B18E1C0052AF38 /* libGMGridView.a in Frameworks */,
 				76F78BFD179D4F2200428F30 /* ImageIO.framework in Frameworks */,
 				CBFB259315D5BD6C00DD97AF /* libSSToolkit.a in Frameworks */,
 				76E2D06D15C175C2000D5851 /* StoreKit.framework in Frameworks */,
@@ -2345,6 +2345,14 @@
 			name = iPad;
 			sourceTree = "<group>";
 		};
+		7693D87717B18DD40052AF38 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7693D87B17B18DD40052AF38 /* libGMGridView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7695BCEF15B97B960000C893 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -2509,23 +2517,6 @@
 			);
 			name = SDWebImage;
 			path = Frameworks/SDWebImage;
-			sourceTree = "<group>";
-		};
-		76D6062C179D545A0036A8AF /* GMGridView */ = {
-			isa = PBXGroup;
-			children = (
-				76D60644179D55310036A8AF /* GMGridView.xcodeproj */,
-			);
-			name = GMGridView;
-			path = Frameworks/GMGridView;
-			sourceTree = "<group>";
-		};
-		76D60645179D55310036A8AF /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				76D60649179D55320036A8AF /* libGMGridView.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		76DC642915E3AB7600AEBF86 /* weatherIconThumbs */ = {
@@ -2839,8 +2830,8 @@
 		CBBDC1B413285C6B00EE9349 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7693D87617B18DD40052AF38 /* GMGridView.xcodeproj */,
 				CBFB257F15D5BD3400DD97AF /* SSToolkit.xcodeproj */,
-				76D6062C179D545A0036A8AF /* GMGridView */,
 				76D6054A179D52D80036A8AF /* SDWebImage */,
 				76D60546179D52A70036A8AF /* JSONKit */,
 				76D60542179D526A0036A8AF /* MBProgressHUD */,
@@ -3054,7 +3045,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				76D6064B179D561C0036A8AF /* PBXTargetDependency */,
+				7693D87D17B18E120052AF38 /* PBXTargetDependency */,
 				CBFB259215D5BD5000DD97AF /* PBXTargetDependency */,
 				CBFB259015D5BD4D00DD97AF /* PBXTargetDependency */,
 			);
@@ -3084,8 +3075,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 76D60645179D55310036A8AF /* Products */;
-					ProjectRef = 76D60644179D55310036A8AF /* GMGridView.xcodeproj */;
+					ProductGroup = 7693D87717B18DD40052AF38 /* Products */;
+					ProjectRef = 7693D87617B18DD40052AF38 /* GMGridView.xcodeproj */;
 				},
 				{
 					ProductGroup = CBFB258015D5BD3400DD97AF /* Products */;
@@ -3100,11 +3091,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		76D60649179D55320036A8AF /* libGMGridView.a */ = {
+		7693D87B17B18DD40052AF38 /* libGMGridView.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libGMGridView.a;
-			remoteRef = 76D60648179D55320036A8AF /* PBXContainerItemProxy */;
+			remoteRef = 7693D87A17B18DD40052AF38 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CBFB258A15D5BD3400DD97AF /* libSSToolkit.a */ = {
@@ -3883,10 +3874,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		76D6064B179D561C0036A8AF /* PBXTargetDependency */ = {
+		7693D87D17B18E120052AF38 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = GMGridView;
-			targetProxy = 76D6064A179D561C0036A8AF /* PBXContainerItemProxy */;
+			targetProxy = 7693D87C17B18E120052AF38 /* PBXContainerItemProxy */;
 		};
 		CBFB259015D5BD4D00DD97AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4004,6 +3995,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/ClockBuilder\"",
 					"\"$(SRCROOT)\"",
+					"\"$(TARGET_BUILD_DIR)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -4131,6 +4123,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/ClockBuilder\"",
 					"\"$(SRCROOT)\"",
+					"\"$(TARGET_BUILD_DIR)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -4157,8 +4150,8 @@
 				);
 				BUILD_STYLE = Release;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Gustavo Tandeciarz";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gustavo Tandeciarz";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gustavo Tandeciarz (W66S4EDH5V)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gustavo Tandeciarz (W66S4EDH5V)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4181,6 +4174,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/ClockBuilder\"",
 					"\"$(SRCROOT)\"",
+					"\"$(TARGET_BUILD_DIR)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -4188,11 +4182,11 @@
 					"-fobjc-arc",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "10393B12-C204-46C9-A22A-19C8EA1FA3DB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "10393B12-C204-46C9-A22A-19C8EA1FA3DB";
+				PROVISIONING_PROFILE = "72648D88-1608-4877-916E-53C6A49AB4F4";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "72648D88-1608-4877-916E-53C6A49AB4F4";
 				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/ClockBuilder\"";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) \"$(SRCROOT)/ClockBuilder\" \"$(SRCROOT)/ClockBuilder/GMGridView\"/**";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

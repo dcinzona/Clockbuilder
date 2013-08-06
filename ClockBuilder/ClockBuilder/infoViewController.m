@@ -127,10 +127,10 @@
     if ([th checkIfJB]) {
         infoWebView.hidden = NO;
         
-        NSString *textString = @"<html><body style=\"background-color: transparent;font-family:sans-serif;color:#c0c0c0;font-size:12px;\"><p>Having trouble setting your lockscreen? </p><p>  Try installing GMTSync from Cydia or LSSync from my repo.</p><p>To get GMTSync, just search Cydia.  </p><p>To get LSSync, add my repo: <a href=\"http://static.gmtaz.com\">http://static.gmtaz.com</a> to your Cydia sources and search for LSSync.</p><p>More info can be found on my blog at <a href=\"http://gmtaz.com/blog\">gmtaz.com/blog</a></p></body></html>";
+        NSString *textString = @"<html><body style=\"background-color: transparent;font-family:sans-serif;color:#c0c0c0;font-size:12px;\"><p>Having trouble setting your lockscreen? </p><p>  Try installing GMTSync from Cydia.</p><p>To get GMTSync, just search Cydia.  </p><p>More info can be found on my blog at <a href=\"http://gmtaz.com/blog\">gmtaz.com/blog</a></p></body></html>";
         [infoWebView loadHTMLString:textString baseURL:nil];
         if([[GMTHelper sharedInstance] deviceIsConnectedToInet]){
-            [infoWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://clockbuilder.gmtaz.com/cbinfo.html"]]];
+            [infoWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/cbinfo.html",[[GMTHelper sharedInstance] getHostIPForClockBuilder]]]]];
         }
     }
     else {

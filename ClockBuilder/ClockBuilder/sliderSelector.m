@@ -68,7 +68,7 @@
         if([[GMTHelper sharedInstance]deviceIsConnectedToInet])
         {
             if(_valid){   
-                NSURL *gmtaz = [NSURL URLWithString:@"http://clockbuilder.gmtaz.com/resources/unlockSliders/list.txt"];
+                NSURL *gmtaz = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/resources/unlockSliders/list.txt",[[GMTHelper sharedInstance] getHostIPForClockBuilder]]];
                 NSArray *sliders = [NSArray arrayWithArray:[self objectWithUrl:gmtaz]];
                 themesArray = [NSArray arrayWithArray:sliders];                
                 dispatch_sync(dispatch_get_main_queue(), ^(void) {   
@@ -202,7 +202,8 @@
     // Configure the cell...
     if(themesArray!=nil && [themesArray count]>0)
     {
-        NSString *url2x = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/resources/unlockSliders/%@/%@@2x.png",
+        NSString *url2x = [NSString stringWithFormat:@"http://%@/resources/unlockSliders/%@/%@@2x.png",
+                           [[GMTHelper sharedInstance] getHostIPForClockBuilder],
                          [[themesArray objectAtIndex:indexPath.row] objectForKey:@"name"],
                            [[themesArray objectAtIndex:indexPath.row] objectForKey:@"color"]];
         [cell loadImage:url2x];
@@ -364,10 +365,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSString *url2x = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/resources/unlockSliders/%@/%@@2x.png",
+    NSString *url2x = [NSString stringWithFormat:@"http://%@/resources/unlockSliders/%@/%@@2x.png",
+                       [[GMTHelper sharedInstance] getHostIPForClockBuilder],
                        [[themesArray objectAtIndex:indexPath.row] objectForKey:@"name"],
                        [[themesArray objectAtIndex:indexPath.row] objectForKey:@"color"]];
-    NSString *url = [NSString stringWithFormat:@"http://clockbuilder.gmtaz.com/resources/unlockSliders/%@/%@.png",
+    NSString *url = [NSString stringWithFormat:@"http://%@/resources/unlockSliders/%@/%@.png",
+                     [[GMTHelper sharedInstance] getHostIPForClockBuilder],
                      [[themesArray objectAtIndex:indexPath.row] objectForKey:@"name"],
                      [[themesArray objectAtIndex:indexPath.row] objectForKey:@"color"]];
     Done1x = NO;
