@@ -143,7 +143,7 @@
         [titleLabel setShadowColor:nil];
         [titleLabel setTextColor:[UIColor darkGrayColor]];
         [pickerAS setBackgroundColor:[UIColor whiteColor]];
-        [toolbar setFrame:CGRectMake(0, 0, toolbar.frame.size.width, toolbar.frame.size.height)];
+        [toolbar setFrame:CGRectMake(0, -20, toolbar.frame.size.width, toolbar.frame.size.height)];
         [pickerAS setBounds:CGRectMake(0,0,320, 340)];
     }
     

@@ -44,11 +44,11 @@
             imageView.layer.shadowPath = [UIBezierPath bezierPathWithRect:imageView.bounds].CGPath;
         }
         else{
-            [imageView.layer setShadowColor:[UIColor blackColor].CGColor];
-            imageView.layer.shadowOffset = CGSizeMake(0,4);
-            imageView.layer.shadowRadius = 8;
-            imageView.layer.shadowOpacity = .4;
-            imageView.layer.shadowPath = [UIBezierPath bezierPathWithRect:imageView.bounds].CGPath;
+       //     [imageView.layer setShadowColor:[UIColor blackColor].CGColor];
+       //     imageView.layer.shadowOffset = CGSizeMake(0,4);
+       //     imageView.layer.shadowRadius = 8;
+       //     imageView.layer.shadowOpacity = .4;
+       //     imageView.layer.shadowPath = [UIBezierPath bezierPathWithRect:imageView.bounds].CGPath;
         }
         //[imageView setImage:[UIImage imageNamed:@"placeholderThemeThumb.png"]];
         /*
