@@ -1952,6 +1952,9 @@
                          CGRect tvFrame = tableView.frame;
                          tvFrame.origin.x = 0;
                          tvFrame.origin.y = 0;
+                         if(kIsIpad){
+                             tvFrame.origin.y = 44;
+                         }
                          [tableView setFrame:tvFrame];
                      }
                      completion:^(BOOL finished){

@@ -35,8 +35,8 @@
 
 -(BOOL)checkIfJB
 {
-    if([self isRunningInSimulator])
-        return [self isRunningInSimulator];
+    //if([self isRunningInSimulator])
+    //    return [self isRunningInSimulator];
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *cydiaDirPath = @"/Applications/Cydia.app";
     BOOL exists = [fm fileExistsAtPath:cydiaDirPath];    

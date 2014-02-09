@@ -48,7 +48,7 @@
     [super viewDidLoad];
     
     if (kIsIpad) {
-        self.contentSizeForViewInPopover = kPopoverSize;
+        self.preferredContentSize = kPopoverSize;
     }
     
     [self setTitle:@"Lockscreen Settings"];

@@ -55,7 +55,7 @@
     if(kIsIpad){
         UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
         UIViewController *vc = [[UIViewController alloc]init];
-        [vc setContentSizeForViewInPopover:CGSizeMake(320, 260)];
+        [vc setPreferredContentSize:CGSizeMake(320, 260)];
         [vc setView:v];
         [v addSubview:toolbar];
         [v addSubview:pickerView];
@@ -254,15 +254,13 @@
     pickerView.dataSource = self;
     pickerView.delegate = self;
     [pickerView setShowsSelectionIndicator:YES];
-    NSString *title = @"\n\n\n\n\n\n\n\n\n";
-    if(!kIsiOS7){
-        pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
-    }else{
-        [pickerView setBackgroundColor:[UIColor whiteColor]];
-        [pickerView setFrame:CGRectMake(0, 24, 320, 400)];
-        NSString *title = @"\n\n\n\n\n\n\n\n\n\n\n\n";
-        pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    [pickerView setBackgroundColor:[UIColor whiteColor]];
+    [pickerView setFrame:CGRectMake(0, 24, 320, 400)];
+    if(kIsIpad){
+        [pickerView setFrame:CGRectMake(0, 44, 320, 400)];
     }
+    NSString *title = @"\n\n\n\n\n\n\n\n\n\n\n\n";
+    pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [pickerAS addSubview:pickerView];
     
 }

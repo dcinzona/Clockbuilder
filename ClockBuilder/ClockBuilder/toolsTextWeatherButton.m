@@ -31,9 +31,9 @@
         if (kIsIpad) {
             
             UIViewController *vc = [[UIViewController alloc]init];
-            [vc setContentSizeForViewInPopover:CGSizeMake(320, 350)];
+            [vc setPreferredContentSize:CGSizeMake(320, 350)];
             [vc setView:toolsDateTimeView];
-            [toolsDateTimeView setBackgroundColor:[UIColor viewFlipsideBackgroundColor]];
+            [toolsDateTimeView setBackgroundColor:[UIColor blackColor]];
             if(!pop)
                 pop = [[UIPopoverController alloc] initWithContentViewController:vc];
             [pop setDelegate:self];
@@ -137,20 +137,23 @@
     else
         [pickerAS addSubview:tempPicker.pickerView];
     
-    [pickerAS setBounds:CGRectMake(0,0,320, 408)];
-    if(kIsiOS7){
         [titleLabel setCenter:toolbar.center];
         [titleLabel setShadowColor:nil];
         [titleLabel setTextColor:[UIColor darkGrayColor]];
-        [pickerAS setBackgroundColor:[UIColor whiteColor]];
+    [pickerAS setBackgroundColor:[UIColor whiteColor]];
+    [pickerAS setBounds:CGRectMake(0,0,320, 340)];
+    if(!kIsIpad){
         [toolbar setFrame:CGRectMake(0, -20, toolbar.frame.size.width, toolbar.frame.size.height)];
-        [pickerAS setBounds:CGRectMake(0,0,320, 340)];
     }
     
     if(kIsIpad){
-        UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
+        UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 260)];
         UIViewController *vc = [[UIViewController alloc]init];
-        [vc setContentSizeForViewInPopover:CGSizeMake(320, 260)];
+        [vc setPreferredContentSize:CGSizeMake(320, 260)];
+        [vc setEdgesForExtendedLayout:UIRectEdgeNone];
+        
+        //[v setFrame:CGRectMake(0, 44, v.frame.size.width, v.frame.size.height)];
+        //[vc setContentSizeForViewInPopover:CGSizeMake(320, 260)];
         [vc setView:v];
         [v addSubview:toolbar];
         if([pickerType isEqualToString:@"tempPicker"]){
@@ -158,6 +161,9 @@
         }
         else
             [v addSubview:picker.pickerView];
+        
+        
+        
         if(!pop)
             pop = [[UIPopoverController alloc] initWithContentViewController:vc];
         [pop setContentViewController:vc];
@@ -223,14 +229,15 @@
     NSString *title = @"Forecast";
     pickerType = @"picker";
     NSString *titleBlank = @"\n\n\n\n\n\n\n\n\n";
-    if(!kIsiOS7){
-        pickerAS = [[UIActionSheet alloc] initWithTitle:titleBlank delegate:self cancelButtonTitle:@"cancel" destructiveButtonTitle:nil otherButtonTitles:nil];
-    }else{
-        [pickerView setBackgroundColor:[UIColor whiteColor]];
-        [picker.pickerView setFrame:CGRectMake(0, 24, 320, 400)];
-        NSString *title = @"\n\n\n\n\n\n\n\n\n\n\n\n";
-        pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    
+    [pickerView setBackgroundColor:[UIColor whiteColor]];
+    [picker.pickerView setFrame:CGRectMake(0, 24, 320, 400)];
+    if(kIsIpad){
+        [picker.pickerView setFrame:CGRectMake(0, 44, 320, 400)];
     }
+        
+        title = @"\n\n\n\n\n\n\n\n\n\n\n\n";
+        pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     [self addToolbarToPicker:title];
 }
 - (void) showTemperatureSettingsPicker
@@ -244,6 +251,10 @@
     }else{
         [pickerView setBackgroundColor:[UIColor whiteColor]];
         [tempPicker.pickerView setFrame:CGRectMake(0, 24, 320, 400)];
+        if(kIsIpad){
+            [tempPicker.pickerView setFrame:CGRectMake(0, 44, 320, 400)];
+        }
+        
         NSString *title = @"\n\n\n\n\n\n\n\n\n\n\n\n";
         pickerAS = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     }
